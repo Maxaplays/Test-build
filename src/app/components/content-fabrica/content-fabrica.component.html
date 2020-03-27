@@ -22,7 +22,7 @@
                     <fieldset>
                         <label class="label">Tipo de Documentación</label>
                         <select>
-                          <option *ngFor="let tipoDoc of tiposDoc" >{{tipoDoc.DES_TDOC}}</option>
+                          <option *ngFor="let tipo of tipoDoc" >{{tipo.NOM_TDOC}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
@@ -106,90 +106,90 @@
 
 
 <ng-template #content let-modal>
-        <div class="modal-header-mfc">
-            <div class="cols cols2 align-middle">
-                <div class="align-left">
-                    <img width="103" alt="MICRO FACTORY CAPITAL" src="./assets/images/logo.svg">
-                    <h4 class="modal-title-mfc" id="modal-basic-title">Cotizador de Crédito Automotriz</h4>
-                </div>
-                <div class="align-right">
-                    <button class="btn btn-solid-green" (click)="changeErrorMessage()">Calcular</button>
-                </div>
+    <div class="modal-header-mfc">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="103" alt="MICRO FACTORY CAPITAL" src="./assets/images/logo.svg">
+                <h4 class="modal-title-mfc" id="modal-basic-title">Cotizador de Crédito Automotriz</h4>
             </div>
-            <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = null"><img src="./assets/images/warning.svg">{{ errorMessage }}</ngb-alert>
-        </div>
-        <div class="modal-body">
-            <img src="assets/images/excel-view.svg">
-        </div>
-        <div class="modal-footer-mfc">
-            <div class="cols cols2 align-middle">
-                <div class="align-left">
-                    <div class="span-list">
-                        <span>Fecha: <span>30 de Marzo, 2019</span></span>
-                        <span>Sucursal: <span>Demo</span></span>
-                        <span>Asesor: <span>Miguel Zabala</span></span>
-                    </div>
-                </div>
-                <div class="align-right">
-                    <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-                    <button class="btn btn-solid-gray" (click)="modal.close('Cancelar click')" (click)="openLg(respuestas)">Continuar</button>
-                </div>
+            <div class="align-right">
+                <button class="btn btn-solid-green" (click)="changeErrorMessage()">Calcular</button>
             </div>
         </div>
-    </ng-template>
+        <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = null"><img src="./assets/images/warning.svg">{{ errorMessage }}</ngb-alert>
+    </div>
+    <div class="modal-body">
+        <img src="assets/images/excel-view.svg">
+    </div>
+    <div class="modal-footer-mfc">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <div class="span-list">
+                    <span>Fecha: <span>30 de Marzo, 2019</span></span>
+                    <span>Sucursal: <span>Demo</span></span>
+                    <span>Asesor: <span>Miguel Zabala</span></span>
+                </div>
+            </div>
+            <div class="align-right">
+                <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+                <button class="btn btn-solid-gray" (click)="modal.close('Cancelar click')" (click)="openLg(respuestas)">Continuar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
 
-    <ng-template #respuestas let-modal>
-        <div class="modal-header-mfc variation">
-            <div class="cols cols2 align-middle">
-                <div class="align-left">
-                    <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-minimail.svg">
-                    <h4 class="modal-minititle-mfc">Respuestas</h4>
-                </div>
-                <div class="align-right">
-                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+<ng-template #respuestas let-modal>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-minimail.svg">
+                <h4 class="modal-minititle-mfc">Respuestas</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                </div>
             </div>
         </div>
-        <div class="modal-body variation">
-            <ngb-alert type="success" [dismissible]="false">Solicitud Pre-Aprobada</ngb-alert>
-            <form class="forms forms-relative">
-                <fieldset>
-                    <label class="label">Plantilla</label>
-                    <select>
+    </div>
+    <div class="modal-body variation">
+        <ngb-alert type="success" [dismissible]="false">Solicitud Pre-Aprobada</ngb-alert>
+        <form class="forms forms-relative">
+            <fieldset>
+                <label class="label">Plantilla</label>
+                <select>
                         <option>Seleccione una plantilla</option>
                     </select>
-                </fieldset>
-                <fieldset>
-                    <label class="label">Enviar a</label>
-                    <input type="email" placeholder="Escriba las direcciones de correo">
-                </fieldset>
-                <fieldset>
-                    <input type="checkbox" id="cliente">
-                    <label for="cliente" class="margin-right">Cliente</label>
-                    <input type="checkbox" id="supervisor">
-                    <label for="supervisor" class="margin-right">Supervisor</label>
-                    <input type="checkbox" id="asesor">
-                    <label for="asesor" class="margin-right">Asesor</label>
-                </fieldset>
-                <fieldset>
-                    <label class="label">Titulo</label>
-                    <input type="text" placeholder="Escriba un título para el correo">
-                </fieldset>
-                <fieldset>
-                    <label class="label">Mensaje</label>
-                    <textarea placeholder="Escriba un mensaje"></textarea>
-                </fieldset>
-            </form>
-        </div>
-        <div class="modal-footer-mfc full variation">
-            <div class="cols cols2">
-                <div class="align-left"></div>
-                <div class="align-right">
-                    <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-                    <button class="btn btn-solid-gray">Enviar respuesta</button>
-                </div>
+            </fieldset>
+            <fieldset>
+                <label class="label">Enviar a</label>
+                <input type="email" placeholder="Escriba las direcciones de correo">
+            </fieldset>
+            <fieldset>
+                <input type="checkbox" id="cliente">
+                <label for="cliente" class="margin-right">Cliente</label>
+                <input type="checkbox" id="supervisor">
+                <label for="supervisor" class="margin-right">Supervisor</label>
+                <input type="checkbox" id="asesor">
+                <label for="asesor" class="margin-right">Asesor</label>
+            </fieldset>
+            <fieldset>
+                <label class="label">Titulo</label>
+                <input type="text" placeholder="Escriba un título para el correo">
+            </fieldset>
+            <fieldset>
+                <label class="label">Mensaje</label>
+                <textarea placeholder="Escriba un mensaje"></textarea>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+            <div class="align-left"></div>
+            <div class="align-right">
+                <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+                <button class="btn btn-solid-gray">Enviar respuesta</button>
             </div>
         </div>
-    </ng-template>
+    </div>
+</ng-template>

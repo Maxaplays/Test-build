@@ -3,6 +3,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {TipoDocumentacionService} from '../../services/tipo-documentacion.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-content-fabrica',
@@ -12,7 +13,7 @@ import {TipoDocumentacionService} from '../../services/tipo-documentacion.servic
 
 export class ContentFabricaComponent implements OnInit {
   closeResult: string;
-  tiposDoc;
+  tipoDoc:any[] = [];
 
   private _error = new Subject<string>();
 
@@ -20,21 +21,15 @@ export class ContentFabricaComponent implements OnInit {
   errorMessage: string;
 
   constructor(private modalService: NgbModal,private tipoDocumentacionService: TipoDocumentacionService) {
-    this.tiposDoc= this.getTipoDoc();
-    console.log(this.tiposDoc);
+    this.tipoDoc= this.getTipoDoc();
+    console.log(this.tipoDoc);
   }
-  private getTipoDoc() {
-    this.tipoDocumentacionService.getTipoDoc().subscribe(
-      (data: any) => {
-        // this.tipos = data;
-        // console.log(parametro);
-        // this.username = data.username;
-        console.log(data);
-        // this.nombre = data;
-      }, (errorServicio) => {
-        console.log('Error');
-      }
-    );
+  private getTipoDoc():any {
+    this.tipoDocumentacionService.getTipoDoc().pipe(map( (data:any) => data["TIPODOC"] ))
+        .subscribe( (resultado: any[] ) => {
+          this.tipoDoc = resultado;
+          console.log(this.tipoDoc);
+        });
   }
 
   ngOnInit(): void {
