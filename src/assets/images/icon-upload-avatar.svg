@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+  <g id="Grupo_459" data-name="Grupo 459" transform="translate(-1100 -257)">
+    <circle id="Elipse_11" data-name="Elipse 11" cx="26" cy="26" r="26" transform="translate(1100 257)" fill="#287fa2"/>
+    <g id="photo-camera_1_" data-name="photo-camera (1)" transform="translate(1113.5 263)">
+      <g id="Grupo_361" data-name="Grupo 361" transform="translate(0 10)">
+        <path id="Trazado_555" data-name="Trazado 555" d="M12.25,17.35a3.675,3.675,0,1,0,3.675,3.675A3.675,3.675,0,0,0,12.25,17.35Zm9.8-3.675H19.11a1.091,1.091,0,0,1-.968-.7l-.76-2.281a1.092,1.092,0,0,0-.968-.7H8.085a1.091,1.091,0,0,0-.968.7l-.76,2.281a1.092,1.092,0,0,1-.968.7H2.45A2.457,2.457,0,0,0,0,16.125V27.15A2.457,2.457,0,0,0,2.45,29.6h19.6a2.457,2.457,0,0,0,2.45-2.45V16.125A2.457,2.457,0,0,0,22.05,13.675ZM12.25,27.15a6.125,6.125,0,1,1,6.125-6.125A6.125,6.125,0,0,1,12.25,27.15Zm8.942-9.312a.858.858,0,1,1,.858-.858A.858.858,0,0,1,21.192,17.838Z" transform="translate(0 -10)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

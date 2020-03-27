@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="82" height="82" viewBox="0 0 82 82">
+  <g id="icon-big-check" transform="translate(-1047 -370)">
+    <circle id="Elipse_15" data-name="Elipse 15" cx="41" cy="41" r="41" transform="translate(1047 370)" fill="#6ab321"/>
+    <g id="check-symbol" transform="translate(1066 340.45)">
+      <g id="check" transform="translate(0 53.55)">
+        <path id="Trazado_563" data-name="Trazado 563" d="M14.1,80.231,3.524,69.659,0,73.183l14.1,14.1,30.2-30.2L40.776,53.55Z" transform="translate(0 -53.55)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

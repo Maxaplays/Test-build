@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1111" height="490" viewBox="0 0 1111 490">
+  <g id="Grupo_360" data-name="Grupo 360" transform="translate(-128 -160)">
+    <g id="Grupo_76" data-name="Grupo 76" transform="translate(0 20)">
+      <g id="Grupo_75" data-name="Grupo 75">
+        <g id="Grupo_196" data-name="Grupo 196" transform="translate(0 -67)">
+          <rect id="Rectángulo_38" data-name="Rectángulo 38" width="364" height="25" transform="translate(128 207)" fill="#f4f4f4"/>
+          <text id="Valor_de_vehículo_con_IVA" data-name="Valor de vehículo con IVA" transform="translate(138 211)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">Valor de vehículo con IVA</tspan></text>
+          <g id="Rectángulo_39" data-name="Rectángulo 39" transform="translate(492 207)" fill="none" stroke="#d0d0d0" stroke-width="1">
+            <rect width="179" height="25" stroke="none"/>
+            <rect x="0.5" y="0.5" width="178" height="24" fill="none"/>
+          </g>
+          <text id="_14.990_00" data-name="$14.990,00" transform="translate(568 210)" fill="#287fa2" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="15.773" y="17">$14.990,00</tspan></text>
+        </g>
+        <g id="Grupo_197" data-name="Grupo 197" transform="translate(0 -40)">
+          <rect id="Rectángulo_38-2" data-name="Rectángulo 38" width="364" height="25" transform="translate(128 207)" fill="#f4f4f4"/>
+          <text id="Valor_accesorios_con_IVA" data-name="Valor accesorios con IVA" transform="translate(138 211)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">Valor accesorios con IVA</tspan></text>
+          <g id="Rectángulo_39-2" data-name="Rectángulo 39" transform="translate(492 207)" fill="none" stroke="#d0d0d0" stroke-width="1">
+            <rect width="179" height="25" stroke="none"/>
+            <rect x="0.5" y="0.5" width="178" height="24" fill="none"/>
+          </g>
+          <text id="_0_00" data-name="$0,00" transform="translate(568 210)" fill="#287fa2" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="55.922" y="17">$0,00</tspan></text>
+        </g>
+        <g id="Grupo_198" data-name="Grupo 198" transform="translate(0 -13)">
+          <rect id="Rectángulo_38-3" data-name="Rectángulo 38" width="364" height="25" transform="translate(128 207)" fill="#f4f4f4"/>
+          <text id="Valor_Entrada" data-name="Valor Entrada" transform="translate(138 211)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">Valor Entrada</tspan></text>
+          <g id="Rectángulo_39-3" data-name="Rectángulo 39" transform="translate(492 207)" fill="none" stroke="red" stroke-width="1">
+            <rect width="179" height="25" stroke="none"/>
+            <rect x="0.5" y="0.5" width="178" height="24" fill="none"/>
+          </g>
+          <text id="_2.400_00" data-name="$2.400,00" transform="translate(568 210)" fill="#287fa2" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="24.758" y="17">$2.400,00</tspan></text>
+        </g>
+        <g id="Grupo_199" data-name="Grupo 199" transform="translate(0 14)">
+          <rect id="Rectángulo_38-4" data-name="Rectángulo 38" width="364" height="25" transform="translate(128 207)" fill="#f4f4f4"/>
+          <text id="Plazo_en_años_mínimo_1_máximo_5_" data-name="Plazo en años (mínimo 1, máximo 5)" transform="translate(138 211)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">Plazo en años (mínimo 1, máximo 5)</tspan></text>
+          <g id="Rectángulo_39-4" data-name="Rectángulo 39" transform="translate(492 207)" fill="none" stroke="#d0d0d0" stroke-width="1">
+            <rect width="179" height="25" stroke="none"/>
+            <rect x="0.5" y="0.5" width="178" height="24" fill="none"/>
+          </g>
+          <text id="_5" data-name="5" transform="translate(568 210)" fill="#287fa2" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="86.016" y="17">5</tspan></text>
+        </g>
+        <g id="Grupo_200" data-name="Grupo 200" transform="translate(0 41)">
+          <rect id="Rectángulo_38-5" data-name="Rectángulo 38" width="364" height="25" transform="translate(128 207)" fill="#f4f4f4"/>
+          <text id="Aseguradora" transform="translate(138 211)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">Aseguradora</tspan></text>
+          <g id="Rectángulo_39-5" data-name="Rectángulo 39" transform="translate(492 207)" fill="none" stroke="#d0d0d0" stroke-width="1">
+            <rect width="179" height="25" stroke="none"/>
+            <rect x="0.5" y="0.5" width="178" height="24" fill="none"/>
+          </g>
+          <text id="Equinoccial" transform="translate(568 210)" fill="#287fa2" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="12.938" y="17">Equinoccial</tspan></text>
+        </g>
+        <g id="Grupo_201" data-name="Grupo 201" transform="translate(0 68)">
+          <rect id="Rectángulo_38-6" data-name="Rectángulo 38" width="364" height="25" transform="translate(128 207)" fill="#f4f4f4"/>
+          <text id="Valor_vehículo_y_Accesorios" data-name="Valor vehículo y Accesorios" transform="translate(138 211)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">Valor vehículo y Accesorios</tspan></text>
+          <g id="Rectángulo_39-6" data-name="Rectángulo 39" transform="translate(492 207)" fill="none" stroke="#d0d0d0" stroke-width="1">
+            <rect width="179" height="25" stroke="none"/>
+            <rect x="0.5" y="0.5" width="178" height="24" fill="none"/>
+          </g>
+          <text id="_14.990_00-2" data-name="$14.990,00" transform="translate(568 210)" fill="#287fa2" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="15.773" y="17">$14.990,00</tspan></text>
+        </g>
+        <g id="Grupo_202" data-name="Grupo 202" transform="translate(0 95)">
+          <rect id="Rectángulo_38-7" data-name="Rectángulo 38" width="364" height="25" transform="translate(128 207)" fill="#f4f4f4"/>
+          <text id="Chevystar_-_3_años" data-name="Chevystar - 3 años" transform="translate(138 211)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">Chevystar - 3 años</tspan></text>
+          <g id="Rectángulo_39-7" data-name="Rectángulo 39" transform="translate(492 207)" fill="none" stroke="#d0d0d0" stroke-width="1">
+            <rect width="179" height="25" stroke="none"/>
+            <rect x="0.5" y="0.5" width="178" height="24" fill="none"/>
+          </g>
+          <text id="_1.004_76" data-name="$1.004,76" transform="translate(568 210)" fill="#287fa2" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="24.758" y="17">$1.004,76</tspan></text>
+        </g>
+        <g id="Grupo_203" data-name="Grupo 203" transform="translate(0 122)">
+          <rect id="Rectángulo_38-8" data-name="Rectángulo 38" width="364" height="25" transform="translate(128 207)" fill="#f4f4f4"/>
+          <text id="Valor_años_adicionales_Chevystar" data-name="Valor años adicionales Chevystar" transform="translate(138 211)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">Valor años adicionales Chevystar</tspan></text>
+          <g id="Rectángulo_39-8" data-name="Rectángulo 39" transform="translate(492 207)" fill="none" stroke="#d0d0d0" stroke-width="1">
+            <rect width="179" height="25" stroke="none"/>
+            <rect x="0.5" y="0.5" width="178" height="24" fill="none"/>
+          </g>
+          <text id="_0_00-2" data-name="$0,00" transform="translate(568 210)" fill="#287fa2" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="55.922" y="17">$0,00</tspan></text>
+        </g>
+        <g id="Grupo_204" data-name="Grupo 204" transform="translate(0 149)">
+          <rect id="Rectángulo_38-9" data-name="Rectángulo 38" width="364" height="25" transform="translate(128 207)" fill="#f4f4f4"/>
+          <text id="Encargo_Fiduciario_y_Gatos_Notariales" data-name="Encargo Fiduciario y Gatos Notariales" transform="translate(138 211)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">Encargo Fiduciario y Gatos Notariales</tspan></text>
+          <g id="Rectángulo_39-9" data-name="Rectángulo 39" transform="translate(492 207)" fill="none" stroke="#d0d0d0" stroke-width="1">
+            <rect width="179" height="25" stroke="none"/>
+            <rect x="0.5" y="0.5" width="178" height="24" fill="none"/>
+          </g>
+          <text id="_514_17" data-name="$514,17" transform="translate(568 210)" fill="#287fa2" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="37.953" y="17">$514,17</tspan></text>
+        </g>
+        <g id="Grupo_205" data-name="Grupo 205" transform="translate(0 176)">
+          <rect id="Rectángulo_38-10" data-name="Rectángulo 38" width="364" height="25" transform="translate(128 207)" fill="#f4f4f4"/>
+          <text id="Valor_Venta_Total_Incluído_Gastos" data-name="Valor Venta Total Incluído Gastos" transform="translate(138 211)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">Valor Venta Total Incluído Gastos</tspan></text>
+          <g id="Rectángulo_39-10" data-name="Rectángulo 39" transform="translate(492 207)" fill="none" stroke="#d0d0d0" stroke-width="1">
+            <rect width="179" height="25" stroke="none"/>
+            <rect x="0.5" y="0.5" width="178" height="24" fill="none"/>
+          </g>
+          <text id="_16.508_93" data-name="$16.508,93" transform="translate(568 210)" fill="#287fa2" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="15.773" y="17">$16.508,93</tspan></text>
+        </g>
+        <g id="Grupo_206" data-name="Grupo 206" transform="translate(0 203)">
+          <rect id="Rectángulo_38-11" data-name="Rectángulo 38" width="364" height="25" transform="translate(128 207)" fill="#f4f4f4"/>
+          <text id="Monto_a_Financiar" data-name="Monto a Financiar" transform="translate(138 211)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">Monto a Financiar</tspan></text>
+          <g id="Rectángulo_39-11" data-name="Rectángulo 39" transform="translate(492 207)" fill="none" stroke="#d0d0d0" stroke-width="1">
+            <rect width="179" height="25" stroke="none"/>
+            <rect x="0.5" y="0.5" width="178" height="24" fill="none"/>
+          </g>
+          <text id="_16.508_93-2" data-name="$16.508,93" transform="translate(568 210)" fill="#287fa2" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="15.773" y="17">$16.508,93</tspan></text>
+        </g>
+        <text id="_0_" data-name="0%" transform="translate(459 198)" fill="#6e6e6e" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">0%</tspan></text>
+      </g>
+    </g>
+    <g id="Grupo_74" data-name="Grupo 74" transform="translate(0 81)">
+      <rect id="Rectángulo_41" data-name="Rectángulo 41" width="554" height="140.906" transform="translate(685 79.094)" fill="#287fa2"/>
+      <text id="Cuota" transform="translate(709 160.551)" fill="#fff" font-size="32" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">Cuota</tspan></text>
+      <text id="_471_12" data-name="$471,12" transform="translate(1097 160.551)" fill="#fff" font-size="32" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">$471,12</tspan></text>
+      <rect id="Rectángulo_42" data-name="Rectángulo 42" width="554" height="80" transform="translate(685 219)" fill="#ffc400"/>
+      <text id="Cuota_máxima_cliente" data-name="Cuota máxima cliente" transform="translate(709 266)" fill="#27637b" font-size="20" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">Cuota máxima cliente</tspan></text>
+      <text id="_628_49" data-name="$628,49" transform="translate(1097 270)" fill="#27637b" font-size="32" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">$628,49</tspan></text>
+      <rect id="Rectángulo_43" data-name="Rectángulo 43" width="554" height="76" transform="translate(685 299)" fill="#ffe200"/>
+      <text id="Ingreso_mínimo_a_justificar" data-name="Ingreso mínimo a justificar" transform="translate(709 343)" fill="#27637b" font-size="20" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">Ingreso mínimo a justificar</tspan></text>
+      <text id="_1.150_30" data-name="$1.150,30" transform="translate(1106 346)" fill="#27637b" font-size="24" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">$1.150,30</tspan></text>
+    </g>
+    <g id="Grupo_45" data-name="Grupo 45" transform="translate(0 28)">
+      <rect id="Rectángulo_38-12" data-name="Rectángulo 38" width="359" height="25" transform="translate(128 481)" fill="#f4f4f4"/>
+      <text id="Costo_Total_Mensual" data-name="Costo Total Mensual" transform="translate(138 484)" fill="#363636" font-size="14" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="15">Costo Total Mensual</tspan></text>
+      <rect id="Rectángulo_39-12" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(491 481)" fill="#f4f4f4"/>
+      <text id="_471_12-2" data-name="$471,12" transform="translate(529 484)" fill="#363636" font-size="16" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="40.875" y="17">$471,12</tspan></text>
+      <rect id="Rectángulo_39-13" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(641 481)" fill="#f4f4f4"/>
+      <text id="_464_30" data-name="$464,30" transform="translate(679 484)" fill="#363636" font-size="16" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="40.875" y="17">$464,30</tspan></text>
+      <rect id="Rectángulo_39-14" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(791 481)" fill="#f4f4f4"/>
+      <text id="_464_30-2" data-name="$464,30" transform="translate(829 484)" fill="#363636" font-size="16" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="40.875" y="17">$464,30</tspan></text>
+      <rect id="Rectángulo_39-15" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(941 481)" fill="#f4f4f4"/>
+      <text id="_458_00" data-name="$458,00" transform="translate(979 484)" fill="#363636" font-size="16" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="40.875" y="17">$458,00</tspan></text>
+      <rect id="Rectángulo_39-16" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(1091 481)" fill="#f4f4f4"/>
+      <text id="_455_81" data-name="$455,81" transform="translate(1129 484)" fill="#363636" font-size="16" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="40.875" y="17">$455,81</tspan></text>
+      <rect id="Rectángulo_38-13" data-name="Rectángulo 38" width="359" height="25" transform="translate(128 510)" fill="#f4f4f4"/>
+      <text id="Crédito_Bancario_Vehículo" data-name="Crédito Bancario Vehículo" transform="translate(138 513)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">Crédito Bancario Vehículo</tspan></text>
+      <rect id="Rectángulo_39-17" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(491 510)" fill="#f4f4f4"/>
+      <text id="_403_95" data-name="$403,95" transform="translate(529 513)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="42.813" y="17">$403,95</tspan></text>
+      <rect id="Rectángulo_39-18" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(641 510)" fill="#f4f4f4"/>
+      <text id="_403_95-2" data-name="$403,95" transform="translate(679 513)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="42.813" y="17">$403,95</tspan></text>
+      <rect id="Rectángulo_39-19" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(791 510)" fill="#f4f4f4"/>
+      <text id="_403_95-3" data-name="$403,95" transform="translate(829 513)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="42.813" y="17">$403,95</tspan></text>
+      <rect id="Rectángulo_39-20" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(941 510)" fill="#f4f4f4"/>
+      <text id="_403_95-4" data-name="$403,95" transform="translate(979 513)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="42.813" y="17">$403,95</tspan></text>
+      <rect id="Rectángulo_39-21" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(1091 510)" fill="#f4f4f4"/>
+      <text id="_403_95-5" data-name="$403,95" transform="translate(1129 513)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="42.813" y="17">$403,95</tspan></text>
+      <rect id="Rectángulo_38-14" data-name="Rectángulo 38" width="359" height="25" transform="translate(128 539)" fill="#f4f4f4"/>
+      <text id="Seguro_Vehículo" data-name="Seguro Vehículo" transform="translate(138 542)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">Seguro Vehículo</tspan></text>
+      <rect id="Rectángulo_39-22" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(491 539)" fill="#f4f4f4"/>
+      <text id="_56_83" data-name="$56,83" transform="translate(529 542)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="51.797" y="17">$56,83</tspan></text>
+      <rect id="Rectángulo_39-23" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(641 539)" fill="#f4f4f4"/>
+      <text id="_50_02" data-name="$50,02" transform="translate(679 542)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="51.797" y="17">$50,02</tspan></text>
+      <rect id="Rectángulo_39-24" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(791 539)" fill="#f4f4f4"/>
+      <text id="_46_02" data-name="$46,02" transform="translate(829 542)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="51.797" y="17">$46,02</tspan></text>
+      <rect id="Rectángulo_39-25" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(941 539)" fill="#f4f4f4"/>
+      <text id="_43_71" data-name="$43,71" transform="translate(979 542)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="51.797" y="17">$43,71</tspan></text>
+      <rect id="Rectángulo_39-26" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(1091 539)" fill="#f4f4f4"/>
+      <text id="_41_53" data-name="$41,53" transform="translate(1129 542)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="51.797" y="17">$41,53</tspan></text>
+      <rect id="Rectángulo_38-15" data-name="Rectángulo 38" width="359" height="25" transform="translate(128 568)" fill="#f4f4f4"/>
+      <text id="Seguro_Desgravamen" data-name="Seguro Desgravamen" transform="translate(138 571)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">Seguro Desgravamen</tspan></text>
+      <rect id="Rectángulo_39-27" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(491 568)" fill="#f4f4f4"/>
+      <text id="_10_33" data-name="$10,33" transform="translate(529 571)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="51.797" y="17">$10,33</tspan></text>
+      <rect id="Rectángulo_39-28" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(641 568)" fill="#f4f4f4"/>
+      <text id="_10_33-2" data-name="$10,33" transform="translate(679 571)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="51.797" y="17">$10,33</tspan></text>
+      <rect id="Rectángulo_39-29" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(791 568)" fill="#f4f4f4"/>
+      <text id="_10_33-3" data-name="$10,33" transform="translate(829 571)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="51.797" y="17">$10,33</tspan></text>
+      <rect id="Rectángulo_39-30" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(941 568)" fill="#f4f4f4"/>
+      <text id="_10_33-4" data-name="$10,33" transform="translate(979 571)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="51.797" y="17">$10,33</tspan></text>
+      <rect id="Rectángulo_39-31" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(1091 568)" fill="#f4f4f4"/>
+      <text id="_10_33-5" data-name="$10,33" transform="translate(1129 571)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="51.797" y="17">$10,33</tspan></text>
+      <rect id="Rectángulo_38-16" data-name="Rectángulo 38" width="359" height="25" transform="translate(128 597)" fill="#cbe8f4"/>
+      <text id="Valor_de_vehículo_con_IVA-2" data-name="Valor de vehículo con IVA" transform="translate(138 600)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">Valor de vehículo con IVA</tspan></text>
+      <rect id="Rectángulo_39-32" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(491 597)" fill="#cbe8f4"/>
+      <text id="_682_05" data-name="$682,05" transform="translate(529 600)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="42.813" y="17">$682,05</tspan></text>
+      <rect id="Rectángulo_39-33" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(641 597)" fill="#cbe8f4"/>
+      <text id="_600_20" data-name="$600,20" transform="translate(679 600)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="42.813" y="17">$600,20</tspan></text>
+      <rect id="Rectángulo_39-34" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(791 597)" fill="#cbe8f4"/>
+      <text id="_552_18" data-name="$552,18" transform="translate(829 600)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="42.813" y="17">$552,18</tspan></text>
+      <rect id="Rectángulo_39-35" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(941 597)" fill="#cbe8f4"/>
+      <text id="_524_57" data-name="$524,57" transform="translate(979 600)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="42.813" y="17">$524,57</tspan></text>
+      <rect id="Rectángulo_39-36" data-name="Rectángulo 39" width="145.859" height="25" transform="translate(1091 597)" fill="#cbe8f4"/>
+      <text id="_498_35" data-name="$498,35" transform="translate(1129 600)" fill="#363636" font-size="16" font-family="Roboto-Regular, Roboto"><tspan x="42.813" y="17">$498,35</tspan></text>
+      <text id="Año_1" data-name="Año 1" transform="translate(587 456)" fill="#363636" font-size="14" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="6.305" y="15">Año 1</tspan></text>
+      <text id="Año_2" data-name="Año 2" transform="translate(737 456)" fill="#363636" font-size="14" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="6.305" y="15">Año 2</tspan></text>
+      <text id="Año_3" data-name="Año 3" transform="translate(886 456)" fill="#363636" font-size="14" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="6.305" y="15">Año 3</tspan></text>
+      <text id="Año_4" data-name="Año 4" transform="translate(1034 456)" fill="#363636" font-size="14" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="6.305" y="15">Año 4</tspan></text>
+      <text id="Año_5" data-name="Año 5" transform="translate(1185 456)" fill="#363636" font-size="14" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="6.305" y="15">Año 5</tspan></text>
+      <text id="_4_55_" data-name="4,55%" transform="translate(437 542)" fill="#363636" font-size="14" font-family="Roboto-Regular, Roboto"><tspan x="0" y="15">4,55%</tspan></text>
+    </g>
+  </g>
+</svg>

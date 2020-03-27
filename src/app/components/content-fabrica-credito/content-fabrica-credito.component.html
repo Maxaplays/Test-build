@@ -1,0 +1,197 @@
+<div class="content">            
+
+    <div class="content-grid-list">
+        <ul class="grid-list grid-list-fix">
+            <li>
+                <h5>Solicitud #</h5>
+                <span>-</span>
+            </li>
+            <li>
+                <h5>Cédula</h5>
+                <span>-</span>
+            </li>
+            <li>
+                <h5>Nombre</h5>
+                <span>-</span>
+            </li>
+            <li>
+                <h5>Estado</h5>
+                <span class="tag">INGRESANDO</span>
+            </li>
+            <li>
+                <h5>Sub-estado</h5>
+                <span>-</span>
+            </li>
+            <li>
+                <h5>Fecha Creación</h5>
+                <span>-</span>
+            </li>
+            <li>
+                <h5>Tipo de Crédito</h5>
+                <span>-</span>
+            </li>
+        </ul>
+        <ul class="grid-list">
+            <li>
+                <h5>Perfil Aplicado</h5>
+                <span>-</span>
+            </li>
+            <li>
+                <h5>Score</h5>
+                <span>-</span>
+            </li>
+            <li>
+                <h5>Ingreso Validado</h5>
+                <span>-</span>
+            </li>
+            <li>
+                <h5>Asesor Asociado</h5>
+                <select>
+                    <option>Mateo Patiño</option>
+                </select>
+            </li>
+            <li>
+                <h5>Valor de la Venta</h5>
+                <span>-</span>
+            </li>
+            <li>
+                <h5>Valor de la Entrada</h5>
+                <span>-</span>
+            </li>
+            <li>
+                <h5>Valor Crédito Solicitado</h5>
+                <span>-</span>
+            </li>
+        </ul>
+    </div>
+
+    <app-steps></app-steps>
+
+    <form class="steps-mobile">
+        <select id='selectSteps'>
+            <option value='datos-basicos'>Datos básicos</option>
+            <option value='credito' selected>Crédito</option>
+            <option value='solicitud-credito'>Solicitud Crédito</option>
+            <option value='requisitos'>Requisitos</option>
+            <option value='politicas'>Políticas</option>
+            <option value='generacion'>Generación</option>
+            <option value='control-calidad'>Control Calidad</option>
+            <option value='resumen'>Resumen</option>
+        </select>
+    </form>
+
+    <div>
+        <form class="forms forms-relative">
+            <div class="cols cols3">
+                <div>
+                    <h6>Perfil Aplicado</h6>
+                    <fieldset>
+                        <label class="label">Perfil Aplicado</label>
+                        <input type="number" placeholder="Perfil Aplicado" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Monto Venta</label>
+                        <input type="text" placeholder="Monto Venta" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Venta Total Aplicada ($)</label>
+                        <input type="number" placeholder="Venta Total Apliada" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">% Entrada aplicado</label>
+                        <input type="text" placeholder="% Entrada aplicado" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Entrada aplicada mínima ($)</label>
+                        <input type="number" placeholder="Entrada aplicada mínima" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Monto Referencial ($)</label>
+                        <input type="number" placeholder="Monto Referencial" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Tasa</label>
+                        <input type="number" placeholder="Tasa" disabled>
+                    </fieldset>
+                </div>
+                <div>
+                    <h6>Resultados WS</h6>
+                    <fieldset>
+                        <label class="label">Perfil Sugerido</label>
+                        <input type="number" placeholder="Perfil Sugerido" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Venta Máxima Sugerida ($)</label>
+                        <input type="number" placeholder="Venta Máxima Sugerida" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">% Entrada sugerido</label>
+                        <input type="text" placeholder="% Entrada sugerido" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Entrada sugerida ($)</label>
+                        <input type="number" placeholder="Entrada sugerida" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Crédito Sugerido ($)</label>
+                        <input type="number" placeholder="Crédito Sugerido" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Capacidad Pago Máxima ($)</label>
+                        <input type="number" placeholder="Capacidad Pago Máxima" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Producto</label>
+                        <input type="text" placeholder="Producto" disabled>
+                    </fieldset>
+                </div>
+                <div>
+                    <h6>Ingreso de Datos</h6>
+                    <fieldset>
+                        <label class="label">Venta Total Solicitada ($)</label>
+                        <input type="number" placeholder="Venta Total Asociada" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Venta Total ($)</label>
+                        <input type="number" placeholder="Venta Total">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">% Entrada</label>
+                        <input type="text" placeholder="% Entrada" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Entrada ($)</label>
+                        <input type="number" placeholder="Entrada">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Monto Crédito ($)</label>
+                        <input type="number" placeholder="Monto Crédito" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Plazo</label>
+                        <input type="number" placeholder="Plazo">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Cuota Mensual Fija ($)</label>
+                        <input type="number" placeholder="Cuota Mensual Fija">
+                    </fieldset>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="footer-fixed-forms">
+        <div class="cols cols2">
+            <div class="align-left">
+                <button class="btn btn-border-blue"><img src="assets/images/icon-reloj.svg">Historial</button>
+                <button class="btn btn-border-blue btn-cancel">Cancelar</button>
+            </div>
+            <div class="align-right">
+                <button class="btn btn-border-gray">Borrar</button>
+                <button class="btn btn-solid-green">Guardar</button>
+                <button class="btn btn-solid-blue">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>

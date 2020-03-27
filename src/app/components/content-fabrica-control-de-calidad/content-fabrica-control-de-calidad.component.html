@@ -1,0 +1,261 @@
+<div class="content">            
+
+        <div class="content-grid-list">
+            <ul class="grid-list grid-list-fix">
+                <li>
+                    <h5>Solicitud #</h5>
+                    <span>DEMO0003</span>
+                </li>
+                <li>
+                    <h5>Cédula</h5>
+                    <span>171897992</span>
+                </li>
+                <li>
+                    <h5>Nombre</h5>
+                    <span>SUNTAXI LLUMIQUINGA HENRY DARIO</span>
+                </li>
+                <li>
+                    <h5>Estado</h5>
+                    <span class="tag">INGRESANDO</span>
+                </li>
+                <li>
+                    <h5>Sub-estado</h5>
+                    <span class="tag tag-blue">PRE-APROBADO</span>
+                </li>
+                <li>
+                    <h5>Fecha Creación</h5>
+                    <span>01/04/2019</span>
+                </li>
+                <li>
+                    <h5>Tipo de Crédito</h5>
+                    <span>Automotriz</span>
+                </li>
+            </ul>
+            <ul class="grid-list">
+                <li>
+                    <h5>Perfil Aplicado</h5>
+                    <span>34</span>
+                </li>
+                <li>
+                    <h5>Score</h5>
+                    <span>914</span>
+                </li>
+                <li>
+                    <h5>Ingreso Validado</h5>
+                    <span>SI</span>
+                </li>
+                <li>
+                    <h5>Asesor Asociado</h5>
+                    <select>
+                        <option>Mateo Patiño</option>
+                    </select>
+                </li>
+                <li>
+                    <h5>Valor de la Venta</h5>
+                    <span>$2.088,31</span>
+                </li>
+                <li>
+                    <h5>Valor de la Entrada</h5>
+                    <span>$100,00</span>
+                </li>
+                <li>
+                    <h5>Valor Crédito Solicitado</h5>
+                    <span>$1.988,31</span>
+                </li>
+            </ul>
+        </div>
+    
+        <app-steps></app-steps>
+
+    <form class="steps-mobile">
+        <select id='selectSteps'>
+            <option value='datos-basicos'>Datos básicos</option>
+            <option value='credito'>Crédito</option>
+            <option value='solicitud-credito'>Solicitud Crédito</option>
+            <option value='requisitos'>Requisitos</option>
+            <option value='politicas'>Políticas</option>
+            <option value='generacion'>Generación</option>
+            <option value='control-calidad' selected>Control Calidad</option>
+            <option value='resumen'>Resumen</option>
+        </select>
+    </form>
+
+        <div class="forms forms-relative">
+            <div class="drag-div">Arrastra una columna aquí para agrupar por dicha columna</div>
+            <div id="table-scroll">
+                <table class="width-filters">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>Solicitar Excepción</th>
+                            <th>
+                                <select class="filter-for-table">
+                                    <option>Estado</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="filter-for-table">
+                                    <option>Url</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="filter-for-table">
+                                    <option>Política</option>
+                                </select>                            
+                            </th>
+                            <th>
+                                <select class="filter-for-table">
+                                    <option>Requisito</option>
+                                </select>                            
+                            </th>
+                            <th>
+                                <select class="filter-for-table">
+                                    <option>Aprobado</option>
+                                </select>                            
+                            </th>
+                            <th>
+                                <select class="filter-for-table">
+                                    <option>Usuario Aprobado</option>
+                                </select>                            
+                            </th>
+                            <th>
+                                <select class="filter-for-table">
+                                    <option>Fecha Aprobado</option>
+                                </select>                            
+                            </th>
+                            <th>
+                                <select class="filter-for-table">
+                                    <option>Usuario Archivo</option>
+                                </select>                            
+                            </th>
+                            <th>
+                                <select class="filter-for-table">
+                                    <option>Fecha Archivo</option>
+                                </select>                            
+                            </th>
+                            <th>
+                                <select class="filter-for-table">
+                                    <option>Nombre Archivo</option>
+                                </select>                            
+                            </th>
+                            <th>
+                                <select class="filter-for-table">
+                                    <option>Observaciones</option>
+                                </select>                            
+                            </th>
+                            <th>
+                                <select class="filter-for-table">
+                                    <option>Usuario Solicitud Excepción</option>
+                                </select>                            
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="tr-filters">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                            </td>
+                            <td>
+                                <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                            </td>
+                            <td>
+                                <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                            </td>
+                            <td>
+                                <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td><a href="#" class="tag-with-radius">Solicitar</a></td>
+                            <td><span class="light yellow"></span></td>
+                            <td><a href="#"><img src="assets/images/icon-url.svg" class="check-center"></a></td>
+                            <td>Copia de Cédula Vigente</td>
+                            <td>Si</td>
+                            <td><img src="assets/images/icon-check.svg" class="check-center"></td>
+                            <td>Proceso Automático</td>
+                            <td>25/06/2019</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>...</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td><a href="#" class="tag-with-radius">Solicitar</a></td>
+                            <td><span class="light yellow"></span></td>
+                            <td><a href="#"><img src="assets/images/icon-url.svg" class="check-center"></a></td>
+                            <td>Copia de Cédula Vigente</td>
+                            <td>Si</td>
+                            <td><img src="assets/images/icon-check.svg" class="check-center"></td>
+                            <td>Proceso Automático</td>
+                            <td>25/06/2019</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>...</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td><a href="#" class="tag-with-radius">Solicitar</a></td>
+                            <td><span class="light yellow"></span></td>
+                            <td><a href="#"><img src="assets/images/icon-url.svg" class="check-center"></a></td>
+                            <td>Copia de Cédula Vigente</td>
+                            <td>Si</td>
+                            <td><img src="assets/images/icon-check.svg" class="check-center"></td>
+                            <td>Proceso Automático</td>
+                            <td>25/06/2019</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>...</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td><a href="#" class="tag-with-radius">Solicitar</a></td>
+                            <td><span class="light yellow"></span></td>
+                            <td><a href="#"><img src="assets/images/icon-url.svg" class="check-center"></a></td>
+                            <td>Copia de Cédula Vigente</td>
+                            <td>Si</td>
+                            <td><img src="assets/images/icon-check.svg" class="check-center"></td>
+                            <td>Proceso Automático</td>
+                            <td>25/06/2019</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer-fixed-forms">
+            <div class="cols cols2">
+                <div class="align-left">
+                    <button class="btn btn-border-blue"><img src="assets/images/icon-reloj.svg">Historial</button>
+                    <button class="btn btn-border-blue"><img src="assets/images/icon-folder.svg">Documentación</button>
+                    <button class="btn btn-border-blue">Cancelar</button>
+                </div>
+                <div class="align-right">
+                    
+                    <button class="btn btn-border-gray">Anterior</button>
+                    <button class="btn btn-solid-green">Continuar</button>
+                </div>
+            </div>
+        </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="content">
+    <h2 class="standard-title">Respuestas</h2>
+    <div class="content-respuestas">
+        <form class="forms forms-relative">
+            <fieldset>
+                <label class="label">Solicitud</label>
+                <select>
+                    <option>Seleccione una solicitud</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <label class="label">Plantilla <a routerLink="/configuracion/respuestas/gestionar-plantillas">Gestionar Plantillas</a></label>
+                <select>
+                    <option>Seleccione una plantilla</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <label class="label">Enviar a</label>
+                <input type="email" placeholder="Escriba las direcciones de correo">
+            </fieldset>
+            <fieldset>
+                <input type="checkbox" id="cliente">
+                <label for="cliente" class="margin-right">Cliente</label>
+                <input type="checkbox" id="supervisor">
+                <label for="supervisor" class="margin-right">Supervisor</label>
+                <input type="checkbox" id="asesor">
+                <label for="asesor" class="margin-right">Asesor</label>
+            </fieldset>
+            <fieldset>
+                <label class="label">Titulo</label>
+                <input type="text" placeholder="Escriba un título para el correo">
+            </fieldset>
+            <fieldset>
+                <label class="label">Mensaje</label>
+                <textarea placeholder="Escriba un mensaje"></textarea>
+            </fieldset>
+            <div class="align-right" style="padding: 20px 8px">
+                <button class="btn btn-border-gray">Cancelar</button>
+                <button class="btn btn-solid-gray">Enviar respuesta</button>
+            </div>
+        </form>
+    </div>
+</div>

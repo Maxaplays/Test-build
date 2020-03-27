@@ -1,0 +1,195 @@
+<div class="content">
+
+    <app-steps></app-steps>
+
+    <form class="steps-mobile">
+        <select id='selectSteps'>
+            <option value='datos-basicos' selected>Datos básicos</option>
+            <option value='credito'>Crédito</option>
+            <option value='solicitud-credito'>Solicitud Crédito</option>
+            <option value='requisitos'>Requisitos</option>
+            <option value='politicas'>Políticas</option>
+            <option value='generacion'>Generación</option>
+            <option value='control-calidad'>Control Calidad</option>
+            <option value='resumen'>Resumen</option>
+        </select>
+    </form>
+
+    <div>
+        <form class="forms forms-relative">
+            <div class="cols cols3">
+                <div>
+                    <fieldset>
+                        <label class="label">Tipo de Documentación</label>
+                        <select>
+                          <option *ngFor="let tipoDoc of tiposDoc" >{{tipoDoc.DES_TDOC}}</option>
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label"># Identificación</label>
+                        <input type="number" placeholder="Escriba Número de identificación">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Estado Civil</label>
+                        <select>
+                            <option>Seleccione...</option>
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Fecha de Nacimiento / Inicio Actividades</label>
+                        <input type="date" placeholder="dd/mm/aaaa">
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset>
+                        <label class="label">Ingresos Mensuales como Dependiente</label>
+                        <input type="number" pattern="([0-9]{1,3}).([0-9]{1,3})" placeholder="Escriba Ingresos Mensuales">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Ingresos Mensuales como Independiente</label>
+                        <input type="number" pattern="([0-9]{1,3}).([0-9]{1,3})" placeholder="Escriba Ingresos Mensuales">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Ingreso Disponible</label>
+                        <input type="number" pattern="([0-9]{1,3}).([0-9]{1,3})" placeholder="Ingreso Disponible">
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset>
+                        <label class="label">Tipo de Contacto</label>
+                        <select>
+                            <option>Tipo de Contacto</option>
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Teléfono Contacto</label>
+                        <input type="text" placeholder="Escriba Teléfono">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Observaciones Contacto</label>
+                        <input type="text" placeholder="Escriba Observaciones Contacto">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label"># Formulario Preimpreso</label>
+                        <input type="text" placeholder="Escriba # Formulario Preimpreso">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Venta Total</label>
+                        <input type="number" pattern="([0-9]{1,3}).([0-9]{1,3})" placeholder="Escriba un Monto de Venta Total">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Producto Crédito</label>
+                        <select>
+                            <option>Seleccione..</option>
+                        </select>
+                    </fieldset>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="footer-fixed-forms">
+        <div class="cols cols2">
+            <div class="align-left">
+                <button class="btn btn-border-blue"><img src="assets/images/icon-reloj.svg">Historial</button>
+                <button class="btn btn-border-blue btn-cancel">Cancelar</button>
+            </div>
+            <div class="align-right">
+                <button class="btn btn-border-gray">Borrar</button>
+                <button class="btn btn-solid-green">Guardar</button>
+                <button class="btn btn-solid-gray" (click)="open(content)">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content let-modal>
+        <div class="modal-header-mfc">
+            <div class="cols cols2 align-middle">
+                <div class="align-left">
+                    <img width="103" alt="MICRO FACTORY CAPITAL" src="./assets/images/logo.svg">
+                    <h4 class="modal-title-mfc" id="modal-basic-title">Cotizador de Crédito Automotriz</h4>
+                </div>
+                <div class="align-right">
+                    <button class="btn btn-solid-green" (click)="changeErrorMessage()">Calcular</button>
+                </div>
+            </div>
+            <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = null"><img src="./assets/images/warning.svg">{{ errorMessage }}</ngb-alert>
+        </div>
+        <div class="modal-body">
+            <img src="assets/images/excel-view.svg">
+        </div>
+        <div class="modal-footer-mfc">
+            <div class="cols cols2 align-middle">
+                <div class="align-left">
+                    <div class="span-list">
+                        <span>Fecha: <span>30 de Marzo, 2019</span></span>
+                        <span>Sucursal: <span>Demo</span></span>
+                        <span>Asesor: <span>Miguel Zabala</span></span>
+                    </div>
+                </div>
+                <div class="align-right">
+                    <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+                    <button class="btn btn-solid-gray" (click)="modal.close('Cancelar click')" (click)="openLg(respuestas)">Continuar</button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #respuestas let-modal>
+        <div class="modal-header-mfc variation">
+            <div class="cols cols2 align-middle">
+                <div class="align-left">
+                    <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-minimail.svg">
+                    <h4 class="modal-minititle-mfc">Respuestas</h4>
+                </div>
+                <div class="align-right">
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body variation">
+            <ngb-alert type="success" [dismissible]="false">Solicitud Pre-Aprobada</ngb-alert>
+            <form class="forms forms-relative">
+                <fieldset>
+                    <label class="label">Plantilla</label>
+                    <select>
+                        <option>Seleccione una plantilla</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <label class="label">Enviar a</label>
+                    <input type="email" placeholder="Escriba las direcciones de correo">
+                </fieldset>
+                <fieldset>
+                    <input type="checkbox" id="cliente">
+                    <label for="cliente" class="margin-right">Cliente</label>
+                    <input type="checkbox" id="supervisor">
+                    <label for="supervisor" class="margin-right">Supervisor</label>
+                    <input type="checkbox" id="asesor">
+                    <label for="asesor" class="margin-right">Asesor</label>
+                </fieldset>
+                <fieldset>
+                    <label class="label">Titulo</label>
+                    <input type="text" placeholder="Escriba un título para el correo">
+                </fieldset>
+                <fieldset>
+                    <label class="label">Mensaje</label>
+                    <textarea placeholder="Escriba un mensaje"></textarea>
+                </fieldset>
+            </form>
+        </div>
+        <div class="modal-footer-mfc full variation">
+            <div class="cols cols2">
+                <div class="align-left"></div>
+                <div class="align-right">
+                    <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+                    <button class="btn btn-solid-gray">Enviar respuesta</button>
+                </div>
+            </div>
+        </div>
+    </ng-template>

@@ -1,0 +1,1286 @@
+<div class="content">            
+
+        <div class="content-grid-list">
+            <ul class="grid-list grid-list-fix">
+                <li>
+                    <h5>Solicitud #</h5>
+                    <span>DEMO0003</span>
+                </li>
+                <li>
+                    <h5>Cédula</h5>
+                    <span>171897992</span>
+                </li>
+                <li>
+                    <h5>Nombre</h5>
+                    <span>SUNTAXI LLUMIQUINGA HENRY DARIO</span>
+                </li>
+                <li>
+                    <h5>Estado</h5>
+                    <span class="tag">INGRESANDO</span>
+                </li>
+                <li>
+                    <h5>Sub-estado</h5>
+                    <span class="tag tag-blue">PRE-APROBADO</span>
+                </li>
+                <li>
+                    <h5>Fecha Creación</h5>
+                    <span>01/04/2019</span>
+                </li>
+                <li>
+                    <h5>Tipo de Crédito</h5>
+                    <span>Automotriz</span>
+                </li>
+            </ul>
+            <ul class="grid-list">
+                <li>
+                    <h5>Perfil Aplicado</h5>
+                    <span>34</span>
+                </li>
+                <li>
+                    <h5>Score</h5>
+                    <span>914</span>
+                </li>
+                <li>
+                    <h5>Ingreso Validado</h5>
+                    <span>SI</span>
+                </li>
+                <li>
+                    <h5>Asesor Asociado</h5>
+                    <select>
+                        <option>Mateo Patiño</option>
+                    </select>
+                </li>
+                <li>
+                    <h5>Valor de la Venta</h5>
+                    <span>$2.088,31</span>
+                </li>
+                <li>
+                    <h5>Valor de la Entrada</h5>
+                    <span>$100,00</span>
+                </li>
+                <li>
+                    <h5>Valor Crédito Solicitado</h5>
+                    <span>$1.988,31</span>
+                </li>
+            </ul>
+        </div>
+    
+        <app-steps></app-steps>
+
+        <form class="steps-mobile">
+            <select id='selectSteps'>
+                <option value='datos-basicos'>Datos básicos</option>
+                <option value='credito'>Crédito</option>
+                <option value='solicitud-credito' selected>Solicitud Crédito</option>
+                <option value='requisitos'>Requisitos</option>
+                <option value='politicas'>Políticas</option>
+                <option value='generacion'>Generación</option>
+                <option value='control-calidad'>Control Calidad</option>
+                <option value='resumen'>Resumen</option>
+            </select>
+        </form>
+    
+        <form class="tabs-mobile">
+            <select id='selectTabs'>
+                <option value='cliente'>Cliente</option>
+                <option value='direcciones'>Direcciones</option>
+                <option value='telefonos'>Teléfonos</option>
+                <option value='conyuges'>Cónyuges</option>
+                <option value='referencias'>Referencias</option>
+                <option value='situacion-financiera'>Situación financiera</option>
+                <option value='datos-complementarios'>Datos complementarios</option>
+                <option value='garante'>Garante / Representante Legal</option>
+            </select>
+        </form>
+
+        <div class="content-tabs-zm">
+        <ngb-tabset>
+            <ngb-tab id="cliente">
+              <ng-template ngbTabTitle><img src="assets/images/icon-fingerprint.svg"> <span>Cliente</span></ng-template>
+              <ng-template ngbTabContent>
+                <form class="forms forms-relative">
+                        <div class="cols cols3">
+                            <div>
+                                <fieldset>
+                                    <label class="label"># Identificación</label>
+                                    <input type="text" placeholder="# Identificación">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Nombres o Razón Social</label>
+                                    <input type="text" placeholder="Nombres o Razón Social">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Apellidos</label>
+                                    <input type="text" placeholder="Apellidos">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Tipo de Identificación</label>
+                                    <input type="text" placeholder="Tipo de Identificación">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Fecha de Nacimiento / Inicio Actividades</label>
+                                    <input type="date" placeholder="Fecha de Nacimiento / Inicio Actividades">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Género <b>*</b></label>
+                                    <select>
+                                        <option>Masculino</option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div>
+                                <fieldset>
+                                    <label class="label">Nacionalidad <b>*</b></label>
+                                    <select>
+                                        <option>Ecuatoriana</option>
+                                    </select>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Estado Civil <b>*</b></label>
+                                    <input type="text" placeholder="Estado Civil" required>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Cargas Familiares</label>
+                                    <select>
+                                        <option>1</option>
+                                    </select>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">E-mail</label>
+                                    <input type="email" placeholder="E-mail">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Profesión</label>
+                                    <select>
+                                        <option>Abogado</option>
+                                    </select>
+                                </fieldset>
+                                <!-- <fieldset class="complex">
+                                    <label class="label">Teléfono</label>
+                                    <select>
+                                        <option>099</option>
+                                    </select>
+                                    <input type="text" placeholder="Teléfono">
+                                    <span class="add-phone">Añadir teléfono</span>
+                                </fieldset> -->
+                            </div>
+                            <div>
+                                <fieldset>
+                                    <label class="label">RUC Empresa / Trabajo</label>
+                                    <input type="text" placeholder="RUC Empresa / Trabajo">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Razón Social Empresa / Trabajo</label>
+                                    <input type="text" placeholder="Razón Social Empresa / Trabajo">
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab id="direcciones">
+                <ng-template ngbTabTitle><img src="assets/images/icon-direcciones.svg"> <span>Direcciones</span></ng-template>
+                <ng-template ngbTabContent>
+                    <div class="align-right-btn-table">
+                        <button class="btn btn-solid-green" (click)="openLg(agregarDireccion)">Añadir Dirección</button>
+                    </div>
+                    <table>
+                        <thead>
+                          <tr>
+                            <th>Tipo de Registro</th>
+                            <th>Tipo de Dirección</th>
+                            <th>Calle Principal</th>
+                            <th>Número</th>
+                            <th>Calle Secundaria</th>
+                            <th>Referencia</th>
+                            <th>Vigente</th>
+                            <th>Validación</th>
+                            <th>Observaciones</th>
+                            <th class="table-right">Status</th>
+                            <th class="table-right">Opciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td data-column="Tipo de Registro">Cliente</td>
+                            <td data-column="Tipo de Dirección">Domicilio</td>
+                            <td data-column="Calle Principal">Av. Rep. del Salvador</td>
+                            <td data-column="Número">Oe-021</td>
+                            <td data-column="Calle Secundaria">Av. Suiza</td>
+                            <td data-column="Referencia">Ninguna</td>
+                            <td data-column="Vigente">Si</td>
+                            <td data-column="Validación">-</td>
+                            <td data-column="Observaciones">-</td>
+                            <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                            <td data-column="Opciones" class="table-right"><img src="assets/images/icon-printer.svg" class="icon-with-action"></td>
+                          </tr>
+                          <tr>
+                            <td data-column="Tipo de Registro">Cliente</td>
+                            <td data-column="Tipo de Dirección">Trabajo</td>
+                            <td data-column="Calle Principal">Av. Amazonas</td>
+                            <td data-column="Número">Oe-383</td>
+                            <td data-column="Calle Secundaria">Av. Eloy Alfaro</td>
+                            <td data-column="Referencia">Ninguna</td>
+                            <td data-column="Vigente">Si</td>
+                            <td data-column="Validación">-</td>
+                            <td data-column="Observaciones">-</td>
+                            <td data-column="Status" class="table-right"><span class="">Inactivo</span></td>
+                            <td data-column="Opciones" class="table-right"><img src="assets/images/icon-printer.svg" class="icon-with-action"></td>
+                          </tr>
+                          <tr class="foot-td">
+                              <td colspan="11"><span class="foot-table">2 direcciones</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="telefonos">
+                <ng-template ngbTabTitle><img src="assets/images/icon-phone.svg"> <span>Teléfonos</span></ng-template>
+                <ng-template ngbTabContent>
+                    <div class="align-right-btn-table">
+                        <button class="btn btn-solid-green" (click)="openCustomWidth(agregarTelefono)">Añadir Teléfono</button>
+                    </div>
+                    <table>
+                        <thead>
+                          <tr>
+                            <th>Tipo de Registro</th>
+                            <th>Tipo de Teléfono</th>
+                            <th>Número de Teléfono</th>
+                            <th>Vigente</th>
+                            <th>Validación</th>
+                            <th>Observaciones</th>
+                            <th class="table-right">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td data-column="Tipo de Registro">Cliente</td>
+                            <td data-column="Tipo de Teléfono">Móvil</td>
+                            <td data-column="Número de Teléfono">0983698185</td>
+                            <td data-column="Vigente">Si</td>
+                            <td data-column="Validación">-</td>
+                            <td data-column="Observaciones">-</td>
+                            <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                          </tr>
+                          <tr>
+                            <td data-column="Tipo de Registro">Cliente</td>
+                            <td data-column="Tipo de Teléfono">Domicilio</td>
+                            <td data-column="Número de Teléfono">023367382</td>
+                            <td data-column="Vigente">Si</td>
+                            <td data-column="Validación">-</td>
+                            <td data-column="Observaciones">-</td>
+                            <td data-column="Status" class="table-right"><span>Inactivo</span></td>
+                          </tr>
+                          <tr class="foot-td">
+                              <td colspan="11"><span class="foot-table">2 teléfonos</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="conyuges">
+                <ng-template ngbTabTitle><img src="assets/images/icon-conyuges.svg"> <span>Cónyuges</span></ng-template>
+                <ng-template ngbTabContent>
+                    <div class="align-right-btn-table">
+                        <button class="btn btn-solid-green" (click)="openLg(agregarConyuge)">Añadir Cónyuge</button>
+                    </div>
+                    <table>
+                        <thead>
+                          <tr>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Género</th>
+                            <th>Tipo de Documento</th>
+                            <th>RUC / Cédula</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th class="table-right">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td data-column="Nombres">María José</td>
+                            <td data-column="Apellidos">Pérez Gonzalez</td>
+                            <td data-column="Género">Femenino</td>
+                            <td data-column="Tipo de Documento">Cédula</td>
+                            <td data-column="RUC / Cédula">17493972892</td>
+                            <td data-column="Fecha de Nacimiento">24/05/1983</td>
+                            <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                          </tr>
+                          <tr>
+                            <td data-column="Nombres">María José</td>
+                            <td data-column="Apellidos">Pérez Gonzalez</td>
+                            <td data-column="Género">Femenino</td>
+                            <td data-column="Tipo de Documento">Cédula</td>
+                            <td data-column="RUC / Cédula">17493972892</td>
+                            <td data-column="Fecha de Nacimiento">24/05/1983</td>
+                            <td data-column="Status" class="table-right"><span>Inactivo</span></td>
+                          </tr>
+                          <tr class="foot-td">
+                              <td colspan="11"><span class="foot-table">2 cónyuges</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="referencias">
+                <ng-template ngbTabTitle><img src="assets/images/icon-referencias-tab.svg"> <span>Referencias</span></ng-template>
+                <ng-template ngbTabContent>
+                    <div class="align-right-btn-table">
+                        <button class="btn btn-solid-green" (click)="openLg(agregarReferencia)">Añadir Referencia</button>
+                    </div>
+                    <table>
+                        <thead>
+                          <tr>
+                            <th>Tipo de Registro</th>
+                            <th>Cédula</th>
+                            <th>Parentesco</th>
+                            <th>Apellidos</th>
+                            <th>Nombres</th>
+                            <th>Dirección Domicilio</th>
+                            <th>Teléfono</th>
+                            <th>Celular</th>
+                            <th>Teléfono Trabajo</th>
+                            <th>Observaciones</th>
+                            <th class="table-right">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-column="Tipo de Registro">Cliente</td>
+                                <td data-column="Cédula">-</td>
+                                <td data-column="Parentesco">Cuñado</td>
+                                <td data-column="Apellidos">Tayo</td>
+                                <td data-column="Nombres">Carlos</td>
+                                <td data-column="Dirección Domicilio">Barrio Ponceano</td>
+                                <td data-column="Teléfono">02336092</td>
+                                <td data-column="Celular">0997332162</td>
+                                <td data-column="Teléfono Trabajo">-</td>
+                                <td data-column="Observaciones">Llamar a partir de las 2pm.</td>
+                                <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                            </tr>
+                            <tr>
+                                <td data-column="Tipo de Registro">Cliente</td>
+                                <td data-column="Cédula">-</td>
+                                <td data-column="Parentesco">Cuñado</td>
+                                <td data-column="Apellidos">Tayo</td>
+                                <td data-column="Nombres">Carlos</td>
+                                <td data-column="Dirección Domicilio">Barrio Ponceano</td>
+                                <td data-column="Teléfono">02336092</td>
+                                <td data-column="Celular">0997332162</td>
+                                <td data-column="Teléfono Trabajo">-</td>
+                                <td data-column="Observaciones">Llamar a partir de las 2pm.</td>
+                                <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                            </tr>
+                            <tr>
+                                <td data-column="Tipo de Registro">Cliente</td>
+                                <td data-column="Cédula">-</td>
+                                <td data-column="Parentesco">Cuñado</td>
+                                <td data-column="Apellidos">Tayo</td>
+                                <td data-column="Nombres">Carlos</td>
+                                <td data-column="Dirección Domicilio">Barrio Ponceano</td>
+                                <td data-column="Teléfono">02336092</td>
+                                <td data-column="Celular">0997332162</td>
+                                <td data-column="Teléfono Trabajo">-</td>
+                                <td data-column="Observaciones">Llamar a partir de las 2pm.</td>
+                                <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                            </tr>
+                            <tr>
+                                <td data-column="Tipo de Registro">Cliente</td>
+                                <td data-column="Cédula">-</td>
+                                <td data-column="Parentesco">Cuñado</td>
+                                <td data-column="Apellidos">Tayo</td>
+                                <td data-column="Nombres">Carlos</td>
+                                <td data-column="Dirección Domicilio">Barrio Ponceano</td>
+                                <td data-column="Teléfono">02336092</td>
+                                <td data-column="Celular">0997332162</td>
+                                <td data-column="Teléfono Trabajo">-</td>
+                                <td data-column="Observaciones">Llamar a partir de las 2pm.</td>
+                                <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                            </tr>
+                        </tbody>
+                      </table>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="situacion-financiera">
+                <ng-template ngbTabTitle><img src="assets/images/icon-situacion-financiera.svg"> <span>Situación financiera</span></ng-template>
+                <ng-template ngbTabContent>
+                    <form class="forms forms-relative">
+                        <div class="cols cols2">
+                            <div class="table-flat">
+                                <h5>Ingresos Mensuales</h5>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Descripción</th>
+                                            <th>Valor</th>
+                                            <th>Comentario</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-column="Descripción">Arriendos</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Honorarios</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Otros ingresos 1</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Otros ingresos 2</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Otros ingresos 3</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Sueldo Conyuge</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Sueldo Mensual</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Utilidad Mensual (Sólo independientes)</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr class="foot-td">
+                                            <td>
+                                                <b>Total</b>
+                                            </td>
+                                            <td>
+                                                <b>0,00</b>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-flat">
+                                <h5>Egresos Mensuales</h5>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Descripción</th>
+                                            <th>Valor</th>
+                                            <th>Comentario</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-column="Descripción">Alimentación</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Arriendo Mensual Local</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Arriendo Mensual Vivienda</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Cuota Mensual Hipoteca</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Cuota Mensual Vehículo</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Educación</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Mutualista Egreso 1</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Otros Egresos 1</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr class="foot-td">
+                                            <td>
+                                                <b>Total</b>
+                                            </td>
+                                            <td>
+                                                <b>0,00</b>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div>
+                                <label class="label-postable label">Ingreso Disponible</label>
+                                <input type="text" placeholder="$0.000" style="max-width: 759px;">
+                            </div>
+                            <div>&nbsp;</div>
+                            <div class="table-flat">
+                                <h5>Desglose Activos</h5>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Descripción</th>
+                                            <th>Valor</th>
+                                            <th>Comentario</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-column="Descripción">Muebles o Enseres</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Propiedades</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Vehículos</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Inversiones</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Acciones o Participaciones</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr class="foot-td">
+                                            <td>
+                                                <b>Total</b>
+                                            </td>
+                                            <td>
+                                                <b>0,00</b>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-flat">
+                                <h5>Desglose Pasivos</h5>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Descripción</th>
+                                            <th>Valor</th>
+                                            <th>Comentario</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-column="Descripción">Deudas</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Tarjetas de Crédito</td>
+                                            <td data-column="Valor">
+                                                <input type="text" placeholder="0,00">
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input type="text" placeholder="-">
+                                            </td>
+                                        </tr>
+                                        <tr class="foot-td">
+                                            <td>
+                                                <b>Total</b>
+                                            </td>
+                                            <td>
+                                                <b>0,00</b>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div>
+                                <label class="label-postable label">Balance</label>
+                                <input type="text" placeholder="$0.000" style="max-width: 759px;">
+                            </div>
+                        </div>
+                    </form>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="datos-complementarios">
+                <ng-template ngbTabTitle><img src="assets/images/icon-datos.svg"> <span>Datos complementarios</span></ng-template>
+                <ng-template ngbTabContent>
+                    <form class="forms forms-relative">
+                        <div class="table-flat equal-width">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Descripción</th>
+                                        <th>Valor</th>
+                                        <th>Comentario</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-column="Descripción">Actividades Laborales</td>
+                                        <td data-column="Valor">
+                                            <select>
+                                                <option>Seleccione...</option>
+                                            </select>
+                                        </td>
+                                        <td data-column="Comentario">
+                                            <input type="text" placeholder="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td data-column="Descripción">Antigüedad Laboral</td>
+                                        <td data-column="Valor">
+                                            <select>
+                                                <option>Seleccione...</option>
+                                            </select>
+                                        </td>
+                                        <td data-column="Comentario">
+                                            <input type="text" placeholder="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td data-column="Descripción">Finalidad del Bien</td>
+                                        <td data-column="Valor">
+                                            <select>
+                                                <option>Seleccione...</option>
+                                            </select>
+                                        </td>
+                                        <td data-column="Comentario">
+                                            <input type="text" placeholder="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td data-column="Descripción">Lugar de Residencia</td>
+                                        <td data-column="Valor">
+                                            <select>
+                                                <option>Seleccione...</option>
+                                            </select>
+                                        </td>
+                                        <td data-column="Comentario">
+                                            <input type="text" placeholder="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td data-column="Descripción">Nivel de Educación</td>
+                                        <td data-column="Valor">
+                                            <select>
+                                                <option>Seleccione...</option>
+                                            </select>
+                                        </td>
+                                        <td data-column="Comentario">
+                                            <input type="text" placeholder="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td data-column="Descripción">Tipo de vivienda</td>
+                                        <td data-column="Valor">
+                                            <select>
+                                                <option>Seleccione...</option>
+                                            </select>
+                                        </td>
+                                        <td data-column="Comentario">
+                                            <input type="text" placeholder="-">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="garante">
+                <ng-template ngbTabTitle><img src="assets/images/icon-garante.svg"> <span>Garante / Representante Legal</span></ng-template>
+                <ng-template ngbTabContent>
+                    <div class="align-right-btn-table">
+                        <button class="btn btn-solid-green" (click)="openLg(agregarGarante)">Añadir Garante</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Género</th>
+                            <th>Tipo de Documento</th>
+                            <th>RUC / Cédula</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th class="table-right">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td data-column="Nombres">María José</td>
+                            <td data-column="Apellidos">Pérez Gonzalez</td>
+                            <td data-column="Género">Femenino</td>
+                            <td data-column="Tipo de Documento">Cédula</td>
+                            <td data-column="RUC / Cédula">17493972892</td>
+                            <td data-column="Fecha de Nacimiento">24/05/1983</td>
+                            <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                            </tr>
+                            <tr>
+                            <td data-column="Nombres">María José</td>
+                            <td data-column="Apellidos">Pérez Gonzalez</td>
+                            <td data-column="Género">Femenino</td>
+                            <td data-column="Tipo de Documento">Cédula</td>
+                            <td data-column="RUC / Cédula">17493972892</td>
+                            <td data-column="Fecha de Nacimiento">24/05/1983</td>
+                            <td data-column="Status" class="table-right"><span>Inactivo</span></td>
+                            </tr>
+                            <tr class="foot-td">
+                                <td colspan="7"><span class="foot-table">2 garantes</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
+
+        
+            
+        </div>
+    
+    
+        <div class="footer-fixed-forms">
+            <div class="cols cols2">
+                <div class="align-left">
+                    <button class="btn btn-border-blue"><img src="assets/images/icon-reloj.svg">Historial</button>
+                    <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Documentación</button>
+                </div>
+                <div class="align-right">
+                    <button class="btn btn-border-gray">Cancelar</button>
+                    <button class="btn btn-solid-green">Guardar</button>
+                    <button class="btn btn-solid-blue">Siguiente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <ng-template #agregarDireccion let-modal>
+            <div class="modal-header-mfc variation">
+                <div class="cols cols2 align-middle">
+                    <div class="align-left">
+                        <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-pin-modal.svg">
+                        <h4 class="modal-minititle-mfc">Añadir dirección</h4>
+                    </div>
+                    <div class="align-right">
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body variation">
+                <form class="forms forms-relative">
+                    <div class="cols cols3">
+                        <div>
+                            <fieldset>
+                                <label class="label">Tipo de Dirección</label>
+                                <select>
+                                    <option>Seleccione...</option>
+                                </select>
+                            </fieldset>
+                            <fieldset>
+                                <label class="label">Provincia</label>
+                                <select>
+                                    <option>Seleccione...</option>
+                                </select>
+                            </fieldset>
+                            <fieldset>
+                                <label class="label">Cantón</label>
+                                <select>
+                                    <option>Seleccione...</option>
+                                </select>
+                            </fieldset>
+                            <fieldset>
+                                <label class="label">Parroquia</label>
+                                <select>
+                                    <option>Seleccione...</option>
+                                </select>
+                            </fieldset>
+                            <fieldset>
+                                <label class="label">Barrio</label>
+                                <select>
+                                    <option>Seleccione...</option>
+                                </select>
+                            </fieldset>
+                        </div>
+                        <div>
+                            <fieldset>
+                                <label class="label">Calle Principal</label>
+                                <input type="text" placeholder="Escriba Calle Principal">
+                            </fieldset>
+                            <fieldset>
+                                <label class="label">Número</label>
+                                <input type="text" placeholder="Escriba Número">
+                            </fieldset>
+                            <fieldset>
+                                <label class="label">Calle Secundaria</label>
+                                <input type="text" placeholder="Escriba Calle Secundaria">
+                            </fieldset>
+                            <fieldset>
+                                <label class="label">Referencia</label>
+                                <input type="text" placeholder="Escriba Referencia">
+                            </fieldset>
+                            <fieldset>
+                                <label class="label">Código Postal</label>
+                                <input type="text" placeholder="Escriba Código Postal">
+                            </fieldset>
+                        </div>
+                        <div>
+                            <fieldset>
+                                <label class="label">Google Maps</label>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8008001341104!2d-78.4789717847393!3d-0.16979733547628312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d59a9dddb37ea1%3A0x4bd5e23e20096b30!2sParque%20Real!5e0!3m2!1ses-419!2sec!4v1572800496201!5m2!1ses-419!2sec" frameborder="0" class="map-modal" allowfullscreen=""></iframe>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer-mfc full variation">
+                <div class="align-right">
+                    <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+                    <button class="btn btn-solid-gray">Guardar dirección</button>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #agregarTelefono let-modal>
+            <div class="modal-header-mfc variation">
+                <div class="cols cols2 align-middle">
+                    <div class="align-left">
+                        <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-phone-modal.svg">
+                        <h4 class="modal-minititle-mfc">Añadir teléfono</h4>
+                    </div>
+                    <div class="align-right">
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body variation">
+                <form class="forms forms-relative">
+                    <fieldset>
+                        <label class="label">Tipo de Registro</label>
+                        <select>
+                            <option>Seleccione...</option>
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Tipo de Teléfono</label>
+                        <select>
+                            <option>Seleccione...</option>
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Número de Teléfono</label>
+                        <select>
+                            <option>Seleccione...</option>
+                        </select>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer-mfc full variation">
+                <div class="align-right">
+                    <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+                    <button class="btn btn-solid-gray">Guardar teléfono</button>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #agregarConyuge let-modal>
+            <div class="modal-header-mfc variation">
+                <div class="cols cols2 align-middle">
+                    <div class="align-left">
+                        <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-conyuge-modal.svg">
+                        <h4 class="modal-minititle-mfc">Añadir cónyuge</h4>
+                    </div>
+                    <div class="align-right">
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body variation">
+                <form class="forms forms-relative">
+                    <div class="cols cols3">
+                        <div>
+                            <fieldset>
+                                <label class="label">Tipo de Documento</label>
+                                <select>
+                                    <option>Seleccione...</option>
+                                </select>
+                            </fieldset>
+                            <fieldset>
+                                <label class="label">RUC / Cédula</label>
+                                <select>
+                                    <option>Seleccione...</option>
+                                </select>
+                            </fieldset>
+                            <fieldset>
+                                <label class="label">Apellidos</label>
+                                <input type="text" placeholder="Escriba Apellidos">
+                            </fieldset>
+                            <fieldset>
+                                <label class="label">Nombres</label>
+                                <input type="text" placeholder="Escriba Nombres">
+                            </fieldset>
+                        </div>
+                        <div>
+                            <fieldset>
+                                <label class="label">Teléfono Móvil</label>
+                                <input type="text" placeholder="Escriba Teléfono">
+                            </fieldset>
+                            <fieldset>
+                                <label class="label">Fecha de Nacimiento</label>
+                                <input type="date" placeholder="Escriba Fecha de Nacimiento">
+                            </fieldset>
+                            <fieldset>
+                                <label class="label">Género</label>
+                                <select>
+                                    <option>Seleccione...</option>
+                                </select>                            </fieldset>
+                            <fieldset>
+                                <label class="label">Nacionalidad</label>
+                                <input type="text" placeholder="Escriba Nacionalidad">
+                            </fieldset>
+                        </div>
+                        <div>
+                            <fieldset>
+                                <label class="label">Profesión</label>
+                                <input type="text" placeholder="Escriba Profesión">
+                            </fieldset>
+                            <fieldset>
+                                <label class="label">Dirección de Trabajo</label>
+                                <input type="text" placeholder="Escriba Dirección de Trabajo">
+                            </fieldset>
+                            <fieldset>
+                                <label class="label">Observaciones</label>
+                                <textarea placeholder="Escriba Observaciones" style="height: 138px;"></textarea>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer-mfc full variation">
+                <div class="align-right">
+                    <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+                    <button class="btn btn-solid-gray">Guardar cónyuge</button>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #agregarReferencia let-modal>
+                <div class="modal-header-mfc variation">
+                    <div class="cols cols2 align-middle">
+                        <div class="align-left">
+                            <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-referencia-modal.svg">
+                            <h4 class="modal-minititle-mfc">Añadir referencia</h4>
+                        </div>
+                        <div class="align-right">
+                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body variation">
+                    <form class="forms forms-relative">
+                        <div class="cols cols3">
+                            <div>
+                                <fieldset>
+                                    <label class="label">Cédula</label>
+                                    <input type="text" placeholder="Escriba Cédula">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Parenteso / Referenia</label>
+                                    <input type="text" placeholder="Escriba Parenteso / Referenia">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Apellidos</label>
+                                    <input type="text" placeholder="Escriba Apellidos">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Nombres</label>
+                                    <input type="text" placeholder="Escriba Nombres">
+                                </fieldset>
+                            </div>
+                            <div>
+                                <fieldset>
+                                    <label class="label">Dirección Domicilio</label>
+                                    <input type="text" placeholder="Escriba Dirección Domicilio">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Teléfono Domicilio</label>
+                                    <input type="text" placeholder="Escriba Teléfono Domicilio">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Celular</label>
+                                    <input type="text" placeholder="Escriba Celular">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Teléfono Trabajo</label>
+                                    <input type="text" placeholder="Escriba Teléfono Trabajo">
+                                </fieldset>
+                            </div>
+                            <div>
+                                <fieldset>
+                                    <label class="label">E-mail</label>
+                                    <input type="email" placeholder="Escriba E-mail">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Nombre de Empresa de Trabajo</label>
+                                    <input type="text" placeholder="Escriba Nombre de Empresa de Trabajo">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Dirección Empresa</label>
+                                    <input type="text" placeholder="Escriba Dirección Empresa">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Observaciones</label>
+                                    <input type="text" placeholder="Escriba Observaciones">
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer-mfc full variation">
+                    <div class="align-right">
+                        <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+                        <button class="btn btn-solid-gray">Guardar referencia</button>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template #agregarGarante let-modal>
+                <div class="modal-header-mfc variation">
+                    <div class="cols cols2 align-middle">
+                        <div class="align-left">
+                            <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-garante-modal.svg">
+                            <h4 class="modal-minititle-mfc">Añadir garante</h4>
+                        </div>
+                        <div class="align-right">
+                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body variation">
+                    <form class="forms forms-relative">
+                        <div class="cols cols3">
+                            <div>
+                                <fieldset>
+                                    <label class="label"># Identificación Garante / Rep. Legal</label>
+                                    <input type="text" placeholder="Escriba Identificación Garante / Rep. Legal">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Apellidos Garante / Rep. Legal (Cédula)</label>
+                                    <input type="text" placeholder="Escriba Apellidos Garante / Rep. Legal (Cédula)">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Nombres Garante / Rep. Legal (Cédula)</label>
+                                    <input type="text" placeholder="Escriba Nombres Garante / Rep. Legal (Cédula)">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Tipo de identificación Garante / Rep. Legal</label>
+                                    <select>
+                                        <option>Seleccione...</option>
+                                    </select>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Fecha de Nacimiento Garante / Rep. Legal</label>
+                                    <input type="date" placeholder="Escriba Fecha de Nacimiento Garante / Rep. Legal">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Género Garante / Rep. Legal <b>*</b></label>
+                                    <select>
+                                        <option>Seleccione...</option>
+                                    </select> 
+                                </fieldset>
+                            </div>
+                            <div>
+                                <fieldset>
+                                    <label class="label">Nacionalidad Garante / Rep. Legal <b>*</b></label>
+                                    <select>
+                                        <option>Seleccione...</option>
+                                    </select> 
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Estado Civil Garante / Rep. Legal <b>*</b></label>
+                                    <select>
+                                        <option>Seleccione...</option>
+                                    </select> 
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Cargas Familiares Garante / Rep. Legal</label>
+                                    <select>
+                                        <option>Seleccione...</option>
+                                    </select> 
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">E-mail Garante / Rep. Legal</label>
+                                    <input type="email" placeholder="Escriba E-mail Garante / Rep. Legal">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Profesión Garante / Rep. Legal</label>
+                                    <select>
+                                        <option>Seleccione...</option>
+                                    </select>
+                                </fieldset>
+                                <fieldset class="complex">
+                                    <label class="label">Teléfonos Garante / Rep. Legal</label>
+                                    <select>
+                                        <option>099</option>
+                                    </select>
+                                    <input type="text" placeholder="Teléfono">
+                                </fieldset>
+                            </div>
+                            <div>
+                                <fieldset>
+                                    <label class="label">RUC Empresa / Trabajo Garante / Rep. Legal</label>
+                                    <input type="text" placeholder="Escriba RUC Empresa / Trabajo Garante / Rep. Legal">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Razón Social Empresa / Trabajo Garante / Rep. Legal</label>
+                                    <input type="text" placeholder="Escriba Razón Social Empresa / Trabajo Garante / Rep. Legal">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Ingresos Mensuales Garante / Rep. Legal ($)</label>
+                                    <input type="number" placeholder="Escriba Ingresos Mensuales Garante / Rep. Legal">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Egresos Mensuales Garante / Rep. Legal ($)</label>
+                                    <input type="number" placeholder="Escriba Egresos Mensuales Garante / Rep. Legal">
+                                </fieldset>
+                                <fieldset>
+                                    <label class="label">Ingreso Disponible Garante / Rep. Legal ($)</label>
+                                    <input type="number" placeholder="Escriba Ingreso Disponible Garante / Rep. Legal">
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer-mfc full variation">
+                    <div class="align-right">
+                        <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+                        <button class="btn btn-solid-gray">Guardar garante</button>
+                    </div>
+                </div>
+            </ng-template>

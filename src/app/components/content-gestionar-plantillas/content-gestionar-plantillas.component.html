@@ -1,0 +1,134 @@
+<div class="content">
+    <h2 class="standard-title">Plantilla de Respuestas</h2>  
+
+    <div class="align-right-btn-table">
+        <a routerLink="/configuracion/respuestas" class="backlink">Volver a Respuestas</a>
+        <button class="btn btn-solid-green" (click)="openLg(respuestas)">Añadir Plantilla</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Plantilla</th>
+                <th>Estado</th>
+                <th>Sub-estado</th>
+                <th>Recipientes</th>
+                <th class="table-right">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-column="Plantilla">Plantilla Pre-aprobado</td>
+                <td data-column="Estado">Ingresando</td>
+                <td data-column="Sub-estado">Pre-Aprobado</td>
+                <td data-column="Recipientes">Asesor, Cliente</td>
+                <td data-column="Opciones" class="table-right">
+                    <ng-template #popContent1>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">Editar</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">Duplicar</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">Eliminar</a>
+                            </li>
+                        </ul>
+                    </ng-template>
+                    <img src="assets/images/icon-more-options.svg" class="icon-with-action" [ngbPopover]="popContent1" placement="bottom">
+                </td>
+            </tr>
+            <tr>
+                <td data-column="Plantilla">Plantilla Pre-aprobado con condiciones</td>
+                <td data-column="Estado">Ingresando</td>
+                <td data-column="Sub-estado">Pre-Aprobado</td>
+                <td data-column="Recipientes">Asesor, Cliente</td>
+                <td data-column="Opciones" class="table-right">
+                    <ng-template #popContent2>
+                        <ul>
+                            <li>
+                                <a href="javascript:;">Editar</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">Duplicar</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">Eliminar</a>
+                            </li>
+                        </ul>
+                    </ng-template>
+                    <img src="assets/images/icon-more-options.svg" class="icon-with-action" [ngbPopover]="popContent2" placement="bottom">
+                </td>
+            </tr>
+            <tr class="foot-td">
+                <td colspan="11"><span class="foot-table">2 plantillas</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<ng-template #respuestas let-modal>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-minimail.svg">
+                <h4 class="modal-minititle-mfc">Nueva Plantilla</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body variation">
+        <form class="forms forms-relative">
+            <fieldset>
+                <label class="label">Nombre de Plantilla</label>
+                <input type="text" placeholder="Escriba un nombre de plantilla">
+            </fieldset>
+            <fieldset>
+                <label class="label">Estado</label>
+                <select>
+                    <option>Seleccione un estado</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <label class="label">Sub-estado</label>
+                <select>
+                    <option>Seleccione un sub-estado</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <label class="label">Enviar a</label>
+                <input type="email" placeholder="Escriba las direcciones de correo">
+            </fieldset>
+            <fieldset>
+                <input type="checkbox" id="cliente">
+                <label for="cliente" class="margin-right">Cliente</label>
+                <input type="checkbox" id="supervisor">
+                <label for="supervisor" class="margin-right">Supervisor</label>
+                <input type="checkbox" id="asesor">
+                <label for="asesor" class="margin-right">Asesor</label>
+            </fieldset>
+            <fieldset>
+                <label class="label">Titulo</label>
+                <input type="text" placeholder="Escriba un título para el correo">
+            </fieldset>
+            <fieldset>
+                <label class="label">Mensaje</label>
+                <textarea placeholder="Escriba un mensaje"></textarea>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+            <div class="align-left"></div>
+            <div class="align-right">
+                <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+                <button class="btn btn-solid-green">Guardar plantilla</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

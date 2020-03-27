@@ -1,0 +1,334 @@
+<div class="content">
+        <h2 class="standard-title">Autorizaciones de Excepciones</h2>
+            <div class="forms forms-relative variation-forms-cols">
+                <div>
+                    <div class="cols cols3">
+                        <div>
+                            <fieldset>
+                                <label class="label">Desde</label>
+                                <input type="date">
+                            </fieldset>
+                        </div>
+                        <div>
+                            <fieldset>
+                                <label class="label">Hasta</label>
+                                <input type="date">
+                            </fieldset>
+                        </div>
+                        <div>
+                            <fieldset>
+                                <label class="label">Número de Solicitud</label>
+                                <input type="text" placeholder="Número de Solicitud">
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <fieldset>
+                        <div class="align-right">
+                            <button class="btn btn-border-gray">Borrar</button>
+                            <button class="btn btn-solid-green">Cargar</button>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+
+            <div class="forms forms-relative" style="margin-top: 0;border: none;padding-top: 20px;">
+                <div class="drag-div">Arrastra una columna aquí para agrupar por dicha columna</div>
+                <div id="table-scroll">
+                    <table class="width-filters">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>Validar</th>
+                                <th>Estado</th>
+                                <th>
+                                    <select class="filter-for-table">
+                                        <option>Archivo</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select class="filter-for-table">
+                                        <option>Política</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select class="filter-for-table">
+                                        <option>Req.</option>
+                                    </select>                            
+                                </th>
+                                <th>
+                                    <img src="assets/images/icon-check.svg" class="check-center">                
+                                </th>
+                                <th>
+                                    <select class="filter-for-table">
+                                        <option>Usuario Aprobado</option>
+                                    </select>                            
+                                </th>
+                                <th>
+                                    <select class="filter-for-table">
+                                        <option>Fecha Aprobado</option>
+                                    </select>                            
+                                </th>
+                                <th>
+                                    <select class="filter-for-table">
+                                        <option>Usuario Archivo</option>
+                                    </select>                            
+                                </th>
+                                <th>
+                                    <select class="filter-for-table">
+                                        <option>Fecha Archivo</option>
+                                    </select>                            
+                                </th>
+                                <th>
+                                    <select class="filter-for-table">
+                                        <option>Observaciones</option>
+                                    </select>                            
+                                </th>
+                                <th>
+                                    <select class="filter-for-table">
+                                        <option>Usuario Solicitud  Excepción</option>
+                                    </select>                            
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tr-filters">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                </td>
+                                <td>
+                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                </td>
+                                <td>
+                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                </td>
+                                <td>
+                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                </td>
+                                <td>
+                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                </td>
+                                <td>
+                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                </td>
+                                <td>
+                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                </td>
+                                <td>
+                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td><a href="javascript:;" (click)="openLg(validarExcepcion)" class="tag-with-radius">Validar</a></td>
+                                <td><span class="light yellow"></span></td>
+                                <td><a href="javascript:;" class="archive-link"><img src="assets/images/icon-url.svg"> Solicitud_Credito.pdf</a></td>
+                                <td>% entrada</td>
+                                <td>15%</td>
+                                <td><img src="assets/images/icon-check.svg" class="check-center"></td>
+                                <td>Mateo Patiño</td>
+                                <td>25/06/2019</td>
+                                <td>Victor Ramirez</td>
+                                <td>25/06/2019</td>
+                                <td>Solicitud de Excepción  Automático</td>
+                                <td>Mateo Patiño</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td><a href="javascript:;" (click)="openLg(validarExcepcion)" class="tag-with-radius">Validar</a></td>
+                                <td><span class="light yellow"></span></td>
+                                <td><a href="javascript:;" class="archive-link"><img src="assets/images/icon-url.svg"> Solicitud_Credito.pdf</a></td>
+                                <td>% entrada</td>
+                                <td>15%</td>
+                                <td><img src="assets/images/icon-check.svg" class="check-center"></td>
+                                <td>Mateo Patiño</td>
+                                <td>25/06/2019</td>
+                                <td>Victor Ramirez</td>
+                                <td>25/06/2019</td>
+                                <td>Solicitud de Excepción  Automático</td>
+                                <td>Mateo Patiño</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td><a href="javascript:;" (click)="openLg(validarExcepcion)" class="tag-with-radius">Validar</a></td>
+                                <td><span class="light yellow"></span></td>
+                                <td><a href="javascript:;" class="archive-link"><img src="assets/images/icon-url.svg"> Solicitud_Credito.pdf</a></td>
+                                <td>% entrada</td>
+                                <td>15%</td>
+                                <td><img src="assets/images/icon-check.svg" class="check-center"></td>
+                                <td>Mateo Patiño</td>
+                                <td>25/06/2019</td>
+                                <td>Victor Ramirez</td>
+                                <td>25/06/2019</td>
+                                <td>Solicitud de Excepción  Automático</td>
+                                <td>Mateo Patiño</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        <div class="footer-fixed-forms">
+            <div class="cols cols2">
+                <div class="align-left">
+                    &nbsp;
+                </div>
+                <div class="align-right">
+                    <span style="color: #6e6e6e;font-size: 14px;">Exportar Solicitudes</span>
+                    <fieldset class="forms forms-relative">
+                        <select>
+                            <option>Seleccione un formato</option>
+                        </select>
+                    </fieldset>
+                    <button class="btn btn-solid-blue">Exportar</button>
+                </div>
+            </div>
+        </div>
+    
+    </div>   
+
+    <ng-template #validarExcepcion let-modal>
+            <div class="modal-header-mfc variation">
+                <div class="cols cols2 align-middle">
+                    <div class="align-left">
+                        <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-excepcion.svg">
+                        <h4 class="modal-minititle-mfc">Aprobar Solicitud de Excepción</h4>
+                    </div>
+                    <div class="align-right">
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body variation">
+                <ngb-alert type="custom" [dismissible]="false"><strong>Validación:</strong> Por favor, verificar el % de entrada</ngb-alert>
+                <div class="forms forms-relative" style="padding-top: 15px;margin: 20px -8px;padding: 0;">
+                    <div class="cols cols3">
+                        <div>
+                            <fieldset>
+                                <label class="label">ID</label>
+                                <span class="text-data">111695</span>
+                            </fieldset>
+                        </div>
+                        <div>
+                            <fieldset>
+                                <label class="label">Nombre</label>
+                                <span class="text-data">Pedro Pérez</span>
+                            </fieldset>
+                        </div>
+                        <div>
+                            <fieldset>
+                                <label class="label">Cédula</label>
+                                <span class="text-data">176473682</span>
+                            </fieldset>
+                        </div>
+                        <div>
+                            <fieldset>
+                                <label class="label">Crédito</label>
+                                <span class="text-data">UN700379</span>
+                            </fieldset>
+                        </div>
+                        <div>
+                            <fieldset>
+                                <label class="label">Teléfono</label>
+                                <span class="text-data">0997453672</span>
+                            </fieldset>
+                        </div>
+                        <div>
+                            <fieldset>
+                                <label class="label">E-mail</label>
+                                <span class="text-data">pedro.perez@gmail.com</span>
+                            </fieldset>
+                        </div>
+                        <div>
+                            <fieldset>
+                                <label class="label">Usuario Solicitud</label>
+                                <span class="text-data">Proceso Automático</span>
+                            </fieldset>
+                        </div>
+                        <div>
+                            <fieldset>
+                                <label class="label">Fecha Solicitud</label>
+                                <span class="text-data">19/08/2019 - 19:14:34</span>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <fieldset>
+                        <label class="label">Observaciones Solicitud</label>
+                        <span class="text-data">Solicitud de Excepción Automática en % de entrada</span>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Observaciones Adicionales</label>
+                        <textarea placeholder="Escriba Observaciones Adicionales" style="max-height: 100px;"></textarea>
+                    </fieldset>
+                    <div id="table-scroll">
+                        <table class="width-filters" style="max-width: calc(100% - 16px);margin-top: 8px;">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>
+                                        <select class="filter-for-table">
+                                            <option>Validación</option>
+                                        </select>
+                                    </th>
+                                    <th>
+                                        <select class="filter-for-table">
+                                            <option>Fecha</option>
+                                        </select>
+                                    </th>
+                                    <th>
+                                        <select class="filter-for-table">
+                                            <option>Usuario</option>
+                                        </select>                            
+                                    </th>
+                                    <th>
+                                        <select class="filter-for-table">
+                                            <option>Observaciones</option>
+                                        </select>                            
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="tr-filters">
+                                    <td></td>
+                                    <td>
+                                        <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                    </td>
+                                    <td>
+                                        <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                    </td>
+                                    <td>
+                                        <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                    </td>
+                                    <td>
+                                        <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">No hay registros.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer-mfc full variation">
+                <div class="align-right">
+                    <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+                    <button class="btn btn-solid-red">Negar Excepción</button>
+                    <button class="btn btn-solid-green">Aprobar Excepción</button>
+                </div>
+            </div>
+        </ng-template>
+

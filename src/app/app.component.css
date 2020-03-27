@@ -1,0 +1,9 @@
+.app-area {
+    display: block;
+    font-size: 0;
+}
+
+.app-area * {
+    font-size: 16px;
+}
+

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="90.75" height="90.753" viewBox="0 0 90.75 90.753">
+  <g id="plus-button" transform="translate(0)">
+    <g id="Grupo_8" data-name="Grupo 8" transform="translate(0 0)">
+      <path id="Trazado_27" data-name="Trazado 27" d="M45.375,90.753A45.376,45.376,0,1,1,90.75,45.375,45.428,45.428,0,0,1,45.375,90.753Zm0-85.569A40.19,40.19,0,1,0,85.564,45.375,40.237,40.237,0,0,0,45.375,5.184Z" transform="translate(0 0)" fill="#6ab321"/>
+    </g>
+    <g id="Grupo_9" data-name="Grupo 9" transform="translate(24.889 42.78)">
+      <path id="Trazado_28" data-name="Trazado 28" d="M46.895,19.827H11.113a2.593,2.593,0,1,1,0-5.186H46.895a2.593,2.593,0,0,1,0,5.186Z" transform="translate(-8.518 -14.641)" fill="#6ab321"/>
+    </g>
+    <g id="Grupo_10" data-name="Grupo 10" transform="translate(42.78 24.889)">
+      <path id="Trazado_29" data-name="Trazado 29" d="M17.236,49.487a2.594,2.594,0,0,1-2.595-2.592V11.113a2.593,2.593,0,1,1,5.186,0V46.895A2.588,2.588,0,0,1,17.236,49.487Z" transform="translate(-14.641 -8.518)" fill="#6ab321"/>
+    </g>
+  </g>
+</svg>

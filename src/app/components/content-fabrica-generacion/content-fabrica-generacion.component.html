@@ -1,0 +1,338 @@
+<div class="content">            
+
+    <div class="content-grid-list">
+        <ul class="grid-list grid-list-fix">
+            <li>
+                <h5>Solicitud #</h5>
+                <span>DEMO0003</span>
+            </li>
+            <li>
+                <h5>Cédula</h5>
+                <span>171897992</span>
+            </li>
+            <li>
+                <h5>Nombre</h5>
+                <span>SUNTAXI LLUMIQUINGA HENRY DARIO</span>
+            </li>
+            <li>
+                <h5>Estado</h5>
+                <span class="tag">INGRESANDO</span>
+            </li>
+            <li>
+                <h5>Sub-estado</h5>
+                <span class="tag tag-blue">PRE-APROBADO</span>
+            </li>
+            <li>
+                <h5>Fecha Creación</h5>
+                <span>01/04/2019</span>
+            </li>
+            <li>
+                <h5>Tipo de Crédito</h5>
+                <span>Automotriz</span>
+            </li>
+        </ul>
+        <ul class="grid-list">
+            <li>
+                <h5>Perfil Aplicado</h5>
+                <span>34</span>
+            </li>
+            <li>
+                <h5>Score</h5>
+                <span>914</span>
+            </li>
+            <li>
+                <h5>Ingreso Validado</h5>
+                <span>SI</span>
+            </li>
+            <li>
+                <h5>Asesor Asociado</h5>
+                <select>
+                    <option>Mateo Patiño</option>
+                </select>
+            </li>
+            <li>
+                <h5>Valor de la Venta</h5>
+                <span>$2.088,31</span>
+            </li>
+            <li>
+                <h5>Valor de la Entrada</h5>
+                <span>$100,00</span>
+            </li>
+            <li>
+                <h5>Valor Crédito Solicitado</h5>
+                <span>$1.988,31</span>
+            </li>
+        </ul>
+    </div>
+
+    <app-steps></app-steps>
+
+    <form class="steps-mobile">
+        <select id='selectSteps'>
+            <option value='datos-basicos'>Datos básicos</option>
+            <option value='credito'>Crédito</option>
+            <option value='solicitud-credito'>Solicitud Crédito</option>
+            <option value='requisitos'>Requisitos</option>
+            <option value='politicas'>Políticas</option>
+            <option value='generacion' selected>Generación</option>
+            <option value='control-calidad'>Control Calidad</option>
+            <option value='resumen'>Resumen</option>
+        </select>
+    </form>
+
+    <div class="forms forms-relative">
+        <div class="cols cols3">
+            <div>
+                <fieldset>
+                    <label class="label">Seleccione los items que desea imprimir</label>
+                    <div class="imit-input">
+                        <div>
+                            <input type="checkbox" id="solicitud"><label for="solicitud">Solicitud de Crédito</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="firma"><label for="firma">Firma de Solicitud</label>
+                        </div>
+                    </div>
+                    
+                </fieldset>
+            </div>
+            <div>
+                <fieldset>
+                    <label class="label">Fecha Pagaré</label>
+                    <select>
+                        <option>Seleccione...</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <label class="label">Días Inicio Crédito</label>
+                    <input type="text" value="15" disabled>
+                </fieldset>
+                <fieldset>
+                    <label class="label">Fecha Primer Pago</label>
+                    <select>
+                        <option>Seleccione...</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <label class="label">Días Inicio Crédito Máximo</label>
+                    <input type="text" value="60" disabled>
+                </fieldset>
+            </div>
+            <div>
+                <fieldset>
+                    <label class="label">Entidad Financiera</label>
+                    <select>
+                        <option>Seleccione...</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <label class="label">Tipo de Cuenta</label>
+                    <select>
+                        <option>Seleccione...</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <label class="label"># Cuenta Bancaria</label>
+                    <select>
+                        <option>Seleccione...</option>
+                    </select>
+                </fieldset>
+            </div>
+        </div>
+        <div class="align-right" style="padding-top: 40px;">
+            <button class="btn btn-solid-blue">Generar Documentación Seleccionada</button>
+        </div>
+    </div>
+
+    <div class="footer-fixed-forms">
+        <div class="cols cols2">
+            <div class="align-left">
+                <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button>
+                <button class="btn btn-border-blue" (click)="openLg(verDocumentacion)"><img src="assets/images/icon-folder.svg">Documentación</button>
+                <button class="btn btn-border-blue">Cancelar</button>
+            </div>
+            <div class="align-right">
+                <button class="btn btn-border-gray">Anterior</button>
+                <button class="btn btn-solid-green">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #verDocumentacion let-modal>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-documentacion-modal.svg">
+                <h4 class="modal-minititle-mfc">Documentación</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body variation">
+        <div class="forms forms-relative">
+            <label class="label">Nuevo archivo</label>
+            <div class="false-inputfile">
+                <input type="text" disabled placeholder="Elija un archivo para subir...">
+                <button class="btn btn-solid-blue" type="button" (click)="fileInput.click()">
+                    <span>Cargar archivo</span>
+                    <input #fileInput type="file" style="display:none;" />
+                </button>
+            </div>
+            <div class="drag-div">Arrastra una columna aquí para agrupar por dicha columna</div>
+            <div id="table-scroll">
+                <table class="width-filters">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>
+                                <select class="filter-for-table">
+                                    <option>Nombre de documento</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="filter-for-table">
+                                    <option>Fecha ingreso</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select class="filter-for-table">
+                                    <option>Usuario Ingreso</option>
+                                </select>                            
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="tr-filters">
+                            <td></td>
+                            <td>
+                                <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                            </td>
+                            <td>
+                                <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                            </td>
+                            <td>
+                                <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td><a href="#" class="link-doc"><img src="assets/images/icon-document-list.svg"> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a></td>
+                            <td>25/06/2019</td>
+                            <td>vegas@mfcapitalgroup.com</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td><a href="#" class="link-doc"><img src="assets/images/icon-document-list.svg"> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a></td>
+                            <td>25/06/2019</td>
+                            <td>vegas@mfcapitalgroup.com</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td><a href="#" class="link-doc"><img src="assets/images/icon-document-list.svg"> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a></td>
+                            <td>25/06/2019</td>
+                            <td>vegas@mfcapitalgroup.com</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer-mfc full variation">
+        <div class="align-right">
+            <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Cerrar</button>
+        </div>
+    </div>
+</ng-template>
+
+
+
+<ng-template #verHistorial let-modal>
+        <div class="modal-header-mfc variation">
+            <div class="cols cols2 align-middle">
+                <div class="align-left">
+                    <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-historial-modal.svg">
+                    <h4 class="modal-minititle-mfc">Historial</h4>
+                </div>
+                <div class="align-right">
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body variation">
+            <div class="forms forms-relative" style="padding-bottom: 30px;">
+                <div class="cols cols2">
+                    <div>
+                        <label class="label">Estado</label>
+                        <ul class="grid-list full-grid-list">
+                            <li>
+                                <span class="tag">INGRESANDO</span>
+                            </li>
+                        </ul>
+                        <span class="date-span">Hace 5 días</span>
+                    </div>
+                    <div class="mt15">
+                        <label class="label">Sub-estado</label>
+                        <select class="select-tag">
+                            <option>Pre-Aprobado</option>
+                            <option>Aprobado</option>
+                            <option>No Aprobado</option>
+                        </select>
+                        <span class="date-span">Hace 5 días</span>
+                    </div>
+                </div>
+            </div>
+            <ul id="list-historial">
+                <li>
+                    <figure>
+                        <img src="./assets/images/img-cambio-status.png">
+                    </figure>
+                    <div>
+                        <h5>Cambio de estado a <strong>PRE-APROBADO</strong></h5>
+                        <p>Realizado por Mateo Patiño</p>
+                    </div>
+                    <span class="date-span">4:00 pm - 15/07/2019</span>
+                </li>
+                <li>
+                    <figure>
+                        <img src="./assets/images/img-agregar.png">
+                    </figure>
+                    <div>
+                        <h5>Se agregó una <strong>REFERENCIA</strong></h5>
+                        <p>Se agregó la referencia MIGUEL ZABALA</p>
+                    </div>
+                    <span class="date-span">12:53 pm - 14/07/2019</span>
+                </li>
+                <li>
+                    <figure>
+                        <img src="./assets/images/avatar.png">
+                    </figure>
+                    <div>
+                        <h5>Mateo Patiño</h5>
+                        <p>Verificar los ingresos como dependiente.</p>
+                    </div>
+                    <span class="date-span">09:00 am - 13/07/2019</span>
+                </li>
+            </ul>
+            <form class="forms forms-relative">
+                <input type="text" placeholder="Añadir un comentario">
+            </form>
+        </div>
+        <div class="modal-footer-mfc full variation">
+            <div class="cols cols2">
+                <div class="align-left">
+                    <button class="btn btn-border-blue">Generar respuesta</button>
+                </div>
+                <div class="align-right">
+                    <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </ng-template>

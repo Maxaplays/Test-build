@@ -1,0 +1,23 @@
+<aside class="sidebar">
+    <a routerLink="" id="logo"><img width="103" alt="MICRO FACTORY CAPITAL" src="./assets/images/logo.svg"></a>
+    <form class="forms">
+        <fieldset>
+            <input type="text" placeholder="Escriba Usuario" #username>
+        </fieldset>
+        <fieldset>
+            <input type="text" placeholder="Contraseña" type="password" #password>
+        </fieldset>
+        <fieldset>
+            <input type="checkbox" id="recordar">
+            <label for="recordar">Recordar usuario</label>
+        </fieldset>
+        <div class="footer-forms">
+<!--            <input type="submit" value="Ingresar" class="btn-primary" routerLink="inicio" >-->
+            <input (click)="getLogin(username.value,password.value)" value="Ingresar" class="btn-primary">
+        </div>
+      <div id="mensajeAlerta" *ngIf="etiquetaWarning" class="alert alert-warning" role="alert">
+        {{mensajeAlerta}}
+      </div>
+    </form>
+    <div id="copysidebar">© MFC 2019. Derechos reservados.</div>
+</aside>
