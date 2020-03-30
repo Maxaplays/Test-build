@@ -21,65 +21,65 @@
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Documentación</label>
-                        <select>
-                          <option *ngFor="let tipo of tipoDoc" >{{tipo.NOM_TDOC}}</option>
+                        <select tabindex="1">
+                            <option *ngFor="let tipo of tipoDoc" >{{tipo.NOM_TDOC}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label"># Identificación</label>
-                        <input type="number" placeholder="Escriba Número de identificación">
+                        <input type="number" placeholder="Escriba Número de identificación" tabindex="2">
                     </fieldset>
                     <fieldset>
                         <label class="label">Estado Civil</label>
-                        <select>
+                        <select tabindex="3">
                             <option>Seleccione...</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Fecha de Nacimiento / Inicio Actividades</label>
-                        <input type="date" placeholder="dd/mm/aaaa">
+                        <input type="date" placeholder="dd/mm/aaaa" tabindex="4">
                     </fieldset>
                 </div>
                 <div>
                     <fieldset>
                         <label class="label">Ingresos Mensuales como Dependiente</label>
-                        <input type="number" pattern="([0-9]{1,3}).([0-9]{1,3})" placeholder="Escriba Ingresos Mensuales">
+                        <input type="number" placeholder="Escriba Ingresos Mensuales" tabindex="5">
                     </fieldset>
                     <fieldset>
                         <label class="label">Ingresos Mensuales como Independiente</label>
-                        <input type="number" pattern="([0-9]{1,3}).([0-9]{1,3})" placeholder="Escriba Ingresos Mensuales">
+                        <input type="number" placeholder="Escriba Ingresos Mensuales" tabindex="6">
                     </fieldset>
                     <fieldset>
                         <label class="label">Ingreso Disponible</label>
-                        <input type="number" pattern="([0-9]{1,3}).([0-9]{1,3})" placeholder="Ingreso Disponible">
+                        <input type="number" placeholder="Ingreso Disponible" disabled>
                     </fieldset>
                 </div>
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Contacto</label>
-                        <select>
+                        <select tabindex="7">
                             <option>Tipo de Contacto</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Teléfono Contacto</label>
-                        <input type="text" placeholder="Escriba Teléfono">
+                        <input type="text" placeholder="Escriba Teléfono" tabindex="8">
                     </fieldset>
                     <fieldset>
                         <label class="label">Observaciones Contacto</label>
-                        <input type="text" placeholder="Escriba Observaciones Contacto">
+                        <input type="text" placeholder="Escriba Observaciones Contacto" tabindex="9">
                     </fieldset>
                     <fieldset>
                         <label class="label"># Formulario Preimpreso</label>
-                        <input type="text" placeholder="Escriba # Formulario Preimpreso">
+                        <input type="text" placeholder="Escriba # Formulario Preimpreso" tabindex="10">
                     </fieldset>
                     <fieldset>
                         <label class="label">Venta Total</label>
-                        <input type="number" pattern="([0-9]{1,3}).([0-9]{1,3})" placeholder="Escriba un Monto de Venta Total">
+                        <input type="number" placeholder="Escriba un Monto de Venta Total" tabindex="11">
                     </fieldset>
                     <fieldset>
                         <label class="label">Producto Crédito</label>
-                        <select>
+                        <select tabindex="12">
                             <option>Seleccione..</option>
                         </select>
                     </fieldset>
@@ -92,12 +92,13 @@
     <div class="footer-fixed-forms">
         <div class="cols cols2">
             <div class="align-left">
-                <button class="btn btn-border-blue"><img src="assets/images/icon-reloj.svg">Historial</button>
+                <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button>
                 <button class="btn btn-border-blue btn-cancel">Cancelar</button>
             </div>
             <div class="align-right">
+                <button class="btn btn-border-gray" (click)="open(datosAdicionales)">Datos Adicionales</button>
                 <button class="btn btn-border-gray">Borrar</button>
-                <button class="btn btn-solid-green">Guardar</button>
+                <button class="btn btn-solid-green" tabindex="13" (click)="openCustomWidthVariant(mensajeAdvertencia)">Validar</button>
                 <button class="btn btn-solid-gray" (click)="open(content)">Continuar</button>
             </div>
         </div>
@@ -131,7 +132,8 @@
                 </div>
             </div>
             <div class="align-right">
-                <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+                <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Regresar</button>
+                <button class="btn btn-solid-green">Guardar</button>
                 <button class="btn btn-solid-gray" (click)="modal.close('Cancelar click')" (click)="openLg(respuestas)">Continuar</button>
             </div>
         </div>
@@ -153,8 +155,15 @@
         </div>
     </div>
     <div class="modal-body variation">
-        <ngb-alert type="success" [dismissible]="false">Solicitud Pre-Aprobada</ngb-alert>
         <form class="forms forms-relative">
+            <fieldset>
+                <label class="label">Respuesta</label>
+                <select>
+                        <option>Aprobado</option>
+                        <option>Pre-aprobado</option>
+                        <option>No viable</option>
+                    </select>
+            </fieldset>
             <fieldset>
                 <label class="label">Plantilla</label>
                 <select>
@@ -187,8 +196,177 @@
         <div class="cols cols2">
             <div class="align-left"></div>
             <div class="align-right">
-                <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+                <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')" (click)="open(content)">Regresar</button>
                 <button class="btn btn-solid-gray">Enviar respuesta</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #datosAdicionales let-modal>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-garante-modal.svg">
+                <h4 class="modal-minititle-mfc">Datos Adicionales</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body variation">
+        <form class="forms forms-relative">
+            <div class="table-flat equal-width">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descripción</th>
+                            <th>Valor</th>
+                            <th>Comentario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-column="Descripción">Actividades Laborales</td>
+                            <td data-column="Valor">
+                                <select>
+                            <option>Seleccione...</option>
+                        </select>
+                            </td>
+                            <td data-column="Comentario">
+                                <input type="text" placeholder="-">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-column="Descripción">Antigüedad Laboral</td>
+                            <td data-column="Valor">
+                                <select>
+                            <option>Seleccione...</option>
+                        </select>
+                            </td>
+                            <td data-column="Comentario">
+                                <input type="text" placeholder="-">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-column="Descripción">Finalidad del Bien</td>
+                            <td data-column="Valor">
+                                <select>
+                            <option>Seleccione...</option>
+                        </select>
+                            </td>
+                            <td data-column="Comentario">
+                                <input type="text" placeholder="-">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-column="Descripción">Lugar de Residencia</td>
+                            <td data-column="Valor">
+                                <select>
+                            <option>Seleccione...</option>
+                        </select>
+                            </td>
+                            <td data-column="Comentario">
+                                <input type="text" placeholder="-">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-column="Descripción">Nivel de Educación</td>
+                            <td data-column="Valor">
+                                <select>
+                            <option>Seleccione...</option>
+                        </select>
+                            </td>
+                            <td data-column="Comentario">
+                                <input type="text" placeholder="-">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-column="Descripción">Tipo de vivienda</td>
+                            <td data-column="Valor">
+                                <select>
+                            <option>Seleccione...</option>
+                        </select>
+                            </td>
+                            <td data-column="Comentario">
+                                <input type="text" placeholder="-">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+            <div class="align-left"></div>
+            <div class="align-right">
+                <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Regresar</button>
+                <button class="btn btn-solid-gray">Guardar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #verHistorial let-modal>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-historial-modal.svg">
+                <h4 class="modal-minititle-mfc">Historial</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <app-modal-historial></app-modal-historial>
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+            <div class="align-left">
+                <button class="btn btn-border-blue" routerLink="/configuracion/respuestas" (click)="modal.close('Cancelar click')">Generar respuesta</button>
+            </div>
+            <div class="align-right">
+                <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Guardar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #mensajeAdvertencia let-modal>
+    <div class="modal-header-mfc variation modal-mensaje">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="32" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-mensaje-warning.svg">
+                <h4 class="modal-minititle-mfc">Importante</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body variation modal-mensaje">
+        <p>Perfil no disponible para otorgar crédito.</p>
+    </div>
+
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+            <div class="align-left">
+                <fieldset>
+                    <input id="respuestaCorreo" type="checkbox">
+                    <label for="respuestaCorreo">Enviar respuesta por correo</label>
+                </fieldset>
+            </div>
+            <div class="align-right">
+                <button class="btn btn-solid-green" (click)="modal.close('Cancelar click')">Aceptar</button>
             </div>
         </div>
     </div>

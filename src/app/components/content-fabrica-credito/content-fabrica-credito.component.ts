@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-content-fabrica-credito',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContentFabricaCreditoComponent implements OnInit {
 
-  constructor() { }
+  closeResult: string;
+
+  constructor(private modalService: NgbModal) {}
 
   ngOnInit() {
   }
+
+  openCustomWidthVariant(content) {
+    this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+  }
+
 
 }

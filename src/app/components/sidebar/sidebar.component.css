@@ -29,7 +29,7 @@
     display: inline-block;
     position: relative;
     top: 2px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 300;
     color: #7e9eb3;
     transition: all .3s ease;
@@ -97,7 +97,7 @@
     transition: opacity .3s ease;
     color: #fff;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 300;
     opacity: .4;
 }

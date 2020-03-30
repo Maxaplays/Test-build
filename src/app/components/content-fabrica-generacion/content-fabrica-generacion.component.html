@@ -253,86 +253,28 @@
 
 
 <ng-template #verHistorial let-modal>
-        <div class="modal-header-mfc variation">
-            <div class="cols cols2 align-middle">
-                <div class="align-left">
-                    <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-historial-modal.svg">
-                    <h4 class="modal-minititle-mfc">Historial</h4>
-                </div>
-                <div class="align-right">
-                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-historial-modal.svg">
+                <h4 class="modal-minititle-mfc">Historial</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         </div>
-        <div class="modal-body variation">
-            <div class="forms forms-relative" style="padding-bottom: 30px;">
-                <div class="cols cols2">
-                    <div>
-                        <label class="label">Estado</label>
-                        <ul class="grid-list full-grid-list">
-                            <li>
-                                <span class="tag">INGRESANDO</span>
-                            </li>
-                        </ul>
-                        <span class="date-span">Hace 5 días</span>
-                    </div>
-                    <div class="mt15">
-                        <label class="label">Sub-estado</label>
-                        <select class="select-tag">
-                            <option>Pre-Aprobado</option>
-                            <option>Aprobado</option>
-                            <option>No Aprobado</option>
-                        </select>
-                        <span class="date-span">Hace 5 días</span>
-                    </div>
-                </div>
+    </div>
+    <app-modal-historial></app-modal-historial>
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+            <div class="align-left">
+                <button class="btn btn-border-blue" routerLink="/configuracion/respuestas" (click)="modal.close('Cancelar click')">Generar respuesta</button>
             </div>
-            <ul id="list-historial">
-                <li>
-                    <figure>
-                        <img src="./assets/images/img-cambio-status.png">
-                    </figure>
-                    <div>
-                        <h5>Cambio de estado a <strong>PRE-APROBADO</strong></h5>
-                        <p>Realizado por Mateo Patiño</p>
-                    </div>
-                    <span class="date-span">4:00 pm - 15/07/2019</span>
-                </li>
-                <li>
-                    <figure>
-                        <img src="./assets/images/img-agregar.png">
-                    </figure>
-                    <div>
-                        <h5>Se agregó una <strong>REFERENCIA</strong></h5>
-                        <p>Se agregó la referencia MIGUEL ZABALA</p>
-                    </div>
-                    <span class="date-span">12:53 pm - 14/07/2019</span>
-                </li>
-                <li>
-                    <figure>
-                        <img src="./assets/images/avatar.png">
-                    </figure>
-                    <div>
-                        <h5>Mateo Patiño</h5>
-                        <p>Verificar los ingresos como dependiente.</p>
-                    </div>
-                    <span class="date-span">09:00 am - 13/07/2019</span>
-                </li>
-            </ul>
-            <form class="forms forms-relative">
-                <input type="text" placeholder="Añadir un comentario">
-            </form>
-        </div>
-        <div class="modal-footer-mfc full variation">
-            <div class="cols cols2">
-                <div class="align-left">
-                    <button class="btn btn-border-blue">Generar respuesta</button>
-                </div>
-                <div class="align-right">
-                    <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Cerrar</button>
-                </div>
+            <div class="align-right">
+                <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Guardar</button>
             </div>
         </div>
-    </ng-template>
+    </div>
+</ng-template>

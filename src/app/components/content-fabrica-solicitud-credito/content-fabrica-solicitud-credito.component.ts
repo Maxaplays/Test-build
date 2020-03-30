@@ -23,5 +23,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.modalService.open(content, {windowClass: 'custom-width-modal'});
   }
 
+  openCustomWidthVariant(content) {
+    this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+  }
+  
 }
 

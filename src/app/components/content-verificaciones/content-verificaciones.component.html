@@ -72,112 +72,33 @@
                         <ng-template ngbTabTitle><img src="assets/images/icon-datos.svg"> <span>Validación Documental</span></ng-template>
                         <ng-template ngbTabContent>
                             <div class="forms forms-relative" style="padding-top: 15px;">
-                                <div class="drag-div">Arrastra una columna aquí para agrupar por dicha columna</div>
+                                <div class="buscador-general">
+                                    <label class="label">Buscador General</label>
+                                    <input type="text" placeholder="Filtrar">
+                                </div>
                                 <div id="table-scroll">
                                     <table class="width-filters">
                                         <thead>
                                             <tr>
                                                 <th><input type="checkbox"></th>
                                                 <th>Validar</th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Validado</option>
-                                                    </select>
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Crédito</option>
-                                                    </select>
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Fecha Crédito</option>
-                                                    </select>                            
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Política</option>
-                                                    </select>                            
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Observaciones</option>
-                                                    </select>                            
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Fecha Validación</option>
-                                                    </select>                            
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Usuario Validación</option>
-                                                    </select>                            
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Req.</option>
-                                                    </select>                            
-                                                </th>
+                                                <th>Validado</th>
+                                                <th>Crédito</th>
+                                                <th>Fecha Crédito</th>
+                                                <th>Política</th>
+                                                <th>Observaciones</th>
+                                                <th>Fecha Validación</th>
+                                                <th>Usuario Validación</th>
+                                                <th>Req.</th>
                                                 <th>
                                                     <img src="assets/images/icon-check.svg" class="check-center">                
                                                 </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Usuario Aprobado</option>
-                                                    </select>                            
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Fecha Aprobado</option>
-                                                    </select>                            
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Usuario Validado</option>
-                                                    </select>                            
-                                                </th>
+                                                <th>Usuario Aprobado</th>
+                                                <th>Fecha Aprobado</th>
+                                                <th>Usuario Validado</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="tr-filters">
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                
-                                                </td>
-                                                <td>
-                                            
-                                                </td>
-                                            </tr>
                                             <tr>
                                                 <td><input type="checkbox"></td>
                                                 <td><a href="javascript:;" (click)="open(validacionDocumental)" class="tag-with-radius">Validar</a></td>
@@ -236,114 +157,31 @@
                         <ng-template ngbTabTitle><img src="assets/images/icon-phone.svg"> <span>Validación Telefónica</span></ng-template>
                         <ng-template ngbTabContent>
                             <div class="forms forms-relative" style="padding-top: 15px;">
-                                <div class="drag-div">Arrastra una columna aquí para agrupar por dicha columna</div>
+                                <div class="buscador-general">
+                                    <label class="label">Buscador General</label>
+                                    <input type="text" placeholder="Filtrar">
+                                </div>
                                 <div id="table-scroll">
                                     <table class="width-filters">
                                         <thead>
                                             <tr>
                                                 <th><input type="checkbox"></th>
                                                 <th>Validar</th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Validado</option>
-                                                    </select>
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Crédito</option>
-                                                    </select>
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Fecha Crédito</option>
-                                                    </select>                            
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Contacto</option>
-                                                    </select>                            
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Tipo</option>
-                                                    </select>                            
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Número</option>
-                                                    </select>                            
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Apellidos</option>
-                                                    </select>                            
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Nombres</option>
-                                                    </select>                            
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Usuario Validado</option>
-                                                    </select>                 
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Fecha Validado</option>
-                                                    </select>                            
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Observaciones Validación</option>
-                                                    </select>                            
-                                                </th>
-                                                <th>
-                                                    <select class="filter-for-table">
-                                                        <option>Cédula</option>
-                                                    </select>                            
-                                                </th>
+                                                <th>Validado</th>
+                                                <th>Crédito</th>
+                                                <th>Fecha Crédito</th>
+                                                <th>Contacto</th>
+                                                <th>Tipo</th>
+                                                <th>Número</th>
+                                                <th>Apellidos</th>
+                                                <th>Nombres</th>
+                                                <th>Usuario Validado</th>
+                                                <th>Fecha Validado</th>
+                                                <th>Observaciones Validación</th>
+                                                <th>Cédula</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="tr-filters">
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                                <td>
-                                                    <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                                </td>
-                                            </tr>
                                             <tr>
                                                 <td><input type="checkbox"></td>
                                                 <td><a href="javscript:;" (click)="openLg(validacionTelefonicaStep1)" class="tag-with-radius">Validar</a></td>
@@ -435,7 +273,6 @@
                         <iframe src="https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf"></iframe>
                     </div>
                     <div>
-                        <ngb-alert type="custom" [dismissible]="false"><strong>Validación:</strong> Por favor, verificar el número telefónico</ngb-alert>
                         <div class="forms forms-relative" style="padding-top: 15px;margin: 20px -8px;padding: 0;">
                             <div class="cols cols3">
                                 <div>
@@ -475,6 +312,9 @@
                                     </fieldset>
                                 </div>
                             </div>
+                            <div class="content-alert">
+                                <ngb-alert type="custom" [dismissible]="false"><strong>Validación:</strong> Por favor, verificar el número telefónico</ngb-alert>
+                            </div>
                             <fieldset>
                                 <label class="label">Comentarios</label>
                                 <textarea placeholder="Escriba Comentarios" style="max-height: 100px;"></textarea>
@@ -484,44 +324,13 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>
-                                                <select class="filter-for-table">
-                                                    <option>Validación</option>
-                                                </select>
-                                            </th>
-                                            <th>
-                                                <select class="filter-for-table">
-                                                    <option>Fecha</option>
-                                                </select>
-                                            </th>
-                                            <th>
-                                                <select class="filter-for-table">
-                                                    <option>Usuario</option>
-                                                </select>                            
-                                            </th>
-                                            <th>
-                                                <select class="filter-for-table">
-                                                    <option>Observaciones</option>
-                                                </select>                            
-                                            </th>
+                                            <th>Validación</th>
+                                            <th>Fecha</th>
+                                            <th>Usuario</th>
+                                            <th>Observaciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="tr-filters">
-                                            <td></td>
-                                            <td>
-                                                <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                            </td>
-                                            <td>
-                                                <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                            </td>
-                                            <td>
-                                                <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                            </td>
-                                            <td>
-                                                <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                            </td>
-                                        </tr>
                                         <tr>
                                             <td colspan="5">No hay registros.</td>
                                         </tr>
@@ -566,7 +375,6 @@
                 </div>
             </div>
             <div class="modal-body variation">
-                <ngb-alert type="custom" [dismissible]="false"><strong>Validación:</strong> Por favor, verificar el número telefónico</ngb-alert>
                 <div class="forms forms-relative" style="padding-top: 15px;margin: 20px -8px;padding: 0;">
                     <div class="cols cols3">
                         <div>
@@ -606,6 +414,9 @@
                             </fieldset>
                         </div>
                     </div>
+                    <div class="content-alert">
+                        <ngb-alert type="custom" [dismissible]="false"><strong>Validación:</strong> Por favor, verificar el número telefónico</ngb-alert>
+                    </div>
                     <fieldset>
                         <label class="label">Comentarios</label>
                         <textarea placeholder="Escriba Comentarios" style="max-height: 100px;"></textarea>
@@ -615,44 +426,13 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>
-                                        <select class="filter-for-table">
-                                            <option>Validación</option>
-                                        </select>
-                                    </th>
-                                    <th>
-                                        <select class="filter-for-table">
-                                            <option>Fecha</option>
-                                        </select>
-                                    </th>
-                                    <th>
-                                        <select class="filter-for-table">
-                                            <option>Usuario</option>
-                                        </select>                            
-                                    </th>
-                                    <th>
-                                        <select class="filter-for-table">
-                                            <option>Observaciones</option>
-                                        </select>                            
-                                    </th>
+                                    <th>Validación</th>
+                                    <th>Fecha</th>
+                                    <th>Usuario</th>
+                                    <th>Observaciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="tr-filters">
-                                    <td></td>
-                                    <td>
-                                        <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                    </td>
-                                    <td>
-                                        <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                    </td>
-                                    <td>
-                                        <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                    </td>
-                                    <td>
-                                        <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                                    </td>
-                                </tr>
                                 <tr>
                                     <td colspan="5">No hay registros.</td>
                                 </tr>
@@ -678,7 +458,6 @@
                 </div>
             </div>
         </ng-template>
-
 
 
         <ng-template #validacionTelefonicaStep2 let-modal>

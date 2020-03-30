@@ -81,110 +81,30 @@
     </form>
 
     <div class="forms forms-relative">
-        <div class="drag-div">Arrastra una columna aquí para agrupar por dicha columna</div>
+        <div class="buscador-general">
+            <label class="label">Buscador General</label>
+            <input type="text" placeholder="Filtrar">
+        </div>
         <div id="table-scroll">
             <table class="width-filters">
                 <thead>
                     <tr>
                         <th>Solicitar Excepción</th>
-                        <th>
-                            <select class="filter-for-table">
-                                <option>Política</option>
-                            </select>
-                        </th>
-                        <th>
-                            <select class="filter-for-table">
-                                <option>Requisito</option>
-                            </select>
-                        </th>
-                        <th>
-                            <select class="filter-for-table">
-                                <option>Aprobado</option>
-                            </select>                            
-                        </th>
-                        <th>
-                            <select class="filter-for-table">
-                                <option>Usuario Aprobado</option>
-                            </select>                            
-                        </th>
-                        <th>
-                            <select class="filter-for-table">
-                                <option>Fecha Aprobado</option>
-                            </select>                            
-                        </th>
-                        <th>
-                            <select class="filter-for-table">
-                                <option>Estado</option>
-                            </select>                            
-                        </th>
-                        <th>
-                            <select class="filter-for-table">
-                                <option>Observaciones</option>
-                            </select>                            
-                        </th>
-                        <th>
-                            <select class="filter-for-table">
-                                <option>Usuario Solicitud Excepción</option>
-                            </select>                            
-                        </th>
-                        <th>
-                            <select class="filter-for-table">
-                                <option>Fecha Solicitud Excepción</option>
-                            </select>                            
-                        </th>
-                        <th>
-                            <select class="filter-for-table">
-                                <option>Usuario Excepcionado</option>
-                            </select>                            
-                        </th>
-                        <th>
-                            <select class="filter-for-table">
-                                <option>Fecha Excepcionado</option>
-                            </select>                            
-                        </th>
-                        <th>
-                            <select class="filter-for-table">
-                                <option>ID</option>
-                            </select>                            
-                        </th>
+                        <th>Política</th>
+                        <th>Requisito</th>
+                        <th>Aprobado</th>
+                        <th>Usuario Aprobado</th>
+                        <th>Fecha Aprobado</th>
+                        <th>Estado</th>
+                        <th>Observaciones</th>
+                        <th>Usuario Solicitud Excepción</th>
+                        <th>Fecha Solicitud Excepción</th>
+                        <th>Usuario Excepcionado</th>
+                        <th>Fecha Excepcionado</th>
+                        <th>ID</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="tr-filters">
-                        <td></td>
-                        <td>
-                            <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                        </td>
-                        <td>
-                            <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                        </td>
-                        <td></td>
-                        <td>
-                            <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                        </td>
-                        <td>
-                            <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                        </td>
-                        <td></td>
-                        <td>
-                            <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                        </td>
-                        <td>
-                            <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                        </td>
-                        <td>
-                            <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                        </td>
-                        <td>
-                            <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                        </td>
-                        <td>
-                            <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                        </td>
-                        <td>
-                            <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
-                        </td>
-                    </tr>
                     <tr>
                         <td><a href="#" class="tag-with-radius">Solicitar</a></td>
                         <td>Copia de Cédula Vigente</td>
@@ -253,7 +173,7 @@
     <div class="footer-fixed-forms">
         <div class="cols cols2">
             <div class="align-left">
-                <button class="btn btn-border-blue"><img src="assets/images/icon-reloj.svg">Historial</button>
+                <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button>
                 <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Documentación</button>
             </div>
             <div class="align-right">
@@ -264,3 +184,31 @@
         </div>
     </div>
 </div>
+
+
+<ng-template #verHistorial let-modal>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-historial-modal.svg">
+                <h4 class="modal-minititle-mfc">Historial</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <app-modal-historial></app-modal-historial>
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+            <div class="align-left">
+                <button class="btn btn-border-blue" routerLink="/configuracion/respuestas" (click)="modal.close('Cancelar click')">Generar respuesta</button>
+            </div>
+            <div class="align-right">
+                <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Guardar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

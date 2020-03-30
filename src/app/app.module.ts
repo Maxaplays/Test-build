@@ -40,26 +40,26 @@ import { ContentExcepcionesComponent } from './components/content-excepciones/co
 import { ControlDeCalidadComponent } from './components/control-de-calidad/control-de-calidad.component';
 import { ContentControlDeCalidadComponent } from './components/content-control-de-calidad/content-control-de-calidad.component';
 import { StepsComponent } from './components/steps/steps.component';
+import { ModalHistorialComponent } from './components/modal-historial/modal-historial.component';
 import { HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
-import {CanActivateViaAuthGuardGuard} from './services/guard/can-activate-via-auth-guard.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'inicio', component: DashboardComponent },
-  { path: 'configuracion/respuestas', component: ContentConfiguracionRespuestasComponent, canActivate: [CanActivateViaAuthGuardGuard] },
-  { path: 'configuracion/respuestas/gestionar-plantillas', component: GestionarPlantillasComponent, canActivate: [CanActivateViaAuthGuardGuard] },
-  { path: 'cuenta/editar', component: CuentaComponent, canActivate: [CanActivateViaAuthGuardGuard] },
-  { path: 'fabrica/nueva-solicitud', component: FabricaComponent, canActivate: [CanActivateViaAuthGuardGuard] },
-  { path: 'fabrica/nueva-solicitud/credito', component: FabricaStep2Component, canActivate: [CanActivateViaAuthGuardGuard]},
-  { path: 'fabrica/nueva-solicitud/solicitud-credito', component: FabricaStep3Component, canActivate: [CanActivateViaAuthGuardGuard] },
-  { path: 'fabrica/nueva-solicitud/requisitos', component: FabricaStep4Component, canActivate: [CanActivateViaAuthGuardGuard] },
-  { path: 'fabrica/nueva-solicitud/politicas', component: FabricaStep5Component, canActivate: [CanActivateViaAuthGuardGuard] },
-  { path: 'fabrica/nueva-solicitud/generacion', component: FabricaStep6Component, canActivate: [CanActivateViaAuthGuardGuard] },
-  { path: 'fabrica/nueva-solicitud/control-de-calidad', component: FabricaStep7Component, canActivate: [CanActivateViaAuthGuardGuard] },
-  { path: 'fabrica/consulta-general', component: ConsultaGeneralComponent, canActivate: [CanActivateViaAuthGuardGuard] },
-  { path: 'analisis/verificaciones', component: VerificacionesComponent, canActivate: [CanActivateViaAuthGuardGuard] },
-  { path: 'analisis/excepciones', component: ExcepcionesComponent, canActivate: [CanActivateViaAuthGuardGuard] },
-  { path: 'analisis/control-de-calidad', component: ControlDeCalidadComponent, canActivate: [CanActivateViaAuthGuardGuard] }
+  { path: 'configuracion/respuestas', component: ContentConfiguracionRespuestasComponent },
+  { path: 'configuracion/respuestas/gestionar-plantillas', component: GestionarPlantillasComponent },
+  { path: 'cuenta/editar', component: CuentaComponent },
+  { path: 'fabrica/nueva-solicitud', component: FabricaComponent },
+  { path: 'fabrica/nueva-solicitud/credito', component: FabricaStep2Component },
+  { path: 'fabrica/nueva-solicitud/solicitud-credito', component: FabricaStep3Component },
+  { path: 'fabrica/nueva-solicitud/requisitos', component: FabricaStep4Component },
+  { path: 'fabrica/nueva-solicitud/politicas', component: FabricaStep5Component },
+  { path: 'fabrica/nueva-solicitud/generacion', component: FabricaStep6Component },
+  { path: 'fabrica/nueva-solicitud/control-de-calidad', component: FabricaStep7Component },
+  { path: 'fabrica/consulta-general', component: ConsultaGeneralComponent },
+  { path: 'analisis/verificaciones', component: VerificacionesComponent },
+  { path: 'analisis/excepciones', component: ExcepcionesComponent },
+  { path: 'analisis/control-de-calidad', component: ControlDeCalidadComponent }
 ];
 
 @NgModule({
@@ -100,15 +100,16 @@ const routes: Routes = [
     ContentExcepcionesComponent,
     ControlDeCalidadComponent,
     ContentControlDeCalidadComponent,
-    StepsComponent
+    StepsComponent,
+    ModalHistorialComponent
   ],
   imports: [
     NgbModule,
     BrowserModule,
     RouterModule.forRoot(routes),
-    HttpClientModule,
+    HttpClientModule
   ],
-  exports: [StepsComponent],
+  exports: [],
   providers: [],
   bootstrap: [AppComponent]
 })

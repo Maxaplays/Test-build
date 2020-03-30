@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
-import {TipoDocumentacionService} from '../../services/tipo-documentacion.service';
+import { TipoDocumentacionService } from 'src/app/services/tipo-documentacion.service';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -67,7 +67,15 @@ export class ContentFabricaComponent implements OnInit {
     this.modalService.open(content, { size: 'lg' });
   }
 
+  openCustomWidthVariant(content) {
+    this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+  }
+
 }
+
+  
+
+
 
 
 

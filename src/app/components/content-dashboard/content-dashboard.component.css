@@ -2,22 +2,22 @@
     font-size: 42px;
     color: #287FA2;
     font-weight: 300;
-    margin-bottom: 50px;
+    margin-bottom: 15px;
 }
 
 .dashboard-items {
     font-size: 0;
-    max-width: 1000px;
-    margin: auto;
+    /*max-width: 1000px;*/
+    margin: 0 -12px;
 }
 .dashboard-items .item {
     font-size: 16px;
     display: inline-block;
     vertical-align: top;
     background: #fff;
-    width: calc(33.33% - 24px);
-    padding: 30px;
-    margin: 12px;
+    width: calc(33.33% - 16px);
+    padding: 20px;
+    margin: 8px;
     box-shadow: 0 3px 6px rgba(0,0,0,.16);
     border-radius: 10px;
     position: relative;
@@ -33,21 +33,22 @@
 }
 
 .dashboard-items .item p {
-    font-size: 16px;
+    font-size: 14px;
     color: #D0D0D0;
     letter-spacing: -0.4px;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
+    font-weight: 300;
 }
 
 .dashboard-items .item img {
-    height: 90px;
+    height: 40px;
 }
 
 .dashboard-items .item .number {
     color: #6ab321;
-    font-size: 72px;
+    font-size: 40px;
     font-weight: 300;
-    padding-top: 21px;
+    padding-top: 0;
     display: block;
 }
 

@@ -12,12 +12,12 @@
             <label for="recordar">Recordar usuario</label>
         </fieldset>
         <div class="footer-forms">
-<!--            <input type="submit" value="Ingresar" class="btn-primary" routerLink="inicio" >-->
+            <!--            <input type="submit" value="Ingresar" class="btn-primary" routerLink="inicio" >-->
             <input (click)="getLogin(username.value,password.value)" value="Ingresar" class="btn-primary">
         </div>
-      <div id="mensajeAlerta" *ngIf="etiquetaWarning" class="alert alert-warning" role="alert">
-        {{mensajeAlerta}}
-      </div>
+        <div id="mensajeAlerta" *ngIf="etiquetaWarning" class="alert alert-warning" role="alert">
+            {{mensajeAlerta}}
+        </div>
     </form>
     <div id="copysidebar">© MFC 2019. Derechos reservados.</div>
 </aside>

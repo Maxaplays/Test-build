@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginService} from '../../services/login.service';
-import {Router} from '@angular/router';
-import {TipoDocumentacionService} from '../../services/tipo-documentacion.service';
+import { LoginService } from 'src/app/services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar-login',
@@ -9,6 +8,7 @@ import {TipoDocumentacionService} from '../../services/tipo-documentacion.servic
   styleUrls: ['./sidebar-login.component.css']
 })
 export class SidebarLoginComponent implements OnInit {
+
   username: string;
   etiquetaWarning: boolean;
   mensajeAlerta:string ='';
