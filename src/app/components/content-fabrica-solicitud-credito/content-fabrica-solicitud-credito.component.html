@@ -182,7 +182,7 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-direcciones.svg"> <span>Direcciones</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button class="btn btn-solid-green" (click)="openLg(agregarDireccion)">Añadir Dirección</button>
+                        <button class="btn btn-solid-green" (click)="openLg(agregarEditarDireccion)">Añadir Dirección</button>
                     </div>
                     <table>
                         <thead>
@@ -213,7 +213,7 @@
                             <td data-column="Observaciones">-</td>
                             <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                             <td data-column="Opciones" class="table-right">
-                                <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(editarDireccion)">
+                                <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarDireccion)">
                                 <img src="assets/images/icon-printer.svg" class="icon-with-action">
                             </td>
                           </tr>
@@ -229,7 +229,7 @@
                             <td data-column="Observaciones">-</td>
                             <td data-column="Status" class="table-right"><span class="">Inactivo</span></td>
                             <td data-column="Opciones" class="table-right">
-                                <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(editarDireccion)">
+                                <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarDireccion)">
                                 <img src="assets/images/icon-printer.svg" class="icon-with-action">
                             </td>                          
                         </tr>
@@ -244,7 +244,7 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-phone.svg"> <span>Teléfonos</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button class="btn btn-solid-green" (click)="openCustomWidth(agregarTelefono)">Añadir Teléfono</button>
+                        <button class="btn btn-solid-green" (click)="openCustomWidth(agregarEditarTelefono)">Añadir Teléfono</button>
                     </div>
                     <table>
                         <thead>
@@ -256,6 +256,7 @@
                             <th>Validación</th>
                             <th>Observaciones</th>
                             <th class="table-right">Status</th>
+                            <th class="table-right">Opciones</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -267,6 +268,9 @@
                             <td data-column="Validación">-</td>
                             <td data-column="Observaciones">-</td>
                             <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                            <td data-column="Opciones" class="table-right">
+                                <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openCustomWidth(agregarEditarTelefono)">
+                            </td> 
                           </tr>
                           <tr>
                             <td data-column="Tipo de Registro">Cliente</td>
@@ -276,10 +280,14 @@
                             <td data-column="Validación">-</td>
                             <td data-column="Observaciones">-</td>
                             <td data-column="Status" class="table-right"><span>Inactivo</span></td>
+                            <td data-column="Opciones" class="table-right">
+                                <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openCustomWidth(agregarEditarTelefono)">
+                            </td> 
                           </tr>
                           <tr class="foot-td">
                               <td colspan="11"><span class="foot-table">2 teléfonos</span></td>
                           </tr>
+                          
                         </tbody>
                       </table>
                 </ng-template>
@@ -288,11 +296,12 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-conyuges.svg"> <span>Cónyuges</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button class="btn btn-solid-green" (click)="openLg(agregarConyuge)">Añadir Cónyuge</button>
+                        <button class="btn btn-solid-green" (click)="openLg(agregarEditarConyuge)">Añadir Cónyuge</button>
                     </div>
                     <table>
                         <thead>
                           <tr>
+                            <th>Tipo de Registro</th>
                             <th>Nombres</th>
                             <th>Apellidos</th>
                             <th>Género</th>
@@ -300,10 +309,12 @@
                             <th>RUC / Cédula</th>
                             <th>Fecha de Nacimiento</th>
                             <th class="table-right">Status</th>
+                            <th class="table-right">Opciones</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
+                            <td data-column="Tipo de Registro">Cliente</td>
                             <td data-column="Nombres">María José</td>
                             <td data-column="Apellidos">Pérez Gonzalez</td>
                             <td data-column="Género">Femenino</td>
@@ -311,8 +322,12 @@
                             <td data-column="RUC / Cédula">17493972892</td>
                             <td data-column="Fecha de Nacimiento">24/05/1983</td>
                             <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                            <td data-column="Opciones" class="table-right">
+                                <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarConyuge)">
+                            </td> 
                           </tr>
                           <tr>
+                            <td data-column="Tipo de Registro">Cliente</td>
                             <td data-column="Nombres">María José</td>
                             <td data-column="Apellidos">Pérez Gonzalez</td>
                             <td data-column="Género">Femenino</td>
@@ -320,6 +335,9 @@
                             <td data-column="RUC / Cédula">17493972892</td>
                             <td data-column="Fecha de Nacimiento">24/05/1983</td>
                             <td data-column="Status" class="table-right"><span>Inactivo</span></td>
+                            <td data-column="Opciones" class="table-right">
+                                <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarConyuge)">
+                            </td> 
                           </tr>
                           <tr class="foot-td">
                               <td colspan="11"><span class="foot-table">2 cónyuges</span></td>
@@ -332,7 +350,7 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-referencias-tab.svg"> <span>Referencias</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button class="btn btn-solid-green" (click)="openLg(agregarReferencia)">Añadir Referencia</button>
+                        <button class="btn btn-solid-green" (click)="openLg(agregarEditarReferencia)">Añadir Referencia</button>
                     </div>
                     <table>
                         <thead>
@@ -348,6 +366,7 @@
                             <th>Teléfono Trabajo</th>
                             <th>Observaciones</th>
                             <th class="table-right">Status</th>
+                            <th class="table-right">Opciones</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -363,6 +382,9 @@
                                 <td data-column="Teléfono Trabajo">-</td>
                                 <td data-column="Observaciones">Llamar a partir de las 2pm.</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                                <td data-column="Opciones" class="table-right">
+                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarReferencia)">
+                                </td> 
                             </tr>
                             <tr>
                                 <td data-column="Tipo de Registro">Cliente</td>
@@ -376,6 +398,9 @@
                                 <td data-column="Teléfono Trabajo">-</td>
                                 <td data-column="Observaciones">Llamar a partir de las 2pm.</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                                <td data-column="Opciones" class="table-right">
+                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarReferencia)">
+                                </td> 
                             </tr>
                             <tr>
                                 <td data-column="Tipo de Registro">Cliente</td>
@@ -389,6 +414,9 @@
                                 <td data-column="Teléfono Trabajo">-</td>
                                 <td data-column="Observaciones">Llamar a partir de las 2pm.</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                                <td data-column="Opciones" class="table-right">
+                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarReferencia)">
+                                </td> 
                             </tr>
                             <tr>
                                 <td data-column="Tipo de Registro">Cliente</td>
@@ -402,6 +430,9 @@
                                 <td data-column="Teléfono Trabajo">-</td>
                                 <td data-column="Observaciones">Llamar a partir de las 2pm.</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                                <td data-column="Opciones" class="table-right">
+                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarConyuge)">
+                                </td> 
                             </tr>
                         </tbody>
                       </table>
@@ -877,7 +908,7 @@
     </div>
 
 
-    <ng-template #agregarDireccion let-modal>
+    <ng-template #agregarEditarDireccion let-modal>
         <div class="modal-header-mfc variation">
             <div class="cols cols2 align-middle">
                 <div class="align-left">
@@ -896,93 +927,11 @@
                 <div class="cols cols3">
                     <div>
                         <fieldset>
-                            <label class="label">Tipo de Dirección</label>
+                            <label class="label">Tipo de Registro</label>
                             <select>
                                 <option>Seleccione...</option>
                             </select>
                         </fieldset>
-                        <fieldset>
-                            <label class="label">Provincia</label>
-                            <select>
-                                <option>Seleccione...</option>
-                            </select>
-                        </fieldset>
-                        <fieldset>
-                            <label class="label">Cantón</label>
-                            <select>
-                                <option>Seleccione...</option>
-                            </select>
-                        </fieldset>
-                        <fieldset>
-                            <label class="label">Parroquia</label>
-                            <select>
-                                <option>Seleccione...</option>
-                            </select>
-                        </fieldset>
-                        <fieldset>
-                            <label class="label">Barrio</label>
-                            <select>
-                                <option>Seleccione...</option>
-                            </select>
-                        </fieldset>
-                    </div>
-                    <div>
-                        <fieldset>
-                            <label class="label">Calle Principal</label>
-                            <input type="text" placeholder="Escriba Calle Principal">
-                        </fieldset>
-                        <fieldset>
-                            <label class="label">Número</label>
-                            <input type="text" placeholder="Escriba Número">
-                        </fieldset>
-                        <fieldset>
-                            <label class="label">Calle Secundaria</label>
-                            <input type="text" placeholder="Escriba Calle Secundaria">
-                        </fieldset>
-                        <fieldset>
-                            <label class="label">Referencia</label>
-                            <input type="text" placeholder="Escriba Referencia">
-                        </fieldset>
-                        <fieldset>
-                            <label class="label">Código Postal</label>
-                            <input type="text" placeholder="Escriba Código Postal">
-                        </fieldset>
-                    </div>
-                    <div>
-                        <fieldset>
-                            <label class="label">Google Maps</label>
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8008001341104!2d-78.4789717847393!3d-0.16979733547628312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d59a9dddb37ea1%3A0x4bd5e23e20096b30!2sParque%20Real!5e0!3m2!1ses-419!2sec!4v1572800496201!5m2!1ses-419!2sec" frameborder="0" class="map-modal" allowfullscreen=""></iframe>
-                        </fieldset>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer-mfc full variation">
-            <div class="align-right">
-                <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-                <button class="btn btn-solid-gray">Guardar dirección</button>
-            </div>
-        </div>
-    </ng-template>
-
-    <ng-template #editarDireccion let-modal>
-        <div class="modal-header-mfc variation">
-            <div class="cols cols2 align-middle">
-                <div class="align-left">
-                    <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-pin-modal.svg">
-                    <h4 class="modal-minititle-mfc">Editar dirección</h4>
-                </div>
-                <div class="align-right">
-                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="modal-body variation">
-            <form class="forms forms-relative">
-                <div class="cols cols3">
-                    <div>
                         <fieldset>
                             <label class="label">Tipo de Dirección</label>
                             <select>
@@ -1053,7 +1002,7 @@
         </div>
     </ng-template>
 
-        <ng-template #agregarTelefono let-modal>
+        <ng-template #agregarEditarTelefono let-modal>
             <div class="modal-header-mfc variation">
                 <div class="cols cols2 align-middle">
                     <div class="align-left">
@@ -1097,7 +1046,7 @@
             </div>
         </ng-template>
 
-        <ng-template #agregarConyuge let-modal>
+        <ng-template #agregarEditarConyuge let-modal>
             <div class="modal-header-mfc variation">
                 <div class="cols cols2 align-middle">
                     <div class="align-left">
@@ -1115,6 +1064,12 @@
                 <form class="forms forms-relative">
                     <div class="cols cols3">
                         <div>
+                            <fieldset>
+                                <label class="label">Tipo de Registro</label>
+                                <select>
+                                    <option>Seleccione...</option>
+                                </select>
+                            </fieldset>
                             <fieldset>
                                 <label class="label">Tipo de Documento</label>
                                 <select>
@@ -1154,12 +1109,12 @@
                                 <label class="label">Nacionalidad</label>
                                 <input type="text" placeholder="Escriba Nacionalidad">
                             </fieldset>
-                        </div>
-                        <div>
                             <fieldset>
                                 <label class="label">Profesión</label>
                                 <input type="text" placeholder="Escriba Profesión">
                             </fieldset>
+                        </div>
+                        <div>
                             <fieldset>
                                 <label class="label">Dirección de Trabajo</label>
                                 <input type="text" placeholder="Escriba Dirección de Trabajo">
@@ -1180,7 +1135,7 @@
             </div>
         </ng-template>
 
-        <ng-template #agregarReferencia let-modal>
+        <ng-template #agregarEditarReferencia let-modal>
                 <div class="modal-header-mfc variation">
                     <div class="cols cols2 align-middle">
                         <div class="align-left">
@@ -1198,6 +1153,12 @@
                     <form class="forms forms-relative">
                         <div class="cols cols3">
                             <div>
+                                <fieldset>
+                                    <label class="label">Tipo de Registro</label>
+                                    <select>
+                                        <option>Seleccione...</option>
+                                    </select>
+                                </fieldset>
                                 <fieldset>
                                     <label class="label">Cédula</label>
                                     <input type="text" placeholder="Escriba Cédula">
@@ -1232,12 +1193,12 @@
                                     <label class="label">Teléfono Trabajo</label>
                                     <input type="text" placeholder="Escriba Teléfono Trabajo">
                                 </fieldset>
-                            </div>
-                            <div>
                                 <fieldset>
                                     <label class="label">E-mail</label>
                                     <input type="email" placeholder="Escriba E-mail">
                                 </fieldset>
+                            </div>
+                            <div>
                                 <fieldset>
                                     <label class="label">Nombre de Empresa de Trabajo</label>
                                     <input type="text" placeholder="Escriba Nombre de Empresa de Trabajo">
@@ -1248,7 +1209,7 @@
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Observaciones</label>
-                                    <input type="text" placeholder="Escriba Observaciones">
+                                    <textarea placeholder="Escriba Observaciones"></textarea>
                                 </fieldset>
                             </div>
                         </div>
