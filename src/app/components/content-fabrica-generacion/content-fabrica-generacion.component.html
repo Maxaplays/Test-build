@@ -1,4 +1,4 @@
-<div class="content">            
+<div class="content">
 
     <div class="content-grid-list">
         <ul class="grid-list grid-list-fix">
@@ -93,7 +93,7 @@
                             <input type="checkbox" id="firma"><label for="firma">Firma de Solicitud</label>
                         </div>
                     </div>
-                    
+
                 </fieldset>
             </div>
             <div>
@@ -118,26 +118,26 @@
                     <input type="text" value="60" disabled>
                 </fieldset>
             </div>
-            <div>
-                <fieldset>
-                    <label class="label">Entidad Financiera</label>
-                    <select>
-                        <option>Seleccione...</option>
-                    </select>
-                </fieldset>
-                <fieldset>
-                    <label class="label">Tipo de Cuenta</label>
-                    <select>
-                        <option>Seleccione...</option>
-                    </select>
-                </fieldset>
-                <fieldset>
-                    <label class="label"># Cuenta Bancaria</label>
-                    <select>
-                        <option>Seleccione...</option>
-                    </select>
-                </fieldset>
-            </div>
+          <div>
+            <fieldset>
+              <label class="label">Entidad Financiera</label>
+              <select id="NOMBRE_BANCO" name="NOMBRE_BANCO" [(ngModel)]="NOMBRE_BANCO" (change)="getTipoCuenta()">
+                <option *ngFor="let entidad of EntidadFinanciera" [value]="entidad.NOMBRE_BANCO">{{entidad.NOMBRE_BANCO}}</option>
+              </select>
+            </fieldset>
+            <fieldset>
+              <label class="label">Tipo de Cuenta</label>
+              <select id="TIPO_BANCO" name="TIPO_BANCO" [(ngModel)]="TIPO_BANCO" (change)="getNumeroCuenta()">
+                <option *ngFor="let tipo of TipoCuenta" [value]="tipo.cod_tcu">{{tipo.nom_tcu}}</option>
+              </select>
+            </fieldset>
+            <fieldset>
+              <label class="label"># Cuenta Bancaria</label>
+              <select>
+                <option *ngFor="let numero of NumeroCuenta" [value]="numero.NUMERO_CUENTA">{{numero.NUMERO_CUENTA}}</option>
+              </select>
+            </fieldset>
+          </div>
         </div>
         <div class="align-right" style="padding-top: 40px;">
             <button class="btn btn-solid-blue">Generar Documentación Seleccionada</button>
@@ -203,7 +203,7 @@
                             <th>
                                 <select class="filter-for-table">
                                     <option>Usuario Ingreso</option>
-                                </select>                            
+                                </select>
                             </th>
                         </tr>
                     </thead>

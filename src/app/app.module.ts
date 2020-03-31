@@ -42,6 +42,7 @@ import { ContentControlDeCalidadComponent } from './components/content-control-d
 import { StepsComponent } from './components/steps/steps.component';
 import { ModalHistorialComponent } from './components/modal-historial/modal-historial.component';
 import { HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -103,12 +104,13 @@ const routes: Routes = [
     StepsComponent,
     ModalHistorialComponent
   ],
-  imports: [
-    NgbModule,
-    BrowserModule,
-    RouterModule.forRoot(routes),
-    HttpClientModule
-  ],
+    imports: [
+        NgbModule,
+        BrowserModule,
+        RouterModule.forRoot(routes),
+        HttpClientModule,
+        FormsModule
+    ],
   exports: [],
   providers: [],
   bootstrap: [AppComponent]
