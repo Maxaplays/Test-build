@@ -1,4 +1,4 @@
-<div class="content">            
+<div class="content">
 
         <div class="content-grid-list">
             <ul class="grid-list grid-list-fix">
@@ -64,7 +64,7 @@
                 </li>
             </ul>
         </div>
-    
+
         <app-steps></app-steps>
 
         <form class="steps-mobile">
@@ -79,7 +79,7 @@
                 <option value='resumen'>Resumen</option>
             </select>
         </form>
-    
+
         <form class="tabs-mobile">
             <select id='selectTabs'>
                 <option value='cliente'>Cliente</option>
@@ -231,7 +231,7 @@
                             <td data-column="Opciones" class="table-right">
                                 <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarDireccion)">
                                 <img src="assets/images/icon-printer.svg" class="icon-with-action">
-                            </td>                          
+                            </td>
                         </tr>
                           <tr class="foot-td">
                               <td colspan="11"><span class="foot-table">2 direcciones</span></td>
@@ -260,34 +260,22 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td data-column="Tipo de Registro">Cliente</td>
-                            <td data-column="Tipo de Teléfono">Móvil</td>
-                            <td data-column="Número de Teléfono">0983698185</td>
-                            <td data-column="Vigente">Si</td>
-                            <td data-column="Validación">-</td>
-                            <td data-column="Observaciones">-</td>
+                          <tr *ngFor="let telefono of telefonos">
+                            <td data-column="Tipo de Registro">{{telefono.TIPO}}</td>
+                            <td data-column="Tipo de Teléfono">{{telefono.NOM_TDIS}}</td>
+                            <td data-column="Número de Teléfono">{{telefono.VALOR_DIS}}</td>
+                            <td data-column="Vigente">{{telefono.ESTADO_DIS}}</td>
+                            <td data-column="Validación">{{telefono.VALIDADO_DIS}}</td>
+                            <td data-column="Observaciones">{{telefono.OBS_VAL_DIS}}</td>
                             <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                             <td data-column="Opciones" class="table-right">
                                 <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openCustomWidth(agregarEditarTelefono)">
-                            </td> 
-                          </tr>
-                          <tr>
-                            <td data-column="Tipo de Registro">Cliente</td>
-                            <td data-column="Tipo de Teléfono">Domicilio</td>
-                            <td data-column="Número de Teléfono">023367382</td>
-                            <td data-column="Vigente">Si</td>
-                            <td data-column="Validación">-</td>
-                            <td data-column="Observaciones">-</td>
-                            <td data-column="Status" class="table-right"><span>Inactivo</span></td>
-                            <td data-column="Opciones" class="table-right">
-                                <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openCustomWidth(agregarEditarTelefono)">
-                            </td> 
+                            </td>
                           </tr>
                           <tr class="foot-td">
                               <td colspan="11"><span class="foot-table">2 teléfonos</span></td>
                           </tr>
-                          
+
                         </tbody>
                       </table>
                 </ng-template>
@@ -324,7 +312,7 @@
                             <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                             <td data-column="Opciones" class="table-right">
                                 <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarConyuge)">
-                            </td> 
+                            </td>
                           </tr>
                           <tr>
                             <td data-column="Tipo de Registro">Cliente</td>
@@ -337,7 +325,7 @@
                             <td data-column="Status" class="table-right"><span>Inactivo</span></td>
                             <td data-column="Opciones" class="table-right">
                                 <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarConyuge)">
-                            </td> 
+                            </td>
                           </tr>
                           <tr class="foot-td">
                               <td colspan="11"><span class="foot-table">2 cónyuges</span></td>
@@ -384,7 +372,7 @@
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
                                     <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarReferencia)">
-                                </td> 
+                                </td>
                             </tr>
                             <tr>
                                 <td data-column="Tipo de Registro">Cliente</td>
@@ -400,7 +388,7 @@
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
                                     <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarReferencia)">
-                                </td> 
+                                </td>
                             </tr>
                             <tr>
                                 <td data-column="Tipo de Registro">Cliente</td>
@@ -416,7 +404,7 @@
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
                                     <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarReferencia)">
-                                </td> 
+                                </td>
                             </tr>
                             <tr>
                                 <td data-column="Tipo de Registro">Cliente</td>
@@ -432,7 +420,7 @@
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
                                     <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarConyuge)">
-                                </td> 
+                                </td>
                             </tr>
                         </tbody>
                       </table>
@@ -887,11 +875,11 @@
             </ngb-tab>
           </ngb-tabset>
 
-        
-            
+
+
         </div>
-    
-    
+
+
         <div class="footer-fixed-forms">
             <div class="cols cols2">
                 <div class="align-left">
@@ -929,37 +917,37 @@
                         <fieldset>
                             <label class="label">Tipo de Registro</label>
                             <select>
-                                <option>Seleccione...</option>
+                                <option *ngFor="let tipo of tipoRegTel" [value]="tipo">{{tipo}}</option>
                             </select>
                         </fieldset>
                         <fieldset>
                             <label class="label">Tipo de Dirección</label>
                             <select>
-                                <option>Seleccione...</option>
+                                <option *ngFor="let tipo of tipoDir" [value]="tipo.COD_TDIR">{{tipo.NOM_TDIR}}</option>
                             </select>
                         </fieldset>
                         <fieldset>
                             <label class="label">Provincia</label>
-                            <select>
-                                <option>Seleccione...</option>
+                            <select id="COD_PROV" name="COD_PROV" [(ngModel)]="COD_PROV" (change)="getCanton()">
+                                <option *ngFor="let provincia of provincias" [value]="provincia.COD_PROV">{{provincia.NOM_PROV}}</option>
                             </select>
                         </fieldset>
                         <fieldset>
                             <label class="label">Cantón</label>
-                            <select>
-                                <option>Seleccione...</option>
+                            <select id="COD_CAN" name="COD_CAN" [(ngModel)]="COD_CAN" (change)="getParroquia()">
+                                <option *ngFor="let canton of cantones" [value]="canton.COD_CAN">{{canton.NOM_CAN}}</option>
                             </select>
                         </fieldset>
                         <fieldset>
                             <label class="label">Parroquia</label>
-                            <select>
-                                <option>Seleccione...</option>
+                            <select id="COD_PAR" name="COD_PAR" [(ngModel)]="COD_PAR" (change)="getBarrio()">
+                                <option *ngFor="let parroquia of parroquias" [value]="parroquia.COD_PAR">{{parroquia.NOM_PAR}}</option>
                             </select>
                         </fieldset>
                         <fieldset>
                             <label class="label">Barrio</label>
                             <select>
-                                <option>Seleccione...</option>
+                                <option *ngFor="let barrio of barrios" [value]="barrio.COD_BAR">{{barrio.NOM_BAR}}</option>
                             </select>
                         </fieldset>
                     </div>
@@ -1021,20 +1009,22 @@
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
                         <select>
-                            <option>Seleccione...</option>
+                            <option *ngFor="let tipo of tipoRegTel" [value]="tipo">{{tipo}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Tipo de Teléfono</label>
-                        <select>
-                            <option>Seleccione...</option>
+                        <select id="tipoTel" name="tipoTel">
+                            <option *ngFor="let tipo of tipoTel "[value]="tipo.COD_TDIS">{{tipo.NOM_TDIS}}</option>
                         </select>
                     </fieldset>
-                    <fieldset>
+                    <fieldset class="complex">
                         <label class="label">Número de Teléfono</label>
                         <select>
-                            <option>Seleccione...</option>
+                            <option>02</option>
+                            <option>09</option>
                         </select>
+                            <input type="text" placeholder="Teléfono">
                     </fieldset>
                 </form>
             </div>
@@ -1267,7 +1257,7 @@
                                     <label class="label">Género Garante / Rep. Legal <b>*</b></label>
                                     <select>
                                         <option>Seleccione...</option>
-                                    </select> 
+                                    </select>
                                 </fieldset>
                             </div>
                             <div>
@@ -1275,19 +1265,19 @@
                                     <label class="label">Nacionalidad Garante / Rep. Legal <b>*</b></label>
                                     <select>
                                         <option>Seleccione...</option>
-                                    </select> 
+                                    </select>
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Estado Civil Garante / Rep. Legal <b>*</b></label>
                                     <select>
                                         <option>Seleccione...</option>
-                                    </select> 
+                                    </select>
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Cargas Familiares Garante / Rep. Legal</label>
                                     <select>
                                         <option>Seleccione...</option>
-                                    </select> 
+                                    </select>
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">E-mail Garante / Rep. Legal</label>
