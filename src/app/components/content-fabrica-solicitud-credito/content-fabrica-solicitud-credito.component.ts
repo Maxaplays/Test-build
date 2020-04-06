@@ -54,7 +54,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
   }
 
-  private getTipoDir(): any {
+  getTipoDir(): any {
     this.tipoDireccionesService.getTipoDir()
       .pipe(map (data => data["TIPODIR"]))
       .subscribe((data: any) => {
@@ -63,7 +63,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
   }
 
-  private getProvincia(): any {
+  getProvincia(): any {
     this.tipoDireccionesService.getProvincia()
       .pipe(map (data => data["PROVINCIA"]))
       .subscribe((data: any) => {
@@ -72,7 +72,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
   }
 
-  private getCanton(): any {
+  getCanton(): any {
     if (this.COD_PROV !== undefined) {
       this.tipoDireccionesService.getCanton(this.COD_PROV)
         .pipe(map(data => data["CANTON"]))
@@ -83,7 +83,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
 
-  private getParroquia(): any {
+  getParroquia(): any {
 
     if (this.COD_CAN !== undefined) {
       this.tipoDireccionesService.getParroquia(this.COD_CAN)
@@ -95,7 +95,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
 
-  private getBarrio(): any {
+  getBarrio(): any {
     if (this.COD_PAR !== undefined) {
       this.tipoDireccionesService.getBarrio(this.COD_PAR)
         .pipe(map(data=> data["BARRIO"]))
@@ -106,7 +106,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
 
-  private getTipoTel(): any {
+  getTipoTel(): any {
     this.tipoTelefonoServive.getTipoTelefonos()
       .pipe(map(data => data["TIPTEL"]))
       .subscribe((data: any) => {
@@ -114,7 +114,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
   }
 
-  private getTelefonos(): any {
+  getTelefonos(): any {
     this.tipoTelefonoServive.getTelefonos(this.ID_CLI)
       .pipe(map(data => data["TELEFONOS"]))
       .subscribe((data: any) => {
