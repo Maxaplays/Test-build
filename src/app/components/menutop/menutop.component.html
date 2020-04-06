@@ -7,9 +7,9 @@
         <span class="avatar">
             <a routerLink="/cuenta/editar"><img width="24" alt="Editar Perfil" src="assets/images/gear.svg"></a>
             <img width="38" alt="Perfil" src="assets/images/avatar.svg">
-            <span>Mateo Patiño</span>
+            <span>{{usuario}}</span>
         </span>
-        <a href="javascript:;" (click)="openSM(modalSucursal)" class="nameTop">Demo</a>
+        <a href="javascript:;" (click)="openSM(modalSucursal)" class="nameTop">{{nombreSucursal}}</a>
     </nav>
 </header>
 
@@ -31,7 +31,7 @@
         <div class="bodyFormSucursal">
             <fieldset>
                 <label class="label">Usuario</label>
-                <input type="text">
+                <label class="label">{{usuario}}</label>
             </fieldset>
             <fieldset>
                 <label class="label">Fecha</label>
@@ -40,7 +40,7 @@
             <fieldset>
                 <label class="label">Sucursal</label>
                 <select>
-                    <option>Seleccione..</option>
+                    <option *ngFor="let sucursal of sucursales" value="{{sucursal.ID_SUC}}">{{sucursal.NOM_SUC}}</option>
                 </select>
             </fieldset>
         </div>

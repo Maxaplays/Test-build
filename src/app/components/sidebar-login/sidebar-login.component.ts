@@ -26,14 +26,19 @@ export class SidebarLoginComponent implements OnInit {
         // console.log(parametro);
         // this.username = data.username;
         console.log(data);
-        if (data.username !==  '') {
+        if (data.error ===  null) {
           // si esta logueado
+          localStorage.setItem('usuario', data.username);//nombre de usuario
+          localStorage.setItem('codigoSucursal', data.sucursal[0]);//codigo de sucursal
+          localStorage.setItem('nombreSucursal', data.sucursal[1]);//nombre de sucursal
+          localStorage.setItem('rolesUsuario', data.roles);//roles de usuario
+          localStorage.setItem('emailUsuario', data.email);//roles de usuario
           this.loginService.isAutenticated = true;
           this.router.navigate(['inicio']).then(r => '');
         } else {
           // error de logueo
           this.etiquetaWarning = true;
-          this.mensajeAlerta = data.mensaje;
+          this.mensajeAlerta = data.error;
         }
         // this.nombre = data;
       }, ( errorServicio ) => {

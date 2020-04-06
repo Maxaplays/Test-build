@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { MenuService } from 'src/app/services/menu/menu.service';
 
 @Component({
   selector: 'app-menutop',
@@ -8,10 +9,16 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class MenutopComponent implements OnInit {
   closeResult: string;
+  usuario: string;
+  nombreSucursal: string;
+  sucursales:any[];
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal,private menuService:MenuService) { }
 
   ngOnInit() {
+    this.usuario=localStorage.getItem('usuario');
+    this.nombreSucursal=localStorage.getItem('nombreSucursal');
+    this.getSucursales();
   }
 
   open(content) {
@@ -36,4 +43,14 @@ export class MenutopComponent implements OnInit {
     this.modalService.open(content, {windowClass: 'custom-sm-modal'});
   }
 
+  getSucursales(){
+    this.menuService.getSucursales(this.usuario).subscribe(
+      (data: any) => {
+        this.sucursales=data.USUARIOS_SUCURSAL;
+        console.log(this.sucursales);
+      }, ( errorServicio ) => {
+        console.log('Error');
+      }
+    );
+  }
 }

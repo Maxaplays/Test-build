@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditarCuentaComponent implements OnInit {
 
-  constructor() { }
+  usuario:string;
+  emailUsuario:string;
+  
+  constructor() { 
+    this.usuario= localStorage.getItem('usuario');//nombre de usuario
+    this.emailUsuario=localStorage.getItem('emailUsuario');//roles de usuario
+  }
 
   ngOnInit() {
   }
