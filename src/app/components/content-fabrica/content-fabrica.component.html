@@ -16,28 +16,28 @@
     </form>
 
     <div>
-        <form class="forms forms-relative">
+        <form class="forms forms-relative" [formGroup]="FormularioDatosBasicos">
             <div class="cols cols3">
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Documentación</label>
-                        <select tabindex="1">
+                        <select formControlName="tipoDocumentacion" tabindex="1">
                             <option *ngFor="let tipo of tipoDoc" >{{tipo.NOM_TDOC}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label"># Identificación</label>
-                        <input type="number" placeholder="Escriba Número de identificación" tabindex="2">
+                        <input formControlName="cedula" type="number" placeholder="Escriba Número de identificación" tabindex="2">
                     </fieldset>
                     <fieldset>
                         <label class="label">Estado Civil</label>
-                        <select tabindex="3">
+                        <select formControlName="estadoCivil" tabindex="3">
                             <option>Seleccione...</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Fecha de Nacimiento / Inicio Actividades</label>
-                        <input type="date" placeholder="dd/mm/aaaa" tabindex="4">
+                        <input formControlName="fechaNacimiento" type="date" placeholder="dd/mm/aaaa" tabindex="4">
                     </fieldset>
                 </div>
                 <div>
@@ -82,6 +82,7 @@
                         <select tabindex="12">
                             <option>Seleccione..</option>
                         </select>
+                        <label class="label">{{FormularioDatosBasicos.status}}</label>
                     </fieldset>
                 </div>
             </div>
@@ -98,7 +99,8 @@
             <div class="align-right">
                 <button class="btn btn-border-gray" (click)="open(datosAdicionales)">Datos Adicionales</button>
                 <button class="btn btn-border-gray">Borrar</button>
-                <button class="btn btn-solid-green" tabindex="13" (click)="openCustomWidthVariant(mensajeAdvertencia)">Validar</button>
+                <!-- <button class="btn btn-solid-green" tabindex="13" (click)="openCustomWidthVariant(mensajeAdvertencia)">Validar</button> -->
+                <button class="btn btn-solid-green" tabindex="13" (click)="ValidarFormularioDatosBasicos()">Validar</button>
                 <button class="btn btn-solid-gray" (click)="open(content)">Continuar</button>
             </div>
         </div>

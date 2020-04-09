@@ -9,16 +9,18 @@ import { MenuService } from 'src/app/services/menu/menu.service';
 })
 export class MenutopComponent implements OnInit {
   closeResult: string;
-  usuario: string;
+  usuario: string="";
   nombreSucursal: string;
   sucursales:any[];
 
-  constructor(private modalService: NgbModal,private menuService:MenuService) { }
+  constructor(private modalService: NgbModal, private menuService: MenuService) { 
+      this.usuario = localStorage.getItem('usuario');
+      this.nombreSucursal = localStorage.getItem('nombreSucursal');
+      this.getSucursales();
+  }
 
   ngOnInit() {
-    this.usuario=localStorage.getItem('usuario');
-    this.nombreSucursal=localStorage.getItem('nombreSucursal');
-    this.getSucursales();
+    
   }
 
   open(content) {
@@ -47,9 +49,9 @@ export class MenutopComponent implements OnInit {
     this.menuService.getSucursales(this.usuario).subscribe(
       (data: any) => {
         this.sucursales=data.USUARIOS_SUCURSAL;
-        console.log(this.sucursales);
+        //console.log(this.sucursales);
       }, ( errorServicio ) => {
-        console.log('Error');
+        // console.log('Error');
       }
     );
   }
