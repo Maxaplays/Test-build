@@ -27,7 +27,7 @@ export class FabricaService {
   }
   
   public getEnvioFabricaServiceBi (hero: EnvioFabricaServiceBi) {
-    const url = environment.urlServiciosBackend + 'FabricaCredito/' + hero.cedula ;
+    const url = environment.urlServiciosBackend + 'FabricaCredito?Identificacion=' + hero.cedula ;
     return this.http.get(url);
   }
 

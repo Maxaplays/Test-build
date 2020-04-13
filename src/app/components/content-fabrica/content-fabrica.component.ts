@@ -102,7 +102,7 @@ export class ContentFabricaComponent implements OnInit {
         this.datosGenerales = data;
         console.log('Padre:');
         console.log(this.datosGenerales);
-        this.router.navigate(['/fabrica/nueva-solicitud/credito'], this.datosGenerales);
+        // this.router.navigate(['/fabrica/nueva-solicitud/credito'], this.datosGenerales);
       }, ( errorServicio ) => {
         //console.log('Error');
       }
