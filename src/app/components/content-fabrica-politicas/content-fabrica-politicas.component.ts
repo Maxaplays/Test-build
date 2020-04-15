@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { FabricaService, DatosFabrica } from 'src/app/services/fabricaCredito/fabrica.service';
 
 
 @Component({
@@ -9,10 +10,18 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class ContentFabricaPoliticasComponent implements OnInit {
   closeResult: string;
-
-  constructor(private modalService: NgbModal) {}
+  //bkm
+  mensajeServicio: DatosFabrica;
+  //bkm
+  constructor(private modalService: NgbModal,
+              private fabricaService: FabricaService) {}
 
   ngOnInit() {
+    this.fabricaService.currentMessage.subscribe(
+      data => {
+        this.mensajeServicio = data;
+        //console.log(data);
+      });
   }
 
   openLg(content) {

@@ -4,63 +4,63 @@
         <ul class="grid-list grid-list-fix">
             <li>
                 <h5>Solicitud #</h5>
-                <span>DEMO0003</span>
+                <span>{{mensajeServicio.NumeroCredito}}</span>
             </li>
             <li>
                 <h5>Cédula</h5>
-                <span>171897992</span>
+                <span>{{mensajeServicio.Cedula}}</span>
             </li>
             <li>
                 <h5>Nombre</h5>
-                <span>SUNTAXI LLUMIQUINGA HENRY DARIO</span>
+                <span>{{mensajeServicio.NombreConsultado}}</span>
             </li>
             <li>
                 <h5>Estado</h5>
-                <span class="tag">INGRESANDO</span>
+                <span class="tag">{{mensajeServicio.Estado}}</span>
             </li>
             <li>
                 <h5>Sub-estado</h5>
-                <span class="tag tag-blue">PRE-APROBADO</span>
+                <span>{{mensajeServicio.SubEstado}}</span>
             </li>
             <li>
                 <h5>Fecha Creación</h5>
-                <span>01/04/2019</span>
+                <span>{{mensajeServicio.FechaCreacion}}</span>
             </li>
             <li>
                 <h5>Tipo de Crédito</h5>
-                <span>Automotriz</span>
+                <span>{{mensajeServicio.TipoCredito}}</span>
             </li>
         </ul>
         <ul class="grid-list">
             <li>
                 <h5>Perfil Aplicado</h5>
-                <span>34</span>
+                <span>{{mensajeServicio.PerfilAplicado}}</span>
             </li>
             <li>
                 <h5>Score</h5>
-                <span>914</span>
+                <span>{{mensajeServicio.ScoreDeudor}}</span>
             </li>
             <li>
                 <h5>Ingreso Validado</h5>
-                <span>SI</span>
+                <span>{{mensajeServicio.IngresoValidado}}</span>
             </li>
             <li>
                 <h5>Asesor Asociado</h5>
                 <select>
-                    <option>Mateo Patiño</option>
+                    <option>{{mensajeServicio.AsesorAsociado}}</option>
                 </select>
             </li>
             <li>
                 <h5>Valor de la Venta</h5>
-                <span>$2.088,31</span>
+                <span>{{mensajeServicio.ValorTotal}}</span>
             </li>
             <li>
                 <h5>Valor de la Entrada</h5>
-                <span>$100,00</span>
+                <span>{{mensajeServicio.Entrada}}</span>
             </li>
             <li>
                 <h5>Valor Crédito Solicitado</h5>
-                <span>$1.988,31</span>
+                <span>{{mensajeServicio.Monto}}</span>
             </li>
         </ul>
     </div>
@@ -118,26 +118,26 @@
                     <input type="text" value="60" disabled>
                 </fieldset>
             </div>
-          <div>
-            <fieldset>
-              <label class="label">Entidad Financiera</label>
-              <select id="NOMBRE_BANCO" name="NOMBRE_BANCO" [(ngModel)]="NOMBRE_BANCO" (change)="getTipoCuenta()">
+            <div>
+                <fieldset>
+                    <label class="label">Entidad Financiera</label>
+                    <select id="NOMBRE_BANCO" name="NOMBRE_BANCO" [(ngModel)]="NOMBRE_BANCO" (change)="getTipoCuenta()">
                 <option *ngFor="let entidad of EntidadFinanciera" [value]="entidad.NOMBRE_BANCO">{{entidad.NOMBRE_BANCO}}</option>
               </select>
-            </fieldset>
-            <fieldset>
-              <label class="label">Tipo de Cuenta</label>
-              <select id="TIPO_BANCO" name="TIPO_BANCO" [(ngModel)]="TIPO_BANCO" (change)="getNumeroCuenta()">
+                </fieldset>
+                <fieldset>
+                    <label class="label">Tipo de Cuenta</label>
+                    <select id="TIPO_BANCO" name="TIPO_BANCO" [(ngModel)]="TIPO_BANCO" (change)="getNumeroCuenta()">
                 <option *ngFor="let tipo of TipoCuenta" [value]="tipo.cod_tcu">{{tipo.nom_tcu}}</option>
               </select>
-            </fieldset>
-            <fieldset>
-              <label class="label"># Cuenta Bancaria</label>
-              <select>
+                </fieldset>
+                <fieldset>
+                    <label class="label"># Cuenta Bancaria</label>
+                    <select>
                 <option *ngFor="let numero of NumeroCuenta" [value]="numero.NUMERO_CUENTA">{{numero.NUMERO_CUENTA}}</option>
               </select>
-            </fieldset>
-          </div>
+                </fieldset>
+            </div>
         </div>
         <div class="align-right" style="padding-top: 40px;">
             <button class="btn btn-solid-blue">Generar Documentación Seleccionada</button>
@@ -222,19 +222,25 @@
                         </tr>
                         <tr>
                             <td><input type="checkbox"></td>
-                            <td><a href="#" class="link-doc"><img src="assets/images/icon-document-list.svg"> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a></td>
+                            <td>
+                                <a href="#" class="link-doc"><img src="assets/images/icon-document-list.svg"> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a>
+                            </td>
                             <td>25/06/2019</td>
                             <td>vegas@mfcapitalgroup.com</td>
                         </tr>
                         <tr>
                             <td><input type="checkbox"></td>
-                            <td><a href="#" class="link-doc"><img src="assets/images/icon-document-list.svg"> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a></td>
+                            <td>
+                                <a href="#" class="link-doc"><img src="assets/images/icon-document-list.svg"> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a>
+                            </td>
                             <td>25/06/2019</td>
                             <td>vegas@mfcapitalgroup.com</td>
                         </tr>
                         <tr>
                             <td><input type="checkbox"></td>
-                            <td><a href="#" class="link-doc"><img src="assets/images/icon-document-list.svg"> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a></td>
+                            <td>
+                                <a href="#" class="link-doc"><img src="assets/images/icon-document-list.svg"> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a>
+                            </td>
                             <td>25/06/2019</td>
                             <td>vegas@mfcapitalgroup.com</td>
                         </tr>

@@ -1,66 +1,66 @@
-<div class="content">            
+<div class="content">
 
     <div class="content-grid-list">
         <ul class="grid-list grid-list-fix">
             <li>
                 <h5>Solicitud #</h5>
-                <span>-</span>
+                <span>{{mensajeServicio.NumeroCredito}}</span>
             </li>
             <li>
                 <h5>Cédula</h5>
-                <span>-</span>
+                <span>{{mensajeServicio.Cedula}}</span>
             </li>
             <li>
                 <h5>Nombre</h5>
-                <span>-</span>
+                <span>{{mensajeServicio.NombreConsultado}}</span>
             </li>
             <li>
                 <h5>Estado</h5>
-                <span class="tag">INGRESANDO</span>
+                <span class="tag">{{mensajeServicio.Estado}}</span>
             </li>
             <li>
                 <h5>Sub-estado</h5>
-                <span>-</span>
+                <span>{{mensajeServicio.SubEstado}}</span>
             </li>
             <li>
                 <h5>Fecha Creación</h5>
-                <span>-</span>
+                <span>{{mensajeServicio.FechaCreacion}}</span>
             </li>
             <li>
                 <h5>Tipo de Crédito</h5>
-                <span>-</span>
+                <span>{{mensajeServicio.TipoCredito}}</span>
             </li>
         </ul>
         <ul class="grid-list">
             <li>
                 <h5>Perfil Aplicado</h5>
-                <span>-</span>
+                <span>{{mensajeServicio.PerfilAplicado}}</span>
             </li>
             <li>
                 <h5>Score</h5>
-                <span>-</span>
+                <span>{{mensajeServicio.ScoreDeudor}}</span>
             </li>
             <li>
                 <h5>Ingreso Validado</h5>
-                <span>-</span>
+                <span>{{mensajeServicio.IngresoValidado}}</span>
             </li>
             <li>
                 <h5>Asesor Asociado</h5>
                 <select>
-                    <option>Mateo Patiño</option>
+                    <option>{{mensajeServicio.AsesorAsociado}}</option>
                 </select>
             </li>
             <li>
                 <h5>Valor de la Venta</h5>
-                <span>-</span>
+                <span>{{mensajeServicio.ValorTotal}}</span>
             </li>
             <li>
                 <h5>Valor de la Entrada</h5>
-                <span>-</span>
+                <span>{{mensajeServicio.Entrada}}</span>
             </li>
             <li>
                 <h5>Valor Crédito Solicitado</h5>
-                <span>-</span>
+                <span>{{mensajeServicio.Monto}}</span>
             </li>
         </ul>
     </div>

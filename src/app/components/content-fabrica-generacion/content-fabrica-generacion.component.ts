@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { DocumentosService } from '../../services/documentos.service';
 import {map} from 'rxjs/operators';
+import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
 
 
 @Component({
@@ -17,13 +18,23 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   EntidadFinanciera: any[] = [];
   TipoCuenta: any[] = [];
   NumeroCuenta: any[] = [];
-  constructor(private modalService: NgbModal, private documentosService: DocumentosService) {
+  //bkm
+  mensajeServicio: DatosFabrica;
+  //bkm
+  constructor(private modalService: NgbModal, 
+              private documentosService: DocumentosService,
+              private fabricaService: FabricaService) {
     this.EntidadFinanciera = this.getEntidadFinanciera();
     this.TipoCuenta = this.getTipoCuenta();
     this.NumeroCuenta = this.getNumeroCuenta();
   }
 
   ngOnInit() {
+    this.fabricaService.currentMessage.subscribe(
+      data => {
+        this.mensajeServicio = data;
+        //console.log(data);
+      });
   }
 
   openLg(content) {

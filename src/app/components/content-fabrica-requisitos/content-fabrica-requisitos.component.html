@@ -1,74 +1,74 @@
-<div class="content">            
+<div class="content">
 
-        <div class="content-grid-list">
-            <ul class="grid-list grid-list-fix">
-                <li>
-                    <h5>Solicitud #</h5>
-                    <span>DEMO0003</span>
-                </li>
-                <li>
-                    <h5>Cédula</h5>
-                    <span>171897992</span>
-                </li>
-                <li>
-                    <h5>Nombre</h5>
-                    <span>SUNTAXI LLUMIQUINGA HENRY DARIO</span>
-                </li>
-                <li>
-                    <h5>Estado</h5>
-                    <span class="tag">INGRESANDO</span>
-                </li>
-                <li>
-                    <h5>Sub-estado</h5>
-                    <span class="tag tag-blue">PRE-APROBADO</span>
-                </li>
-                <li>
-                    <h5>Fecha Creación</h5>
-                    <span>01/04/2019</span>
-                </li>
-                <li>
-                    <h5>Tipo de Crédito</h5>
-                    <span>Automotriz</span>
-                </li>
-            </ul>
-            <ul class="grid-list">
-                <li>
-                    <h5>Perfil Aplicado</h5>
-                    <span>34</span>
-                </li>
-                <li>
-                    <h5>Score</h5>
-                    <span>914</span>
-                </li>
-                <li>
-                    <h5>Ingreso Validado</h5>
-                    <span>SI</span>
-                </li>
-                <li>
-                    <h5>Asesor Asociado</h5>
-                    <select>
-                        <option>Mateo Patiño</option>
-                    </select>
-                </li>
-                <li>
-                    <h5>Valor de la Venta</h5>
-                    <span>$2.088,31</span>
-                </li>
-                <li>
-                    <h5>Valor de la Entrada</h5>
-                    <span>$100,00</span>
-                </li>
-                <li>
-                    <h5>Valor Crédito Solicitado</h5>
-                    <span>$1.988,31</span>
-                </li>
-            </ul>
-        </div>
-    
-        <app-steps></app-steps>
+    <div class="content-grid-list">
+        <ul class="grid-list grid-list-fix">
+            <li>
+                <h5>Solicitud #</h5>
+                <span>{{mensajeServicio.NumeroCredito}}</span>
+            </li>
+            <li>
+                <h5>Cédula</h5>
+                <span>{{mensajeServicio.Cedula}}</span>
+            </li>
+            <li>
+                <h5>Nombre</h5>
+                <span>{{mensajeServicio.NombreConsultado}}</span>
+            </li>
+            <li>
+                <h5>Estado</h5>
+                <span class="tag">{{mensajeServicio.Estado}}</span>
+            </li>
+            <li>
+                <h5>Sub-estado</h5>
+                <span>{{mensajeServicio.SubEstado}}</span>
+            </li>
+            <li>
+                <h5>Fecha Creación</h5>
+                <span>{{mensajeServicio.FechaCreacion}}</span>
+            </li>
+            <li>
+                <h5>Tipo de Crédito</h5>
+                <span>{{mensajeServicio.TipoCredito}}</span>
+            </li>
+        </ul>
+        <ul class="grid-list">
+            <li>
+                <h5>Perfil Aplicado</h5>
+                <span>{{mensajeServicio.PerfilAplicado}}</span>
+            </li>
+            <li>
+                <h5>Score</h5>
+                <span>{{mensajeServicio.ScoreDeudor}}</span>
+            </li>
+            <li>
+                <h5>Ingreso Validado</h5>
+                <span>{{mensajeServicio.IngresoValidado}}</span>
+            </li>
+            <li>
+                <h5>Asesor Asociado</h5>
+                <select>
+                    <option>{{mensajeServicio.AsesorAsociado}}</option>
+                </select>
+            </li>
+            <li>
+                <h5>Valor de la Venta</h5>
+                <span>{{mensajeServicio.ValorTotal}}</span>
+            </li>
+            <li>
+                <h5>Valor de la Entrada</h5>
+                <span>{{mensajeServicio.Entrada}}</span>
+            </li>
+            <li>
+                <h5>Valor Crédito Solicitado</h5>
+                <span>{{mensajeServicio.Monto}}</span>
+            </li>
+        </ul>
+    </div>
 
-        <form class="steps-mobile">
-            <select id='selectSteps'>
+    <app-steps></app-steps>
+
+    <form class="steps-mobile">
+        <select id='selectSteps'>
                 <option value='datos-basicos'>Datos básicos</option>
                 <option value='credito'>Crédito</option>
                 <option value='solicitud-credito'>Solicitud Crédito</option>
@@ -78,121 +78,121 @@
                 <option value='control-calidad'>Control Calidad</option>
                 <option value='resumen'>Resumen</option>
             </select>
-        </form>
+    </form>
 
-        <div class="forms forms-relative">
-            <div class="buscador-general">
-                <label class="label">Buscador General</label>
-                <input type="text" placeholder="Filtrar">
+    <div class="forms forms-relative">
+        <div class="buscador-general">
+            <label class="label">Buscador General</label>
+            <input type="text" placeholder="Filtrar">
+        </div>
+        <div id="table-scroll">
+            <table class="width-filters">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox"></th>
+                        <th>Solicitar Excepción</th>
+                        <th>Estado</th>
+                        <th>Url</th>
+                        <th>Política</th>
+                        <th>Requisito</th>
+                        <th>Aprobado</th>
+                        <th>Usuario Aprobado</th>
+                        <th>Fecha Aprobado</th>
+                        <th>Validado</th>
+                        <th>Observaciones Validado</th>
+                        <th>Usuario Activo</th>
+                        <th>Fecha Archivo</th>
+                        <th>Nombre Archivo</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td><a href="#" class="tag-with-radius">Solicitar</a></td>
+                        <td><span class="light yellow"></span></td>
+                        <td></td>
+                        <td>Copia de Cédula Vigente</td>
+                        <td>Si</td>
+                        <td><img src="assets/images/icon-check.svg" class="check-center"></td>
+                        <td>Proceso Automático</td>
+                        <td>25/06/2019</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>...</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td><a href="#" class="tag-with-radius">Solicitar</a></td>
+                        <td><span class="light yellow"></span></td>
+                        <td></td>
+                        <td>Copia de Cédula Vigente</td>
+                        <td>Si</td>
+                        <td><img src="assets/images/icon-check.svg" class="check-center"></td>
+                        <td>Proceso Automático</td>
+                        <td>25/06/2019</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>...</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td><a href="#" class="tag-with-radius">Solicitar</a></td>
+                        <td><span class="light yellow"></span></td>
+                        <td></td>
+                        <td>Copia de Cédula Vigente</td>
+                        <td>Si</td>
+                        <td><img src="assets/images/icon-check.svg" class="check-center"></td>
+                        <td>Proceso Automático</td>
+                        <td>25/06/2019</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>...</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td><a href="#" class="tag-with-radius">Solicitar</a></td>
+                        <td><span class="light yellow"></span></td>
+                        <td></td>
+                        <td>Copia de Cédula Vigente</td>
+                        <td>Si</td>
+                        <td><img src="assets/images/icon-check.svg" class="check-center"></td>
+                        <td>Proceso Automático</td>
+                        <td>25/06/2019</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>...</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer-fixed-forms">
+        <div class="cols cols2">
+            <div class="align-left">
+                <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button>
+                <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Documentación</button>
             </div>
-            <div id="table-scroll">
-                <table class="width-filters">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox"></th>
-                            <th>Solicitar Excepción</th>
-                            <th>Estado</th>
-                            <th>Url</th>
-                            <th>Política</th>
-                            <th>Requisito</th>
-                            <th>Aprobado</th>
-                            <th>Usuario Aprobado</th>
-                            <th>Fecha Aprobado</th>
-                            <th>Validado</th>
-                            <th>Observaciones Validado</th>
-                            <th>Usuario Activo</th>
-                            <th>Fecha Archivo</th>
-                            <th>Nombre Archivo</th>
-                            <th>Observaciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td><a href="#" class="tag-with-radius">Solicitar</a></td>
-                            <td><span class="light yellow"></span></td>
-                            <td></td>
-                            <td>Copia de Cédula Vigente</td>
-                            <td>Si</td>
-                            <td><img src="assets/images/icon-check.svg" class="check-center"></td>
-                            <td>Proceso Automático</td>
-                            <td>25/06/2019</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>...</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td><a href="#" class="tag-with-radius">Solicitar</a></td>
-                            <td><span class="light yellow"></span></td>
-                            <td></td>
-                            <td>Copia de Cédula Vigente</td>
-                            <td>Si</td>
-                            <td><img src="assets/images/icon-check.svg" class="check-center"></td>
-                            <td>Proceso Automático</td>
-                            <td>25/06/2019</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>...</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td><a href="#" class="tag-with-radius">Solicitar</a></td>
-                            <td><span class="light yellow"></span></td>
-                            <td></td>
-                            <td>Copia de Cédula Vigente</td>
-                            <td>Si</td>
-                            <td><img src="assets/images/icon-check.svg" class="check-center"></td>
-                            <td>Proceso Automático</td>
-                            <td>25/06/2019</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>...</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td><a href="#" class="tag-with-radius">Solicitar</a></td>
-                            <td><span class="light yellow"></span></td>
-                            <td></td>
-                            <td>Copia de Cédula Vigente</td>
-                            <td>Si</td>
-                            <td><img src="assets/images/icon-check.svg" class="check-center"></td>
-                            <td>Proceso Automático</td>
-                            <td>25/06/2019</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>...</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="align-right">
+                <button class="btn btn-border-gray">Cancelar</button>
+                <button class="btn btn-solid-green">Guardar</button>
+                <button class="btn btn-solid-blue">Siguiente</button>
             </div>
         </div>
-
-        <div class="footer-fixed-forms">
-            <div class="cols cols2">
-                <div class="align-left">
-                    <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button>
-                    <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Documentación</button>
-                </div>
-                <div class="align-right">
-                    <button class="btn btn-border-gray">Cancelar</button>
-                    <button class="btn btn-solid-green">Guardar</button>
-                    <button class="btn btn-solid-blue">Siguiente</button>
-                </div>
-            </div>
-        </div>
+    </div>
 </div>
 
 <ng-template #verHistorial let-modal>

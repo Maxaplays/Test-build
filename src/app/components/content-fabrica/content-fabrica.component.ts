@@ -5,7 +5,7 @@ import {debounceTime} from 'rxjs/operators';
 import { TipoDocumentacionService } from 'src/app/services/tipo-documentacion.service';
 import { map } from 'rxjs/operators';
 import { FormGroup, Validators, FormControl,ReactiveFormsModule } from '@angular/forms';
-import { FabricaService, EnvioFabricaServiceBi } from '../../services/fabricaCredito/fabrica.service';
+import { FabricaService, EnvioFabricaServiceBi, DatosFabrica } from '../../services/fabricaCredito/fabrica.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,13 +23,14 @@ export class ContentFabricaComponent implements OnInit {
   //bkm
   FormularioDatosBasicos: FormGroup;
   tipoDoc:any[] = [];
-  datosGenerales: any;
+  datosGenerales: DatosFabrica;
+  mensajeServicio: DatosFabrica;
   //bkm
 
   constructor(private modalService: NgbModal, 
               private tipoDocumentacionService: TipoDocumentacionService, 
               private fabricaService: FabricaService,
-              private router:Router) {
+              private router: Router) {
     this.tipoDoc = this.getTipoDoc(); // CARGA DEL COMBO DE TIPO DE documentos
     console.log(this.tipoDoc);
   }
@@ -43,6 +44,7 @@ export class ContentFabricaComponent implements OnInit {
     this._error.pipe(
       debounceTime(5000)
     ).subscribe(() => this.errorMessage = null);
+    this.fabricaService.currentMessage.subscribe(data => this.mensajeServicio = data);
   }
   
   open(content) {
@@ -97,9 +99,15 @@ export class ContentFabricaComponent implements OnInit {
     envioDatos.estadoCivil = this.FormularioDatosBasicos.controls['estadoCivil'].value;
     envioDatos.fechaNacimiento = this.FormularioDatosBasicos.controls['fechaNacimiento'].value;
     console.log(envioDatos);
-    this.fabricaService.getEnvioFabricaServiceBi(envioDatos).subscribe(
-      (data: any) => {
+    this.fabricaService.getEnvioFabricaServiceBi(envioDatos).pipe(map (data => data["Table1"][0])).subscribe(
+      (data: DatosFabrica) => {
         this.datosGenerales = data;
+        this.datosGenerales.Cedula = envioDatos.cedula;
+        this.datosGenerales.Estado = 'Consultado';
+        this.datosGenerales.FechaCreacion = new Date().toDateString();
+        this.datosGenerales.AsesorAsociado = localStorage.getItem('usuario');//nombre de usuario;
+
+        this.fabricaService.changeMessage(this.datosGenerales);
         console.log('Padre:');
         console.log(this.datosGenerales);
         // this.router.navigate(['/fabrica/nueva-solicitud/credito'], this.datosGenerales);

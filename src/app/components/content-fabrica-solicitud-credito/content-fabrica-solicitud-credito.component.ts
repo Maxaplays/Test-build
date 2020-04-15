@@ -3,6 +3,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {DireccionesService} from '../../services/direcciones/direcciones.service';
 import {TelefonosService} from '../../services/telefonos/telefonos.service';
 import {map} from 'rxjs/operators';
+import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
 
 
 @Component({
@@ -12,7 +13,9 @@ import {map} from 'rxjs/operators';
 })
 export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   closeResult: string;
-
+  //bkm
+  mensajeServicio: DatosFabrica;
+  
   // variables para presentacion
   tipoDir: any[] = [];
   provincias: any[] = [];
@@ -28,9 +31,12 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   COD_CAN: string;
   COD_PAR: string;
   ID_CLI =  '1716822679';
-
+  //bkm
   // tslint:disable-next-line:max-line-length
-  constructor(private modalService: NgbModal, private tipoDireccionesService: DireccionesService, private tipoTelefonoServive: TelefonosService) {
+  constructor(private modalService: NgbModal, 
+              private tipoDireccionesService: DireccionesService, 
+              private tipoTelefonoServive: TelefonosService,
+              private fabricaService: FabricaService) {
     this.tipoDir = this.getTipoDir();
     this.provincias = this.getProvincia();
     this.cantones = this.getCanton();
@@ -40,6 +46,11 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fabricaService.currentMessage.subscribe(
+      data => {
+        this.mensajeServicio = data;
+        //console.log(data);
+      });
   }
 
   openLg(content) {

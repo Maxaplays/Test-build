@@ -44,6 +44,7 @@ import { ModalHistorialComponent } from './components/modal-historial/modal-hist
 import { HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'inicio', component: DashboardComponent },
