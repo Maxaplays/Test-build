@@ -30,8 +30,8 @@ export class FabricaService {
     return this.http.get(url);
   }
   
-  public getEnvioFabricaServiceBi (hero: EnvioFabricaServiceBi) {
-    const url = environment.urlServiciosBackend + 'FabricaCredito?Identificacion=' + hero.cedula ;
+  public getEnvioFabricaServiceBi (datosParaEnviar: EnvioFabricaServiceBi) {
+    const url = environment.urlServiciosBackend + `FabricaCredito?Identificacion=${datosParaEnviar.cedula}&TipoDocumentacion=${datosParaEnviar.tipoDocumento}&IngresosIndependiente=${datosParaEnviar.IngresosIndependiente}&IngresoDependiente=${datosParaEnviar.IngresoDependiente}&VentaTotal=${datosParaEnviar.VentaTotal}&Producto=${datosParaEnviar.Producto}&IdSucursal=${datosParaEnviar.IdSucursal}&Usuario=${datosParaEnviar.Usuario}`;
     return this.http.get(url);
   }
   changeMessage(message: DatosFabrica) {
@@ -44,6 +44,12 @@ export class EnvioFabricaServiceBi {
   cedula: string;
   estadoCivil: string;
   fechaNacimiento: string;
+  IngresosIndependiente: string;
+  IngresoDependiente: string;
+  VentaTotal: string;
+  Producto: string;
+  IdSucursal: string;
+  Usuario: string;
 }
 export class DatosFabrica{
   public CapacidadPagoSugerida: string;

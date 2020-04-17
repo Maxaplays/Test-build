@@ -39,14 +39,14 @@
             </fieldset>
             <fieldset>
                 <label class="label">Sucursal</label>
-                <select>
-                    <option *ngFor="let sucursal of sucursales" value="{{sucursal.ID_SUC}}">{{sucursal.NOM_SUC}}</option>
+                <select #SucursalActual>
+                    <option *ngFor="let sucursal of sucursales" value="{{sucursal.ID_SUC}}" >{{sucursal.NOM_SUC}}</option>
                 </select>
             </fieldset>
         </div>
         <div class="modal-footer-mfc full variation">
             <div class="align-right">
-                <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Aceptar</button>
+                <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click');cambiarSucursal(SucursalActual.value);">Aceptar</button>
             </div>
         </div>
     </form>

@@ -9,9 +9,11 @@ import { MenuService } from 'src/app/services/menu/menu.service';
 })
 export class MenutopComponent implements OnInit {
   closeResult: string;
-  usuario: string="";
+  // bkm
+  usuario: string = "";
   nombreSucursal: string;
-  sucursales:any[];
+  sucursales: any[];
+  // bkm
 
   constructor(private modalService: NgbModal, private menuService: MenuService) { 
       this.usuario = localStorage.getItem('usuario');
@@ -45,14 +47,22 @@ export class MenutopComponent implements OnInit {
     this.modalService.open(content, {windowClass: 'custom-sm-modal'});
   }
 
-  getSucursales(){
+  getSucursales() {
     this.menuService.getSucursales(this.usuario).subscribe(
       (data: any) => {
-        this.sucursales=data.USUARIOS_SUCURSAL;
-        //console.log(this.sucursales);
+        this.sucursales = data.USUARIOS_SUCURSAL;
+        // console.log(this.sucursales);
       }, ( errorServicio ) => {
         // console.log('Error');
       }
     );
+  }
+  cambiarSucursal(idSucursal: string) {
+      console.log('Cambio sucursal: '+ idSucursal);
+      const nombreSucursal = this.sucursales.find(element => element.ID_SUC === idSucursal);
+      console.log(nombreSucursal);
+      this.nombreSucursal = nombreSucursal.NOM_SUC;
+      localStorage.setItem('nombreSucursal', nombreSucursal.NOM_SUC);
+      localStorage.setItem('idSucursal', idSucursal);
   }
 }

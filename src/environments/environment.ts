@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  urlServiciosBackend: 'http://38.67.136.229/EdimcaPruebasWA/api/'
+  // urlServiciosBackend: 'http://38.67.136.229/EdimcaPruebasWA/api/'
+  urlServiciosBackend: 'http://localhost:63388/api/'
 };
 
 /*

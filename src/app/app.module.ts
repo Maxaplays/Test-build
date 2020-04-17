@@ -43,6 +43,8 @@ import { StepsComponent } from './components/steps/steps.component';
 import { ModalHistorialComponent } from './components/modal-historial/modal-historial.component';
 import { HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { ProductoService } from './services/producto/producto.service';
+import { TipoContactoService } from './services/tipoContacto/tipo-contacto.service';
 
 
 const routes: Routes = [
@@ -103,7 +105,7 @@ const routes: Routes = [
     ControlDeCalidadComponent,
     ContentControlDeCalidadComponent,
     StepsComponent,
-    ModalHistorialComponent
+    ModalHistorialComponent,
   ],
     imports: [
         NgbModule,

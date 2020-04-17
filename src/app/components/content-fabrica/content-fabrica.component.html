@@ -22,7 +22,7 @@
                     <fieldset>
                         <label class="label">Tipo de Documentación</label>
                         <select formControlName="tipoDocumentacion" tabindex="1">
-                            <option *ngFor="let tipo of tipoDoc" >{{tipo.NOM_TDOC}}</option>
+                            <option *ngFor="let tipo of tipoDoc" [value]="tipo.COD_TDOC">{{tipo.NOM_TDOC}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
@@ -32,7 +32,7 @@
                     <fieldset>
                         <label class="label">Estado Civil</label>
                         <select formControlName="estadoCivil" tabindex="3">
-                            <option>Seleccione...</option>
+                            <option *ngFor="let estado of estadoCivil" [value]="estado.COD_ECIV">{{estado.NOM_ECIV}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
@@ -43,46 +43,46 @@
                 <div>
                     <fieldset>
                         <label class="label">Ingresos Mensuales como Dependiente</label>
-                        <input type="number" placeholder="Escriba Ingresos Mensuales" tabindex="5">
+                        <input formControlName="ingresosDependiente" (input)="onIngresosChange()" type="number" placeholder="Escriba Ingresos Mensuales" tabindex="5">
                     </fieldset>
                     <fieldset>
                         <label class="label">Ingresos Mensuales como Independiente</label>
-                        <input type="number" placeholder="Escriba Ingresos Mensuales" tabindex="6">
+                        <input formControlName="ingresosIndependiente" (input)="onIngresosChange()" type="number" placeholder="Escriba Ingresos Mensuales" tabindex="6">
                     </fieldset>
                     <fieldset>
                         <label class="label">Ingreso Disponible</label>
-                        <input type="number" placeholder="Ingreso Disponible" disabled>
+                        <input formControlName="ingresosDisponible" type="number" placeholder="Ingreso Disponible">
                     </fieldset>
                 </div>
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Contacto</label>
-                        <select tabindex="7">
-                            <option>Tipo de Contacto</option>
+                        <select formControlName="tipoContacto" tabindex="7">
+                            <option *ngFor="let tipo of tipoContacto" [value]="tipo.COD_TDIS">{{tipo.NOM_TDIS}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Teléfono Contacto</label>
-                        <input type="text" placeholder="Escriba Teléfono" tabindex="8">
+                        <input formControlName="telefonoContacto" type="text" placeholder="Escriba Teléfono" tabindex="8">
                     </fieldset>
                     <fieldset>
                         <label class="label">Observaciones Contacto</label>
-                        <input type="text" placeholder="Escriba Observaciones Contacto" tabindex="9">
+                        <input formControlName="observacionesContacto" type="text" placeholder="Escriba Observaciones Contacto" tabindex="9">
                     </fieldset>
                     <fieldset>
                         <label class="label"># Formulario Preimpreso</label>
-                        <input type="text" placeholder="Escriba # Formulario Preimpreso" tabindex="10">
+                        <input formControlName="formularioPreimpreso" type="text" placeholder="Escriba # Formulario Preimpreso" tabindex="10">
                     </fieldset>
                     <fieldset>
                         <label class="label">Venta Total</label>
-                        <input type="number" placeholder="Escriba un Monto de Venta Total" tabindex="11">
+                        <input formControlName="ventaTotal" type="number" placeholder="Escriba un Monto de Venta Total" tabindex="11">
                     </fieldset>
                     <fieldset>
                         <label class="label">Producto Crédito</label>
-                        <select tabindex="12">
-                            <option>Seleccione..</option>
+                        <select formControlName="producto" tabindex="12">
+                            <option *ngFor="let prod of productos" [value]="prod.ID_PROD">{{prod.NOM_PROD}}</option>
                         </select>
-                        <label class="label">{{FormularioDatosBasicos.status}}</label>
+                        <label class="label">Estado FOrmulario: {{FormularioDatosBasicos.valid}}</label>
                     </fieldset>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                 <button class="btn btn-border-gray" (click)="open(datosAdicionales)">Datos Adicionales</button>
                 <button class="btn btn-border-gray">Borrar</button>
                 <!-- <button class="btn btn-solid-green" tabindex="13" (click)="openCustomWidthVariant(mensajeAdvertencia)">Validar</button> -->
-                <button class="btn btn-solid-green" tabindex="13" (click)="ValidarFormularioDatosBasicos()">Validar</button>
+                <button [class.btn-solid-green]="FormularioDatosBasicos.valid" [className]="FormularioDatosBasicos.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" tabindex="13" (click)="ValidarFormularioDatosBasicos()">Validar</button>
                 <button class="btn btn-solid-gray" (click)="open(content)">Continuar</button>
             </div>
         </div>
