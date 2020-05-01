@@ -252,6 +252,7 @@
                                 <th>Tipo de Registro</th>
                                 <th>Tipo de Teléfono</th>
                                 <th>Número de Teléfono</th>
+                                <th>Extensión/Observación</th>
                                 <th>Vigente</th>
                                 <th>Validación</th>
                                 <th>Observaciones</th>
@@ -264,6 +265,7 @@
                                 <td data-column="Tipo de Registro">{{telefono.TIPO}}</td>
                                 <td data-column="Tipo de Teléfono">{{telefono.NOM_TDIS}}</td>
                                 <td data-column="Número de Teléfono">{{telefono.VALOR_DIS}}</td>
+                                <td data-column="Extensión/Observación">{{telefono.EXTEN_DIS}}</td>
                                 <td data-column="Vigente">{{telefono.ESTADO_DIS}}</td>
                                 <td data-column="Validación">{{telefono.VALIDADO_DIS}}</td>
                                 <td data-column="Observaciones">{{telefono.OBS_VAL_DIS}}</td>
@@ -273,7 +275,7 @@
                                 </td>
                             </tr>
                             <tr class="foot-td">
-                                <td colspan="11"><span class="foot-table">2 teléfonos</span></td>
+                                <td colspan="11"><span class="foot-table">{{telefonos.length}} teléfonos</span></td>
                             </tr>
 
                         </tbody>
@@ -911,42 +913,51 @@
         </div>
     </div>
     <div class="modal-body variation">
-        <form class="forms forms-relative">
+        <form class="forms forms-relative" autocomplete="off" [formGroup]="formaDirecciones" (ngSubmit)="guardarDireccion()">
             <div class="cols cols3">
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
-                        <select>
-                                <option *ngFor="let tipo of tipoRegTel" [value]="tipo">{{tipo}}</option>
+                        <select formControlName="tipoRegistro" class="form-control"
+                                [class.is-invalid]="tipoRegistroNoValido">
+                                <option *ngFor="let tipo of tipoRegDir" [value]="tipo">{{tipo}}</option>
                             </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Tipo de Dirección</label>
-                        <select>
+                        <select formControlName="tipoDireccion" class="form-control"
+                                [class.is-invalid]="tipoDireccionNoValida">
                                 <option *ngFor="let tipo of tipoDir" [value]="tipo.COD_TDIR">{{tipo.NOM_TDIR}}</option>
                             </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Provincia</label>
-                        <select id="COD_PROV" name="COD_PROV" [(ngModel)]="COD_PROV" (change)="getCanton()">
+                        <select id="COD_PROV" name="COD_PROV" (change)="getCanton()" class="form-control"
+                                formControlName="Provincia"
+                                [class.is-invalid]="ProvinciaNoValida">
                                 <option *ngFor="let provincia of provincias" [value]="provincia.COD_PROV">{{provincia.NOM_PROV}}</option>
                             </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Cantón</label>
-                        <select id="COD_CAN" name="COD_CAN" [(ngModel)]="COD_CAN" (change)="getParroquia()">
+                        <select id="COD_CAN" name="COD_CAN" (change)="getParroquia()" class="form-control"
+                                formControlName="Canton"
+                                [class.is-invalid]="CantonNoValido">
                                 <option *ngFor="let canton of cantones" [value]="canton.COD_CAN">{{canton.NOM_CAN}}</option>
                             </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Parroquia</label>
-                        <select id="COD_PAR" name="COD_PAR" [(ngModel)]="COD_PAR" (change)="getBarrio()">
+                        <select id="COD_PAR" name="COD_PAR" (change)="getBarrio()" class="form-control"
+                                formControlName="Parroquia"
+                                [class.is-invalid]="ParroquiaNoValida">
                                 <option *ngFor="let parroquia of parroquias" [value]="parroquia.COD_PAR">{{parroquia.NOM_PAR}}</option>
                             </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Barrio</label>
-                        <select>
+                        <select formControlName="Barrio" class="form-control"
+                                [class.is-invalid]="BarrioNoValido">
                                 <option *ngFor="let barrio of barrios" [value]="barrio.COD_BAR">{{barrio.NOM_BAR}}</option>
                             </select>
                     </fieldset>
@@ -954,23 +965,33 @@
                 <div>
                     <fieldset>
                         <label class="label">Calle Principal</label>
-                        <input type="text" placeholder="Escriba Calle Principal">
+                        <input type="text" placeholder="Escriba Calle Principal" class="form-control"
+                               formControlName="CallePrincipal"
+                               [class.is-invalid]="CallePrincipalNoValida">
                     </fieldset>
                     <fieldset>
                         <label class="label">Número</label>
-                        <input type="text" placeholder="Escriba Número">
+                        <input type="text" placeholder="Escriba Número" class="form-control"
+                               formControlName="NumeroCalle"
+                               [class.is-invalid]="NumeroCallelNoValido">
                     </fieldset>
                     <fieldset>
                         <label class="label">Calle Secundaria</label>
-                        <input type="text" placeholder="Escriba Calle Secundaria">
+                        <input type="text" placeholder="Escriba Calle Secundaria" class="form-control"
+                               formControlName="CalleSecundaria"
+                               [class.is-invalid]="CalleSecundariaNoValida">
                     </fieldset>
                     <fieldset>
                         <label class="label">Referencia</label>
-                        <input type="text" placeholder="Escriba Referencia">
+                        <input type="text" placeholder="Escriba Referencia" class="form-control"
+                               formControlName="ReferenciaDireccion"
+                               [class.is-invalid]="ReferenciaDireccionNoValida">
                     </fieldset>
                     <fieldset>
                         <label class="label">Código Postal</label>
-                        <input type="text" placeholder="Escriba Código Postal">
+                        <input type="text" placeholder="Escriba Código Postal" class="form-control"
+                               formControlName="CodigoPostalDireccion"
+                               [class.is-invalid]="CodigoPostalDireccionNoValido">
                     </fieldset>
                 </div>
                 <div>
@@ -981,14 +1002,15 @@
                     </fieldset>
                 </div>
             </div>
+          <div class="modal-footer-mfc full variation">
+            <div class="align-right">
+              <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+              <button class="btn btn-solid-gray" type="submit">Guardar dirección</button>
+            </div>
+          </div>
         </form>
     </div>
-    <div class="modal-footer-mfc full variation">
-        <div class="align-right">
-            <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-            <button class="btn btn-solid-gray">Guardar dirección</button>
-        </div>
-    </div>
+
 </ng-template>
 
 <ng-template #agregarEditarTelefono let-modal>
@@ -1006,34 +1028,39 @@
         </div>
     </div>
     <div class="modal-body variation">
-        <form class="forms forms-relative">
+        <form class="forms forms-relative" autocomplete="off" [formGroup]="formaTelefonos" (ngSubmit)="guardarTelefono()">
             <fieldset>
                 <label class="label">Tipo de Registro</label>
-                <select>
-                            <option *ngFor="let tipo of tipoRegTel" [value]="tipo">{{tipo}}</option>
+                <select formControlName="TipoRegistroTelefono">
+                  <option *ngFor="let tipo of tipoRegTel" [value]="tipo">{{tipo}}</option>
                         </select>
             </fieldset>
             <fieldset>
                 <label class="label">Tipo de Teléfono</label>
-                <select id="tipoTel" name="tipoTel">
-                            <option *ngFor="let tipo of tipoTel "[value]="tipo.COD_TDIS">{{tipo.NOM_TDIS}}</option>
+                <select id="tipoTel" name="tipoTel" formControlName="TipoTelefono">
+                            <option *ngFor="let tipo of tipoTel" [value]="tipo.COD_TDIS">{{tipo.NOM_TDIS}}</option>
                         </select>
             </fieldset>
             <fieldset class="complex">
                 <label class="label">Número de Teléfono</label>
-                <select>
+                <select formControlName="CodigoTelefono">
                             <option>02</option>
                             <option>09</option>
                         </select>
-                <input type="text" placeholder="Teléfono">
+                <input type="text" placeholder="Teléfono" formControlName="NumeroTelefono" class="form-control"
+                       [class.is-invalid]="NumeroTelefonoNoValido">
             </fieldset>
+            <fieldset>
+              <label class="label">Extensión</label>
+              <input type="text" placeholder="Extensión / Observación" formControlName="ExtensionTelefono">
+            </fieldset>
+          <div class="modal-footer-mfc full variation">
+            <div class="align-right">
+              <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+              <button class="btn btn-solid-gray" (submit)="guardarTelefono()">Guardar teléfono</button>
+            </div>
+          </div>
         </form>
-    </div>
-    <div class="modal-footer-mfc full variation">
-        <div class="align-right">
-            <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-            <button class="btn btn-solid-gray">Guardar teléfono</button>
-        </div>
     </div>
 </ng-template>
 

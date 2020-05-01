@@ -21,7 +21,7 @@ export class FabricaService {
   };
 
   constructor(private http: HttpClient) {
-    //console.log('Servicio Inicializado');
+    // console.log('Servicio Inicializado');
   }
 
   private getQuery(query: string) {
@@ -29,7 +29,7 @@ export class FabricaService {
     console.log(url);
     return this.http.get(url);
   }
-  
+
   public getEnvioFabricaServiceBi (datosParaEnviar: EnvioFabricaServiceBi) {
     const url = environment.urlServiciosBackend + `FabricaCredito?Identificacion=${datosParaEnviar.cedula}&TipoDocumentacion=${datosParaEnviar.tipoDocumento}&IngresosIndependiente=${datosParaEnviar.IngresosIndependiente}&IngresoDependiente=${datosParaEnviar.IngresoDependiente}&VentaTotal=${datosParaEnviar.VentaTotal}&Producto=${datosParaEnviar.Producto}&IdSucursal=${datosParaEnviar.IdSucursal}&Usuario=${datosParaEnviar.Usuario}`;
     return this.http.get(url);

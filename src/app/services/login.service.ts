@@ -10,12 +10,12 @@ export class LoginService {
   public isAutenticated: boolean;
 
   constructor(private http: HttpClient) {
-    //console.log('Servicio Inicializado');
+    // console.log('Servicio Inicializado');
   }
 
   private getQuery(query: string) {
     const url = environment.urlServiciosBackend + query;
-    //console.log(url);
+    // console.log(url);
     return this.http.get(url);
   }
   public getLogin(user: string, password: string) {
