@@ -47,6 +47,7 @@ import { ProductoService } from './services/producto/producto.service';
 import { TipoContactoService } from './services/tipoContacto/tipo-contacto.service';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 
@@ -112,6 +113,7 @@ const routes: Routes = [
     ContentControlDeCalidadComponent,
     StepsComponent,
     ModalHistorialComponent,
+    LoadingComponent,
   ],
   imports: [
     NgbModule,
