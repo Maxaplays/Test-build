@@ -89,7 +89,6 @@ export class ContentFabricaCreditoComponent implements OnInit {
     let diferencia : number = Total - entrada;
     let formattedNumber = formatNumber(diferencia, this.locale, '.2-2');
     let porcentajeEntrada: number = (entrada / Total)* 100;
-    let formattedNumber = formatNumber(diferencia, this.locale, '.2-2');
     let porcentajeEntradaDecimal = formatNumber(porcentajeEntrada, this.locale, '.2-2');
     this.FormularioDatosBasicos.controls['montoCredito'].setValue(formattedNumber);
     this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(porcentajeEntradaDecimal);
