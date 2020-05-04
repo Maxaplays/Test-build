@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class FabricaService {
   };
 
   constructor(private http: HttpClient) {
-    //console.log('Servicio Inicializado');
+    // console.log('Servicio Inicializado');
   }
 
   private getQuery(query: string) {
@@ -29,15 +29,37 @@ export class FabricaService {
     console.log(url);
     return this.http.get(url);
   }
-  
-  public getEnvioFabricaServiceBi (datosParaEnviar: EnvioFabricaServiceBi) {
+  public getEnvioFabricaServiceBi(datosParaEnviar: EnvioFabricaServiceBi) {
     const url = environment.urlServiciosBackend + `FabricaCredito?Identificacion=${datosParaEnviar.cedula}&TipoDocumentacion=${datosParaEnviar.tipoDocumento}&IngresosIndependiente=${datosParaEnviar.IngresosIndependiente}&IngresoDependiente=${datosParaEnviar.IngresoDependiente}&VentaTotal=${datosParaEnviar.VentaTotal}&Producto=${datosParaEnviar.Producto}&IdSucursal=${datosParaEnviar.IdSucursal}&Usuario=${datosParaEnviar.Usuario}`;
+    return this.http.get(url);
+  }
+  public getcalcularValoresSimulador(valoresSimulador: ValoresSimulador) {
+    console.log(valoresSimulador);
+    console.log('Link del simulador');
+    const url = environment.urlServiciosBackend + `FabricaCredito/calcularValoresSimulador?seMonto=${valoresSimulador.seMonto}&lblPerfilCliente=${valoresSimulador.lblPerfilCliente}&cmbProducto=${valoresSimulador.cmbProducto}&lblSucursal=${valoresSimulador.lblSucursal}&seVentaTotalAplicada=${valoresSimulador.seVentaTotalAplicada}&seMontoSugerido=${valoresSimulador.seMontoSugerido}&seEntrada=${valoresSimulador.seEntrada}&seValorTotal=${valoresSimulador.seValorTotal}&sePlazo=${valoresSimulador.sePlazo}&seTasa=${valoresSimulador.seTasa}&lblPlazoSugerido=${valoresSimulador.lblPlazoSugerido}&idCredito=${valoresSimulador.idCredito}&tipoValidacion=${valoresSimulador.tipoValidacion}&idCredito=${valoresSimulador.idCredito}&relacionLaboral=${valoresSimulador.relacionLaboral}&seCuotaFija=${valoresSimulador.seCuotaFija}&TipoId=${valoresSimulador.TipoId}&PerfilAplicado=${valoresSimulador.PerfilAplicado}&MontoAprobado=${valoresSimulador.MontoAprobado}&usuario=${valoresSimulador.usuario}&ruc=${valoresSimulador.ruc}&entradaAplicada=${valoresSimulador.entradaAplicada}&capacidadPagoSugerida=${valoresSimulador.capacidadPagoSugerida}&EstadoCivil=${valoresSimulador.EstadoCivil}&IngresoValidado=${valoresSimulador.IngresoValidado}&BaseUrl=${valoresSimulador.BaseUrl}&nombreConsultado=${valoresSimulador.nombreConsultado}&fechaNacimiento=${valoresSimulador.fechaNacimiento}`;
+    console.log(url);
     return this.http.get(url);
   }
   changeMessage(message: DatosFabrica) {
     this.messageSource.next(message);
   }
-
+  public addSmartphone(valoresSimulador: ValoresSimulador): Observable<ValoresSimulador> {
+    const url = environment.urlServiciosBackend + `FabricaCredito/PruebaPost`;
+    console.log("Iniciando Post:" + url);
+    let params = new HttpParams().set("requestData", JSON.stringify(valoresSimulador)).set("authenticationType",'');
+    return this.http.get<ValoresSimulador>(url, {params: params})
+      .pipe(
+        catchError(this.handleError('addSmartphone', valoresSimulador))
+      );
+  }
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      console.log(`${operation} failed: ${error.message}`);
+  
+      return of(result as T);
+    };
+  }
 }
 export class EnvioFabricaServiceBi {
   tipoDocumento: string;
@@ -51,7 +73,37 @@ export class EnvioFabricaServiceBi {
   IdSucursal: string;
   Usuario: string;
 }
-export class DatosFabrica{
+export class ValoresSimulador{
+  idCredito: string;
+  seMonto: number;
+  lblPerfilCliente: string;
+  cmbProducto: string;
+  lblSucursal: string;
+  seVentaTotalAplicada: number;
+  seMontoSugerido: number;
+  seEntrada: number;
+  seValorTotal: number;
+  sePlazo: number;
+  seTasa: number;
+  lblPlazoSugerido: number;
+  tipoValidacion: string;
+  relacionLaboral: string;
+  seCuotaFija: string;
+  TipoId: string;
+  PerfilAplicado: string;
+  MontoAprobado: number;
+  usuario: string;
+  ruc: string;
+  entradaAplicada: number;
+  capacidadPagoSugerida: number;
+  EstadoCivil: string;
+  IngresoValidado: string;
+  BaseUrl: string;
+  nombreConsultado: string;
+  fechaNacimiento: Date;
+  resultado: string;
+}
+export class DatosFabrica {
   public CapacidadPagoSugerida: string;
   public Condicion: string;
   public CreditoCabecera: string;
@@ -70,6 +122,8 @@ export class DatosFabrica{
   public GastoFinanciero: string;
   public GastoHogar: string;
   public IngresoValidado: string;
+  public idProducto: string;
+  public idSucursal: string;
   public Monto: string;
   public MontoAprobado: string;
   public MontoMax: string;

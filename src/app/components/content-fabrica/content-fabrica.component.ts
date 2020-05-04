@@ -169,6 +169,8 @@ export class ContentFabricaComponent implements OnInit {
           this.datosGenerales.Estado = 'Consultado';
           this.datosGenerales.FechaCreacion = new Date().toDateString();
           this.datosGenerales.AsesorAsociado = localStorage.getItem('usuario'); // nombre de usuario;
+          this.datosGenerales.idSucursal = localStorage.getItem('codigoSucursal');
+          this.datosGenerales.idProducto = this.FormularioDatosBasicos.controls['producto'].value;
           this.fabricaService.changeMessage(this.datosGenerales);
           console.log('Padre:');
           console.log(this.datosGenerales);

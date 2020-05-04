@@ -189,8 +189,9 @@
             </div>
             <div class="align-right">
                 <button class="btn btn-border-gray">Borrar</button>
-                <button class="btn btn-solid-green" tabindex="4">Guardar</button>
-                <button class="btn btn-solid-blue">Continuar</button>
+                <button class="btn btn-solid-green" (click)="ValidarFormularioDatosBasicos(verResultado,'Validar')" tabindex="4">Validar</button>
+                <button class="btn btn-solid-blue" (click)="ValidarFormularioDatosBasicos(verResultado,'Continuar')">Continuar</button>
+                <!-- <button class="btn btn-solid-blue">Continuar</button> -->
             </div>
         </div>
     </div>
@@ -218,6 +219,46 @@
             </div>
             <div class="align-right">
                 <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Guardar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #verResultado let-modal>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-historial-modal.svg">
+                <h4 class="modal-minititle-mfc">{{mensajeValidacion}}</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body variation">
+        <div class="forms forms-relative" style="padding-bottom: 30px;">
+            <div class="cols cols4">
+                <div>
+                    <label class="label" *ngIf="listadoErrores.length>0">Listado de Errores:</label>
+                    <ul class="grid-list full-grid-list">
+                        <li *ngFor="let error of listadoErrores">
+                            <span class="tag">{{ error }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+            <!-- <div class="align-left">
+                <button class="btn btn-border-blue" routerLink="/configuracion/respuestas" (click)="modal.close('Cancelar click')">Generar respuesta</button>
+            </div> -->
+            <div class="align-right">
+                <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Cerrar y Corregir</button>
             </div>
         </div>
     </div>
