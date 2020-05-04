@@ -21,6 +21,10 @@ export class TelefonosService {
   }
 
   public getTelefonos(ID_CLI: string) {
-    return this.getQuery(`telefonos/${ID_CLI}`);
+    return this.getQuery(`${ID_CLI}`);
+  }
+
+  public postTelefono(COD_TDIS: string, ID_CLI: string, VALOR_DIS: string, EXTEN_DIS: string) {
+    return this.getQuery(`${COD_TDIS},${ID_CLI},${VALOR_DIS},${EXTEN_DIS}`);
   }
 }

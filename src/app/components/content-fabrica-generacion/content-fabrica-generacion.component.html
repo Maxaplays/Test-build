@@ -99,19 +99,21 @@
             <div>
                 <fieldset>
                     <label class="label">Fecha Pagaré</label>
-                    <select>
-                        <option>Seleccione...</option>
-                    </select>
+
+                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="fechaPagare">
+                    <mat-datepicker-toggle matSuffix [for]="fechaPagare"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaPagare></mat-datepicker>
+
+
                 </fieldset>
+
                 <fieldset>
                     <label class="label">Días Inicio Crédito</label>
                     <input type="text" value="15" disabled>
                 </fieldset>
                 <fieldset>
                     <label class="label">Fecha Primer Pago</label>
-                    <select>
-                        <option>Seleccione...</option>
-                    </select>
+                  <input formControlName="fechaPrimerPago" type="date" placeholder="dd/mm/aaaa" tabindex="4">
                 </fieldset>
                 <fieldset>
                     <label class="label">Días Inicio Crédito Máximo</label>
