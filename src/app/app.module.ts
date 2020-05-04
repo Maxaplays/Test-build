@@ -45,6 +45,12 @@ import { HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProductoService } from './services/producto/producto.service';
 import { TipoContactoService } from './services/tipoContacto/tipo-contacto.service';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+
+
+
+
 
 
 const routes: Routes = [
@@ -107,14 +113,16 @@ const routes: Routes = [
     StepsComponent,
     ModalHistorialComponent,
   ],
-    imports: [
-        NgbModule,
-        BrowserModule,
-        RouterModule.forRoot(routes),
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    NgbModule,
+    BrowserModule,
+    RouterModule.forRoot(routes),
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
   exports: [],
   providers: [],
   bootstrap: [AppComponent]

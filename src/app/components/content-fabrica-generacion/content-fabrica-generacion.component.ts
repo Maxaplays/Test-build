@@ -4,7 +4,7 @@ import { DocumentosService } from '../../services/documentos.service';
 import {map} from 'rxjs/operators';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
 
-
+import {FormControl} from '@angular/forms';
 @Component({
   selector: 'app-content-fabrica-generacion',
   templateUrl: './content-fabrica-generacion.component.html',
@@ -18,22 +18,32 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   EntidadFinanciera: any[] = [];
   TipoCuenta: any[] = [];
   NumeroCuenta: any[] = [];
-  //bkm
+  // bkm
   mensajeServicio: DatosFabrica;
-  //bkm
-  constructor(private modalService: NgbModal, 
+  // bkm
+  minDate: Date;
+  maxDate: Date;
+  constructor(private modalService: NgbModal,
               private documentosService: DocumentosService,
               private fabricaService: FabricaService) {
     this.EntidadFinanciera = this.getEntidadFinanciera();
     this.TipoCuenta = this.getTipoCuenta();
+
     this.NumeroCuenta = this.getNumeroCuenta();
+    const currentYear = new  Date () .getFullYear ();
+    const Mont = new  Date () .getMonth();
+    const day = new  Date ().getDay();
+    this .minDate = new  Date (currentYear , Mont , -day);
+    this .maxDate = new  Date (currentYear , Mont , day + 15 );
+
+
   }
 
   ngOnInit() {
     this.fabricaService.currentMessage.subscribe(
       data => {
         this.mensajeServicio = data;
-        //console.log(data);
+        // console.log(data);
       });
   }
 

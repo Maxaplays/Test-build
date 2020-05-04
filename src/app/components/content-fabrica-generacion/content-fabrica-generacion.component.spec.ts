@@ -13,6 +13,7 @@ describe('ContentFabricaGeneracionComponent', () => {
     .compileComponents();
   }));
 
+
   beforeEach(() => {
     fixture = TestBed.createComponent(ContentFabricaGeneracionComponent);
     component = fixture.componentInstance;
