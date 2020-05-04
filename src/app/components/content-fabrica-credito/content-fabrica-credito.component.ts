@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject, LOCALE_ID } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FabricaService, DatosFabrica } from 'src/app/services/fabricaCredito/fabrica.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { formatNumber } from '@angular/common';
 
 @Component({
   selector: 'app-content-fabrica-credito',
@@ -18,7 +19,8 @@ export class ContentFabricaCreditoComponent implements OnInit {
   // bkm
 
   constructor(private modalService: NgbModal,
-              private fabricaService: FabricaService) {
+              private fabricaService: FabricaService,
+              @Inject(LOCALE_ID) private locale: string) {
 
   }
 
@@ -69,10 +71,14 @@ export class ContentFabricaCreditoComponent implements OnInit {
     let plazos: number = this.FormularioDatosBasicos.controls['plazo'].value;
     let tasa: number = this.FormularioDatosBasicos.controls['aplicadoTasa'].value;
     let diferencia : number = Total - entrada;
+    let formattedNumber = formatNumber(diferencia, this.locale, '.2-2');
     let porcentajeEntrada: number = (entrada / Total)* 100;
-    this.FormularioDatosBasicos.controls['montoCredito'].setValue(diferencia);
-    this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(porcentajeEntrada);
-    this.FormularioDatosBasicos.controls['cuotaMensualFija'].setValue(this.calcularCuotaFija(diferencia, plazos, tasa, entrada));
+    let porcentajeEntradaDecimal = formatNumber(porcentajeEntrada, this.locale, '.2-2');
+    this.FormularioDatosBasicos.controls['montoCredito'].setValue(formattedNumber);
+    this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(porcentajeEntradaDecimal);
+    let cuotaMensual = this.calcularCuotaFija(diferencia, plazos, tasa, entrada);
+    let cuotaMensualDecimal = formatNumber(cuotaMensual, this.locale, '.2-2');
+    this.FormularioDatosBasicos.controls['cuotaMensualFija'].setValue(cuotaMensualDecimal);
   }
   calcularCuotaFija(Monto: number, Plazos: number, tasa: number, anticipo: number): number {
     let Cuota_F: number = 0;
