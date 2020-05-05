@@ -86,13 +86,11 @@ export class ContentFabricaCreditoComponent implements OnInit {
     let plazos: number = this.FormularioDatosBasicos.controls['plazo'].value;
     let tasa: number = this.FormularioDatosBasicos.controls['aplicadoTasa'].value;
     let diferencia : number = Total - entrada;
-    let formattedNumber = formatNumber(diferencia, this.locale, '.2-2');
     let porcentajeEntrada: number = (entrada / Total) * 100;
-    let porcentajeEntradaDecimal = formatNumber(porcentajeEntrada, this.locale, '.2-2');
-    this.FormularioDatosBasicos.controls['montoCredito'].setValue(formatNumber(Total, this.locale, '.2-2'));
-    this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(porcentajeEntradaDecimal);
+    this.FormularioDatosBasicos.controls['montoCredito'].setValue(diferencia);
+    this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(porcentajeEntrada);
     let cuotaMensual = this.calcularCuotaFija(diferencia, plazos, tasa, entrada);
-    let cuotaMensualDecimal = formatNumber(cuotaMensual, this.locale, '.2-2');
+    let cuotaMensualDecimal = cuotaMensual;
     this.FormularioDatosBasicos.controls['cuotaMensualFija'].setValue(cuotaMensualDecimal);
     // this.mensajeServicio.PorcentajeEntrada = porcentajeEntrada.toString();
     // this.mensajeServicio.CuotaMensual = this.calcularCuotaFija(diferencia, plazos, tasa, entrada).toString();
@@ -210,6 +208,13 @@ export class ContentFabricaCreditoComponent implements OnInit {
               this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
             } else {
               // Sin errores seguir con siguiente paso
+              console.log(data);
+              this.mensajeServicio.Estado = data.estadoCredito;
+              this.mensajeServicio.PerfilAplicado = data.lblPerfilAplicado;
+              this.mensajeServicio.Entrada = data.entradaReal;
+              this.mensajeServicio.ValorTotal = data.ventaTotalReal;
+              this.mensajeServicio.Monto = data.montoCreditoReal;
+              this.fabricaService.changeMessage(this.mensajeServicio);
               this.router.navigate(['/fabrica/nueva-solicitud/solicitud-credito']);
             } 
           }
