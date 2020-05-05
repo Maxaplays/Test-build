@@ -91,7 +91,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   public getCanton(): any {
     if (this.formaDirecciones.value.Provincia !== '') {
-      console.log('entro');
       this.direccionesService.getCanton(this.formaDirecciones.value.Provincia)
         .pipe(map(data => data["CANTON"]))
         .subscribe((data: any) => {

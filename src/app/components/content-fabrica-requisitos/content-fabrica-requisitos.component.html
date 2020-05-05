@@ -104,76 +104,35 @@
                         <th>Fecha Archivo</th>
                         <th>Nombre Archivo</th>
                         <th>Observaciones</th>
+                        <th>Usuario Solicitud Excepción</th>
+                        <th>Fecha Solicitud Excepción</th>
+                        <th>Usuario Excepcionado</th>
+                        <th>Fecha Excepcionado</th>
+                        <th>Id</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr *ngFor="let requisito of requisitios">
                         <td><input type="checkbox"></td>
-                        <td><a href="#" class="tag-with-radius">Solicitar</a></td>
+                        <td><a class="tag-with-radius">Solicitar</a></td>
                         <td><span class="light yellow"></span></td>
-                        <td></td>
-                        <td>Copia de Cédula Vigente</td>
-                        <td>Si</td>
+                        <td><a href="#"><img src="assets/images/icon-url.svg" class="check-center"></a></td>
+                        <td>{{requisito.NOM_POL}}</td>
+                        <td>{{requisito.VALOR_MAT}}</td>
                         <td><img src="assets/images/icon-check.svg" class="check-center"></td>
-                        <td>Proceso Automático</td>
-                        <td>25/06/2019</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>...</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td><a href="#" class="tag-with-radius">Solicitar</a></td>
-                        <td><span class="light yellow"></span></td>
-                        <td></td>
-                        <td>Copia de Cédula Vigente</td>
-                        <td>Si</td>
-                        <td><img src="assets/images/icon-check.svg" class="check-center"></td>
-                        <td>Proceso Automático</td>
-                        <td>25/06/2019</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>...</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td><a href="#" class="tag-with-radius">Solicitar</a></td>
-                        <td><span class="light yellow"></span></td>
-                        <td></td>
-                        <td>Copia de Cédula Vigente</td>
-                        <td>Si</td>
-                        <td><img src="assets/images/icon-check.svg" class="check-center"></td>
-                        <td>Proceso Automático</td>
-                        <td>25/06/2019</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>...</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td><a href="#" class="tag-with-radius">Solicitar</a></td>
-                        <td><span class="light yellow"></span></td>
-                        <td></td>
-                        <td>Copia de Cédula Vigente</td>
-                        <td>Si</td>
-                        <td><img src="assets/images/icon-check.svg" class="check-center"></td>
-                        <td>Proceso Automático</td>
-                        <td>25/06/2019</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>...</td>
-                        <td></td>
+                        <td>{{requisito.USR_VAL}}</td>
+                        <td>{{requisito.FECH_VAL}}</td>
+                        <td>{{requisito.VALIDADO_VAL}}</td>
+                        <td>{{requisito.OBS_VAL_VAL}}</td>
+                        <td>{{requisito.USR_CARGA_ARCH_VAL}}</td>
+                        <td>{{requisito.FCH_CARGA_ARCH_VAL}}</td>
+                        <td>{{requisito.NombreCorto}}</td>
+                        <td>{{requisito.OBSER_VAL_EXC_VAL}}</td>
+                        <td>{{requisito.USR_EXC_VAL}}</td>
+                        <td>{{requisito.FECH_EXC_VAL}}</td>
+                        <td>{{requisito.USR_VAL_EXC_VAL}}</td>
+                        <td>{{requisito.FECH_VAL_EXC_VAL}}</td>
+                        <td>{{requisito.ID_VAL}}</td>
                     </tr>
                 </tbody>
             </table>

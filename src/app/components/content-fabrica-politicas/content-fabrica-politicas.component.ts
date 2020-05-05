@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FabricaService, DatosFabrica } from 'src/app/services/fabricaCredito/fabrica.service';
+import {DocumentosVisualizacionService} from '../../services/documentos/documentos-visualizacion.service';
+import {map} from 'rxjs/operators';
 
 
 @Component({
@@ -10,17 +12,21 @@ import { FabricaService, DatosFabrica } from 'src/app/services/fabricaCredito/fa
 })
 export class ContentFabricaPoliticasComponent implements OnInit {
   closeResult: string;
-  //bkm
+  // bkm
   mensajeServicio: DatosFabrica;
-  //bkm
+  politicas: any[] = [];
+  // bkm
   constructor(private modalService: NgbModal,
-              private fabricaService: FabricaService) {}
+              private fabricaService: FabricaService,
+              private documentoVisualizacion: DocumentosVisualizacionService) {
+    this.politicas = this.getPoliticas();
+  }
 
   ngOnInit() {
     this.fabricaService.currentMessage.subscribe(
       data => {
         this.mensajeServicio = data;
-        //console.log(data);
+        // console.log(data);
       });
   }
 
@@ -35,5 +41,14 @@ export class ContentFabricaPoliticasComponent implements OnInit {
   openCustomWidthVariant(content) {
     this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
   }
-  
+
+  public getPoliticas(): any {
+    if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined ) {
+      this.documentoVisualizacion.getPoliticas(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+        .pipe(map(data => data["DOCUMENTOS"]))
+        .subscribe((data: any) => {
+          this.politicas = data;
+        });
+    }
+  }
 }
