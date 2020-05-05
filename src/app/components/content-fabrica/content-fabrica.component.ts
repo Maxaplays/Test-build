@@ -23,6 +23,7 @@ export class ContentFabricaComponent implements OnInit {
 
   staticAlertClosed = false;
   errorMessage: string;
+  loading: boolean;
   // bkm
   FormularioDatosBasicos: FormGroup; // formulario de react driven del HTML
   tipoDoc: any[] = []; // tipo de documento para el combo
@@ -33,8 +34,8 @@ export class ContentFabricaComponent implements OnInit {
   mensajeServicio: DatosFabrica;
   // bkm
 
-  constructor(private modalService: NgbModal, 
-              private tipoDocumentacionService: TipoDocumentacionService, 
+  constructor(private modalService: NgbModal,
+              private tipoDocumentacionService: TipoDocumentacionService,
               private fabricaService: FabricaService,
               private router: Router,
               private tipoContactoService: TipoContactoService,
@@ -148,6 +149,7 @@ export class ContentFabricaComponent implements OnInit {
     });
   }
   ValidarFormularioDatosBasicos() {
+    this.loading = true;
     if (this.FormularioDatosBasicos.valid) {
       console.log('Inicio Proceso...' + this.FormularioDatosBasicos.status);
       let envioDatos: EnvioFabricaServiceBi = new EnvioFabricaServiceBi();
@@ -175,6 +177,7 @@ export class ContentFabricaComponent implements OnInit {
           console.log('Padre:');
           console.log(this.datosGenerales);
           this.router.navigate(['/fabrica/nueva-solicitud/credito']);
+          this.loading = false;
         }, ( errorServicio ) => {
           // console.log('Error');
         }

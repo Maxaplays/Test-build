@@ -19,9 +19,6 @@ export class ContentFabricaCreditoComponent implements OnInit {
   // bkm
   mensajeServicio: DatosFabrica;
   FormularioDatosBasicos: FormGroup; // formulario de react driven del HTML
-  listadoErrores: string[];
-  mensajeValidacion: string;
-  // @ViewChild('resultadoValidacion', null) templateRef: TemplateRef<any>;
   // bkm
 
   constructor(private modalService: NgbModal,
@@ -88,7 +85,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
     let tasa: number = this.FormularioDatosBasicos.controls['aplicadoTasa'].value;
     let diferencia : number = Total - entrada;
     let formattedNumber = formatNumber(diferencia, this.locale, '.2-2');
-    let porcentajeEntrada: number = (entrada / Total)* 100;
+    let porcentajeEntrada: number = (entrada / Total) * 100;
     let porcentajeEntradaDecimal = formatNumber(porcentajeEntrada, this.locale, '.2-2');
     this.FormularioDatosBasicos.controls['montoCredito'].setValue(formattedNumber);
     this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(porcentajeEntradaDecimal);
