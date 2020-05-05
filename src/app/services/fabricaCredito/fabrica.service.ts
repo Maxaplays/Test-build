@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Observable, BehaviorSubject, of } from 'rxjs';
@@ -35,22 +35,14 @@ export class FabricaService {
   }
   public getcalcularValoresSimulador(valoresSimulador: ValoresSimulador) {
     console.log(valoresSimulador);
-    console.log('Link del simulador');
-    const url = environment.urlServiciosBackend + `FabricaCredito/calcularValoresSimulador?seMonto=${valoresSimulador.seMonto}&lblPerfilCliente=${valoresSimulador.lblPerfilCliente}&cmbProducto=${valoresSimulador.cmbProducto}&lblSucursal=${valoresSimulador.lblSucursal}&seVentaTotalAplicada=${valoresSimulador.seVentaTotalAplicada}&seMontoSugerido=${valoresSimulador.seMontoSugerido}&seEntrada=${valoresSimulador.seEntrada}&seValorTotal=${valoresSimulador.seValorTotal}&sePlazo=${valoresSimulador.sePlazo}&seTasa=${valoresSimulador.seTasa}&lblPlazoSugerido=${valoresSimulador.lblPlazoSugerido}&idCredito=${valoresSimulador.idCredito}&tipoValidacion=${valoresSimulador.tipoValidacion}&idCredito=${valoresSimulador.idCredito}&relacionLaboral=${valoresSimulador.relacionLaboral}&seCuotaFija=${valoresSimulador.seCuotaFija}&TipoId=${valoresSimulador.TipoId}&PerfilAplicado=${valoresSimulador.PerfilAplicado}&MontoAprobado=${valoresSimulador.MontoAprobado}&usuario=${valoresSimulador.usuario}&ruc=${valoresSimulador.ruc}&entradaAplicada=${valoresSimulador.entradaAplicada}&capacidadPagoSugerida=${valoresSimulador.capacidadPagoSugerida}&EstadoCivil=${valoresSimulador.EstadoCivil}&IngresoValidado=${valoresSimulador.IngresoValidado}&BaseUrl=${valoresSimulador.BaseUrl}&nombreConsultado=${valoresSimulador.nombreConsultado}&fechaNacimiento=${valoresSimulador.fechaNacimiento}`;
-    console.log(url);
-    return this.http.get(url);
-  }
-  changeMessage(message: DatosFabrica) {
-    this.messageSource.next(message);
-  }
-  public addSmartphone(valoresSimulador: ValoresSimulador): Observable<ValoresSimulador> {
-    const url = environment.urlServiciosBackend + `FabricaCredito/PruebaPost`;
-    console.log("Iniciando Post:" + url);
-    let params = new HttpParams().set("requestData", JSON.stringify(valoresSimulador)).set("authenticationType",'');
-    return this.http.get<ValoresSimulador>(url, {params: params})
+    const url = environment.urlServiciosBackend + `FabricaCredito/calcularValoresSimulador`;
+    return this.http.post<ValoresSimulador>(url, valoresSimulador, this.httpOptions)
       .pipe(
         catchError(this.handleError('addSmartphone', valoresSimulador))
       );
+  }
+  changeMessage(message: DatosFabrica) {
+    this.messageSource.next(message);
   }
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -100,7 +92,7 @@ export class ValoresSimulador{
   IngresoValidado: string;
   BaseUrl: string;
   nombreConsultado: string;
-  fechaNacimiento: Date;
+  fechaNacimiento: string;
   resultado: string;
 }
 export class DatosFabrica {

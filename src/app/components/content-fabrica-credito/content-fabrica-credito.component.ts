@@ -19,6 +19,8 @@ export class ContentFabricaCreditoComponent implements OnInit {
   // bkm
   mensajeServicio: DatosFabrica;
   FormularioDatosBasicos: FormGroup; // formulario de react driven del HTML
+  mensajeValidacion: string;
+  listadoErrores: string[];
   // bkm
 
   constructor(private modalService: NgbModal,
@@ -42,7 +44,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
     this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
   }
 
-  enviarNuevoMensaje(){
+  enviarNuevoMensaje() {
     this.fabricaService.changeMessage(new DatosFabrica());
   }
   // bkm
@@ -87,7 +89,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
     let formattedNumber = formatNumber(diferencia, this.locale, '.2-2');
     let porcentajeEntrada: number = (entrada / Total) * 100;
     let porcentajeEntradaDecimal = formatNumber(porcentajeEntrada, this.locale, '.2-2');
-    this.FormularioDatosBasicos.controls['montoCredito'].setValue(formattedNumber);
+    this.FormularioDatosBasicos.controls['montoCredito'].setValue(formatNumber(Total, this.locale, '.2-2'));
     this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(porcentajeEntradaDecimal);
     let cuotaMensual = this.calcularCuotaFija(diferencia, plazos, tasa, entrada);
     let cuotaMensualDecimal = formatNumber(cuotaMensual, this.locale, '.2-2');
@@ -144,14 +146,11 @@ export class ContentFabricaCreditoComponent implements OnInit {
     });
   }
   ValidarFormularioDatosBasicos(content: any, tipo: string) {
-    let spresp: any;
-    let postdata: ValoresSimulador;
-
     if (this.FormularioDatosBasicos.valid) {
-      console.log('Inicio Proceso...' + this.FormularioDatosBasicos.status);
+      // console.log('Inicio Proceso...' + this.FormularioDatosBasicos.status);
       let valoresSimulador: ValoresSimulador = new ValoresSimulador();
       valoresSimulador.tipoValidacion = tipo;
-      valoresSimulador.idCredito = this.mensajeServicio.CreditoCabecera;
+      valoresSimulador.idCredito = this.mensajeServicio.NumeroCredito;
       valoresSimulador.lblSucursal = this.mensajeServicio.idSucursal;
       valoresSimulador.seMonto = this.FormularioDatosBasicos.controls['montoCredito'].value;
       valoresSimulador.lblPerfilCliente = this.FormularioDatosBasicos.controls['wsPerfilSugerido'].value;
@@ -172,49 +171,53 @@ export class ContentFabricaCreditoComponent implements OnInit {
       valoresSimulador.usuario = localStorage.getItem("usuario");
       valoresSimulador.ruc = this.mensajeServicio.Cedula;
       valoresSimulador.entradaAplicada = this.FormularioDatosBasicos.controls['entrada'].value;;
-      valoresSimulador.capacidadPagoSugerida = Number(this.mensajeServicio.CapacidadPagoSugerida);
+      valoresSimulador.capacidadPagoSugerida = Number(this.mensajeServicio.CapacidadPagoSugerida.toString().replace(',', '.'));
       valoresSimulador.EstadoCivil = '';
       valoresSimulador.IngresoValidado = this.mensajeServicio.IngresoValidado;
       valoresSimulador.BaseUrl = '';
       valoresSimulador.nombreConsultado = this.mensajeServicio.NombreConsultado;
-      valoresSimulador.fechaNacimiento = new Date(this.mensajeServicio.FechaNacimiento);
+      valoresSimulador.fechaNacimiento = this.mensajeServicio.FechaNacimiento;
 
-      this.fabricaService.addSmartphone(valoresSimulador)
-      .subscribe(resp => {
-        console.log(resp);
-      // return spresp.push(resp);
-      });
+      this.fabricaService.getcalcularValoresSimulador(valoresSimulador).subscribe(
+        (data: any) => {
+          // this.datosGenerales = data;
+          console.log('Data Recibida WS:');
+          console.log(data);
+          this.FormularioDatosBasicos.controls['aplicadoPerfil'].setValue(data.lblPerfilAplicado);
+          let montoCredito: number = data.seMontoAprobado;
+          let entrada: number = data.seEntradaAplicada;
+          let VentaTotal: number = montoCredito + entrada;
+          this.FormularioDatosBasicos.controls['aplicadoMontoVenta'].setValue(data.seMontoAprobado.toString().replace(',', '.'));
+          this.FormularioDatosBasicos.controls['aplicadoVentaTotal'].setValue(VentaTotal.toString().replace(',', '.'));
+          this.FormularioDatosBasicos.controls['aplicadoPorcentajeEntrada'].setValue(data.sePorcentajeEntrada.toString().replace(',', '.'));
+          this.FormularioDatosBasicos.controls['aplicadoEntrada'].setValue(data.seEntradaAplicada.toString().replace(',', '.'));
+          this.FormularioDatosBasicos.controls['aplicadoMontoReferencial'].setValue(data.lblventaMaxSugerida.toString().replace(',', '.'));
+          this.listadoErrores = data.listaErrores;
+          if (tipo === 'Validar') {
+            if (this.listadoErrores.length > 0) {
 
-      // this.fabricaService.getcalcularValoresSimulador(valoresSimulador).subscribe(
-      //   (data: any) => {
-      //     // this.datosGenerales = data;
-      //     console.log('Data Recibida WS:');
-      //     console.log(data);
-      //     this.listadoErrores = data.listaErrores;
-      //     if (tipo === 'Validar') {
-      //       if (this.listadoErrores.length > 0) {
-      //         this.mensajeValidacion = 'Errores detectados:';
-      //         this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
-      //       } else {
-      //         // Sin errores seguir con siguiente paso
-      //         this.mensajeValidacion = 'Validación Correcta!';
-      //         this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
-      //       } 
-      //     }
-      //     if (tipo === 'Continuar') {
-      //       if (this.listadoErrores.length > 0) {
-      //         this.mensajeValidacion = 'Errores detectados:';
-      //         this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
-      //       } else {
-      //         // Sin errores seguir con siguiente paso
-      //         this.router.navigate(['/fabrica/nueva-solicitud/solicitud-credito']);
-      //       } 
-      //     }
-      //     // this.router.navigate(['/fabrica/nueva-solicitud/credito']);
-      //   }, ( errorServicio ) => {
-      //     // console.log('Error');
-      //   }
-      // );
+              this.mensajeValidacion = 'Errores detectados:';
+              this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+            } else {
+              // Sin errores seguir con siguiente paso
+              this.mensajeValidacion = 'Validación Correcta!';
+              this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+            } 
+          }
+          if (tipo === 'Continuar') {
+            if (this.listadoErrores.length > 0) {
+              this.mensajeValidacion = 'Errores detectados:';
+              this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+            } else {
+              // Sin errores seguir con siguiente paso
+              this.router.navigate(['/fabrica/nueva-solicitud/solicitud-credito']);
+            } 
+          }
+          // this.router.navigate(['/fabrica/nueva-solicitud/credito']);
+        }, ( errorServicio ) => {
+          // console.log('Error');
+        }
+      );
     } else {
       console.log('Formulario Inválido...' + this.FormularioDatosBasicos.status);
     }
