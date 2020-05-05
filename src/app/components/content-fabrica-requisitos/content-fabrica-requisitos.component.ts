@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
+import {DocumentosVisualizacionService} from '../../services/documentos/documentos-visualizacion.service';
+import {map} from 'rxjs/operators';
 
 
 @Component({
@@ -10,18 +12,22 @@ import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fa
 })
 export class ContentFabricaRequisitosComponent implements OnInit {
   closeResult: string;
-  //bkm
+  // bkm
   mensajeServicio: DatosFabrica;
-  //bkm
-  
+  requisitios: any[] = [];
+  // bkm
+
   constructor(private modalService: NgbModal,
-              private fabricaService: FabricaService) {}
+              private fabricaService: FabricaService,
+              private documentoVisualizacion: DocumentosVisualizacionService) {
+    this.requisitios = this.getRequisitos();
+  }
 
   ngOnInit() {
     this.fabricaService.currentMessage.subscribe(
       data => {
         this.mensajeServicio = data;
-        //console.log(data);
+        // console.log(data);
       });
   }
 
@@ -36,6 +42,14 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   openCustomWidthVariant(content) {
     this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
   }
-  
-  
+
+  public getRequisitos(): any {
+    if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined ) {
+      this.documentoVisualizacion.getRequisitos(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+        .pipe(map(data => data["DOCUMENTOS"]))
+        .subscribe((data: any) => {
+          this.requisitios = data;
+        });
+    }
+  }
 }

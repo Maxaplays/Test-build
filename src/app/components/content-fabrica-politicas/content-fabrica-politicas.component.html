@@ -101,69 +101,24 @@
                         <th>Fecha Solicitud Excepción</th>
                         <th>Usuario Excepcionado</th>
                         <th>Fecha Excepcionado</th>
-                        <th>ID</th>
+                        <th>Id</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><a href="#" class="tag-with-radius">Solicitar</a></td>
-                        <td>Copia de Cédula Vigente</td>
-                        <td>Si</td>
+                    <tr *ngFor="let politica of politicas">
+                        <td><a class="tag-with-radius">Solicitar</a></td>
+                        <td>{{politica.NOM_POL}}</td>
+                        <td>{{politica.VALOR_MAT}}</td>
                         <td><img src="assets/images/icon-check.svg" class="check-center"></td>
-                        <td>Proceso Automático</td>
-                        <td>25/06/2019</td>
+                        <td>{{politica.USR_VAL}}</td>
+                        <td>{{politica.FECH_VAL}}</td>
                         <td><span class="light yellow"></span></td>
-                        <td>Solicitud de Excepción automática</td>
-                        <td>Proceso Automático</td>
-                        <td>25/06/2019 19:08:00</td>
-                        <td></td>
-                        <td></td>
-                        <td>108921</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#" class="tag-with-radius">Solicitar</a></td>
-                        <td>Copia de Cédula Vigente</td>
-                        <td>Si</td>
-                        <td><img src="assets/images/icon-check.svg" class="check-center disabled"></td>
-                        <td>Proceso Automático</td>
-                        <td>25/06/2019</td>
-                        <td><span class="light green"></span></td>
-                        <td>Solicitud de Excepción automática</td>
-                        <td>Proceso Automático</td>
-                        <td>25/06/2019 19:08:00</td>
-                        <td></td>
-                        <td></td>
-                        <td>108921</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#" class="tag-with-radius">Solicitar</a></td>
-                        <td>Copia de Cédula Vigente</td>
-                        <td>Si</td>
-                        <td><img src="assets/images/icon-check.svg" class="check-center disabled"></td>
-                        <td>Proceso Automático</td>
-                        <td>25/06/2019</td>
-                        <td><span class="light green"></span></td>
-                        <td>Solicitud de Excepción automática</td>
-                        <td>Proceso Automático</td>
-                        <td>25/06/2019 19:08:00</td>
-                        <td></td>
-                        <td></td>
-                        <td>108921</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#" class="tag-with-radius">Solicitar</a></td>
-                        <td>Copia de Cédula Vigente</td>
-                        <td>Si</td>
-                        <td><img src="assets/images/icon-check.svg" class="check-center"></td>
-                        <td>Proceso Automático</td>
-                        <td>25/06/2019</td>
-                        <td><span class="light yellow"></span></td>
-                        <td>Solicitud de Excepción automática</td>
-                        <td>Proceso Automático</td>
-                        <td>25/06/2019 19:08:00</td>
-                        <td></td>
-                        <td></td>
-                        <td>108921</td>
+                        <td>{{politica.OBSER_VAL_EXC_VAL}}</td>
+                        <td>{{politica.USR_EXC_VAL}}</td>
+                        <td>{{politica.FECH_EXC_VAL}}</td>
+                        <td>{{politica.USR_VAL_EXC_VAL}}</td>
+                        <td>{{politica.FECH_VAL_EXC_VAL}}</td>
+                        <td>{{politica.ID_VAL}}</td>
                     </tr>
                 </tbody>
             </table>
