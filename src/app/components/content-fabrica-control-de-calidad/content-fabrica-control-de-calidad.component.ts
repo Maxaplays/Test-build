@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FabricaService, DatosFabrica } from 'src/app/services/fabricaCredito/fabrica.service';
-import {DocumentosVisualizacionService} from '../../services/documentos/documentos-visualizacion.service';
+import {DocumentosVisualizacionService} from 'src/app/services/documentos/documentos-visualizacion.service';
 import {map} from 'rxjs/operators';
 
 
