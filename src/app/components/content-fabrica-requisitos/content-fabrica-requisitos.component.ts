@@ -20,18 +20,14 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   constructor(private modalService: NgbModal,
               private fabricaService: FabricaService,
               private documentoVisualizacion: DocumentosVisualizacionService) {
-    this.fabricaService.currentMessage.subscribe(
-      data => {
-        this.mensajeServicio = data;
-        // console.log(data);
-      });
-    this.requisitios = this.getRequisitos();
+    
   }
 
   ngOnInit() {
     this.fabricaService.currentMessage.subscribe(
       data => {
         this.mensajeServicio = data;
+        this.requisitios = this.getRequisitos();
         // console.log(data);
       });
   }
