@@ -19,6 +19,11 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
   constructor(private modalService: NgbModal,
               private fabricaService: FabricaService,
               private documentoVisualizacion: DocumentosVisualizacionService) {
+    this.fabricaService.currentMessage.subscribe(
+      data => {
+        this.mensajeServicio = data;
+        // console.log(data);
+      });
     this.controlCalidad = this.getControlCalidad();
   }
 

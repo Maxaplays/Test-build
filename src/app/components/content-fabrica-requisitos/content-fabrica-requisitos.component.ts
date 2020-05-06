@@ -20,6 +20,11 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   constructor(private modalService: NgbModal,
               private fabricaService: FabricaService,
               private documentoVisualizacion: DocumentosVisualizacionService) {
+    this.fabricaService.currentMessage.subscribe(
+      data => {
+        this.mensajeServicio = data;
+        // console.log(data);
+      });
     this.requisitios = this.getRequisitos();
   }
 
@@ -44,7 +49,8 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   }
 
   public getRequisitos(): any {
-    if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined ) {
+    console.log(this.mensajeServicio.NumeroCredito);
+    if (this.mensajeServicio.NumeroCredito !== '') {
       this.documentoVisualizacion.getRequisitos(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
         .pipe(map(data => data["DOCUMENTOS"]))
         .subscribe((data: any) => {
