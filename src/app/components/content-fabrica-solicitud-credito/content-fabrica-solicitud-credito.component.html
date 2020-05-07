@@ -193,7 +193,6 @@
                                 <th>Número</th>
                                 <th>Calle Secundaria</th>
                                 <th>Referencia</th>
-                                <th>Vigente</th>
                                 <th>Validación</th>
                                 <th>Observaciones</th>
                                 <th class="table-right">Status</th>
@@ -201,40 +200,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td data-column="Tipo de Registro">Cliente</td>
-                                <td data-column="Tipo de Dirección">Domicilio</td>
-                                <td data-column="Calle Principal">Av. Rep. del Salvador</td>
-                                <td data-column="Número">Oe-021</td>
-                                <td data-column="Calle Secundaria">Av. Suiza</td>
-                                <td data-column="Referencia">Ninguna</td>
-                                <td data-column="Vigente">Si</td>
-                                <td data-column="Validación">-</td>
-                                <td data-column="Observaciones">-</td>
+                            <tr *ngFor="let direccion of direcciones">
+                                <td data-column="Tipo de Registro">{{direccion.TipoRegistro}}</td>
+                                <td data-column="Tipo de Dirección">{{direccion.NOM_TDIR}}</td>
+                                <td data-column="Calle Principal">{{direccion.PRINC_DIR}}</td>
+                                <td data-column="Número">{{direccion.NUM_DIR}}</td>
+                                <td data-column="Calle Secundaria">{{direccion.SECUN_DIR}}</td>
+                                <td data-column="Referencia">{{direccion.REFER_DIR}}</td>
+                                <td data-column="Validación">{{direccion.VALIDADO_DIR}}</td>
+                                <td data-column="Observaciones">{{direccion.OBS_VAL_DIR}}</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
                                     <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarDireccion)">
                                     <img src="assets/images/icon-printer.svg" class="icon-with-action">
                                 </td>
                             </tr>
-                            <tr>
-                                <td data-column="Tipo de Registro">Cliente</td>
-                                <td data-column="Tipo de Dirección">Trabajo</td>
-                                <td data-column="Calle Principal">Av. Amazonas</td>
-                                <td data-column="Número">Oe-383</td>
-                                <td data-column="Calle Secundaria">Av. Eloy Alfaro</td>
-                                <td data-column="Referencia">Ninguna</td>
-                                <td data-column="Vigente">Si</td>
-                                <td data-column="Validación">-</td>
-                                <td data-column="Observaciones">-</td>
-                                <td data-column="Status" class="table-right"><span class="">Inactivo</span></td>
-                                <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarDireccion)">
-                                    <img src="assets/images/icon-printer.svg" class="icon-with-action">
-                                </td>
-                            </tr>
                             <tr class="foot-td">
-                                <td colspan="11"><span class="foot-table">2 direcciones</span></td>
+                                <td colspan="11"><span class="foot-table" *ngIf="direcciones.length > 0">{{direcciones.length}} direcciones</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -253,7 +235,6 @@
                                 <th>Tipo de Teléfono</th>
                                 <th>Número de Teléfono</th>
                                 <th>Extensión/Observación</th>
-                                <th>Vigente</th>
                                 <th>Validación</th>
                                 <th>Observaciones</th>
                                 <th class="table-right">Status</th>
@@ -266,16 +247,16 @@
                                 <td data-column="Tipo de Teléfono">{{telefono.NOM_TDIS}}</td>
                                 <td data-column="Número de Teléfono">{{telefono.VALOR_DIS}}</td>
                                 <td data-column="Extensión/Observación">{{telefono.EXTEN_DIS}}</td>
-                                <td data-column="Vigente">{{telefono.ESTADO_DIS}}</td>
                                 <td data-column="Validación">{{telefono.VALIDADO_DIS}}</td>
                                 <td data-column="Observaciones">{{telefono.OBS_VAL_DIS}}</td>
-                                <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                                <td *ngIf="telefono.ESTADO_DIS" data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                                <td *ngIf="!telefono.ESTADO_DIS" data-column="Status" class="table-right"><span class="red-color">Inactivo</span></td>
                                 <td data-column="Opciones" class="table-right">
                                     <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openCustomWidth(agregarEditarTelefono)">
                                 </td>
                             </tr>
                             <tr class="foot-td">
-                                <td colspan="11"><span class="foot-table">{{telefonos.length}} teléfonos</span></td>
+                                <td colspan="11"><span class="foot-table" *ngIf="telefonos.length>0">{{telefonos.length}} teléfonos</span></td>
                             </tr>
 
                         </tbody>

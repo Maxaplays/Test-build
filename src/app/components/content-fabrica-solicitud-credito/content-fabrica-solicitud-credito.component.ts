@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {DireccionesService} from '../../services/direcciones/direcciones.service';
+import {Direccion, DireccionesService} from '../../services/direcciones/direcciones.service';
 import {TelefonosService} from '../../services/telefonos/telefonos.service';
 import {map} from 'rxjs/operators';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
@@ -29,6 +29,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   barrios: any[] = [];
   tipoTel: any[] = [];
   telefonos: any[] = [];
+  direcciones: any[] = [];
   tipoRegDir: any[] = ['CLIENTE', 'GARANTE'];
   tipoRegTel: any[] = ['CLIENTE', 'GARANTE'];
 
@@ -42,28 +43,31 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private fabricaService: FabricaService,
               private fb: FormBuilder) {
     this.crearFormularioDirecciones();
-    this.crearFormularioTelefonos();
     this.tipoDir = this.getTipoDir();
     this.provincias = this.getProvincia();
     this.cantones = this.getCanton();
     this.barrios = this.getBarrio();
     this.tipoTel = this.getTipoTel();
-    this.telefonos = this.getTelefonos();
-  }
+}
 
   ngOnInit() {
     this.fabricaService.currentMessage.subscribe(
       data => {
         this.mensajeServicio = data;
+        this.telefonos = this.getTelefonos();
+        this.direcciones = this.getDirecciones();
         // console.log(data);
       });
   }
 
   openLg(content) {
+    this.crearFormularioDirecciones();
     this.modalService.open(content);
   }
 
   openCustomWidth(content) {
+    // bkm - inicializar formas
+    this.crearFormularioTelefonos();
     this.modalService.open(content, {windowClass: 'custom-width-modal'});
   }
 
@@ -132,11 +136,19 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
 
   public getTelefonos(): any {
-    this.telefonoService.getTelefonos(this.ID_CLI)
+    this.telefonoService.getTelefonos(this.mensajeServicio.Cedula)
       .pipe(map(data => data["TELEFONOS"]))
       .subscribe((data: any) => {
         this.telefonos = data;
         console.log(data);
+      });
+  }
+
+  public getDirecciones(): any {
+    this.direccionesService.getDirecciones(this.mensajeServicio.Cedula, this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      .pipe(map(data => data["DIRECCIONES"]))
+      .subscribe((data: any) => {
+        this.direcciones = data;
       });
   }
 
@@ -195,12 +207,12 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       Provincia: ['', Validators.required],
       Canton: ['', Validators.required],
       Parroquia: ['', Validators.required],
-      Barrio: ['', Validators.required],
+      Barrio: [''],
       CallePrincipal: ['', Validators.required],
       NumeroCalle: ['', Validators.required],
-      CalleSecundaria: ['', Validators.required],
-      ReferenciaDireccion: ['', Validators.required],
-      CodigoPostalDireccion: ['', [Validators.required, Validators.minLength(6), Validators.pattern('^[0-9]*$')]]
+      CalleSecundaria: [''],
+      ReferenciaDireccion: [''],
+      CodigoPostalDireccion: ['', [Validators.minLength(6), Validators.pattern('^[0-9]*$')]]
     });
   }
 
@@ -225,6 +237,29 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
           control.markAllAsTouched();
         }
       });
+    } else {
+      console.log(this.formaDirecciones);
+      const direccion: Direccion = new Direccion();
+      direccion.tipoRegistro = this.formaDirecciones.value.tipoRegistro;
+      direccion.tipoDireccion = this.formaDirecciones.value.tipoDireccion;
+      direccion.Provincia = this.formaDirecciones.value.Provincia;
+      direccion.Canton = this.formaDirecciones.value.Canton;
+      direccion.Parroquia = this.formaDirecciones.value.Parroquia;
+      direccion.Barrio = this.formaDirecciones.value.Barrio;
+      direccion.CallePrincipal = this.formaDirecciones.value.CallePrincipal;
+      direccion.NumeroCalle = this.formaDirecciones.value.NumeroCalle;
+      direccion.CalleSecundaria = this.formaDirecciones.value.CalleSecundaria;
+      direccion.Referencia = this.formaDirecciones.value.ReferenciaDireccion;
+      direccion.CodigoPostal = this.formaDirecciones.value.CodigoPostalDireccion;
+      direccion.Cedula = '1759188020';
+      console.log(direccion);
+      this.direccionesService.postDireccion(direccion).subscribe(
+        (data: any) => {
+          if (data.resultado !== null) {
+            this.direcciones = this.getDirecciones();
+          }
+        }
+      );
     }
   }
 
@@ -246,7 +281,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                                         this.formaTelefonos.value.ExtensionTelefono).subscribe(
         (data: any) => {
           console.log(data);
-          if(data.error !== null) {
+          if (data.error !== null) {
             console.log(data.error);
           } else {
             this.telefonos = this.getTelefonos();
