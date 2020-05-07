@@ -251,7 +251,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       direccion.CalleSecundaria = this.formaDirecciones.value.CalleSecundaria;
       direccion.Referencia = this.formaDirecciones.value.ReferenciaDireccion;
       direccion.CodigoPostal = this.formaDirecciones.value.CodigoPostalDireccion;
-      direccion.Cedula = '1759188020';
+      direccion.Cedula = this.mensajeServicio.Cedula;
       console.log(direccion);
       this.direccionesService.postDireccion(direccion).subscribe(
         (data: any) => {
@@ -276,7 +276,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
     } else {
       this.telefonoService.postTelefono(this.formaTelefonos.value.TipoTelefono,
-                                 '1716822679',
+                                        this.mensajeServicio.Cedula,
                              this.formaTelefonos.value.CodigoTelefono.toString() + this.formaTelefonos.value.NumeroTelefono.toString(),
                                         this.formaTelefonos.value.ExtensionTelefono).subscribe(
         (data: any) => {
