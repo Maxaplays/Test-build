@@ -32,6 +32,8 @@ export class ContentFabricaComponent implements OnInit {
   estadoCivil: any = []; // tipos de estados civiles para el combo
   datosGenerales: DatosFabrica; // Objeto con los datos de cabecera del credito obtenido localmente del servicio
   mensajeServicio: DatosFabrica;
+  mensajeValidacion: string;
+  mensajeValidacionInterno: string;
   // bkm
 
   constructor(private modalService: NgbModal,
@@ -41,7 +43,7 @@ export class ContentFabricaComponent implements OnInit {
               private tipoContactoService: TipoContactoService,
               private productosService: ProductoService,
               private estadoCivilService: EstadoCivilService) {
-    this.tipoDoc = this.getTipoDoc(); // CARGA DEL COMBO DE TIPO DE documentos
+    
     // console.log(this.tipoDoc);
   }
   ngOnInit(): void {
@@ -49,6 +51,7 @@ export class ContentFabricaComponent implements OnInit {
     this.getProducto(); // cargar combo de productos
     this.getTipoContacto(); // cargar Tipos de contactos
     this.getEstadoCivil(); // cargar combo de estado civil
+    this.tipoDoc = this.getTipoDoc(); // CARGA DEL COMBO DE TIPO DE documentos
     setTimeout(() => this.staticAlertClosed = true, 20000);
 
     this._error.subscribe((message) => this.errorMessage = message);
@@ -105,7 +108,7 @@ export class ContentFabricaComponent implements OnInit {
     );
   }
   getProducto() {
-    console.log(localStorage.getItem('codigoSucursal'));
+    // console.log(localStorage.getItem('codigoSucursal'));
     this.productosService.getProductos(localStorage.getItem('codigoSucursal')).subscribe(
       (data: any) => {
         this.productos = data.PRODUCTO;
@@ -148,10 +151,10 @@ export class ContentFabricaComponent implements OnInit {
       producto: new FormControl(null, Validators.required)
     });
   }
-  ValidarFormularioDatosBasicos() {
+  ValidarFormularioDatosBasicos(content) {
     this.loading = true;
     if (this.FormularioDatosBasicos.valid) {
-      console.log('Inicio Proceso...' + this.FormularioDatosBasicos.status);
+      // console.log('Inicio Proceso...' + this.FormularioDatosBasicos.status);
       let envioDatos: EnvioFabricaServiceBi = new EnvioFabricaServiceBi();
       envioDatos.cedula = this.FormularioDatosBasicos.controls['cedula'].value;
       envioDatos.tipoDocumento = this.FormularioDatosBasicos.controls['tipoDocumentacion'].value;
@@ -163,7 +166,7 @@ export class ContentFabricaComponent implements OnInit {
       envioDatos.Producto = this.FormularioDatosBasicos.controls['producto'].value;
       envioDatos.IdSucursal = localStorage.getItem('codigoSucursal');
       envioDatos.Usuario = localStorage.getItem('usuario');
-      console.log(envioDatos);
+      // console.log(envioDatos);
       this.fabricaService.getEnvioFabricaServiceBi(envioDatos).pipe(map (data => data["Table1"][0])).subscribe(
         (data: DatosFabrica) => {
           this.datosGenerales = data;
@@ -174,16 +177,26 @@ export class ContentFabricaComponent implements OnInit {
           this.datosGenerales.idSucursal = localStorage.getItem('codigoSucursal');
           this.datosGenerales.idProducto = this.FormularioDatosBasicos.controls['producto'].value;
           this.fabricaService.changeMessage(this.datosGenerales);
-          console.log('Padre:');
-          console.log(this.datosGenerales);
-          this.router.navigate(['/fabrica/nueva-solicitud/credito']);
-          this.loading = false;
+          // console.log('Padre:');
+          // console.log(this.datosGenerales);
+          if (this.datosGenerales.Error === 'Solicitud creada exitosamente'){
+            this.loading = false;
+            this.router.navigate(['/fabrica/nueva-solicitud/credito']);
+          } else {
+            // console.log('error ingreso');
+            this.mensajeValidacion = 'Errores detectados:';
+            this.mensajeValidacionInterno = this.datosGenerales.Error;
+            // console.log(this.mensajeValidacion);
+            // console.log(this.mensajeValidacionInterno);
+            this.loading = false;
+            this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+          }
         }, ( errorServicio ) => {
           // console.log('Error');
         }
       );
     } else {
-      console.log('Formulario Inválido...' + this.FormularioDatosBasicos.status);
+      // console.log('Formulario Inválido...' + this.FormularioDatosBasicos.status);
     }
   }
   // bkm metodos

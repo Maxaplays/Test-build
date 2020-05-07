@@ -14,7 +14,7 @@
             <option value='resumen'>Resumen</option>
         </select>
     </form>
-  <app-loading *ngIf="loading"></app-loading>
+    <app-loading *ngIf="loading"></app-loading>
     <div>
         <form class="forms forms-relative" [formGroup]="FormularioDatosBasicos">
             <div class="cols cols3">
@@ -100,7 +100,7 @@
                 <button class="btn btn-border-gray" (click)="open(datosAdicionales)">Datos Adicionales</button>
                 <button class="btn btn-border-gray">Borrar</button>
                 <!-- <button class="btn btn-solid-green" tabindex="13" (click)="openCustomWidthVariant(mensajeAdvertencia)">Validar</button> -->
-                <button [class.btn-solid-green]="FormularioDatosBasicos.valid" [className]="FormularioDatosBasicos.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" tabindex="13" (click)="ValidarFormularioDatosBasicos()">Validar</button>
+                <button [class.btn-solid-green]="FormularioDatosBasicos.valid" [className]="FormularioDatosBasicos.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" tabindex="13" (click)="ValidarFormularioDatosBasicos(verResultado)">Validar</button>
                 <button class="btn btn-solid-gray" (click)="open(content)">Continuar</button>
             </div>
         </div>
@@ -137,6 +137,46 @@
                 <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Regresar</button>
                 <button class="btn btn-solid-green">Guardar</button>
                 <button class="btn btn-solid-gray" (click)="modal.close('Cancelar click')" (click)="openLg(respuestas)">Continuar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #verResultado let-modal>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-historial-modal.svg">
+                <h4 class="modal-minititle-mfc">{{mensajeValidacion}}</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body variation">
+        <div class="forms forms-relative" style="padding-bottom: 30px;">
+            <div class="cols cols4">
+                <div>
+                    <label class="label">{{mensajeValidacionInterno}}</label>
+                    <!-- <ul class="grid-list full-grid-list">
+                        <li>
+                            <span class="tag"></span>
+                        </li>
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+            <!-- <div class="align-left">
+                <button class="btn btn-border-blue" routerLink="/configuracion/respuestas" (click)="modal.close('Cancelar click')">Generar respuesta</button>
+            </div> -->
+            <div class="align-right">
+                <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Cerrar</button>
             </div>
         </div>
     </div>
