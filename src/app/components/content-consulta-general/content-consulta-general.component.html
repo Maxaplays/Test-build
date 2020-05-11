@@ -55,10 +55,18 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let credito of creditos">
-                            <td><span class="light yellow "></span></td>
-                            <td><span class="light orange "></span></td>
-                            <td><span class="light green "></span></td>
-                            <td><span class="light red "></span></td>
+                            <td>
+                                <a href="fabrica/nueva-solicitud/solicitud-credito?idCre={{credito.ID_CRE}}" target="_blank"><span class="{{credito.VENDEDOR_COLORUX_ECRE}}"></span></a>
+                            </td>
+                            <td>
+                                <a href="analisis/verificaciones?idCre={{credito.ID_CRE}}" target="_blank"><span class="{{credito.ANALISTA_COLORUX_ECRE}}"></span></a>
+                            </td>
+                            <td>
+                                <a href="analisis/control-de-calidad?idCre={{credito.ID_CRE}}" target="_blank"><span class="{{credito.CALIDAD_COLORUX_ECRE}}"></span></a>
+                            </td>
+                            <td>
+                                <a href="analisis/excepciones?idCre={{credito.ID_CRE}}" target="_blank"><span *ngIf="credito.Excepcion==='~/images/novalidado.png'" class="light yellow"></span></a>
+                            </td>
                             <td>{{credito.NOM_ECRE}}</td>
                             <td>{{credito.NOM_SUC}}</td>
                             <td><a href="fabrica/nueva-solicitud/solicitud-credito?idCre={{credito.ID_CRE}}">{{credito.ID_CRE}}</a></td>
