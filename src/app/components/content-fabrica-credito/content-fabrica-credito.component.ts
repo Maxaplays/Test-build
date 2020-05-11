@@ -179,8 +179,8 @@ export class ContentFabricaCreditoComponent implements OnInit {
       this.fabricaService.getcalcularValoresSimulador(valoresSimulador).subscribe(
         (data: any) => {
           // this.datosGenerales = data;
-          console.log('Data Recibida WS:');
-          console.log(data);
+          // console.log('Data Recibida WS:');
+          // console.log(data);
           this.FormularioDatosBasicos.controls['aplicadoPerfil'].setValue(data.lblPerfilAplicado);
           let montoCredito: number = data.seMontoAprobado;
           let entrada: number = data.seEntradaAplicada;
@@ -208,7 +208,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
               this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
             } else {
               // Sin errores seguir con siguiente paso
-              console.log(data);
+              // console.log(data);
               this.mensajeServicio.Estado = data.estadoCredito;
               this.mensajeServicio.PerfilAplicado = data.lblPerfilAplicado;
               this.mensajeServicio.Entrada = data.entradaReal;

@@ -152,9 +152,9 @@ export class ContentFabricaComponent implements OnInit {
     });
   }
   ValidarFormularioDatosBasicos(content) {
-    this.loading = true;
     if (this.FormularioDatosBasicos.valid) {
       // console.log('Inicio Proceso...' + this.FormularioDatosBasicos.status);
+      this.loading = true;
       let envioDatos: EnvioFabricaServiceBi = new EnvioFabricaServiceBi();
       envioDatos.cedula = this.FormularioDatosBasicos.controls['cedula'].value;
       envioDatos.tipoDocumento = this.FormularioDatosBasicos.controls['tipoDocumentacion'].value;
@@ -197,6 +197,14 @@ export class ContentFabricaComponent implements OnInit {
       );
     } else {
       // console.log('Formulario Inválido...' + this.FormularioDatosBasicos.status);
+      return Object.values(this.FormularioDatosBasicos.controls).forEach(control => {
+        if (control instanceof FormGroup) {
+          // tslint:disable-next-line:no-shadowed-variable
+          Object.values(control.controls). forEach( control => control.markAllAsTouched());
+        } else {
+          control.markAllAsTouched();
+        }
+      });
     }
   }
   // bkm metodos

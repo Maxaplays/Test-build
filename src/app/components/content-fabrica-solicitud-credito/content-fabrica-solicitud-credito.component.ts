@@ -42,20 +42,20 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private telefonoService: TelefonosService,
               private fabricaService: FabricaService,
               private fb: FormBuilder) {
-    this.crearFormularioDirecciones();
-    this.tipoDir = this.getTipoDir();
-    this.provincias = this.getProvincia();
-    this.cantones = this.getCanton();
-    this.barrios = this.getBarrio();
-    this.tipoTel = this.getTipoTel();
 }
 
   ngOnInit() {
+    this.crearFormularioDirecciones();
     this.fabricaService.currentMessage.subscribe(
       data => {
         this.mensajeServicio = data;
         this.telefonos = this.getTelefonos();
         this.direcciones = this.getDirecciones();
+        this.tipoDir = this.getTipoDir();
+        this.provincias = this.getProvincia();
+        this.cantones = this.getCanton();
+        this.barrios = this.getBarrio();
+        this.tipoTel = this.getTipoTel();
         // console.log(data);
       });
   }

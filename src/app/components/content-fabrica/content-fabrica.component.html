@@ -21,13 +21,13 @@
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Documentación</label>
-                        <select formControlName="tipoDocumentacion" tabindex="1">
+                        <select formControlName="tipoDocumentacion" [class.is-invalid]="FormularioDatosBasicos.controls['tipoDocumentacion'].invalid" class="form-control" tabindex="1">
                             <option *ngFor="let tipo of tipoDoc" [value]="tipo.COD_TDOC">{{tipo.NOM_TDOC}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label"># Identificación</label>
-                        <input formControlName="cedula" type="number" placeholder="Escriba Número de identificación" tabindex="2">
+                        <input formControlName="cedula" [class.is-invalid]="FormularioDatosBasicos.controls['cedula'].invalid && FormularioDatosBasicos.controls['cedula'].touched" class="form-control" type="number" placeholder="Escriba Número de identificación" tabindex="2">
                     </fieldset>
                     <fieldset>
                         <label class="label">Estado Civil</label>
@@ -43,11 +43,13 @@
                 <div>
                     <fieldset>
                         <label class="label">Ingresos Mensuales como Dependiente</label>
-                        <input formControlName="ingresosDependiente" (input)="onIngresosChange()" type="number" placeholder="Escriba Ingresos Mensuales" tabindex="5">
+                        <input formControlName="ingresosDependiente" (input)="onIngresosChange()" [class.is-invalid]="FormularioDatosBasicos.controls['ingresosDependiente'].invalid && FormularioDatosBasicos.controls['ingresosDependiente'].touched" class="form-control" type="number"
+                            placeholder="Escriba Ingresos Mensuales" tabindex="5">
                     </fieldset>
                     <fieldset>
                         <label class="label">Ingresos Mensuales como Independiente</label>
-                        <input formControlName="ingresosIndependiente" (input)="onIngresosChange()" type="number" placeholder="Escriba Ingresos Mensuales" tabindex="6">
+                        <input formControlName="ingresosIndependiente" (input)="onIngresosChange()" [class.is-invalid]="FormularioDatosBasicos.controls['ingresosIndependiente'].invalid && FormularioDatosBasicos.controls['ingresosIndependiente'].touched" class="form-control"
+                            type="number" placeholder="Escriba Ingresos Mensuales" tabindex="6">
                     </fieldset>
                     <fieldset>
                         <label class="label">Ingreso Disponible</label>
@@ -75,14 +77,13 @@
                     </fieldset>
                     <fieldset>
                         <label class="label">Venta Total</label>
-                        <input formControlName="ventaTotal" type="number" placeholder="Escriba un Monto de Venta Total" tabindex="11">
+                        <input formControlName="ventaTotal" [class.is-invalid]="FormularioDatosBasicos.controls['ventaTotal'].invalid && FormularioDatosBasicos.controls['ventaTotal'].touched" class="form-control" type="number" placeholder="Escriba un Monto de Venta Total" tabindex="11">
                     </fieldset>
                     <fieldset>
                         <label class="label">Producto Crédito</label>
-                        <select formControlName="producto" tabindex="12">
+                        <select formControlName="producto" [class.is-invalid]="FormularioDatosBasicos.controls['producto'].invalid && FormularioDatosBasicos.controls['producto'].touched" class="form-control" tabindex="12">
                             <option *ngFor="let prod of productos" [value]="prod.ID_PROD">{{prod.NOM_PROD}}</option>
                         </select>
-                        <label class="label">Estado FOrmulario: {{FormularioDatosBasicos.valid}}</label>
                     </fieldset>
                 </div>
             </div>

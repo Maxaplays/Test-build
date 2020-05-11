@@ -33,6 +33,14 @@ export class FabricaService {
     const url = environment.urlServiciosBackend + `FabricaCredito?Identificacion=${datosParaEnviar.cedula}&TipoDocumentacion=${datosParaEnviar.tipoDocumento}&IngresosIndependiente=${datosParaEnviar.IngresosIndependiente}&IngresoDependiente=${datosParaEnviar.IngresoDependiente}&VentaTotal=${datosParaEnviar.VentaTotal}&Producto=${datosParaEnviar.Producto}&IdSucursal=${datosParaEnviar.IdSucursal}&Usuario=${datosParaEnviar.Usuario}`;
     return this.http.get(url);
   }
+  public getConsultaGeneral(usuario: string, desde: string, hasta: string) {
+    // console.log(fechaDesde);
+    // console.log(fechaHasta);
+    // console.log(desde + "  -  " + hasta);
+    const url = environment.urlServiciosBackend + `FabricaCredito/ConsultaGeneralGuias?usuario=${usuario}&fechaDesde=${desde}&fechaHasta=${hasta}`;
+    // console.log(url);
+    return this.http.get(url);
+  }
   public getcalcularValoresSimulador(valoresSimulador: ValoresSimulador) {
     console.log(valoresSimulador);
     const url = environment.urlServiciosBackend + `FabricaCredito/calcularValoresSimulador`;
