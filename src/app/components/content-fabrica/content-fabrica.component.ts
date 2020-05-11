@@ -43,15 +43,14 @@ export class ContentFabricaComponent implements OnInit {
               private tipoContactoService: TipoContactoService,
               private productosService: ProductoService,
               private estadoCivilService: EstadoCivilService) {
-    
-    // console.log(this.tipoDoc);
+                // console.log(this.tipoDoc);
   }
   ngOnInit(): void {
     this.initForm(); // inicializar la forma de la pantalla de ReactDriven
+    this.tipoDoc = this.getTipoDoc(); // CARGA DEL COMBO DE TIPO DE documentos
     this.getProducto(); // cargar combo de productos
     this.getTipoContacto(); // cargar Tipos de contactos
     this.getEstadoCivil(); // cargar combo de estado civil
-    this.tipoDoc = this.getTipoDoc(); // CARGA DEL COMBO DE TIPO DE documentos
     setTimeout(() => this.staticAlertClosed = true, 20000);
 
     this._error.subscribe((message) => this.errorMessage = message);
@@ -91,7 +90,7 @@ export class ContentFabricaComponent implements OnInit {
   }
   // bkm metodos
   private getTipoDoc(): any {
-    this.tipoDocumentacionService.getTipoDoc().pipe(map( (data: any) => data["TIPODOC"] ))
+    this.tipoDocumentacionService.getTipoDoc()
         .subscribe( (resultado: any[] ) => {
           this.tipoDoc = resultado;
           // console.log(this.tipoDoc);

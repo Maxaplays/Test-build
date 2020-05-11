@@ -98,32 +98,34 @@
             <ngb-tab id="cliente">
                 <ng-template ngbTabTitle><img src="assets/images/icon-fingerprint.svg"> <span>Cliente</span></ng-template>
                 <ng-template ngbTabContent>
-                    <form class="forms forms-relative">
+                    <form class="forms forms-relative" [formGroup]="FormularioDatosCliente">
                         <div class="cols cols3">
                             <div>
                                 <fieldset>
                                     <label class="label"># Identificación</label>
-                                    <input type="text" placeholder="# Identificación" disabled>
+                                    <input formControlName="cedula" class="form-control" type="text" placeholder="# Identificación" disabled>
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Nombres o Razón Social</label>
-                                    <input type="text" placeholder="Nombres o Razón Social">
+                                    <input formControlName="nombreCliente" class="form-control" type="text" placeholder="Nombres o Razón Social">
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Apellidos</label>
-                                    <input type="text" placeholder="Apellidos">
+                                    <input formControlName="apellidoCliente" class="form-control" type="text" placeholder="Apellidos">
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Tipo de Identificación</label>
-                                    <input type="text" placeholder="Tipo de Identificación">
+                                    <select formControlName="tipoDocumentacion" class="form-control" [class.is-invalid]="FormularioDatosCliente.controls['tipoDocumentacion'].invalid" class="form-control">
+                                        <option *ngFor="let tipo of tipoDoc" [value]="tipo.COD_TDOC">{{tipo.NOM_TDOC}}</option>
+                                    </select>
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Fecha de Nacimiento / Inicio Actividades</label>
-                                    <input type="date" placeholder="Fecha de Nacimiento / Inicio Actividades" disabled>
+                                    <input formControlName="fechaNacimiento" class="form-control" type="date" placeholder="Fecha de Nacimiento / Inicio Actividades" disabled>
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Género <b>*</b></label>
-                                    <select>
+                                    <select formControlName="genero" class="form-control">
                                         <option>Masculino</option>
                                     </select>
                                 </fieldset>
@@ -131,27 +133,27 @@
                             <div>
                                 <fieldset>
                                     <label class="label">Nacionalidad <b>*</b></label>
-                                    <select>
+                                    <select formControlName="nacionalidad" class="form-control">
                                         <option>Ecuatoriana</option>
                                     </select>
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Estado Civil <b>*</b></label>
-                                    <input type="text" placeholder="Estado Civil" required disabled>
+                                    <input formControlName="estadoCivil" class="form-control" type="text" placeholder="Estado Civil" required disabled>
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Cargas Familiares</label>
-                                    <select>
+                                    <select formControlName="cargasFamiliares" class="form-control">
                                         <option>1</option>
                                     </select>
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">E-mail</label>
-                                    <input type="email" placeholder="E-mail">
+                                    <input formControlName="emailCliente" class="form-control" type="email" placeholder="E-mail">
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Profesión</label>
-                                    <select>
+                                    <select formControlName="profesionCliente" class="form-control">
                                         <option>Abogado</option>
                                     </select>
                                 </fieldset>
@@ -167,11 +169,11 @@
                             <div>
                                 <fieldset>
                                     <label class="label">RUC Empresa / Trabajo</label>
-                                    <input type="text" placeholder="RUC Empresa / Trabajo">
+                                    <input formControlName="rucTrabajo" class="form-control" type="text" placeholder="RUC Empresa / Trabajo">
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Razón Social Empresa / Trabajo</label>
-                                    <input type="text" placeholder="Razón Social Empresa / Trabajo">
+                                    <input formControlName="razonSocialTrabajo" class="form-control" type="text" placeholder="Razón Social Empresa / Trabajo">
                                 </fieldset>
                             </div>
                         </div>
@@ -899,46 +901,37 @@
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
-                        <select formControlName="tipoRegistro" class="form-control"
-                                [class.is-invalid]="tipoRegistroNoValido">
+                        <select formControlName="tipoRegistro" class="form-control" [class.is-invalid]="tipoRegistroNoValido">
                                 <option *ngFor="let tipo of tipoRegDir" [value]="tipo">{{tipo}}</option>
                             </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Tipo de Dirección</label>
-                        <select formControlName="tipoDireccion" class="form-control"
-                                [class.is-invalid]="tipoDireccionNoValida">
+                        <select formControlName="tipoDireccion" class="form-control" [class.is-invalid]="tipoDireccionNoValida">
                                 <option *ngFor="let tipo of tipoDir" [value]="tipo.COD_TDIR">{{tipo.NOM_TDIR}}</option>
                             </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Provincia</label>
-                        <select id="COD_PROV" name="COD_PROV" (change)="getCanton()" class="form-control"
-                                formControlName="Provincia"
-                                [class.is-invalid]="ProvinciaNoValida">
+                        <select id="COD_PROV" name="COD_PROV" (change)="getCanton()" class="form-control" formControlName="Provincia" [class.is-invalid]="ProvinciaNoValida">
                                 <option *ngFor="let provincia of provincias" [value]="provincia.COD_PROV">{{provincia.NOM_PROV}}</option>
                             </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Cantón</label>
-                        <select id="COD_CAN" name="COD_CAN" (change)="getParroquia()" class="form-control"
-                                formControlName="Canton"
-                                [class.is-invalid]="CantonNoValido">
+                        <select id="COD_CAN" name="COD_CAN" (change)="getParroquia()" class="form-control" formControlName="Canton" [class.is-invalid]="CantonNoValido">
                                 <option *ngFor="let canton of cantones" [value]="canton.COD_CAN">{{canton.NOM_CAN}}</option>
                             </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Parroquia</label>
-                        <select id="COD_PAR" name="COD_PAR" (change)="getBarrio()" class="form-control"
-                                formControlName="Parroquia"
-                                [class.is-invalid]="ParroquiaNoValida">
+                        <select id="COD_PAR" name="COD_PAR" (change)="getBarrio()" class="form-control" formControlName="Parroquia" [class.is-invalid]="ParroquiaNoValida">
                                 <option *ngFor="let parroquia of parroquias" [value]="parroquia.COD_PAR">{{parroquia.NOM_PAR}}</option>
                             </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Barrio</label>
-                        <select formControlName="Barrio" class="form-control"
-                                [class.is-invalid]="BarrioNoValido">
+                        <select formControlName="Barrio" class="form-control" [class.is-invalid]="BarrioNoValido">
                                 <option *ngFor="let barrio of barrios" [value]="barrio.COD_BAR">{{barrio.NOM_BAR}}</option>
                             </select>
                     </fieldset>
@@ -946,33 +939,23 @@
                 <div>
                     <fieldset>
                         <label class="label">Calle Principal</label>
-                        <input type="text" placeholder="Escriba Calle Principal" class="form-control"
-                               formControlName="CallePrincipal"
-                               [class.is-invalid]="CallePrincipalNoValida">
+                        <input type="text" placeholder="Escriba Calle Principal" class="form-control" formControlName="CallePrincipal" [class.is-invalid]="CallePrincipalNoValida">
                     </fieldset>
                     <fieldset>
                         <label class="label">Número</label>
-                        <input type="text" placeholder="Escriba Número" class="form-control"
-                               formControlName="NumeroCalle"
-                               [class.is-invalid]="NumeroCallelNoValido">
+                        <input type="text" placeholder="Escriba Número" class="form-control" formControlName="NumeroCalle" [class.is-invalid]="NumeroCallelNoValido">
                     </fieldset>
                     <fieldset>
                         <label class="label">Calle Secundaria</label>
-                        <input type="text" placeholder="Escriba Calle Secundaria" class="form-control"
-                               formControlName="CalleSecundaria"
-                               [class.is-invalid]="CalleSecundariaNoValida">
+                        <input type="text" placeholder="Escriba Calle Secundaria" class="form-control" formControlName="CalleSecundaria" [class.is-invalid]="CalleSecundariaNoValida">
                     </fieldset>
                     <fieldset>
                         <label class="label">Referencia</label>
-                        <input type="text" placeholder="Escriba Referencia" class="form-control"
-                               formControlName="ReferenciaDireccion"
-                               [class.is-invalid]="ReferenciaDireccionNoValida">
+                        <input type="text" placeholder="Escriba Referencia" class="form-control" formControlName="ReferenciaDireccion" [class.is-invalid]="ReferenciaDireccionNoValida">
                     </fieldset>
                     <fieldset>
                         <label class="label">Código Postal</label>
-                        <input type="text" placeholder="Escriba Código Postal" class="form-control"
-                               formControlName="CodigoPostalDireccion"
-                               [class.is-invalid]="CodigoPostalDireccionNoValido">
+                        <input type="text" placeholder="Escriba Código Postal" class="form-control" formControlName="CodigoPostalDireccion" [class.is-invalid]="CodigoPostalDireccionNoValido">
                     </fieldset>
                 </div>
                 <div>
@@ -983,12 +966,12 @@
                     </fieldset>
                 </div>
             </div>
-          <div class="modal-footer-mfc full variation">
-            <div class="align-right">
-              <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-              <button class="btn btn-solid-gray" type="submit">Guardar dirección</button>
+            <div class="modal-footer-mfc full variation">
+                <div class="align-right">
+                    <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+                    <button class="btn btn-solid-gray" type="submit">Guardar dirección</button>
+                </div>
             </div>
-          </div>
         </form>
     </div>
 
@@ -1028,19 +1011,18 @@
                             <option>02</option>
                             <option>09</option>
                         </select>
-                <input type="text" placeholder="Teléfono" formControlName="NumeroTelefono" class="form-control"
-                       [class.is-invalid]="NumeroTelefonoNoValido">
+                <input type="text" placeholder="Teléfono" formControlName="NumeroTelefono" class="form-control" [class.is-invalid]="NumeroTelefonoNoValido">
             </fieldset>
             <fieldset>
-              <label class="label">Extensión</label>
-              <input type="text" placeholder="Extensión / Observación" formControlName="ExtensionTelefono">
+                <label class="label">Extensión</label>
+                <input type="text" placeholder="Extensión / Observación" formControlName="ExtensionTelefono">
             </fieldset>
-          <div class="modal-footer-mfc full variation">
-            <div class="align-right">
-              <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-              <button class="btn btn-solid-gray" (submit)="guardarTelefono()">Guardar teléfono</button>
+            <div class="modal-footer-mfc full variation">
+                <div class="align-right">
+                    <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+                    <button class="btn btn-solid-gray" (submit)="guardarTelefono()">Guardar teléfono</button>
+                </div>
             </div>
-          </div>
         </form>
     </div>
 </ng-template>

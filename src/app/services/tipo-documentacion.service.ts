@@ -8,16 +8,16 @@ import { HttpClient } from '@angular/common/http';
 export class TipoDocumentacionService {
 
   constructor(private http: HttpClient) {
-    console.log('TipoDocService');
+    // console.log('TipoDocService');
   }
 
   private getQuery(query: string) {
     const url = environment.urlServiciosBackend + query;
-    console.log('TipoDocService' + url);
+    // console.log('TipoDoc' + url);
     // return null;
     return this.http.get(url);
   }
   public getTipoDoc() {
-    return this.getQuery('tipodocumento');
+    return this.getQuery('tipodoc');
   }
 }

@@ -4,7 +4,8 @@ import {Direccion, DireccionesService} from '../../services/direcciones/direccio
 import {TelefonosService} from '../../services/telefonos/telefonos.service';
 import {map} from 'rxjs/operators';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { TipoDocumentacionService } from '../../services/tipo-documentacion.service';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   // formas para ingreso y edición de datos - bkm
   formaDirecciones: FormGroup;
   formaTelefonos: FormGroup;
+  FormularioDatosCliente: FormGroup;
 
   // variables para presentacion - bkm
   tipoDir: any[] = [];
@@ -30,9 +32,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   tipoTel: any[] = [];
   telefonos: any[] = [];
   direcciones: any[] = [];
+  tipoDoc: any[];
   tipoRegDir: any[] = ['CLIENTE', 'GARANTE'];
   tipoRegTel: any[] = ['CLIENTE', 'GARANTE'];
-
 
   ID_CLI =  '1716822679';
   // bkm
@@ -41,11 +43,13 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private direccionesService: DireccionesService,
               private telefonoService: TelefonosService,
               private fabricaService: FabricaService,
+              private tipoDocumentacionService: TipoDocumentacionService,
               private fb: FormBuilder) {
 }
 
   ngOnInit() {
     this.crearFormularioDirecciones();
+    this.crearFormularioCliente();
     this.fabricaService.currentMessage.subscribe(
       data => {
         this.mensajeServicio = data;
@@ -56,10 +60,34 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.cantones = this.getCanton();
         this.barrios = this.getBarrio();
         this.tipoTel = this.getTipoTel();
+        this.tipoDoc = this.getTipoDoc();
         // console.log(data);
       });
   }
-
+  crearFormularioCliente() {
+    this.FormularioDatosCliente = new FormGroup({
+      tipoDocumentacion: new FormControl(null, Validators.required),
+      cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
+      nombreCliente: new FormControl(null, Validators.required),
+      apellidoCliente: new FormControl(null, Validators.required),
+      fechaNacimiento: new FormControl(null, Validators.required),
+      genero: new FormControl(null, Validators.required),
+      nacionalidad: new FormControl(null, Validators.required),
+      estadoCivil: new FormControl(null, Validators.required),
+      cargasFamiliares: new FormControl(null, Validators.required),
+      emailCliente: new FormControl(null, Validators.required),
+      profesionCliente: new FormControl(null),
+      rucTrabajo: new FormControl(null),
+      razonSocialTrabajo: new FormControl(null)
+    });
+  }
+  private getTipoDoc(): any {
+    this.tipoDocumentacionService.getTipoDoc()
+        .subscribe( (resultado: any[] ) => {
+          this.tipoDoc = resultado;
+          // console.log(this.tipoDoc);
+        });
+  }
   openLg(content) {
     this.crearFormularioDirecciones();
     this.modalService.open(content);
