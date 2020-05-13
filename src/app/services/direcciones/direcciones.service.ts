@@ -21,7 +21,6 @@ export class DireccionesService {
   private getQuery(query: string) {
     const urlDirecciones = 'direcciones/';
     const url = environment.urlServiciosBackend + urlDirecciones +  query;
-    console.log('TipoDirService: ' + url);
     return this.http.get(url);
   }
 
@@ -49,7 +48,10 @@ export class DireccionesService {
     return this.getQuery(`${ID_CLI}/${ID_CRE}/${ID_CONYUGE}`);
 }
 
-  public postDireccion(direccion: Direccion) {
+  public postDireccion(direccion: Direccion, nuevo: boolean) {
+    if (nuevo) {
+      direccion.Nuevo = false;
+    }
     const url = environment.urlServiciosBackend + `direcciones/nuevaDireccion`;
     return this.http.post<Direccion>(url, direccion, this.httpOptions)
       .pipe(
@@ -80,4 +82,6 @@ export class Direccion {
   Referencia: string;
   CodigoPostal: string;
   Cedula: string;
+  Nuevo: boolean;
+  ID_DIR: number;
 }

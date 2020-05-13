@@ -17,6 +17,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   closeResult: string;
   // bkm
   mensajeServicio: DatosFabrica;
+  crearDireccion = true;
+  crearTelefono = true;
+  codigoDireccion: 0;
+  codigoTelefono: 0;
 
   // formas para ingreso y edición de datos - bkm
   formaDirecciones: FormGroup;
@@ -50,6 +54,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   ngOnInit() {
     this.crearFormularioDirecciones();
     this.crearFormularioCliente();
+    this.crearFormularioTelefonos();
     this.fabricaService.currentMessage.subscribe(
       data => {
         this.mensajeServicio = data;
@@ -61,7 +66,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.barrios = this.getBarrio();
         this.tipoTel = this.getTipoTel();
         this.tipoDoc = this.getTipoDoc();
-        // console.log(data);
       });
   }
   crearFormularioCliente() {
@@ -85,17 +89,32 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.tipoDocumentacionService.getTipoDoc()
         .subscribe( (resultado: any[] ) => {
           this.tipoDoc = resultado;
-          // console.log(this.tipoDoc);
         });
   }
-  openLg(content) {
-    this.crearFormularioDirecciones();
+  openLg(content, direccion: any) {
+    if (direccion === undefined) {
+      this.crearDireccion = true;
+      this.crearFormularioDirecciones();
+    } else {
+      this.crearDireccion = false;
+      this.cargarFormularioDirecciones(direccion);
+    }
+
+
+
     this.modalService.open(content);
   }
 
-  openCustomWidth(content) {
+  openCustomWidth(content, telefono: any) {
     // bkm - inicializar formas
-    this.crearFormularioTelefonos();
+    if ( telefono === undefined) {
+      this.crearTelefono = true;
+      this.codigoTelefono = 0;
+      this.crearFormularioTelefonos();
+    } else {
+      this.crearTelefono = false;
+      this.cargarFormularioTelefonos(telefono);
+    }
     this.modalService.open(content, {windowClass: 'custom-width-modal'});
   }
 
@@ -105,29 +124,26 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   getTipoDir(): any {
     this.direccionesService.getTipoDir()
-      .pipe(map (data => data["TIPODIR"]))
+      .pipe(map (data => data.TIPODIR))
       .subscribe((data: any) => {
         this.tipoDir = data;
-        console.log(this.tipoDir);
       });
   }
 
   public getProvincia(): any {
     this.direccionesService.getProvincia()
-      .pipe(map (data => data["PROVINCIA"]))
+      .pipe(map (data => data.PROVINCIA))
       .subscribe((data: any) => {
         this.provincias = data;
-        console.log(this.provincias);
       });
   }
 
   public getCanton(): any {
     if (this.formaDirecciones.value.Provincia !== '') {
       this.direccionesService.getCanton(this.formaDirecciones.value.Provincia)
-        .pipe(map(data => data["CANTON"]))
+        .pipe(map(data => data.CANTON))
         .subscribe((data: any) => {
           this.cantones = data;
-          console.log(this.cantones);
         });
     }
   }
@@ -136,10 +152,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
     if (this.formaDirecciones.value.Canton !== '') {
       this.direccionesService.getParroquia(this.formaDirecciones.value.Canton)
-        .pipe(map(data=> data["PARROQUIA"]))
+        .pipe(map(data => data.PARROQUIA))
         .subscribe((data: any) => {
           this.parroquias = data;
-          console.log(this.parroquias);
         });
     }
   }
@@ -147,17 +162,16 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   public getBarrio(): any {
     if (this.formaDirecciones.value.Parroquia !== '') {
       this.direccionesService.getBarrio(this.formaDirecciones.value.Parroquia)
-        .pipe(map(data=> data["BARRIO"]))
+        .pipe(map(data => data.BARRIO))
         .subscribe((data: any) => {
           this.barrios = data;
-          console.log(this.barrios);
         });
     }
   }
 
   public getTipoTel(): any {
     this.telefonoService.getTipoTelefonos()
-      .pipe(map(data => data["TIPTEL"]))
+      .pipe(map(data => data.TIPTEL))
       .subscribe((data: any) => {
         this.tipoTel = data;
       });
@@ -165,16 +179,15 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   public getTelefonos(): any {
     this.telefonoService.getTelefonos(this.mensajeServicio.Cedula)
-      .pipe(map(data => data["TELEFONOS"]))
+      .pipe(map(data => data.TELEFONOS))
       .subscribe((data: any) => {
         this.telefonos = data;
-        console.log(data);
       });
   }
 
   public getDirecciones(): any {
     this.direccionesService.getDirecciones(this.mensajeServicio.Cedula, this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
-      .pipe(map(data => data["DIRECCIONES"]))
+      .pipe(map(data => data.DIRECCIONES))
       .subscribe((data: any) => {
         this.direcciones = data;
       });
@@ -244,6 +257,41 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     });
   }
 
+  cargarFormularioDirecciones(direccion: any) {
+
+    this.codigoDireccion = direccion["ID_DIR"];
+    this.formaDirecciones.reset({
+      tipoRegistro: direccion.TipoRegistro.toUpperCase(),
+      tipoDireccion: direccion.COD_TDIR.toUpperCase(),
+      Provincia: direccion.COD_PROV,
+      Canton: direccion.COD_CAN,
+      Parroquia: direccion.COD_PAR,
+      Barrio: direccion.COD_BAR,
+      CallePrincipal: direccion.PRINC_DIR,
+      NumeroCalle: direccion.NUM_DIR,
+      CalleSecundaria: direccion.SECUN_DIR,
+      ReferenciaDireccion: direccion.REFER_DIR,
+      CodigoPostalDireccion: direccion.COD_POSTAL_DIR
+    });
+    this.getCanton();
+    this.formaDirecciones.value.Canton = direccion.COD_CAN.toUpperCase();
+    this.getParroquia();
+    this.formaDirecciones.value.Parroquia = direccion.COD_PAR.toUpperCase();
+    this.getBarrio();
+    this.formaDirecciones.value.Barrio = direccion.COD_BAR.toUpperCase();
+  }
+
+  cargarFormularioTelefonos(telefono: any) {
+    this.formaTelefonos.reset({
+      TipoRegistroTelefono: telefono.TIPO.toUpperCase(),
+      TipoTelefono: telefono["COD_TDIS"],
+      CodigoTelefono: telefono.VALOR_DIS.substring(0, 2),
+      NumeroTelefono: telefono.VALOR_DIS.substring(2, telefono.VALOR_DIS.length),
+      ExtensionTelefono: telefono["EXTEN_DIS"]
+    });
+    this.codigoTelefono = telefono["ID_DIS"];
+  }
+
   crearFormularioTelefonos() {
     this.formaTelefonos = this.fb.group({
       TipoRegistroTelefono: ['CLIENTE'],
@@ -255,7 +303,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
 
   guardarDireccion() {
-    console.log(this.formaDirecciones);
     if (this.formaDirecciones.invalid) {
       return Object.values(this.formaDirecciones.controls).forEach(control => {
         if (control instanceof FormGroup) {
@@ -266,7 +313,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         }
       });
     } else {
-      console.log(this.formaDirecciones);
       const direccion: Direccion = new Direccion();
       direccion.tipoRegistro = this.formaDirecciones.value.tipoRegistro;
       direccion.tipoDireccion = this.formaDirecciones.value.tipoDireccion;
@@ -280,8 +326,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       direccion.Referencia = this.formaDirecciones.value.ReferenciaDireccion;
       direccion.CodigoPostal = this.formaDirecciones.value.CodigoPostalDireccion;
       direccion.Cedula = this.mensajeServicio.Cedula;
-      console.log(direccion);
-      this.direccionesService.postDireccion(direccion).subscribe(
+      direccion.ID_DIR = this.codigoDireccion;
+      this.direccionesService.postDireccion(direccion, this.crearDireccion).subscribe(
         (data: any) => {
           if (data.resultado !== null) {
             this.direcciones = this.getDirecciones();
@@ -292,7 +338,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
 
   guardarTelefono() {
-    console.log(this.formaTelefonos);
     if (this.formaTelefonos.invalid) {
       return Object.values(this.formaTelefonos.controls).forEach(control => {
         if (control instanceof FormGroup) {
@@ -306,9 +351,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       this.telefonoService.postTelefono(this.formaTelefonos.value.TipoTelefono,
                                         this.mensajeServicio.Cedula,
                              this.formaTelefonos.value.CodigoTelefono.toString() + this.formaTelefonos.value.NumeroTelefono.toString(),
-                                        this.formaTelefonos.value.ExtensionTelefono).subscribe(
+                                        this.formaTelefonos.value.ExtensionTelefono, this.codigoTelefono, this.crearTelefono).subscribe(
         (data: any) => {
-          console.log(data);
           if (data.error !== null) {
             console.log(data.error);
           } else {

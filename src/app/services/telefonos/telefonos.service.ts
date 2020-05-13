@@ -12,7 +12,6 @@ export class TelefonosService {
   private getQuery(query: string) {
     const urlTelefonos = 'telefonos/';
     const url = environment.urlServiciosBackend + urlTelefonos + query;
-    console.log('Telefonos : ' + url);
     return this.http.get(url);
   }
 
@@ -24,7 +23,7 @@ export class TelefonosService {
     return this.getQuery(`${ID_CLI}`);
   }
 
-  public postTelefono(COD_TDIS: string, ID_CLI: string, VALOR_DIS: string, EXTEN_DIS: string) {
-    return this.getQuery(`${COD_TDIS},${ID_CLI},${VALOR_DIS},${EXTEN_DIS}`);
+  public postTelefono(COD_TDIS: string, ID_CLI: string, VALOR_DIS: string, EXTEN_DIS: string, ID_DIS: number, Nuevo: boolean) {
+    return this.getQuery(`${COD_TDIS},${ID_CLI},${VALOR_DIS},${EXTEN_DIS},${ID_DIS},${Nuevo}`);
   }
 }
