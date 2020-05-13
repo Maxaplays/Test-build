@@ -213,7 +213,7 @@
                                 <td data-column="Observaciones">{{direccion.OBS_VAL_DIR}}</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarDireccion)">
+                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarDireccion, direccion)">
                                     <img src="assets/images/icon-printer.svg" class="icon-with-action">
                                 </td>
                             </tr>
@@ -254,7 +254,7 @@
                                 <td *ngIf="telefono.ESTADO_DIS" data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td *ngIf="!telefono.ESTADO_DIS" data-column="Status" class="table-right"><span class="red-color">Inactivo</span></td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openCustomWidth(agregarEditarTelefono)">
+                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openCustomWidth(agregarEditarTelefono, telefono)">
                                 </td>
                             </tr>
                             <tr class="foot-td">
@@ -969,7 +969,7 @@
             <div class="modal-footer-mfc full variation">
                 <div class="align-right">
                     <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-                    <button class="btn btn-solid-gray" type="submit">Guardar dirección</button>
+                    <button [class.btn-solid-green]="formaDirecciones.valid" [className]="formaDirecciones.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" type="submit">Guardar dirección</button>
                 </div>
             </div>
         </form>
@@ -1020,7 +1020,7 @@
             <div class="modal-footer-mfc full variation">
                 <div class="align-right">
                     <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-                    <button class="btn btn-solid-gray" (submit)="guardarTelefono()">Guardar teléfono</button>
+                    <button [class.btn-solid-green]="formaTelefonos.valid" [className]="formaTelefonos.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" (submit)="guardarTelefono()">Guardar teléfono</button>
                 </div>
             </div>
         </form>
@@ -1346,4 +1346,32 @@
             </div>
         </div>
     </div>
+</ng-template>
+
+<ng-template #mensajeGrabado let-modal>
+  <div class="modal-header-mfc variation modal-mensaje">
+    <div class="cols cols2 align-middle">
+      <div class="align-left">
+        <img width="32" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-check.svg">
+        <h4 class="modal-minititle-mfc">Confirmación</h4>
+      </div>
+      <div class="align-right">
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-body variation modal-mensaje">
+    <p>Información ingresada con éxito.</p>
+  </div>
+
+  <div class="modal-footer-mfc full variation">
+    <div class="cols cols2">
+      <div class="align-right">
+        <button class="btn btn-solid-green" (click)="modal.close('Cancelar click')">Aceptar</button>
+      </div>
+    </div>
+  </div>
 </ng-template>
