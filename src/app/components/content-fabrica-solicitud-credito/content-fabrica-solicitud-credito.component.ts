@@ -124,7 +124,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   getTipoDir(): any {
     this.direccionesService.getTipoDir()
-      .pipe(map (data => data.TIPODIR))
+      .pipe(map (data => data["TIPODIR"]))
       .subscribe((data: any) => {
         this.tipoDir = data;
       });
@@ -132,7 +132,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   public getProvincia(): any {
     this.direccionesService.getProvincia()
-      .pipe(map (data => data.PROVINCIA))
+      .pipe(map (data => data["PROVINCIA"]))
       .subscribe((data: any) => {
         this.provincias = data;
       });
@@ -141,7 +141,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   public getCanton(): any {
     if (this.formaDirecciones.value.Provincia !== '') {
       this.direccionesService.getCanton(this.formaDirecciones.value.Provincia)
-        .pipe(map(data => data.CANTON))
+        .pipe(map(data => data["CANTON"]))
         .subscribe((data: any) => {
           this.cantones = data;
         });
@@ -152,7 +152,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
     if (this.formaDirecciones.value.Canton !== '') {
       this.direccionesService.getParroquia(this.formaDirecciones.value.Canton)
-        .pipe(map(data => data.PARROQUIA))
+        .pipe(map(data => data["PARROQUIA"]))
         .subscribe((data: any) => {
           this.parroquias = data;
         });
@@ -162,7 +162,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   public getBarrio(): any {
     if (this.formaDirecciones.value.Parroquia !== '') {
       this.direccionesService.getBarrio(this.formaDirecciones.value.Parroquia)
-        .pipe(map(data => data.BARRIO))
+        .pipe(map(data => data["BARRIO"]))
         .subscribe((data: any) => {
           this.barrios = data;
         });
@@ -171,7 +171,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   public getTipoTel(): any {
     this.telefonoService.getTipoTelefonos()
-      .pipe(map(data => data.TIPTEL))
+      .pipe(map(data => data["TIPTEL"]))
       .subscribe((data: any) => {
         this.tipoTel = data;
       });
@@ -179,7 +179,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   public getTelefonos(): any {
     this.telefonoService.getTelefonos(this.mensajeServicio.Cedula)
-      .pipe(map(data => data.TELEFONOS))
+      .pipe(map(data => data["TELEFONOS"]))
       .subscribe((data: any) => {
         this.telefonos = data;
       });
@@ -187,7 +187,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   public getDirecciones(): any {
     this.direccionesService.getDirecciones(this.mensajeServicio.Cedula, this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
-      .pipe(map(data => data.DIRECCIONES))
+      .pipe(map(data => data["DIRECCIONES"]))
       .subscribe((data: any) => {
         this.direcciones = data;
       });
@@ -330,6 +330,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       this.direccionesService.postDireccion(direccion, this.crearDireccion).subscribe(
         (data: any) => {
           if (data.resultado !== null) {
+            this.modalService.dismissAll();
             this.direcciones = this.getDirecciones();
           }
         }
