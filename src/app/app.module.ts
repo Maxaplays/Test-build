@@ -48,6 +48,7 @@ import { TipoContactoService } from './services/tipoContacto/tipo-contacto.servi
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { LoadingComponent } from './components/loading/loading.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 
@@ -114,6 +115,7 @@ const routes: Routes = [
     StepsComponent,
     ModalHistorialComponent,
     LoadingComponent,
+
   ],
   imports: [
     NgbModule,
@@ -124,6 +126,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    NgxPaginationModule,
   ],
   exports: [],
   providers: [],

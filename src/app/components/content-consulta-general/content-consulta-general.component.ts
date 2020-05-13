@@ -13,7 +13,9 @@ export class ContentConsultaGeneralComponent implements OnInit {
   creditos: any[];
   cantidadCreditos: number;
   searchText: string;
+  loading: boolean;
   FormularioDatosBasicos: FormGroup; // formulario de react driven del HTML
+  pageActual: number = 1;
   // bkm
   constructor(private fabricaService: FabricaService) {
 
@@ -43,9 +45,10 @@ export class ContentConsultaGeneralComponent implements OnInit {
   }
   public getCreditos(): any {
     // console.log(fechaDesde + fechaHasta);
+    this.loading = true;
     let fechaDesde: string = this.FormularioDatosBasicos.controls['fechaDesde'].value;
     let fechaHasta: string = this.FormularioDatosBasicos.controls['fechaHasta'].value;
-    
+
     this.fabricaService.getConsultaGeneral(localStorage.getItem('usuario'), fechaDesde, fechaHasta).subscribe((data: any) => {
       this.creditos = data.GENERO;
       this.cantidadCreditos = this.creditos.length;
@@ -53,6 +56,7 @@ export class ContentConsultaGeneralComponent implements OnInit {
 
     }, ( errorServicio ) => {
       // console.log('Error');
+      this.loading = false;
     }
   );
   }
