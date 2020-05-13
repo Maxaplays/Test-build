@@ -58,11 +58,11 @@ export class MenutopComponent implements OnInit {
     );
   }
   cambiarSucursal(idSucursal: string) {
-      console.log('Cambio sucursal: '+ idSucursal);
+      // console.log('Cambio sucursal: '+ idSucursal);
       const nombreSucursal = this.sucursales.find(element => element.ID_SUC === idSucursal);
-      console.log(nombreSucursal);
+      // console.log(nombreSucursal);
       this.nombreSucursal = nombreSucursal.NOM_SUC;
       localStorage.setItem('nombreSucursal', nombreSucursal.NOM_SUC);
-      localStorage.setItem('idSucursal', idSucursal);
+      localStorage.setItem('codigoSucursal', idSucursal);
   }
 }

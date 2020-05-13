@@ -107,7 +107,7 @@ export class ContentFabricaComponent implements OnInit {
     );
   }
   getProducto() {
-    // console.log(localStorage.getItem('codigoSucursal'));
+    console.log(localStorage.getItem('codigoSucursal'));
     this.productosService.getProductos(localStorage.getItem('codigoSucursal')).subscribe(
       (data: any) => {
         this.productos = data.PRODUCTO;
@@ -177,7 +177,7 @@ export class ContentFabricaComponent implements OnInit {
           this.datosGenerales.idProducto = this.FormularioDatosBasicos.controls['producto'].value;
           this.fabricaService.changeMessage(this.datosGenerales);
           // console.log('Padre:');
-          // console.log(this.datosGenerales);
+          console.log(data);
           if (this.datosGenerales.Error === 'Solicitud creada exitosamente'){
             this.loading = false;
             this.router.navigate(['/fabrica/nueva-solicitud/credito']);
