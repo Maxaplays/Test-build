@@ -12,6 +12,8 @@ import {map} from 'rxjs/operators';
 })
 export class ContentFabricaControlDeCalidadComponent implements OnInit {
   closeResult: string;
+  paginaAcual = 1;
+  marcarChecks = false;
   // bkm
   mensajeServicio: DatosFabrica;
   controlCalidad: any[] = [];
@@ -19,7 +21,7 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
   constructor(private modalService: NgbModal,
               private fabricaService: FabricaService,
               private documentoVisualizacion: DocumentosVisualizacionService) {
-    
+
   }
 
   ngOnInit() {
@@ -45,11 +47,20 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
 
   public getControlCalidad(): any {
     if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined ) {
-      this.documentoVisualizacion.getControlCalidad(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      // this.documentoVisualizacion.getControlCalidad(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      this.documentoVisualizacion.getControlCalidad('AC0101012', '1706689971')
         .pipe(map(data => data["DOCUMENTOS"]))
         .subscribe((data: any) => {
           this.controlCalidad = data;
         });
+    }
+  }
+
+  marcarTodos(e) {
+    if (e.target.checked) {
+      this.marcarChecks = !this.marcarChecks;
+    } else {
+      this.marcarChecks = !this.marcarChecks;
     }
   }
 }

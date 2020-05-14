@@ -105,24 +105,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let politica of politicas">
+                    <tr *ngFor="let politica of politicas | paginate: {itemsPerPage: 5, currentPage: paginaAcual}">
                         <td><a class="tag-with-radius">Solicitar</a></td>
                         <td>{{politica.NOM_POL}}</td>
                         <td>{{politica.VALOR_MAT}}</td>
-                        <td><img src="assets/images/icon-check.svg" class="check-center"></td>
+                        <td><img src="{{politica.CHECK_UX}}" class="check-center"></td>
                         <td>{{politica.USR_VAL}}</td>
-                        <td>{{politica.FECH_VAL}}</td>
-                        <td><span class="light yellow"></span></td>
+                        <td>{{politica.FECH_VAL | date: 'short'}}</td>
+                        <td><span class="{{politica.COLOR_UX}}"></span></td>
                         <td>{{politica.OBSER_VAL_EXC_VAL}}</td>
                         <td>{{politica.USR_EXC_VAL}}</td>
-                        <td>{{politica.FECH_EXC_VAL}}</td>
+                        <td>{{politica.FECH_EXC_VAL | date: 'short'}}</td>
                         <td>{{politica.USR_VAL_EXC_VAL}}</td>
-                        <td>{{politica.FECH_VAL_EXC_VAL}}</td>
+                        <td>{{politica.FECH_VAL_EXC_VAL | date: 'short'}}</td>
                         <td>{{politica.ID_VAL}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+      <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaAcual = $event"></pagination-controls>
     </div>
 
     <div class="footer-fixed-forms">

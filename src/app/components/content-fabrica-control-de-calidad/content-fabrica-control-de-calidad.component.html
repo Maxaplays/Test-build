@@ -89,7 +89,7 @@
             <table class="width-filters">
                 <thead>
                     <tr>
-                        <th><input type="checkbox"></th>
+                        <th><input type="checkbox" (change)="marcarTodos($event)"></th>
                         <th>Solicitar Excepción</th>
                         <th>Estado</th>
                         <th>Url</th>
@@ -110,31 +110,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let control of controlCalidad">
-                        <td><input type="checkbox"></td>
+                    <tr *ngFor="let control of controlCalidad | paginate: {itemsPerPage: 5, currentPage: paginaAcual}">
+                        <td><input type="checkbox" [checked]="marcarChecks"></td>
                         <td><a class="tag-with-radius">Solicitar</a></td>
-                        <td><span class="light yellow"></span></td>
-                        <td>
-                            <a href="#"><img src="assets/images/icon-url.svg" class="check-center"></a>
-                        </td>
+                        <td><span class="{{control.COLOR_UX}}"></span></td>
+                        <td *ngIf="control.URL_DOC"><a href="{{control.URL_DOC}}" target="_blank"><img src="assets/images/icon-url.svg" class="check-center"></a></td>
+                        <td *ngIf="!control.URL_DOC"><a ></a></td>
                         <td>{{control.NOM_POL}}</td>
                         <td>{{control.VALOR_MAT}}</td>
-                        <td><img src="assets/images/icon-check.svg" class="check-center"></td>
+                        <td><img src="{{control.CHECK_UX}}" class="check-center"></td>
                         <td>{{control.USR_VAL}}</td>
-                        <td>{{control.FECH_VAL}}</td>
+                        <td>{{control.FECH_VAL | date: 'short'}}</td>
                         <td>{{control.USR_CARGA_ARCH_VAL}}</td>
-                        <td>{{control.FCH_CARGA_ARCH_VAL}}</td>
+                        <td>{{control.FCH_CARGA_ARCH_VAL | date: 'short'}}</td>
                         <td>{{control.NombreCorto}}</td>
                         <td>{{control.OBSER_VAL_EXC_VAL}}</td>
                         <td>{{control.USR_EXC_VAL}}</td>
-                        <td>{{control.FECH_EXC_VAL}}</td>
+                        <td>{{control.FECH_EXC_VAL | date: 'short'}}</td>
                         <td>{{control.USR_VAL_EXC_VAL}}</td>
-                        <td>{{control.FECH_VAL_EXC_VAL}}</td>
+                        <td>{{control.FECH_VAL_EXC_VAL | date: 'short'}}</td>
                         <td>{{control.ID_VAL}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+      <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaAcual = $event"></pagination-controls>
     </div>
 
     <div class="footer-fixed-forms">
