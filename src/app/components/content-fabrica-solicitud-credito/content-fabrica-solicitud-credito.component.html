@@ -1375,3 +1375,5 @@
         </div>
     </div>
 </ng-template>
+
+<ngb-alert *ngIf="successMessage" type="success" class="wbtn-success" (close)="successMessage = null"><img src="./assets/images/success.svg"><span>{{ successMessage }}</span></ngb-alert>

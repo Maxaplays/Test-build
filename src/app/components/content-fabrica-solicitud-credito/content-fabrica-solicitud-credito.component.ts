@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {Direccion, DireccionesService} from '../../services/direcciones/direcciones.service';
 import {TelefonosService} from '../../services/telefonos/telefonos.service';
-import {map} from 'rxjs/operators';
+import {debounceTime, map} from 'rxjs/operators';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { TipoDocumentacionService } from '../../services/tipo-documentacion.service';
 import { ActivatedRoute } from '@angular/router';
 import { SituacionFinancieraService } from '../../services/situacionFinanciera/situacion-financiera.service';
+import {Subject} from 'rxjs';
 
 
 @Component({
@@ -17,6 +18,13 @@ import { SituacionFinancieraService } from '../../services/situacionFinanciera/s
 })
 export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   closeResult: string;
+  private _error = new Subject<string>();
+  private _success = new Subject<string>();
+
+  staticAlertClosed = false;
+  errorMessage: string;
+  successMessage: string;
+  loading: boolean;
   // bkm
   mensajeServicio: DatosFabrica;
   crearDireccion = true;
@@ -45,7 +53,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   tipoRegTel: any[] = ['CLIENTE', 'GARANTE'];
   situacionFinancieraIngresos: any[] = [];
 
-  ID_CLI =  '1716822679';
+
   // bkm
   // tslint:disable-next-line:max-line-length
   constructor(private modalService: NgbModal,
@@ -85,7 +93,22 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.tipoTel = this.getTipoTel();
     this.tipoDoc = this.getTipoDoc();
     this.telefonos = this.getTelefonos();
+
+    this._error.subscribe((message) => this.errorMessage = message);
+    this._error.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.errorMessage = null);
+
+    this._success.subscribe((message) => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(50000)
+    ).subscribe(() => this.successMessage = null);
   }
+
+  public showSuccessMessage() {
+    this._success.next('Se guardó la información exitosamente.');
+  }
+
   crearFormularioCliente() {
     this.FormularioDatosCliente = new FormGroup({
       tipoDocumentacion: new FormControl(null, Validators.required),
@@ -110,7 +133,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         });
   }
   openLg(content, direccion: any) {
-    if (direccion === undefined) {
+    if (direccion === undefined || direccion === '') {
       this.crearDireccion = true;
       this.crearFormularioDirecciones();
     } else {
@@ -122,7 +145,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   openCustomWidth(content, telefono: any) {
     // bkm - inicializar formas
-    if ( telefono === undefined) {
+    if ( telefono === undefined || telefono === '') {
       this.crearTelefono = true;
       this.codigoTelefono = 0;
       this.crearFormularioTelefonos();
@@ -388,6 +411,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
           if (data.resultado !== null) {
             this.modalService.dismissAll();
             this.direcciones = this.getDirecciones();
+            this.successMessage = 'Información guardada!';
           }
         }
       );
@@ -413,7 +437,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
           if (data.error !== null) {
             console.log(data.error);
           } else {
+            this.modalService.dismissAll();
             this.telefonos = this.getTelefonos();
+            this.successMessage = 'Información guardada!';
           }
         }, (errorServicio) => {
           console.log('Error');
