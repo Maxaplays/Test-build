@@ -12,6 +12,7 @@ import {map} from 'rxjs/operators';
 })
 export class ContentFabricaPoliticasComponent implements OnInit {
   closeResult: string;
+  paginaAcual = 1;
   // bkm
   mensajeServicio: DatosFabrica;
   politicas: any[] = [];
@@ -19,7 +20,6 @@ export class ContentFabricaPoliticasComponent implements OnInit {
   constructor(private modalService: NgbModal,
               private fabricaService: FabricaService,
               private documentoVisualizacion: DocumentosVisualizacionService) {
-    
   }
 
   ngOnInit() {
@@ -45,7 +45,8 @@ export class ContentFabricaPoliticasComponent implements OnInit {
 
   public getPoliticas(): any {
     if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined ) {
-      this.documentoVisualizacion.getPoliticas(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      // this.documentoVisualizacion.getPoliticas(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      this.documentoVisualizacion.getPoliticas('AC0101012', '1706689971')
         .pipe(map(data => data["DOCUMENTOS"]))
         .subscribe((data: any) => {
           this.politicas = data;

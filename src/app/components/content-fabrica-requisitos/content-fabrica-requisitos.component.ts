@@ -12,6 +12,8 @@ import {map} from 'rxjs/operators';
 })
 export class ContentFabricaRequisitosComponent implements OnInit {
   closeResult: string;
+  paginaAcual = 1;
+  marcarChecks = false;
   // bkm
   mensajeServicio: DatosFabrica;
   requisitios: any[] = [];
@@ -20,7 +22,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   constructor(private modalService: NgbModal,
               private fabricaService: FabricaService,
               private documentoVisualizacion: DocumentosVisualizacionService) {
-    
+
   }
 
   ngOnInit() {
@@ -47,11 +49,20 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   public getRequisitos(): any {
     console.log(this.mensajeServicio.NumeroCredito);
     if (this.mensajeServicio.NumeroCredito !== '') {
-      this.documentoVisualizacion.getRequisitos(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      // this.documentoVisualizacion.getRequisitos(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      this.documentoVisualizacion.getRequisitos('AC0101012', '1706689971')
         .pipe(map(data => data["DOCUMENTOS"]))
         .subscribe((data: any) => {
           this.requisitios = data;
         });
+    }
+  }
+
+  marcarTodos(e) {
+    if (e.target.checked) {
+      this.marcarChecks = !this.marcarChecks;
+    } else {
+      this.marcarChecks = !this.marcarChecks;
     }
   }
 }

@@ -4122,6 +4122,55 @@ a.badge-dark:focus {
     border-color: #6AB321;
 }
 
+.alert-success.wbtn-success {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+.alert-success.wbtn-success img {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 15px;
+}
+
+.alert-success.wbtn-success span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.alert-success.wbtn-success button.close {
+  opacity: 1!important;
+  padding: 0;
+  height: 36px;
+  margin: 18px 15px 0 0;
+}
+
+.alert-success.wbtn-success button span {
+  font-size: 0;
+}
+
+.alert-success.wbtn-success button span:before {
+  content: 'Aceptar';
+  display: block;
+  position: relative;
+  border-color: #6AB321;
+  color: #6ab321;
+  background: #ffffff;
+  height: 36px;
+  border-radius: 36px;
+  border: 2px solid transparent;
+  outline: none;
+  padding: 0 15px;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+  line-height: 32px;
+}
+
 .alert-success hr {
     border-top-color: #b1dfbb
 }
@@ -9616,6 +9665,30 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background: none;
 }
 
+.btn.simulate-inputFile {
+  vertical-align: top;
+  line-height: 34px;
+  width: 124px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.btn.simulate-inputFile input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  cursor: pointer;
+  height: 32px;
+  width: 120px;
+  opacity: 0;
+}
+
+input[type=file],
+input[type=file]::-webkit-file-upload-button {
+    cursor: pointer;
+}
+
 .btn.btn-border-gray {
     border-color: #C1C1C1;
     color: #C1C1C1;
@@ -9650,6 +9723,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border-color: #287FA2;
     color: #fff;
     background: #287FA2;
+}
+
+.btn.btn-solid-white {
+  border-color: #ffffff;
+  color: #6E6E6E;
+  background: #ffffff;
 }
 
 .btn img {
@@ -9878,7 +9957,7 @@ input[type="checkbox"]+label {
 
 /*
 
-  .breadcrumb li a::after { 
+  .breadcrumb li a::after {
     content: " ";
     display: block;
     width: 0;
@@ -9893,7 +9972,7 @@ input[type="checkbox"]+label {
     z-index: 2;
   }
 
-  .breadcrumb li a::before { 
+  .breadcrumb li a::before {
     content: " ";
     display: block;
     width: 0;
@@ -9927,8 +10006,8 @@ input[type="checkbox"]+label {
   .breadcrumb li:last-child a:before {
     border-left: none;
   }
-  .breadcrumb li:last-child a::after { 
-    border: 0; 
+  .breadcrumb li:last-child a::after {
+    border: 0;
   }*/
 
 .breadcrumb li a:hover,
@@ -10284,6 +10363,7 @@ b {
     border-radius: 25px;
     font-size: 12px;
     margin: auto;
+    cursor: pointer;
 }
 
 a {
@@ -10371,6 +10451,21 @@ table a {
 
 .custom-width-variant-modal.modal.show .modal-dialog {
     max-width: 640px;
+}
+
+.custom-width-error-modal.modal.show .modal-dialog {
+	max-width: 446px;
+}
+
+.modal-error {
+  background: #FF3131;
+  padding: 25px;
+}
+
+.modal-error p {
+  color: #ffffff;
+  font-size: 20px;
+  margin: 10px 0 30px 0;
 }
 
 .green-color {
@@ -10765,6 +10860,20 @@ fieldset.forms.forms-relative select {
     width: 440px;
 }
 
+.only-pdf .modal-with-viewer>div:first-child {
+  padding: 0;
+  width: calc(100% + 60px);
+  line-height: 0;
+  margin: 0 -30px;
+}
+
+.modal-with-viewer.modal-without-pdf>div:first-child {
+  padding-top: 15px;
+  margin: 20px 0;
+  padding: 0;
+  width: 100%;
+}
+
 .archive-link img {
     vertical-align: middle;
     margin-right: 5px;
@@ -10857,6 +10966,36 @@ app-content-dashboard>.content {
 .bodyFormSucursal {
     background: #f5f5f5;
     padding: 20px 28px 0;
+}
+
+/* loader */
+
+#loader-mfc {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.5)
+}
+
+#loader-mfc figure {
+  background: #ffffff;
+  width: 96px;
+  height: 96px;
+  line-height: 96px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+#loader-mfc figure img {
+  vertical-align: middle;
 }
 
 @media screen and (max-width: 1366px) {
