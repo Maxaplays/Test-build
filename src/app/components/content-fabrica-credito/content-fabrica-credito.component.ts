@@ -3,9 +3,10 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FabricaService, DatosFabrica } from 'src/app/services/fabricaCredito/fabrica.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ValoresSimulador } from '../../services/fabricaCredito/fabrica.service';
-import { map } from 'rxjs/operators';
+import { map, debounceTime } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { formatNumber } from '@angular/common';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-content-fabrica-credito',
@@ -15,12 +16,17 @@ import { formatNumber } from '@angular/common';
 export class ContentFabricaCreditoComponent implements OnInit {
 
   closeResult: string;
-
+  private _error = new Subject<string>();
+  private _success = new Subject<string>();
   // bkm
   mensajeServicio: DatosFabrica;
   FormularioDatosBasicos: FormGroup; // formulario de react driven del HTML
   mensajeValidacion: string;
   listadoErrores: string[];
+  staticAlertClosed = false;
+  errorMessage: string;
+  successMessage: string;
+  loading: boolean;
   // bkm
 
   constructor(private modalService: NgbModal,
@@ -38,6 +44,18 @@ export class ContentFabricaCreditoComponent implements OnInit {
         this.InicilizarValores();
         // console.log(data.replace(',','.'));
       });
+      setTimeout(() => this.staticAlertClosed = true, 20000);
+
+    this._error.subscribe((message) => this.errorMessage = message);
+    this._error.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.errorMessage = null);
+
+    this._success.subscribe((message) => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(50000)
+    ).subscribe(() => this.successMessage = null);
+
   }
 
   openCustomWidthVariant(content) {
@@ -144,6 +162,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
     });
   }
   ValidarFormularioDatosBasicos(content: any, tipo: string) {
+    this.loading = true;
     if (this.FormularioDatosBasicos.valid) {
       // console.log('Inicio Proceso...' + this.FormularioDatosBasicos.status);
       let valoresSimulador: ValoresSimulador = new ValoresSimulador();
@@ -193,19 +212,21 @@ export class ContentFabricaCreditoComponent implements OnInit {
           this.listadoErrores = data.listaErrores;
           if (tipo === 'Validar') {
             if (this.listadoErrores.length > 0) {
-
-              this.mensajeValidacion = 'Errores detectados:';
-              this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+              this.errorMessage = 'Errores detectados:';
+              this.loading = false;
+              this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
             } else {
               // Sin errores seguir con siguiente paso
-              this.mensajeValidacion = 'Validación Correcta!';
-              this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+              this.loading = false;
+              this.successMessage = 'Validación Correcta!';
+              // this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
             } 
           }
           if (tipo === 'Continuar') {
             if (this.listadoErrores.length > 0) {
-              this.mensajeValidacion = 'Errores detectados:';
-              this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+              this.loading = false;
+              this.errorMessage = 'Errores detectados:';
+              this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
             } else {
               // Sin errores seguir con siguiente paso
               // console.log(data);
@@ -215,6 +236,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
               this.mensajeServicio.ValorTotal = data.ventaTotalReal;
               this.mensajeServicio.Monto = data.montoCreditoReal;
               this.fabricaService.changeMessage(this.mensajeServicio);
+              this.loading = false;
               this.router.navigate(['/fabrica/nueva-solicitud/solicitud-credito']);
             } 
           }
