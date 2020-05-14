@@ -49,8 +49,8 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   public getRequisitos(): any {
     console.log(this.mensajeServicio.NumeroCredito);
     if (this.mensajeServicio.NumeroCredito !== '') {
-      // this.documentoVisualizacion.getRequisitos(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
-      this.documentoVisualizacion.getRequisitos('AC0101012', '1706689971')
+      this.documentoVisualizacion.getRequisitos(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      // this.documentoVisualizacion.getRequisitos('AC0101012', '1706689971')
         .pipe(map(data => data["DOCUMENTOS"]))
         .subscribe((data: any) => {
           this.requisitios = data;

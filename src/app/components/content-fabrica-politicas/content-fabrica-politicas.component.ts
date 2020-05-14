@@ -45,8 +45,8 @@ export class ContentFabricaPoliticasComponent implements OnInit {
 
   public getPoliticas(): any {
     if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined ) {
-      // this.documentoVisualizacion.getPoliticas(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
-      this.documentoVisualizacion.getPoliticas('AC0101012', '1706689971')
+      this.documentoVisualizacion.getPoliticas(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      // this.documentoVisualizacion.getPoliticas('AC0101012', '1706689971')
         .pipe(map(data => data["DOCUMENTOS"]))
         .subscribe((data: any) => {
           this.politicas = data;

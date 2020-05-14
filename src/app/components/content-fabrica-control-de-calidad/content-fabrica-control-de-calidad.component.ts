@@ -47,8 +47,8 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
 
   public getControlCalidad(): any {
     if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined ) {
-      // this.documentoVisualizacion.getControlCalidad(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
-      this.documentoVisualizacion.getControlCalidad('AC0101012', '1706689971')
+      this.documentoVisualizacion.getControlCalidad(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      // this.documentoVisualizacion.getControlCalidad('AC0101012', '1706689971')
         .pipe(map(data => data["DOCUMENTOS"]))
         .subscribe((data: any) => {
           this.controlCalidad = data;
