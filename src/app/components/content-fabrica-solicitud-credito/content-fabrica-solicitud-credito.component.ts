@@ -6,11 +6,8 @@ import {map} from 'rxjs/operators';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { TipoDocumentacionService } from '../../services/tipo-documentacion.service';
-<<<<<<< HEAD
 import { ActivatedRoute } from '@angular/router';
-=======
-import {SituacionFinancieraService} from '../../services/situacionFinanciera/situacion-financiera.service';
->>>>>>> 6b56717814cf667e3ceb643fcac3c41092c8acdd
+import { SituacionFinancieraService } from '../../services/situacionFinanciera/situacion-financiera.service';
 
 
 @Component({
@@ -56,9 +53,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private telefonoService: TelefonosService,
               private fabricaService: FabricaService,
               private tipoDocumentacionService: TipoDocumentacionService,
-<<<<<<< HEAD
               private fb: FormBuilder,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private situacionFinancieraService: SituacionFinancieraService) {
               this.activatedRoute.queryParams.subscribe(params => {
                   this.idCredito = params['idCre'];
                   if (typeof this.idCredito !== 'undefined') {
@@ -66,22 +63,19 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                         (data: DatosFabrica) => {
                           // console.log(data);
                           this.fabricaService.changeMessage(data);
-                          this.inicializarCredito();
                         });
                     }
               });
-              
-=======
-              private situacionFinancieraService: SituacionFinancieraService,
-              private fb: FormBuilder) {
->>>>>>> 6b56717814cf667e3ceb643fcac3c41092c8acdd
+              this.fabricaService.currentMessage.subscribe(
+                data => {
+                  this.mensajeServicio = data;
+                });
 }
 
   ngOnInit() {
     this.crearFormularioDirecciones();
     this.crearFormularioCliente();
     this.crearFormularioTelefonos();
-<<<<<<< HEAD
     this.telefonos = this.getTelefonos();
     this.direcciones = this.getDirecciones();
     this.tipoDir = this.getTipoDir();
@@ -91,27 +85,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.tipoTel = this.getTipoTel();
     this.tipoDoc = this.getTipoDoc();
     this.telefonos = this.getTelefonos();
-  }
-  inicializarCredito(){
-    this.fabricaService.currentMessage.subscribe(
-      data => {
-        this.mensajeServicio = data;
-=======
-    this.crearFormularioSituacionFinanciera();
-    this.fabricaService.currentMessage.subscribe(
-      data => {
-        this.mensajeServicio = data;
-        this.telefonos = this.getTelefonos();
-        this.direcciones = this.getDirecciones();
-        this.tipoDir = this.getTipoDir();
-        this.provincias = this.getProvincia();
-        this.cantones = this.getCanton();
-        this.barrios = this.getBarrio();
-        this.tipoTel = this.getTipoTel();
-        this.tipoDoc = this.getTipoDoc();
-        this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
->>>>>>> 6b56717814cf667e3ceb643fcac3c41092c8acdd
-      });
   }
   crearFormularioCliente() {
     this.FormularioDatosCliente = new FormGroup({
