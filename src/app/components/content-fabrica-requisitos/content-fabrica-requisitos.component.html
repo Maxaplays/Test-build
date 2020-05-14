@@ -112,6 +112,28 @@
                     </tr>
                 </thead>
                 <tbody>
+                      <tr>
+                        <td><input type="checkbox"></td>
+                        <td><a class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion)">Solicitar</a></td>
+                        <td><span class="light yellow"></span></td>
+                        <td><a href="#"><img src="assets/images/icon-url.svg" class="check-center"></a></td>
+                        <td>Hardcode</td>
+                        <td>Hardcode</td>
+                        <td><img src="assets/images/icon-check.svg" class="check-center"></td>
+                        <td>Hardcode</td>
+                        <td>Hardcode</td>
+                        <td>Hardcode</td>
+                        <td>Hardcode</td>
+                        <td>Hardcode</td>
+                        <td>Hardcode</td>
+                        <td>Hardcode</td>
+                        <td>Hardcode</td>
+                        <td>Hardcode</td>
+                        <td>Hardcode</td>
+                        <td>Hardcode</td>
+                        <td>Hardcode</td>
+                        <td>Hardcode</td>
+                    </tr>
                     <tr *ngFor="let requisito of requisitios">
                         <td><input type="checkbox"></td>
                         <td><a class="tag-with-radius">Solicitar</a></td>
@@ -144,6 +166,7 @@
             <div class="align-left">
                 <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button>
                 <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Documentación</button>
+                <a class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file"></a>
             </div>
             <div class="align-right">
                 <button class="btn btn-border-gray">Cancelar</button>
@@ -179,4 +202,77 @@
             </div>
         </div>
     </div>
+</ng-template>
+
+
+<ng-template #solicitudExcepcion let-modal>
+
+  <div class="modal-header-mfc variation">
+      <div class="cols cols2 align-middle">
+          <div class="align-left">
+              <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-documentacion-modal.svg">
+              <h4 class="modal-minititle-mfc">Solicitud de Excepción</h4>
+          </div>
+          <div class="align-right">
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+      </div>
+  </div>
+
+  <div class="modal-body variation">
+      <div class="modal-with-viewer modal-without-pdf">
+          <div class="forms forms-relative">
+              <div class="cols cols2">
+                  <div>
+                      <fieldset>
+                          <label class="label">ID</label>
+                          <span class="text-data">111695</span>
+                      </fieldset>
+                  </div>
+                  <div>
+                      <fieldset>
+                          <label class="label">Tipo</label>
+                          <span class="text-data">Requisito</span>
+                      </fieldset>
+                  </div>
+              </div>
+              <fieldset>
+                  <label class="label">Comentarios</label>
+                  <textarea placeholder="Escriba Comentarios" style="max-height: 100px;"></textarea>
+              </fieldset>
+              <div id="table-scroll">
+                  <table class="width-filters" style="max-width: calc(100% - 8px);margin-top: 8px;">
+                      <thead>
+                          <tr>
+                              <th>#</th>
+                              <th>Validación</th>
+                              <th>Fecha</th>
+                              <th>Usuario</th>
+                              <th>Observaciones</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>&nbsp;</td>
+                              <td>Verificado</td>
+                              <td>13/05/2020</td>
+                              <td>zmaestre</td>
+                              <td>Ninguna</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="modal-footer-mfc full variation">
+    <div class="align-right">
+        <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+        <button class="btn btn-solid-green">Guardar</button>
+    </div>
+  </div>
+
 </ng-template>

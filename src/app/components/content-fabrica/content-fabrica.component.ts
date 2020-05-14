@@ -20,9 +20,11 @@ import { EstadoCivilService } from '../../services/estadoCivil/estado-civil.serv
 export class ContentFabricaComponent implements OnInit {
   closeResult: string;
   private _error = new Subject<string>();
+  private _success = new Subject<string>();
 
   staticAlertClosed = false;
   errorMessage: string;
+  successMessage: string;
   loading: boolean;
   // bkm
   FormularioDatosBasicos: FormGroup; // formulario de react driven del HTML
@@ -57,6 +59,12 @@ export class ContentFabricaComponent implements OnInit {
     this._error.pipe(
       debounceTime(5000)
     ).subscribe(() => this.errorMessage = null);
+
+    this._success.subscribe((message) => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(50000)
+    ).subscribe(() => this.successMessage = null);
+
     this.fabricaService.currentMessage.subscribe(data => this.mensajeServicio = data);
   }
   open(content) {
@@ -81,6 +89,10 @@ export class ContentFabricaComponent implements OnInit {
     this._error.next('Entrada mínima requerida para cobertura USD$2.476,34');
   }
 
+  public showSuccessMessage() {
+    this._success.next('Se guardó la información exitosamente.');
+  }
+
   openLg(content) {
     this.modalService.open(content, { size: 'lg' });
   }
@@ -88,6 +100,11 @@ export class ContentFabricaComponent implements OnInit {
   openCustomWidthVariant(content) {
     this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
   }
+
+  openErrorWidth(content) {
+    this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+  }
+
   // bkm metodos
   private getTipoDoc(): any {
     this.tipoDocumentacionService.getTipoDoc()
