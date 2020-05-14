@@ -64,6 +64,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private fb: FormBuilder,
               private activatedRoute: ActivatedRoute,
               private situacionFinancieraService: SituacionFinancieraService) {
+                this.crearFormularioDirecciones();
+                  this.crearFormularioCliente();
+                  this.crearFormularioTelefonos();
               this.activatedRoute.queryParams.subscribe(params => {
                   this.idCredito = params['idCre'];
                   if (typeof this.idCredito !== 'undefined') {
@@ -76,24 +79,22 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               });
               this.fabricaService.currentMessage.subscribe(
                 data => {
+                  
                   this.mensajeServicio = data;
+                  this.direcciones = this.getDirecciones();
+                  this.telefonos = this.getTelefonos();
+                  this.tipoDir = this.getTipoDir();
+                  this.provincias = this.getProvincia();
+                  this.cantones = this.getCanton();
+                  this.barrios = this.getBarrio();
+                  this.tipoTel = this.getTipoTel();
+                  this.tipoDoc = this.getTipoDoc();
+                  this.telefonos = this.getTelefonos();
                 });
 }
 
   ngOnInit() {
-    this.crearFormularioDirecciones();
-    this.crearFormularioCliente();
-    this.crearFormularioTelefonos();
-    this.telefonos = this.getTelefonos();
-    this.direcciones = this.getDirecciones();
-    this.tipoDir = this.getTipoDir();
-    this.provincias = this.getProvincia();
-    this.cantones = this.getCanton();
-    this.barrios = this.getBarrio();
-    this.tipoTel = this.getTipoTel();
-    this.tipoDoc = this.getTipoDoc();
-    this.telefonos = this.getTelefonos();
-
+    
     this._error.subscribe((message) => this.errorMessage = message);
     this._error.pipe(
       debounceTime(5000)
