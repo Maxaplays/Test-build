@@ -414,7 +414,7 @@
             <ngb-tab id="situacion-financiera">
                 <ng-template ngbTabTitle><img src="assets/images/icon-situacion-financiera.svg"> <span>Situación financiera</span></ng-template>
                 <ng-template ngbTabContent>
-                    <form class="forms forms-relative">
+                    <form class="forms forms-relative" [formGroup]="formaSituacionFinanciera">
                         <div class="cols cols2">
                             <div class="table-flat">
                                 <h5>Ingresos Mensuales</h5>
@@ -430,73 +430,73 @@
                                         <tr>
                                             <td data-column="Descripción">Arriendos</td>
                                             <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                                <input type="text" placeholder="0,00" formControlName="valorArriendos" class="form-control" [class.is-invalid]="valorArriendosNoValida">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
+                                                <input type="text" placeholder="-" formControlName="comentarioArriendos" class="form-control" [class.is-invalid]="comentarioArriendosNoValida">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td data-column="Descripción">Honorarios</td>
                                             <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                                <input type="text" placeholder="0,00" formControlName="valorHonorarios" class="form-control" [class.is-invalid]="valorHonorariosNoValida">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
+                                                <input type="text" placeholder="-" formControlName="comentarioHonorarios" class="form-control" [class.is-invalid]="comentarioHonorariosNoValida">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td data-column="Descripción">Otros ingresos 1</td>
                                             <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                                <input type="text" placeholder="0,00" formControlName="valorOtrosIngresos1" class="form-control" [class.is-invalid]="valorOtrosIngresos1NoValida">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
+                                                <input type="text" placeholder="-" formControlName="comentarioOtrosIngresos1" class="form-control" [class.is-invalid]="comentarioOtrosIngresos1NoValida">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td data-column="Descripción">Otros ingresos 2</td>
                                             <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                                <input type="text" placeholder="0,00" formControlName="valorOtrosIngresos2" class="form-control" [class.is-invalid]="valorOtrosIngresos2NoValida">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
+                                                <input type="text" placeholder="-" formControlName="comentarioOtrosIngresos2" class="form-control" [class.is-invalid]="comentarioOtrosIngresos2NoValida">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td data-column="Descripción">Otros ingresos 3</td>
                                             <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                                <input type="text" placeholder="0,00" formControlName="valorOtrosIngresos3" class="form-control" [class.is-invalid]="valorOtrosIngresos3NoValida">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
+                                                <input type="text" placeholder="-" formControlName="comentarioOtrosIngresos3" class="form-control" [class.is-invalid]="comentarioOtrosIngresos3NoValida">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td data-column="Descripción">Sueldo Conyuge</td>
                                             <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                                <input type="text" placeholder="0,00" formControlName="valorSueldoConyuge" class="form-control" [class.is-invalid]="valorSueldoConyugeNoValida">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
+                                                <input type="text" placeholder="-" formControlName="comentarioSueldoConyuge" class="form-control" [class.is-invalid]="comentarioSueldoConyugeNoValida">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td data-column="Descripción">Sueldo Mensual</td>
                                             <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                                <input type="text" placeholder="0,00" formControlName="valorSueldoMensual" class="form-control" [class.is-invalid]="valorSueldoMensualNoValida">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
+                                                <input type="text" placeholder="-" formControlName="comentarioSueldoMensual" class="form-control" [class.is-invalid]="comentarioSueldoMensualNoValida">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td data-column="Descripción">Utilidad Mensual (Sólo independientes)</td>
                                             <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                                <input type="text" placeholder="0,00" formControlName="valorUtilidadMensual" class="form-control" [class.is-invalid]="valorUtilidadMensualNoValida">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
+                                                <input type="text" placeholder="-" formControlName="comentarioUtilidadMensual" class="form-control" [class.is-invalid]="comentarioUtilidadMensualNoValida">
                                             </td>
                                         </tr>
                                         <tr class="foot-td">

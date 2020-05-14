@@ -6,6 +6,7 @@ import {map} from 'rxjs/operators';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { TipoDocumentacionService } from '../../services/tipo-documentacion.service';
+import {SituacionFinancieraService} from '../../services/situacionFinanciera/situacion-financiera.service';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   formaDirecciones: FormGroup;
   formaTelefonos: FormGroup;
   FormularioDatosCliente: FormGroup;
+  formaSituacionFinanciera: FormGroup;
 
   // variables para presentacion - bkm
   tipoDir: any[] = [];
@@ -39,6 +41,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   tipoDoc: any[];
   tipoRegDir: any[] = ['CLIENTE', 'GARANTE'];
   tipoRegTel: any[] = ['CLIENTE', 'GARANTE'];
+  situacionFinancieraIngresos: any[] = [];
 
   ID_CLI =  '1716822679';
   // bkm
@@ -48,6 +51,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private telefonoService: TelefonosService,
               private fabricaService: FabricaService,
               private tipoDocumentacionService: TipoDocumentacionService,
+              private situacionFinancieraService: SituacionFinancieraService,
               private fb: FormBuilder) {
 }
 
@@ -55,6 +59,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.crearFormularioDirecciones();
     this.crearFormularioCliente();
     this.crearFormularioTelefonos();
+    this.crearFormularioSituacionFinanciera();
     this.fabricaService.currentMessage.subscribe(
       data => {
         this.mensajeServicio = data;
@@ -66,6 +71,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.barrios = this.getBarrio();
         this.tipoTel = this.getTipoTel();
         this.tipoDoc = this.getTipoDoc();
+        this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
       });
   }
   crearFormularioCliente() {
@@ -99,9 +105,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       this.crearDireccion = false;
       this.cargarFormularioDirecciones(direccion);
     }
-
-
-
     this.modalService.open(content);
   }
 
@@ -193,6 +196,15 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
   }
 
+  public getSituacionFinancieraIngresos(): any {
+    this.situacionFinancieraService.getIngresos('AC0101045')
+      .pipe(map(data => data["INGRESOS"]))
+      .subscribe((data: any) => {
+        this.situacionFinancieraIngresos = data;
+        console.log(this.situacionFinancieraIngresos);
+      });
+  }
+
   get tipoRegistroNoValido() {
     return this.formaDirecciones.get('tipoRegistro').invalid && this.formaDirecciones.get('tipoRegistro').touched;
   }
@@ -241,6 +253,31 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     return this.formaTelefonos.get('NumeroTelefono').invalid && this.formaTelefonos.get('NumeroTelefono').touched;
   }
 
+  get valorArriendosNoValida() {
+    return this.formaSituacionFinanciera.get('valorArriendos').invalid && this.formaSituacionFinanciera.get('valorArriendos').touched;
+  }
+
+  crearFormularioSituacionFinanciera() {
+    this.formaSituacionFinanciera = this.fb.group( {
+      valorArriendos: ['0', [Validators.minLength(6)]],
+      comentarioArriendos: [''],
+      valorHonorarios: ['0',[Validators.minLength(6), Validators.pattern('^[0-9]*$')]],
+      comentarioHonorarios: [''],
+      valorOtrosIngresos1: ['0'],
+      comentarioOtrosIngresos1: [''],
+      valorOtrosIngresos2: ['0'],
+      comentarioOtrosIngresos2: [''],
+      valorOtrosIngresos3: ['0'],
+      comentarioOtrosIngresos3: [''],
+      valorSueldoConyuge: ['0'],
+      comentarioSueldoConyuge: [''],
+      valorSueldoMensual: ['0'],
+      comentarioSueldoMensual: [''],
+      valorUtilidadMensual: ['0'],
+      comentarioUtilidadMensual: [''],
+    });
+  }
+
   crearFormularioDirecciones() {
     this.formaDirecciones = this.fb.group({
       tipoRegistro: ['', Validators.required],
@@ -254,6 +291,13 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       CalleSecundaria: [''],
       ReferenciaDireccion: [''],
       CodigoPostalDireccion: ['', [Validators.minLength(6), Validators.pattern('^[0-9]*$')]]
+    });
+  }
+
+  cargarFormularioSituacionFinanciera(situacionFinancieraIngresos: any) {
+    this.formaSituacionFinanciera.reset( {
+      valorArriendos: situacionFinancieraIngresos[0].VALOR_CREDITO_INGRESOS,
+      comentarioArriendos: situacionFinancieraIngresos[0].COMENTARIO_CREDITO_INGRESOS
     });
   }
 
