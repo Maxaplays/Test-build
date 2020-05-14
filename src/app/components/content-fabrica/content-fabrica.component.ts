@@ -43,7 +43,6 @@ export class ContentFabricaComponent implements OnInit {
               private tipoContactoService: TipoContactoService,
               private productosService: ProductoService,
               private estadoCivilService: EstadoCivilService) {
-                // console.log(this.tipoDoc);
   }
   ngOnInit(): void {
     this.initForm(); // inicializar la forma de la pantalla de ReactDriven

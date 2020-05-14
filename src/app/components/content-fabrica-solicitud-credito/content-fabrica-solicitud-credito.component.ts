@@ -6,6 +6,7 @@ import {map} from 'rxjs/operators';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { TipoDocumentacionService } from '../../services/tipo-documentacion.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   crearTelefono = true;
   codigoDireccion: 0;
   codigoTelefono: 0;
+  idCredito: string;
 
   // formas para ingreso y edición de datos - bkm
   formaDirecciones: FormGroup;
@@ -48,24 +50,40 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private telefonoService: TelefonosService,
               private fabricaService: FabricaService,
               private tipoDocumentacionService: TipoDocumentacionService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private activatedRoute: ActivatedRoute) {
+              this.activatedRoute.queryParams.subscribe(params => {
+                  this.idCredito = params['idCre'];
+                  if (typeof this.idCredito !== 'undefined') {
+                      this.fabricaService.getRetomarCredito(this.idCredito, localStorage.getItem('usuario')).pipe(map (data => data["Table1"][0])).subscribe(
+                        (data: DatosFabrica) => {
+                          // console.log(data);
+                          this.fabricaService.changeMessage(data);
+                          this.inicializarCredito();
+                        });
+                    }
+              });
+              
 }
 
   ngOnInit() {
     this.crearFormularioDirecciones();
     this.crearFormularioCliente();
     this.crearFormularioTelefonos();
+    this.telefonos = this.getTelefonos();
+    this.direcciones = this.getDirecciones();
+    this.tipoDir = this.getTipoDir();
+    this.provincias = this.getProvincia();
+    this.cantones = this.getCanton();
+    this.barrios = this.getBarrio();
+    this.tipoTel = this.getTipoTel();
+    this.tipoDoc = this.getTipoDoc();
+    this.telefonos = this.getTelefonos();
+  }
+  inicializarCredito(){
     this.fabricaService.currentMessage.subscribe(
       data => {
         this.mensajeServicio = data;
-        this.telefonos = this.getTelefonos();
-        this.direcciones = this.getDirecciones();
-        this.tipoDir = this.getTipoDir();
-        this.provincias = this.getProvincia();
-        this.cantones = this.getCanton();
-        this.barrios = this.getBarrio();
-        this.tipoTel = this.getTipoTel();
-        this.tipoDoc = this.getTipoDoc();
       });
   }
   crearFormularioCliente() {
