@@ -9,6 +9,10 @@ import { TipoDocumentacionService } from '../../services/tipo-documentacion.serv
 import { ActivatedRoute } from '@angular/router';
 import { SituacionFinancieraService } from '../../services/situacionFinanciera/situacion-financiera.service';
 import {Subject} from 'rxjs';
+import { GeneroService } from '../../services/genero/genero.service';
+import { NacionalidadesService } from '../../services/nacionalidades/nacionalidades.service';
+import { EstadoCivilService } from '../../services/estadoCivil/estado-civil.service';
+import { ProfesionService } from '../../services/profesion/profesion.service';
 
 
 @Component({
@@ -49,6 +53,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   telefonos: any[] = [];
   direcciones: any[] = [];
   tipoDoc: any[];
+  generos: any[];
+  nacionalidades: any[];
+  estadoCivil: any = []; // tipos de estados civiles para el combo
+  profesiones: any = [];
   tipoRegDir: any[] = ['CLIENTE', 'GARANTE'];
   tipoRegTel: any[] = ['CLIENTE', 'GARANTE'];
   situacionFinancieraIngresos: any[] = [];
@@ -63,7 +71,11 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private tipoDocumentacionService: TipoDocumentacionService,
               private fb: FormBuilder,
               private activatedRoute: ActivatedRoute,
-              private situacionFinancieraService: SituacionFinancieraService) {
+              private situacionFinancieraService: SituacionFinancieraService,
+              private generoService: GeneroService,
+              private nacionalidadesService: NacionalidadesService,
+              private estadoCivilService: EstadoCivilService,
+              private profesionService: ProfesionService) {
                 this.crearFormularioDirecciones();
                   this.crearFormularioCliente();
                   this.crearFormularioTelefonos();
@@ -72,7 +84,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                   if (typeof this.idCredito !== 'undefined') {
                       this.fabricaService.getRetomarCredito(this.idCredito, localStorage.getItem('usuario')).pipe(map (data => data["Table1"][0])).subscribe(
                         (data: DatosFabrica) => {
-                          // console.log(data);
+                          console.log(data);
                           this.fabricaService.changeMessage(data);
                         });
                     }
@@ -90,6 +102,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                   this.tipoTel = this.getTipoTel();
                   this.tipoDoc = this.getTipoDoc();
                   this.telefonos = this.getTelefonos();
+                  this.getGeneros();
+                  this.getNacionalidades();
+                  this.getEstadoCivil();
+                  this.getProfesiones();
                 });
 }
 
@@ -176,7 +192,40 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.provincias = data;
       });
   }
-
+  getGeneros(){
+    this.generoService.getGeneros()
+      .pipe(map (data => data["GENERO"]))
+      .subscribe((data: any) => {
+        this.generos = data;
+      });
+  }
+  getNacionalidades(){
+    this.nacionalidadesService.getNacionalidades()
+      .pipe(map (data => data["NACIONALIDAD"]))
+      .subscribe((data: any) => {
+        this.nacionalidades = data;
+      });
+  }
+  getEstadoCivil() {
+    this.estadoCivilService.getEstadoCivil().subscribe(
+      (data: any) => {
+        this.estadoCivil = data.ESTADO_CIVIL;
+        // console.log(this.estadoCivil);
+      }, ( errorServicio ) => {
+        // console.log('Error');
+      }
+    );
+  }
+  getProfesiones() {
+    this.profesionService.getProfesiones().subscribe(
+      (data: any) => {
+        this.profesiones = data.PROFESION;
+        // console.log(this.estadoCivil);
+      }, ( errorServicio ) => {
+        // console.log('Error');
+      }
+    );
+  }
   public getCanton(): any {
     if (this.formaDirecciones.value.Provincia !== '') {
       this.direccionesService.getCanton(this.formaDirecciones.value.Provincia)
