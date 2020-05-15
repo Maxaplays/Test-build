@@ -10,13 +10,13 @@ import $ from "jquery";
 export class SidebarComponent implements OnInit {
 
   status: boolean = false;
-
-  constructor() { 
-
+  anio;
+  constructor() {
+    this.anio = new Date().getFullYear();
   }
 
   ngOnInit() {
-    
+
     $('#mobile-toggle-menu').on('click', function(){
       $('app-sidebar').toggleClass('show')
     })
@@ -34,11 +34,11 @@ export class SidebarComponent implements OnInit {
     })
     $('#selectTabs').on('change', function (e) {
       var stringTab = $(this).val().toString();
-      document.getElementById(stringTab).click() 
+      document.getElementById(stringTab).click()
     });
     $('#selectSteps').on('change', function (e) {
       var stringStep = $(this).val().toString();
-      document.getElementById(stringStep).click() 
+      document.getElementById(stringStep).click()
     });
 
   }
