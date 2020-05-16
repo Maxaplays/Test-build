@@ -67,8 +67,8 @@
 
     <app-steps></app-steps>
 
-    <form class="steps-mobile">
-        <select id='selectSteps'>
+    <form class="steps-mobile" [formGroup]="pestaniasIngreso">
+        <select id='selectSteps' formControlName="selectTabs">
                 <option value='datos-basicos'>Datos básicos</option>
                 <option value='credito'>Crédito</option>
                 <option value='solicitud-credito' selected>Solicitud Crédito</option>
@@ -80,8 +80,8 @@
             </select>
     </form>
 
-    <form class="tabs-mobile">
-        <select id='selectTabs'>
+    <form class="tabs-mobile" [formGroup]="pestaniasIngresoMobile">
+        <select id='selectTabs' formControlName="selectTabs">
                 <option value='cliente'>Cliente</option>
                 <option value='direcciones'>Direcciones</option>
                 <option value='telefonos'>Teléfonos</option>
@@ -121,7 +121,7 @@
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Fecha de Nacimiento / Inicio Actividades</label>
-                                    <input formControlName="fechaNacimiento" class="form-control" type="date" placeholder="Fecha de Nacimiento / Inicio Actividades" disabled>
+                                    <input formControlName="fechaNacimiento" class="form-control" type="date" placeholder="Fecha de Nacimiento / Inicio Actividades">
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Género <b>*</b></label>
@@ -873,7 +873,7 @@
             </div>
             <div class="align-right">
                 <button class="btn btn-border-gray">Cancelar</button>
-                <button class="btn btn-solid-green">Guardar</button>
+                <button class="btn btn-solid-green" (click)="guardarCliente(mensajeModalError)">Guardar</button>
                 <button class="btn btn-solid-blue">Siguiente</button>
             </div>
         </div>
@@ -1377,3 +1377,19 @@
 </ng-template>
 
 <ngb-alert *ngIf="successMessage" type="success" class="wbtn-success" (close)="successMessage = null"><img src="./assets/images/success.svg"><span>{{ successMessage }}</span></ngb-alert>
+
+<ng-template #mensajeModalError let-modal>
+    <div class="modal-error">
+        <div>
+            <div class="cols cols2 align-middle">
+                <div class="align-left">
+                    <img src="./assets/images/warning.svg" width="42">
+                    <p>{{errorMessage}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="align-right">
+            <button class="btn btn-solid-white" (click)="modal.close('Cancelar click')">Aceptar</button>
+        </div>
+    </div>
+</ng-template>
