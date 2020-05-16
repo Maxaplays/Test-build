@@ -16,7 +16,7 @@ import { GeneroService } from 'src/app/services/genero/genero.service';
 import { NacionalidadesService } from 'src/app/services/nacionalidades/nacionalidades.service';
 import { EstadoCivilService } from 'src/app/services/estadoCivil/estado-civil.service';
 import { ProfesionService } from 'src/app/services/profesion/profesion.service';
-import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { ClienteService, Cliente } from 'src/app/services/cliente/cliente.service';
 
 
 @Component({
