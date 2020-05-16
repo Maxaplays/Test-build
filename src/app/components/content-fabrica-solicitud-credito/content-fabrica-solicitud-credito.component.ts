@@ -25,9 +25,6 @@ import { ClienteService, Cliente } from 'src/app/services/cliente/cliente.servic
   styleUrls: ['./content-fabrica-solicitud-credito.component.css']
 })
 export class ContentFabricaSolicitudCreditoComponent implements OnInit {
-  crearPestanias() {
-    throw new Error("Method not implemented.");
-  }
   closeResult: string;
   private _error = new Subject<string>();
   private _success = new Subject<string>();
@@ -75,9 +72,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   situacionFinancieraIngresos: any[] = [];
   conyuges: any[] = [];
 
-
-  ID_CLI =  '1716822679';
-
   // bkm
   // tslint:disable-next-line:max-line-length
   constructor(private modalService: NgbModal,
@@ -98,7 +92,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                 this.crearFormularioDirecciones();
                   this.crearFormularioCliente();
                   this.crearFormularioTelefonos();
-                  this.crearPestanias();
               this.activatedRoute.queryParams.subscribe(params => {
               this.idCredito = params['idCre'];
                   if (typeof this.idCredito !== 'undefined') {
@@ -122,6 +115,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                   this.tipoTel = this.getTipoTel();
                   this.tipoDoc = this.getTipoDoc();
                   this.telefonos = this.getTelefonos();
+                  this.conyuges = this.getListaConyuges();
+                  this.referencias = this.getListaReferencias();
                   this.getGeneros();
                   this.getNacionalidades();
                   this.getEstadoCivil();
@@ -137,7 +132,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.crearFormularioReferencias();
     this.telefonos = this.getTelefonos();
     this.direcciones = this.getDirecciones();
-    this.referencias = this.getListaReferencias();
     this.tipoDir = this.getTipoDir();
     this.provincias = this.getProvincia();
     this.cantones = this.getCanton();
@@ -145,7 +139,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.tipoTel = this.getTipoTel();
     this.tipoDoc = this.getTipoDoc();
     this.telefonos = this.getTelefonos();
-    this.conyuges = this.getListaConyuges();
   }
 
   crearFormularioCliente(){
@@ -450,6 +443,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .pipe(map(data => data["LISTACY"]))
       .subscribe((data: any) => {
         this.conyuges = data;
+        console.log(data);
       });
   }
 
@@ -459,6 +453,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .pipe(map(data => data["LISTAREF"]))
       .subscribe((data: any) => {
         this.referencias = data;
+        console.log(data);
       });
   }
 

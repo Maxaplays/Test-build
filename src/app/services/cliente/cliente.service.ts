@@ -19,7 +19,7 @@ export class ClienteService {
   constructor(private http: HttpClient) { }
 
   public postCliente(valoresSimulador: Cliente) {
-    console.log(valoresSimulador);
+    // console.log(valoresSimulador);
     const url = environment.urlServiciosBackend + `Cliente/guardarCliente`;
     return this.http.post<Cliente>(url, valoresSimulador, this.httpOptions)
       .pipe(
