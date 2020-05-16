@@ -286,34 +286,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td data-column="Tipo de Registro">Cliente</td>
-                                <td data-column="Nombres">María José</td>
-                                <td data-column="Apellidos">Pérez Gonzalez</td>
-                                <td data-column="Género">Femenino</td>
-                                <td data-column="Tipo de Documento">Cédula</td>
-                                <td data-column="RUC / Cédula">17493972892</td>
-                                <td data-column="Fecha de Nacimiento">24/05/1983</td>
+                            <tr *ngFor="let conyuge of conyuges">
+                                <td data-column="Tipo de Registro">{{conyuge.cliente}}</td>
+                                <td data-column="Nombres">{{conyuge.nombre}}</td>
+                                <td data-column="Apellidos">{{conyuge.apellido}}</td>
+                                <td data-column="Género">{{conyuge.genero}}</td>
+                                <td data-column="Tipo de Documento">{{conyuge.tipodoc}}</td>
+                                <td data-column="RUC / Cédula">{{conyuge.cedula}}</td>
+                                <td data-column="Fecha de Nacimiento">{{conyuge.fecha}}</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarConyuge,'')">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-column="Tipo de Registro">Cliente</td>
-                                <td data-column="Nombres">María José</td>
-                                <td data-column="Apellidos">Pérez Gonzalez</td>
-                                <td data-column="Género">Femenino</td>
-                                <td data-column="Tipo de Documento">Cédula</td>
-                                <td data-column="RUC / Cédula">17493972892</td>
-                                <td data-column="Fecha de Nacimiento">24/05/1983</td>
-                                <td data-column="Status" class="table-right"><span>Inactivo</span></td>
-                                <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarConyuge,'')">
+                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarConyuges, conyuge)">
+                                    <img src="assets/images/icon-printer.svg" class="icon-with-action">
                                 </td>
                             </tr>
                             <tr class="foot-td">
-                                <td colspan="11"><span class="foot-table">2 cónyuges</span></td>
+                                <td colspan="11"><span class="foot-table" *ngIf="conyuges.length > 0">{{conyuges.length}} conyuges</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -343,70 +331,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td data-column="Tipo de Registro">Cliente</td>
-                                <td data-column="Cédula">-</td>
-                                <td data-column="Parentesco">Cuñado</td>
-                                <td data-column="Apellidos">Tayo</td>
-                                <td data-column="Nombres">Carlos</td>
-                                <td data-column="Dirección Domicilio">Barrio Ponceano</td>
-                                <td data-column="Teléfono">02336092</td>
-                                <td data-column="Celular">0997332162</td>
-                                <td data-column="Teléfono Trabajo">-</td>
-                                <td data-column="Observaciones">Llamar a partir de las 2pm.</td>
+                            <tr *ngFor="let referencia of referencias">
+                                <td data-column="Tipo de Registro">{{referencia.cliente}}</td>
+                                <td data-column="Cédula">{{referencia.cedula}}</td>
+                                <td data-column="Parentesco">{{referencia.parentesco}}</td>
+                                <td data-column="Apellidos">{{referencia.apellido}}</td>
+                                <td data-column="Nombres">{{referencia.nombre}}</td>
+                                <td data-column="Dirección Domicilio">{{referencia.direccion}}</td>
+                                <td data-column="Teléfono">{{referencia.telefono}}</td>
+                                <td data-column="Celular">{{referencia.Celular}}</td>
+                                <td data-column="Teléfono Trabajo">{{referencia.telefonot}}</td>
+                                <td data-column="Observaciones">{{referencia.observa}}</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarReferencia,'')">
+                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarReferencia, referencia)">
+                                    <img src="assets/images/icon-printer.svg" class="icon-with-action">
                                 </td>
                             </tr>
-                            <tr>
-                                <td data-column="Tipo de Registro">Cliente</td>
-                                <td data-column="Cédula">-</td>
-                                <td data-column="Parentesco">Cuñado</td>
-                                <td data-column="Apellidos">Tayo</td>
-                                <td data-column="Nombres">Carlos</td>
-                                <td data-column="Dirección Domicilio">Barrio Ponceano</td>
-                                <td data-column="Teléfono">02336092</td>
-                                <td data-column="Celular">0997332162</td>
-                                <td data-column="Teléfono Trabajo">-</td>
-                                <td data-column="Observaciones">Llamar a partir de las 2pm.</td>
-                                <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
-                                <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarReferencia,'')">
-                                </td>
+                            <tr class="foot-td">
+                                <td colspan="11"><span class="foot-table" *ngIf="referencias.length > 0">{{referencias.length}} referencias</span></td>
                             </tr>
-                            <tr>
-                                <td data-column="Tipo de Registro">Cliente</td>
-                                <td data-column="Cédula">-</td>
-                                <td data-column="Parentesco">Cuñado</td>
-                                <td data-column="Apellidos">Tayo</td>
-                                <td data-column="Nombres">Carlos</td>
-                                <td data-column="Dirección Domicilio">Barrio Ponceano</td>
-                                <td data-column="Teléfono">02336092</td>
-                                <td data-column="Celular">0997332162</td>
-                                <td data-column="Teléfono Trabajo">-</td>
-                                <td data-column="Observaciones">Llamar a partir de las 2pm.</td>
-                                <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
-                                <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarReferencia,'')">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-column="Tipo de Registro">Cliente</td>
-                                <td data-column="Cédula">-</td>
-                                <td data-column="Parentesco">Cuñado</td>
-                                <td data-column="Apellidos">Tayo</td>
-                                <td data-column="Nombres">Carlos</td>
-                                <td data-column="Dirección Domicilio">Barrio Ponceano</td>
-                                <td data-column="Teléfono">02336092</td>
-                                <td data-column="Celular">0997332162</td>
-                                <td data-column="Teléfono Trabajo">-</td>
-                                <td data-column="Observaciones">Llamar a partir de las 2pm.</td>
-                                <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
-                                <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarConyuge,'')">
-                                </td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </ng-template>
@@ -1037,7 +982,7 @@
             <div class="align-right">
                 <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
                             <span aria-hidden="true">&times;</span>
-                        </button>
+                </button>
             </div>
         </div>
     </div>
@@ -1084,8 +1029,9 @@
                     <fieldset>
                         <label class="label">Género</label>
                         <select>
-                                    <option>Seleccione...</option>
-                                </select> </fieldset>
+                            <option *ngFor="let generos of VGeneros">{{generos.nom_gen}}</option>
+                        </select> 
+                    </fieldset>
                     <fieldset>
                         <label class="label">Nacionalidad</label>
                         <input type="text" placeholder="Escriba Nacionalidad">
@@ -1125,46 +1071,46 @@
             </div>
             <div class="align-right">
                 <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         </div>
     </div>
     <div class="modal-body variation">
-        <form class="forms forms-relative">
+        <form class="forms forms-relative" autocomplete="off" [formGroup]="FormularioReferencias" >
             <div class="cols cols3">
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
-                        <select>
-                                        <option>Seleccione...</option>
-                                    </select>
+                            <select formControlName="FormularioReferencias" class="form-control" class="form-control">
+                                <option *ngFor="let genero of Vgeneros" [value]="genero.NOM_GEN">{{genero.NOM_GEN}}</option>
+                            </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Cédula</label>
-                        <input type="text" placeholder="Escriba Cédula">
+                        <input formControlName="xcedula" class="form-control" type="text" placeholder="Escriba Cédula" disabled>
                     </fieldset>
                     <fieldset>
-                        <label class="label">Parenteso / Referenia</label>
-                        <input type="text" placeholder="Escriba Parenteso / Referenia">
+                        <label class="label">Parenteso / Referencia</label>
+                        <input type="text" placeholder="Escriba Parenteso / Referencia">
                     </fieldset>
                     <fieldset>
                         <label class="label">Apellidos</label>
-                        <input type="text" placeholder="Escriba Apellidos">
+                        <input formControlName="xapellido" class="form-control" type="text" placeholder="Digite los Apellidos" disabled>
                     </fieldset>
                     <fieldset>
                         <label class="label">Nombres</label>
-                        <input type="text" placeholder="Escriba Nombres">
+                        <input formControlName="xnombre" class="form-control" type="text" placeholder="Escriba Nombres" disabled>
                     </fieldset>
                 </div>
                 <div>
                     <fieldset>
                         <label class="label">Dirección Domicilio</label>
-                        <input type="text" placeholder="Escriba Dirección Domicilio">
+                        <input formControlName="xdireccion" class="form-control" type="text" placeholder="Digite la dirección" disabled>
                     </fieldset>
                     <fieldset>
                         <label class="label">Teléfono Domicilio</label>
-                        <input type="text" placeholder="Escriba Teléfono Domicilio">
+                        <input formControlName="xtelefono" class="form-control" type="text" placeholder="Digite el número telefónico" disabled>
                     </fieldset>
                     <fieldset>
                         <label class="label">Celular</label>

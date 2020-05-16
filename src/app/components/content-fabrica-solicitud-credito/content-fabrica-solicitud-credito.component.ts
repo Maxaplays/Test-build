@@ -8,6 +8,9 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { TipoDocumentacionService } from '../../services/tipo-documentacion.service';
 import { ActivatedRoute } from '@angular/router';
 import { SituacionFinancieraService } from '../../services/situacionFinanciera/situacion-financiera.service';
+import { ConyugesService } from 'src/app/services/conyuges/conyuges.service';
+import { ReferenciasService } from 'src/app/services/referencias/referencias.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -21,6 +24,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   mensajeServicio: DatosFabrica;
   crearDireccion = true;
   crearTelefono = true;
+  crearReferencia = true;
   codigoDireccion: 0;
   codigoTelefono: 0;
   idCredito: string;
@@ -28,8 +32,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   // formas para ingreso y edición de datos - bkm
   formaDirecciones: FormGroup;
   formaTelefonos: FormGroup;
+  FormularioReferencias: FormGroup;
   FormularioDatosCliente: FormGroup;
   formaSituacionFinanciera: FormGroup;
+
 
   // variables para presentacion - bkm
   tipoDir: any[] = [];
@@ -40,12 +46,17 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   tipoTel: any[] = [];
   telefonos: any[] = [];
   direcciones: any[] = [];
+  referencias: any[] = [];
+  Vgeneros: any[] = [];
   tipoDoc: any[];
   tipoRegDir: any[] = ['CLIENTE', 'GARANTE'];
   tipoRegTel: any[] = ['CLIENTE', 'GARANTE'];
   situacionFinancieraIngresos: any[] = [];
+  conyuges: any[] = [];
+
 
   ID_CLI =  '1716822679';
+
   // bkm
   // tslint:disable-next-line:max-line-length
   constructor(private modalService: NgbModal,
@@ -53,6 +64,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private telefonoService: TelefonosService,
               private fabricaService: FabricaService,
               private tipoDocumentacionService: TipoDocumentacionService,
+              private conyugesServices: ConyugesService,
+              private referenciasServices: ReferenciasService,
               private fb: FormBuilder,
               private activatedRoute: ActivatedRoute,
               private situacionFinancieraService: SituacionFinancieraService) {
@@ -76,8 +89,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.crearFormularioDirecciones();
     this.crearFormularioCliente();
     this.crearFormularioTelefonos();
+    this.crearFormularioReferencias();
     this.telefonos = this.getTelefonos();
     this.direcciones = this.getDirecciones();
+    this.referencias = this.getListaReferencias();
     this.tipoDir = this.getTipoDir();
     this.provincias = this.getProvincia();
     this.cantones = this.getCanton();
@@ -85,8 +100,11 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.tipoTel = this.getTipoTel();
     this.tipoDoc = this.getTipoDoc();
     this.telefonos = this.getTelefonos();
+    this.conyuges = this.getListaConyuges();
+    this.Vgeneros = this.getGeneros();
   }
-  crearFormularioCliente() {
+
+  crearFormularioCliente(){ 
     this.FormularioDatosCliente = new FormGroup({
       tipoDocumentacion: new FormControl(null, Validators.required),
       cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
@@ -103,12 +121,24 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       razonSocialTrabajo: new FormControl(null)
     });
   }
+     // Formulario de Referencia
+     crearFormularioReferencias() {
+      this.FormularioReferencias = this.fb.group(
+        {
+          xcedula: [''],
+          xapellido: [''],
+          xnombre: [''],
+          xdireccion: [''],
+          xtelefono: ['']
+        });
+    }
   private getTipoDoc(): any {
     this.tipoDocumentacionService.getTipoDoc()
         .subscribe( (resultado: any[] ) => {
           this.tipoDoc = resultado;
         });
   }
+
   openLg(content, direccion: any) {
     if (direccion === undefined) {
       this.crearDireccion = true;
@@ -217,6 +247,33 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
   }
 
+  // RD Conyuges
+  public getListaConyuges(): any {
+    this.conyugesServices.getListaConyuges(this.mensajeServicio.Cedula)
+      .pipe(map(data => data["LISTACY"]))
+      .subscribe((data: any) => {
+        this.conyuges = data;
+      });
+  }
+
+  // RD Referencias
+  public getListaReferencias(): any {
+    this.referenciasServices.getListaReferencias(this.mensajeServicio.Cedula)
+      .pipe(map(data => data["LISTAREF"]))
+      .subscribe((data: any) => {
+        this.referencias = data;
+      });
+  }
+
+ // RD Genero
+ public getGeneros(): any {
+  this.conyugesServices.getGenero()
+    .pipe(map(data => data["GENERO"]))
+    .subscribe((data: any) => {
+      this.Vgeneros = data;
+    });
+}
+
   get tipoRegistroNoValido() {
     return this.formaDirecciones.get('tipoRegistro').invalid && this.formaDirecciones.get('tipoRegistro').touched;
   }
@@ -306,6 +363,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     });
   }
 
+
   cargarFormularioSituacionFinanciera(situacionFinancieraIngresos: any) {
     this.formaSituacionFinanciera.reset( {
       valorArriendos: situacionFinancieraIngresos[0].VALOR_CREDITO_INGRESOS,
@@ -357,6 +415,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       ExtensionTelefono: ['']
     });
   }
+
+
+
 
   guardarDireccion() {
     if (this.formaDirecciones.invalid) {
@@ -421,5 +482,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       );
     }
   }
+
+
 }
 
