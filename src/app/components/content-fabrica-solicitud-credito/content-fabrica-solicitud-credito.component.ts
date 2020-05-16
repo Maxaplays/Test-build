@@ -25,6 +25,9 @@ import { ClienteService } from 'src/app/services/cliente/cliente.service';
   styleUrls: ['./content-fabrica-solicitud-credito.component.css']
 })
 export class ContentFabricaSolicitudCreditoComponent implements OnInit {
+  crearPestanias() {
+    throw new Error("Method not implemented.");
+  }
   closeResult: string;
   private _error = new Subject<string>();
   private _success = new Subject<string>();
@@ -62,7 +65,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   telefonos: any[] = [];
   direcciones: any[] = [];
   referencias: any[] = [];
-  Vgeneros: any[] = [];
   tipoDoc: any[];
   generos: any[];
   nacionalidades: any[];
@@ -144,10 +146,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.tipoDoc = this.getTipoDoc();
     this.telefonos = this.getTelefonos();
     this.conyuges = this.getListaConyuges();
-    this.Vgeneros = this.getGeneros();
   }
 
-  crearFormularioCliente(){ 
+  crearFormularioCliente(){
     this.FormularioDatosCliente = new FormGroup({
       tipoDocumentacion: new FormControl(null, Validators.required),
       cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
@@ -461,14 +462,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
   }
 
- // RD Genero
- public getGeneros(): any {
-  this.conyugesServices.getGenero()
-    .pipe(map(data => data["GENERO"]))
-    .subscribe((data: any) => {
-      this.Vgeneros = data;
-    });
-}
+
 
   get tipoRegistroNoValido() {
     return this.formaDirecciones.get('tipoRegistro').invalid && this.formaDirecciones.get('tipoRegistro').touched;
