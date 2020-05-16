@@ -67,8 +67,8 @@
 
     <app-steps></app-steps>
 
-    <form class="steps-mobile">
-        <select id='selectSteps'>
+    <form class="steps-mobile" [formGroup]="pestaniasIngreso">
+        <select id='selectSteps' formControlName="selectTabs">
                 <option value='datos-basicos'>Datos básicos</option>
                 <option value='credito'>Crédito</option>
                 <option value='solicitud-credito' selected>Solicitud Crédito</option>
@@ -80,8 +80,8 @@
             </select>
     </form>
 
-    <form class="tabs-mobile">
-        <select id='selectTabs'>
+    <form class="tabs-mobile" [formGroup]="pestaniasIngresoMobile">
+        <select id='selectTabs' formControlName="selectTabs">
                 <option value='cliente'>Cliente</option>
                 <option value='direcciones'>Direcciones</option>
                 <option value='telefonos'>Teléfonos</option>
@@ -103,7 +103,7 @@
                             <div>
                                 <fieldset>
                                     <label class="label"># Identificación</label>
-                                    <input formControlName="cedula" class="form-control" type="text" placeholder="# Identificación" disabled>
+                                    <input formControlName="cedula" class="form-control" type="text" placeholder="# Identificación" value="{{mensajeServicio.Cedula}}" disabled>
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Nombres o Razón Social</label>
@@ -121,12 +121,12 @@
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Fecha de Nacimiento / Inicio Actividades</label>
-                                    <input formControlName="fechaNacimiento" class="form-control" type="date" placeholder="Fecha de Nacimiento / Inicio Actividades" disabled>
+                                    <input formControlName="fechaNacimiento" class="form-control" type="date" placeholder="Fecha de Nacimiento / Inicio Actividades">
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Género <b>*</b></label>
                                     <select formControlName="genero" class="form-control">
-                                        <option>Masculino</option>
+                                        <option *ngFor="let gen of generos" [value]="gen.COD_GEN">{{gen.NOM_GEN}}</option>
                                     </select>
                                 </fieldset>
                             </div>
@@ -134,18 +134,18 @@
                                 <fieldset>
                                     <label class="label">Nacionalidad <b>*</b></label>
                                     <select formControlName="nacionalidad" class="form-control">
-                                        <option>Ecuatoriana</option>
+                                        <option *ngFor="let nacion of nacionalidades" [value]="nacion.COD_NAC">{{nacion.NOM_NAC}}</option>
                                     </select>
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Estado Civil <b>*</b></label>
-                                    <input formControlName="estadoCivil" class="form-control" type="text" placeholder="Estado Civil" required disabled>
+                                    <select formControlName="estadoCivil" class="form-control" required>
+                                        <option *ngFor="let estado of estadoCivil" [value]="estado.COD_ECIV">{{estado.NOM_ECIV}}</option>
+                                    </select>
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Cargas Familiares</label>
-                                    <select formControlName="cargasFamiliares" class="form-control">
-                                        <option>1</option>
-                                    </select>
+                                    <input formControlName="cargasFamiliares" class="form-control" type="text" placeholder="# Cargas familiares">
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">E-mail</label>
@@ -154,7 +154,7 @@
                                 <fieldset>
                                     <label class="label">Profesión</label>
                                     <select formControlName="profesionCliente" class="form-control">
-                                        <option>Abogado</option>
+                                        <option *ngFor="let profesion of profesiones" [value]="profesion.COD_PRO">{{profesion.NOM_PRO}}</option>
                                     </select>
                                 </fieldset>
                                 <!-- <fieldset class="complex">
@@ -818,7 +818,7 @@
             </div>
             <div class="align-right">
                 <button class="btn btn-border-gray">Cancelar</button>
-                <button class="btn btn-solid-green">Guardar</button>
+                <button class="btn btn-solid-green" (click)="guardarCliente(mensajeModalError)">Guardar</button>
                 <button class="btn btn-solid-blue">Siguiente</button>
             </div>
         </div>
@@ -1318,6 +1318,24 @@
             <div class="align-right">
                 <button class="btn btn-solid-green" (click)="modal.close('Cancelar click')">Aceptar</button>
             </div>
+        </div>
+    </div>
+</ng-template>
+
+<ngb-alert *ngIf="successMessage" type="success" class="wbtn-success" (close)="successMessage = null"><img src="./assets/images/success.svg"><span>{{ successMessage }}</span></ngb-alert>
+
+<ng-template #mensajeModalError let-modal>
+    <div class="modal-error">
+        <div>
+            <div class="cols cols2 align-middle">
+                <div class="align-left">
+                    <img src="./assets/images/warning.svg" width="42">
+                    <p>{{errorMessage}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="align-right">
+            <button class="btn btn-solid-white" (click)="modal.close('Cancelar click')">Aceptar</button>
         </div>
     </div>
 </ng-template>

@@ -33,7 +33,6 @@ export class ContentFabricaCreditoComponent implements OnInit {
               private fabricaService: FabricaService,
               private router: Router,
               @Inject(LOCALE_ID) private locale: string) {
-
   }
 
   ngOnInit() {

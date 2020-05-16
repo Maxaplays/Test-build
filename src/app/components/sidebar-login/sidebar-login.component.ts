@@ -12,8 +12,11 @@ export class SidebarLoginComponent implements OnInit {
   username: string;
   etiquetaWarning: boolean;
   mensajeAlerta:string ='';
+  anio;
 
-  constructor(private loginService: LoginService, private router:Router) { }
+  constructor(private loginService: LoginService, private router:Router) {
+    this.anio = new Date().getFullYear();
+  }
 
   ngOnInit() {
     this.etiquetaWarning= false;
