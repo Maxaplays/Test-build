@@ -93,20 +93,21 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private clienteService: ClienteService,
               private datosComplService: DatosComplementariosService) {
                 this.crearFormularioDirecciones();
-                  this.crearFormularioCliente();
-                  this.crearFormularioTelefonos();
-                  this.inicializarPestanias();
-              this.activatedRoute.queryParams.subscribe(params => {
-              this.idCredito = params['idCre'];
-                  if (typeof this.idCredito !== 'undefined') {
-                      this.fabricaService.getRetomarCredito(this.idCredito, localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
-                        (data: DatosFabrica) => {
-                          // console.log(data);
-                          this.fabricaService.changeMessage(data);
-                          this.acoplarPantalla(data.Estado);
-                        });
-                    }
-              });
+                this.crearFormularioCliente();
+                this.crearFormularioTelefonos();
+                this.inicializarPestanias();
+                this.crearFormularioReferencias();
+                this.activatedRoute.queryParams.subscribe(params => {
+                this.idCredito = params['idCre'];
+                    if (typeof this.idCredito !== 'undefined') {
+                        this.fabricaService.getRetomarCredito(this.idCredito, localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+                          (data: DatosFabrica) => {
+                            // console.log(data);
+                            this.fabricaService.changeMessage(data);
+                            this.acoplarPantalla(data.Estado);
+                          });
+                      }
+                });
               this.fabricaService.currentMessage.subscribe(
                 data => {
                   this.mensajeServicio = data;
@@ -121,20 +122,13 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                   this.telefonos = this.getTelefonos();
                   this.conyuges = this.getListaConyuges();
                   this.referencias = this.getListaReferencias();
-                  this.getGeneros();
-                  this.getNacionalidades();
-                  this.getEstadoCivil();
-                  this.getProfesiones();
+                  
                   this.getCliente();
                   this.getDatosComplementarios();
                 });
 }
 
   ngOnInit() {
-    this.crearFormularioDirecciones();
-    this.crearFormularioCliente();
-    this.crearFormularioTelefonos();
-    this.crearFormularioReferencias();
     this.telefonos = this.getTelefonos();
     this.direcciones = this.getDirecciones();
     this.tipoDir = this.getTipoDir();
@@ -144,6 +138,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.tipoTel = this.getTipoTel();
     this.tipoDoc = this.getTipoDoc();
     this.telefonos = this.getTelefonos();
+    this.getGeneros();
+    this.getNacionalidades();
+    this.getEstadoCivil();
+    this.getProfesiones();
   }
   inicializarPestanias() {
     this.pestaniasIngreso = new FormGroup({
@@ -154,7 +152,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     });
   }
   onDatosComplementariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
-    // console.log(newValue+' --- '+ ID_CREDITO_COMPLEMENTARIOS);
     this.datosComplService.getguardarValor(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
         .subscribe( (resultado: any[] ) => {
           if (resultado.toString()==='Actualizado!')
@@ -481,7 +478,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .pipe(map(data => data["LISTACY"]))
       .subscribe((data: any) => {
         this.conyuges = data;
-        console.log(data);
+        // console.log(data);
       });
   }
 
@@ -491,7 +488,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .pipe(map(data => data["LISTAREF"]))
       .subscribe((data: any) => {
         this.referencias = data;
-        console.log(data);
+        // console.log(data);
       });
   }
 
