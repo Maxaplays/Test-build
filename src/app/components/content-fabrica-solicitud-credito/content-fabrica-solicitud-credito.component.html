@@ -296,7 +296,7 @@
                                 <td data-column="Fecha de Nacimiento">{{conyuge.fecha}}</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarConyuges, conyuge)">
+                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarConyuge, conyuge)">
                                     <img src="assets/images/icon-printer.svg" class="icon-with-action">
                                 </td>
                             </tr>
@@ -974,7 +974,7 @@
                     <fieldset>
                         <label class="label">Género</label>
                         <select>
-                            <option *ngFor="let generos of VGeneros">{{generos.nom_gen}}</option>
+                            <option *ngFor="let generos of generos">{{generos.nom_gen}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
@@ -1028,7 +1028,7 @@
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
                         <select formControlName="FormularioReferencias" class="form-control" class="form-control">
-                                <option *ngFor="let genero of Vgeneros" [value]="genero.NOM_GEN">{{genero.NOM_GEN}}</option>
+                                <option *ngFor="let genero of generos" [value]="genero.NOM_GEN">{{genero.NOM_GEN}}</option>
                             </select>
                     </fieldset>
                     <fieldset>
