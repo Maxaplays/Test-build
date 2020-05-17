@@ -296,7 +296,11 @@
                                 <td data-column="Fecha de Nacimiento">{{conyuge.fecha}}</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
+<<<<<<< HEAD
                                     <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="editarConyuge(agregarEditarConyuge, conyuge)">
+=======
+                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarConyuge, conyuge)">
+>>>>>>> 3142dc0d7331b297f15c50bf60e4c0176f7be387
                                     <img src="assets/images/icon-printer.svg" class="icon-with-action">
                                 </td>
                             </tr>
@@ -687,70 +691,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td data-column="Descripción">Actividades Laborales</td>
+                                    <tr *ngFor="let dato of datosComplemetarios">
+                                        <td data-column="Descripción">{{dato.NOMBRE_COMPL_PROD}}</td>
                                         <td data-column="Valor">
-                                            <select>
-                                                <option>Seleccione...</option>
+                                            <select (change)="onDatosComplementariosChange($event.target.value,dato.ID_CREDITO_COMPLEMENTARIOS)" value="{{dato.VALOR_CREDITO_COMPLEMENTARIOS}}">
+                                                <option *ngFor="let catalogo of dato.catalogos" value="{{catalogo.valor}}">{{catalogo.valor}}</option>
                                             </select>
                                         </td>
                                         <td data-column="Comentario">
-                                            <input type="text" placeholder="-">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td data-column="Descripción">Antigüedad Laboral</td>
-                                        <td data-column="Valor">
-                                            <select>
-                                                <option>Seleccione...</option>
-                                            </select>
-                                        </td>
-                                        <td data-column="Comentario">
-                                            <input type="text" placeholder="-">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td data-column="Descripción">Finalidad del Bien</td>
-                                        <td data-column="Valor">
-                                            <select>
-                                                <option>Seleccione...</option>
-                                            </select>
-                                        </td>
-                                        <td data-column="Comentario">
-                                            <input type="text" placeholder="-">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td data-column="Descripción">Lugar de Residencia</td>
-                                        <td data-column="Valor">
-                                            <select>
-                                                <option>Seleccione...</option>
-                                            </select>
-                                        </td>
-                                        <td data-column="Comentario">
-                                            <input type="text" placeholder="-">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td data-column="Descripción">Nivel de Educación</td>
-                                        <td data-column="Valor">
-                                            <select>
-                                                <option>Seleccione...</option>
-                                            </select>
-                                        </td>
-                                        <td data-column="Comentario">
-                                            <input type="text" placeholder="-">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td data-column="Descripción">Tipo de vivienda</td>
-                                        <td data-column="Valor">
-                                            <select>
-                                                <option>Seleccione...</option>
-                                            </select>
-                                        </td>
-                                        <td data-column="Comentario">
-                                            <input type="text" placeholder="-">
+                                            <input (change)="onDatosComplementariosComentariosChange($event.target.value,dato.ID_CREDITO_COMPLEMENTARIOS)" type="text" value="{{dato.COMENTARIO_CREDITO_COMPLEMENTARIOS}}">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1026,9 +975,15 @@
                     </fieldset>
                     <fieldset>
                         <label class="label">Género</label>
+<<<<<<< HEAD
                         <select formControlName="genero" class="form-control">
                             <option *ngFor="let gen of generos" [value]="gen.COD_GEN">{{gen.NOM_GEN}}</option>
                         </select>                   
+=======
+                        <select>
+                            <option *ngFor="let generos of generos">{{generos.nom_gen}}</option>
+                        </select>
+>>>>>>> 3142dc0d7331b297f15c50bf60e4c0176f7be387
                     </fieldset>
                     <fieldset>
                         <label class="label">Nacionalidad</label>
@@ -1075,12 +1030,16 @@
         </div>
     </div>
     <div class="modal-body variation">
-        <form class="forms forms-relative" autocomplete="off" [formGroup]="FormularioReferencias" >
+        <form class="forms forms-relative" autocomplete="off" [formGroup]="FormularioReferencias">
             <div class="cols cols3">
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
+<<<<<<< HEAD
                             <select formControlName="FormularioReferencias" class="form-control" class="form-control">
+=======
+                        <select formControlName="FormularioReferencias" class="form-control" class="form-control">
+>>>>>>> 3142dc0d7331b297f15c50bf60e4c0176f7be387
                                 <option *ngFor="let genero of generos" [value]="genero.NOM_GEN">{{genero.NOM_GEN}}</option>
                             </select>
                     </fieldset>

@@ -1,34 +1,34 @@
 <div class="content-breadcrumb">
     <ul class="breadcrumb">
-        <li *ngIf="datosbasicos" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <li [class.ui-disabled]="datosbasicos" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
             <b>1</b>
             <a id="datos-basicos" routerLink="/fabrica/nueva-solicitud" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Datos básicos</a>
         </li>
-        <li *ngIf="credito" routerLinkActive="active" enabke>
+        <li [class.ui-disabled]="credito" routerLinkActive="active" enabke>
             <b>2</b>
             <a id="credito" routerLink="/fabrica/nueva-solicitud/credito" routerLinkActive="active">Crédito</a>
         </li>
-        <li *ngIf="solicitudcredito" routerLinkActive="active">
+        <li [class.ui-disabled]="solicitudcredito" routerLinkActive="active">
             <b>3</b>
             <a id="solicitud-credito" routerLink="/fabrica/nueva-solicitud/solicitud-credito" routerLinkActive="active">Solicitud Crédito</a>
         </li>
-        <li *ngIf="requisitos" routerLinkActive="active">
+        <li [class.ui-disabled]="requisitos" routerLinkActive="active">
             <b>4</b>
             <a id="requisitos" routerLink="/fabrica/nueva-solicitud/requisitos" routerLinkActive="active">Requisitos</a>
         </li>
-        <li *ngIf="politicas" routerLinkActive="active">
+        <li [class.ui-disabled]="politicas" routerLinkActive="active">
             <b>5</b>
             <a id="politicas" routerLink="/fabrica/nueva-solicitud/politicas" routerLinkActive="active">Políticas</a>
         </li>
-        <li *ngIf="generacion" routerLinkActive="active">
+        <li [class.ui-disabled]="generacion" routerLinkActive="active">
             <b>6</b>
             <a id="generacion" routerLink="/fabrica/nueva-solicitud/generacion" routerLinkActive="active">Generación</a>
         </li>
-        <li *ngIf="controlcalidad" routerLinkActive="active">
+        <li [class.ui-disabled]="controlcalidad" routerLinkActive="active">
             <b>7</b>
             <a id="control-calidad" routerLink="/fabrica/nueva-solicitud/control-de-calidad" routerLinkActive="active">Control Calidad</a>
         </li>
-        <li *ngIf="resumen">
+        <li>
             <b>8</b>
             <a id="resumen">Resumen</a>
         </li>

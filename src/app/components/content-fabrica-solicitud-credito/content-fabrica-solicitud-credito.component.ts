@@ -17,6 +17,7 @@ import { NacionalidadesService } from 'src/app/services/nacionalidades/nacionali
 import { EstadoCivilService } from 'src/app/services/estadoCivil/estado-civil.service';
 import { ProfesionService } from 'src/app/services/profesion/profesion.service';
 import { ClienteService, Cliente } from 'src/app/services/cliente/cliente.service';
+import { DatosComplementariosService, CREDITO_DATOS_COMPLEMENTARIOS } from '../../services/datosComplementarios/datos-complementarios.service';
 
 
 @Component({
@@ -72,6 +73,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   tipoRegTel: any[] = ['CLIENTE', 'GARANTE'];
   situacionFinancieraIngresos: any[] = [];
   conyuges: any[] = [];
+  datosComplemetarios: CREDITO_DATOS_COMPLEMENTARIOS[] = [];
 
   // bkm
   // tslint:disable-next-line:max-line-length
@@ -89,22 +91,24 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private nacionalidadesService: NacionalidadesService,
               private estadoCivilService: EstadoCivilService,
               private profesionService: ProfesionService,
-              private clienteService: ClienteService) {
+              private clienteService: ClienteService,
+              private datosComplService: DatosComplementariosService) {
                 this.crearFormularioDirecciones();
-                  this.crearFormularioCliente();
-                  this.crearFormularioConyuge();
-                  this.crearFormularioTelefonos();
-              this.activatedRoute.queryParams.subscribe(params => {
-              this.idCredito = params['idCre'];
-                  if (typeof this.idCredito !== 'undefined') {
-                      this.fabricaService.getRetomarCredito(this.idCredito, localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
-                        (data: DatosFabrica) => {
-                          // console.log(data);
-                          this.fabricaService.changeMessage(data);
-                          this.acoplarPantalla(data.Estado);
-                        });
-                    }
-              });
+                this.crearFormularioCliente();
+                this.crearFormularioTelefonos();
+                this.inicializarPestanias();
+                this.crearFormularioReferencias();
+                this.activatedRoute.queryParams.subscribe(params => {
+                this.idCredito = params['idCre'];
+                    if (typeof this.idCredito !== 'undefined') {
+                        this.fabricaService.getRetomarCredito(this.idCredito, localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+                          (data: DatosFabrica) => {
+                            // console.log(data);
+                            this.fabricaService.changeMessage(data);
+                            this.acoplarPantalla(data.Estado);
+                          });
+                      }
+                });
               this.fabricaService.currentMessage.subscribe(
                 data => {
                   this.mensajeServicio = data;
@@ -119,20 +123,14 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                   this.telefonos = this.getTelefonos();
                   this.conyuges = this.getListaConyuges();
                   this.referencias = this.getListaReferencias();
-                  this.getGeneros();
-                  this.getNacionalidades();
-                  this.getEstadoCivil();
-                  this.getProfesiones();
+                  
                   this.getCliente();
                   this.getConyuge();
+                  this.getDatosComplementarios();
                 });
 }
 
   ngOnInit() {
-    this.crearFormularioDirecciones();
-    this.crearFormularioCliente();
-    this.crearFormularioConyuge();
-    this.crearFormularioTelefonos();
     this.telefonos = this.getTelefonos();
     this.direcciones = this.getDirecciones();
     this.tipoDir = this.getTipoDir();
@@ -142,9 +140,34 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.tipoTel = this.getTipoTel();
     this.tipoDoc = this.getTipoDoc();
     this.telefonos = this.getTelefonos();
+    this.getGeneros();
+    this.getNacionalidades();
+    this.getEstadoCivil();
+    this.getProfesiones();
   }
-
-  crearFormularioCliente(){
+  inicializarPestanias() {
+    this.pestaniasIngreso = new FormGroup({
+      selectTabs: new FormControl(null)
+    });
+    this.pestaniasIngresoMobile = new FormGroup({
+      selectTabs: new FormControl(null)
+    });
+  }
+  onDatosComplementariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
+    this.datosComplService.getguardarValor(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
+        .subscribe( (resultado: any[] ) => {
+          if (resultado.toString()==='Actualizado!')
+            this.successMessage = resultado.toString();
+        });
+  }
+  onDatosComplementariosComentariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
+    this.datosComplService.getguardarComentario(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
+        .subscribe( (resultado: any[] ) => {
+          if (resultado.toString()==='Actualizado!')
+            this.successMessage = resultado.toString();
+        });
+  }
+  crearFormularioCliente() {
     this.FormularioDatosCliente = new FormGroup({
       tipoDocumentacion: new FormControl(null, Validators.required),
       cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
@@ -244,6 +267,17 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.tipoDir = data;
       });
   }
+  getDatosComplementarios(): any {
+    this.datosComplService.getDatosComplementarios(this.mensajeServicio.NumeroCredito)
+    .subscribe(
+      (data: any) => {
+        this.datosComplemetarios = data;
+        // console.log(this.estadoCivil);
+      }, ( errorServicio ) => {
+        // console.log('Error');
+      }
+    );
+  }
 
   public getProvincia(): any {
     this.direccionesService.getProvincia()
@@ -317,7 +351,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
   acoplarPantalla(lblEstadoSolicitud: string) {
-    console.log('Bloqueo de controles de '+ lblEstadoSolicitud);
+    // console.log('Bloqueo de controles de '+ lblEstadoSolicitud);
     if (lblEstadoSolicitud === 'Documental' || lblEstadoSolicitud === 'Cancelada' ||
         lblEstadoSolicitud === 'Aprobada' || lblEstadoSolicitud === 'Autorizada' ||
         lblEstadoSolicitud === 'Re-Documental' || lblEstadoSolicitud === 'RechazadaCC' ||
@@ -325,10 +359,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
         lblEstadoSolicitud === 'Autorización Caducada') {
-                  console.log('Bloqueado 0' + lblEstadoSolicitud);  
+                  // console.log('Bloqueado 0' + lblEstadoSolicitud);  
                     // pageControlCliente.TabPages[7].Enabled = true;
                     if (lblEstadoSolicitud === 'Aprobada') {
-                      console.log('Bloqueado 1' + lblEstadoSolicitud);  
+                      // console.log('Bloqueado 1' + lblEstadoSolicitud);  
                       // btnSolicitarAnulacion.Visible = false;
                         // BtnEntregarCarpeta.Visible = true;
                         // btnSolicitarAnalisis.Visible = false;
@@ -338,7 +372,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                          lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
                           lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada') {
                             // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
-                            console.log('Bloqueado 2' + lblEstadoSolicitud);
+                            // console.log('Bloqueado 2' + lblEstadoSolicitud);
                             // btnSolicitarAnulacion.Visible = false;
                             // BtnEntregarCarpeta.Visible = false;
                             // ASPxButton1.Visible = false;
@@ -359,13 +393,13 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                             // btnMedioAprobacion.Visible = false;
                         } else {
                             if (lblEstadoSolicitud === 'Cancelada') {
-                              console.log('Bloqueado 3' + lblEstadoSolicitud);
+                              // console.log('Bloqueado 3' + lblEstadoSolicitud);
                                 // btnSolicitarAnulacion.Visible = false;
                                 // BtnEntregarCarpeta.Visible = false;
                                 // btnSolicitarAnalisis.Visible = false;
                                 // btnMedioAprobacion.Visible = false;
                             } else {
-                              console.log('Bloqueado 4' + lblEstadoSolicitud);
+                              // console.log('Bloqueado 4' + lblEstadoSolicitud);
                                 // btnSolicitarAnulacion.Visible = true;
                                 // BtnEntregarCarpeta.Visible = false;
                                 // btnSolicitarAnalisis.Visible = false;
@@ -373,7 +407,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                         }
                     }
                 } else {
-                  console.log('Bloqueado 5' + lblEstadoSolicitud);
+                  // console.log('Bloqueado 5' + lblEstadoSolicitud);
                     // pageControlCliente.TabPages[7].Enabled = false;
                 }
   }
@@ -499,7 +533,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .pipe(map(data => data["LISTACY"]))
       .subscribe((data: any) => {
         this.conyuges = data;
-        console.log(data);
+        // console.log(data);
       });
   }
 
@@ -509,7 +543,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .pipe(map(data => data["LISTAREF"]))
       .subscribe((data: any) => {
         this.referencias = data;
-        console.log(data);
+        // console.log(data);
       });
   }
 

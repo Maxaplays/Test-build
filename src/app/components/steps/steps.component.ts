@@ -8,14 +8,14 @@ import { FabricaService } from 'src/app/services/fabricaCredito/fabrica.service'
 })
 export class StepsComponent implements OnInit {
 
-    datosbasicos: boolean = true;
-    credito: boolean = true;
-    solicitudcredito: boolean = true;
-    requisitos: boolean = true;
-    politicas: boolean = true;
-    generacion: boolean = true;
-    controlcalidad: boolean = true;
-    resumen: boolean = true;
+    datosbasicos: boolean = false;
+    credito: boolean = false;
+    solicitudcredito: boolean = false;
+    requisitos: boolean = false;
+    politicas: boolean = false;
+    generacion: boolean = false;
+    controlcalidad: boolean = false;
+    resumen: boolean = false;
 
   constructor(private fabricaService: FabricaService) { }
 
@@ -29,8 +29,8 @@ export class StepsComponent implements OnInit {
 acoplarPantalla(lblEstadoSolicitud: string) {
     // console.log('Bloqueo de controles de ' + lblEstadoSolicitud);
     if (lblEstadoSolicitud === 'Ingresando' || lblEstadoSolicitud === 'Retornada') {
-          this.datosbasicos = false;
-          this.credito = false;
+          this.datosbasicos = true;
+          this.credito = true;
     }
     if (lblEstadoSolicitud === 'Documental' || lblEstadoSolicitud === 'Cancelada' ||
         lblEstadoSolicitud === 'Aprobada' || lblEstadoSolicitud === 'Autorizada' ||
@@ -39,8 +39,8 @@ acoplarPantalla(lblEstadoSolicitud: string) {
         lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
         lblEstadoSolicitud === 'Autorización Caducada') {
-          this.datosbasicos = false;
-          this.credito = false;
+          this.datosbasicos = true;
+          this.credito = true;
                     if (lblEstadoSolicitud === 'Aprobada') {
                       // console.log('Bloqueado 1' + lblEstadoSolicitud);  
                       // btnSolicitarAnulacion.Visible = false;
