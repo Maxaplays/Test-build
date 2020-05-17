@@ -97,7 +97,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                 this.crearFormularioCliente();
                 this.crearFormularioTelefonos();
                 this.inicializarPestanias();
-                this.crearFormularioReferencias();
                 this.activatedRoute.queryParams.subscribe(params => {
                 this.idCredito = params['idCre'];
                     if (typeof this.idCredito !== 'undefined') {
