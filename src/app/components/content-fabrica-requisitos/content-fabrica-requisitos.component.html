@@ -112,8 +112,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let requisito of requisitios | paginate: {itemsPerPage: 5, currentPage: paginaAcual}">
-                        <td><input type="checkbox" [checked]="marcarChecks"></td>
+                    <tr *ngFor="let requisito of requisitios | paginate: {itemsPerPage: 5, currentPage: paginaAcual}, let i = index">
+                        <td><input class="form-check-input" type="checkbox" [checked]="marcarChecks" name= "miDataInterior" (change)="$event.target.checked ? agregar(requisito) : quitar(requisito)"></td>
                         <td><a class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion)">Solicitar</a></td>
                         <td><span class="{{requisito.COLOR_UX}}"></span></td>
                         <td *ngIf="requisito.URL_DOC"><a href="{{requisito.URL_DOC}}" target="_blank"><img src="assets/images/icon-url.svg" class="check-center"></a></td>
@@ -145,7 +145,7 @@
             <div class="align-left">
                 <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button>
                 <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Documentación</button>
-                <a class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event)"></a>
+                <a class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event)" multiple=false></a>
                 <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Subir</button>
             </div>
             <div class="align-right">

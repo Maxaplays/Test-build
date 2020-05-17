@@ -16,7 +16,9 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   closeResult: string;
   paginaAcual = 1;
   marcarChecks = false;
+  Archivos: File[] = [];
   archivoSeleccionado: File = null;
+  miDataInterior = [];
   // bkm
   mensajeServicio: DatosFabrica;
   requisitios: any[] = [];
@@ -65,25 +67,48 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   marcarTodos(e) {
     if (e.target.checked) {
       this.marcarChecks = !this.marcarChecks;
+      for (let i = 0; i < this.requisitios.length; i++) {
+        this.miDataInterior.push(this.requisitios[i]);
+      }
+      console.log(this.miDataInterior);
     } else {
       this.marcarChecks = !this.marcarChecks;
+      for (let i = 0; i < this.requisitios.length; i++) {
+        this.miDataInterior = this.miDataInterior.filter(s => s !== this.requisitios[i]);
+      }
+      console.log(this.miDataInterior);
     }
   }
 
   onFileSelected(event) {
-    this.archivoSeleccionado = <File> event.target.files[0];
+    for (let i = 0; i < this.miDataInterior.length ; i++) {
+    this.archivoSeleccionado = <File> event.target.files[i];
+    this.Archivos.push(<File> event.target.files[i]);
     console.log(this.archivoSeleccionado);
+    console.log(this.Archivos);
     const fd = new FormData();
     /*fd.append('image', this.archivoSeleccionado, this.archivoSeleccionado.name);
     this.http.post('http://localhost:4200', fd)
       .subscribe(res => {
         console.log(res);
       });*/
-    this.archivosService.postArchivo(this.archivoSeleccionado)
+    this.archivosService.postArchivo(this.Archivos)
       .subscribe(
         (data: any) => {
 
         }
       );
   }
+  }
+
+  agregar(data: string) {
+    this.miDataInterior.push(data);
+    console.log(this.miDataInterior);
+  }
+
+  quitar(data) {
+    this.miDataInterior = this.miDataInterior.filter(s => s !== data);
+    console.log(this.miDataInterior);
+  }
+
 }

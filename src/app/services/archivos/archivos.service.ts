@@ -29,16 +29,17 @@ export class ArchivosService {
     };
   }
 
-  public postArchivo(archivo: File) {
-    console.log(archivo);
+  public postArchivo(archivos: File[]) {
+    console.log(archivos);
     const url = environment.urlServiciosBackend + `Archivos/nuevoArchivo`;
 
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
-    formData.append('archivo', archivo);
+    for ( let i = 0; i < archivos.length ; i++) {
+      formData.append('archivo', archivos[i]);
 
-    return this.http.post<File>(url, formData);
-
+      return this.http.post<File>(url, formData);
+    }
 
   }
 }
