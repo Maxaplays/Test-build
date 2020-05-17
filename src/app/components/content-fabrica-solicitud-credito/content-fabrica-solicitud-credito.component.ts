@@ -8,7 +8,7 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { TipoDocumentacionService } from '../../services/tipo-documentacion.service';
 import { ActivatedRoute } from '@angular/router';
 import { SituacionFinancieraService } from '../../services/situacionFinanciera/situacion-financiera.service';
-import { ConyugesService, Conyuge } from 'src/app/services/conyuges/conyuges.service';
+import { ConyugesService } from 'src/app/services/conyuges/conyuges.service';
 import { ReferenciasService } from 'src/app/services/referencias/referencias.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Subject } from 'rxjs';
@@ -17,7 +17,6 @@ import { NacionalidadesService } from 'src/app/services/nacionalidades/nacionali
 import { EstadoCivilService } from 'src/app/services/estadoCivil/estado-civil.service';
 import { ProfesionService } from 'src/app/services/profesion/profesion.service';
 import { ClienteService, Cliente } from 'src/app/services/cliente/cliente.service';
-import { DatosComplementariosService, CREDITO_DATOS_COMPLEMENTARIOS } from '../../services/datosComplementarios/datos-complementarios.service';
 
 
 @Component({
@@ -41,6 +40,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   crearReferencia = true;
   codigoDireccion: 0;
   codigoTelefono: 0;
+  sumatoriaIngresos: number = 0;
+  sumatoriaEgresos: number = 0;
+  sumatoriaTotal: number = 0;
   idCredito: string;
 
   // formas para ingreso y edición de datos - bkm
@@ -48,7 +50,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   formaTelefonos: FormGroup;
   FormularioReferencias: FormGroup;
   FormularioDatosCliente: FormGroup;
-  FormularioDatosConyuge: FormGroup;
   formaSituacionFinanciera: FormGroup;
   pestaniasIngreso: FormGroup;
   pestaniasIngresoMobile: FormGroup;
@@ -72,8 +73,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   tipoRegDir: any[] = ['CLIENTE', 'GARANTE'];
   tipoRegTel: any[] = ['CLIENTE', 'GARANTE'];
   situacionFinancieraIngresos: any[] = [];
+  situacionFinancieraEgresos: any[] = [];
+  total: number;
   conyuges: any[] = [];
-  datosComplemetarios: CREDITO_DATOS_COMPLEMENTARIOS[] = [];
 
   // bkm
   // tslint:disable-next-line:max-line-length
@@ -91,27 +93,28 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private nacionalidadesService: NacionalidadesService,
               private estadoCivilService: EstadoCivilService,
               private profesionService: ProfesionService,
-              private clienteService: ClienteService,
-              private datosComplService: DatosComplementariosService) {
+              private clienteService: ClienteService) {
                 this.crearFormularioDirecciones();
-                this.crearFormularioCliente();
-                this.crearFormularioTelefonos();
-                this.inicializarPestanias();
-                this.activatedRoute.queryParams.subscribe(params => {
-                this.idCredito = params['idCre'];
-                    if (typeof this.idCredito !== 'undefined') {
-                        this.fabricaService.getRetomarCredito(this.idCredito, localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
-                          (data: DatosFabrica) => {
-                            // console.log(data);
-                            this.fabricaService.changeMessage(data);
-                            this.acoplarPantalla(data.Estado);
-                          });
-                      }
-                });
+                  this.crearFormularioCliente();
+                  this.crearFormularioTelefonos();
+                 this.crearFormularioSituacionFinanciera();
+              this.activatedRoute.queryParams.subscribe(params => {
+              this.idCredito = params['idCre'];
+                  if (typeof this.idCredito !== 'undefined') {
+                      this.fabricaService.getRetomarCredito(this.idCredito, localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+                        (data: DatosFabrica) => {
+                          // console.log(data);
+                          this.fabricaService.changeMessage(data);
+                          this.acoplarPantalla(data.Estado);
+                        });
+                    }
+              });
               this.fabricaService.currentMessage.subscribe(
                 data => {
                   this.mensajeServicio = data;
                   this.direcciones = this.getDirecciones();
+                  this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
+                  this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
                   this.telefonos = this.getTelefonos();
                   this.tipoDir = this.getTipoDir();
                   this.provincias = this.getProvincia();
@@ -122,16 +125,23 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                   this.telefonos = this.getTelefonos();
                   this.conyuges = this.getListaConyuges();
                   this.referencias = this.getListaReferencias();
-                  
+                  this.getGeneros();
+                  this.getNacionalidades();
+                  this.getEstadoCivil();
+                  this.getProfesiones();
                   this.getCliente();
-                  this.getConyuge();
-                  this.getDatosComplementarios();
                 });
 }
 
   ngOnInit() {
+    this.crearFormularioDirecciones();
+    this.crearFormularioCliente();
+    this.crearFormularioTelefonos();
+    this.crearFormularioReferencias();
     this.telefonos = this.getTelefonos();
     this.direcciones = this.getDirecciones();
+    this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
+    this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
     this.tipoDir = this.getTipoDir();
     this.provincias = this.getProvincia();
     this.cantones = this.getCanton();
@@ -139,34 +149,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.tipoTel = this.getTipoTel();
     this.tipoDoc = this.getTipoDoc();
     this.telefonos = this.getTelefonos();
-    this.getGeneros();
-    this.getNacionalidades();
-    this.getEstadoCivil();
-    this.getProfesiones();
+
+
   }
-  inicializarPestanias() {
-    this.pestaniasIngreso = new FormGroup({
-      selectTabs: new FormControl(null)
-    });
-    this.pestaniasIngresoMobile = new FormGroup({
-      selectTabs: new FormControl(null)
-    });
-  }
-  onDatosComplementariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
-    this.datosComplService.getguardarValor(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
-        .subscribe( (resultado: any[] ) => {
-          if (resultado.toString()==='Actualizado!')
-            this.successMessage = resultado.toString();
-        });
-  }
-  onDatosComplementariosComentariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
-    this.datosComplService.getguardarComentario(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
-        .subscribe( (resultado: any[] ) => {
-          if (resultado.toString()==='Actualizado!')
-            this.successMessage = resultado.toString();
-        });
-  }
-  crearFormularioCliente() {
+  crearFormularioCliente(){
     this.FormularioDatosCliente = new FormGroup({
       tipoDocumentacion: new FormControl(null, Validators.required),
       cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
@@ -183,39 +169,17 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       razonSocialTrabajo: new FormControl(null)
     });
   }
- 
-  crearFormularioConyuge(){
-    this.FormularioDatosConyuge = new FormGroup({
-      tipoRegistro: new FormControl(null),
-      tipoDocumentacion: new FormControl(null, Validators.required),
-      cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
-      apellidoConyuge: new FormControl(null, Validators.required),
-      nombreConyuge: new FormControl(null, Validators.required),
-      telefonoConyuge: new FormControl(null),
-      fechaNacimiento: new FormControl(null, Validators.required),
-      genero: new FormControl(null, Validators.required),
-      nacionalidad: new FormControl(null),
-      profesion: new FormControl(null),
-      direccion: new FormControl(null),
-      observaciones: new FormControl(null)
-     });
-  }
-  cargarFormularioConyuge(conyuge: any){
-    this.FormularioDatosConyuge.reset({
-      tipoRegistro: new FormControl(null),
-      tipoDocumentacion: conyuge.tipodoc,
-      cedula: conyuge.cliente,
-      apellidoConyuge: conyuge.apellido,
-      nombreConyuge: conyuge.nombre,
-      telefonoConyuge: new FormControl(null),
-      fechaNacimiento: conyuge.fecha,
-      genero: conyuge.genero,
-      nacionalidad: new FormControl(null),
-      profesion: new FormControl(null),
-      direccion: new FormControl(null),
-      observaciones: new FormControl(null)
-    });
-  }
+     // Formulario de Referencia
+     crearFormularioReferencias() {
+      this.FormularioReferencias = this.fb.group(
+        {
+          xcedula: [''],
+          xapellido: [''],
+          xnombre: [''],
+          xdireccion: [''],
+          xtelefono: ['']
+        });
+    }
   private getTipoDoc(): any {
     this.tipoDocumentacionService.getTipoDoc()
         .subscribe( (resultado: any[] ) => {
@@ -233,14 +197,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
     this.modalService.open(content);
   }
-  editarConyuge(content, conyuge: any) {
-    if (conyuge === undefined || conyuge === '') {
-      this.crearFormularioConyuge();
-    } else {
-      this.cargarFormularioConyuge(conyuge);
-    }
-    this.modalService.open(content);
-  }
+
 
   openCustomWidth(content, telefono: any) {
     // bkm - inicializar formas
@@ -265,17 +222,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .subscribe((data: any) => {
         this.tipoDir = data;
       });
-  }
-  getDatosComplementarios(): any {
-    this.datosComplService.getDatosComplementarios(this.mensajeServicio.NumeroCredito)
-    .subscribe(
-      (data: any) => {
-        this.datosComplemetarios = data;
-        // console.log(this.estadoCivil);
-      }, ( errorServicio ) => {
-        // console.log('Error');
-      }
-    );
   }
 
   public getProvincia(): any {
@@ -350,7 +296,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
   acoplarPantalla(lblEstadoSolicitud: string) {
-    // console.log('Bloqueo de controles de '+ lblEstadoSolicitud);
+    console.log('Bloqueo de controles de '+ lblEstadoSolicitud);
     if (lblEstadoSolicitud === 'Documental' || lblEstadoSolicitud === 'Cancelada' ||
         lblEstadoSolicitud === 'Aprobada' || lblEstadoSolicitud === 'Autorizada' ||
         lblEstadoSolicitud === 'Re-Documental' || lblEstadoSolicitud === 'RechazadaCC' ||
@@ -358,10 +304,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
         lblEstadoSolicitud === 'Autorización Caducada') {
-                  // console.log('Bloqueado 0' + lblEstadoSolicitud);  
+                  console.log('Bloqueado 0' + lblEstadoSolicitud);
                     // pageControlCliente.TabPages[7].Enabled = true;
                     if (lblEstadoSolicitud === 'Aprobada') {
-                      // console.log('Bloqueado 1' + lblEstadoSolicitud);  
+                      console.log('Bloqueado 1' + lblEstadoSolicitud);
                       // btnSolicitarAnulacion.Visible = false;
                         // BtnEntregarCarpeta.Visible = true;
                         // btnSolicitarAnalisis.Visible = false;
@@ -371,7 +317,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                          lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
                           lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada') {
                             // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
-                            // console.log('Bloqueado 2' + lblEstadoSolicitud);
+                            console.log('Bloqueado 2' + lblEstadoSolicitud);
                             // btnSolicitarAnulacion.Visible = false;
                             // BtnEntregarCarpeta.Visible = false;
                             // ASPxButton1.Visible = false;
@@ -392,13 +338,13 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                             // btnMedioAprobacion.Visible = false;
                         } else {
                             if (lblEstadoSolicitud === 'Cancelada') {
-                              // console.log('Bloqueado 3' + lblEstadoSolicitud);
+                              console.log('Bloqueado 3' + lblEstadoSolicitud);
                                 // btnSolicitarAnulacion.Visible = false;
                                 // BtnEntregarCarpeta.Visible = false;
                                 // btnSolicitarAnalisis.Visible = false;
                                 // btnMedioAprobacion.Visible = false;
                             } else {
-                              // console.log('Bloqueado 4' + lblEstadoSolicitud);
+                              console.log('Bloqueado 4' + lblEstadoSolicitud);
                                 // btnSolicitarAnulacion.Visible = true;
                                 // BtnEntregarCarpeta.Visible = false;
                                 // btnSolicitarAnalisis.Visible = false;
@@ -406,7 +352,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                         }
                     }
                 } else {
-                  // console.log('Bloqueado 5' + lblEstadoSolicitud);
+                  console.log('Bloqueado 5' + lblEstadoSolicitud);
                     // pageControlCliente.TabPages[7].Enabled = false;
                 }
   }
@@ -417,9 +363,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.tipoTel = data;
       });
   }
-  guardarConyuge(content){
 
-  }
   public getTelefonos(): any {
     this.telefonoService.getTelefonos(this.mensajeServicio.Cedula)
       .pipe(map(data => data['TELEFONOS']))
@@ -427,7 +371,45 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.telefonos = data;
       });
   }
-  getCliente() {
+  // SITUACION FINANCIERA DDLT
+  onDatosIngresosChange(newValue, ID_CREDITO_INGRESOS: string) {
+    this.situacionFinancieraService.getguardarComentarioIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any[] ) => {
+        if (resultado.toString()==='Actualizado!')
+          this.successMessage = resultado.toString();
+      });
+    this.getSituacionFinancieraIngresos();
+    this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+  }
+  onDatosIngresosValorChange(newValue, ID_CREDITO_INGRESOS: string) {
+    this.situacionFinancieraService.getguardarValorIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
+     .subscribe( (resultado: any[] ) => {
+      if (resultado.toString()==='Actualizado!')
+       this.successMessage = resultado.toString();
+     });
+    this.getSituacionFinancieraIngresos();
+    this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+  }
+  onDatosEgresosChange(newValue, ID_CREDITO_EGRESOS: string) {
+    this.situacionFinancieraService.getguardarComentarioEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any[] ) => {
+        if (resultado.toString()==='Actualizado!')
+          this.successMessage = resultado.toString();
+      });
+    this.getSituacionFinancieraEgresos();
+    this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+  }
+  onDatosEgresosValorChange(newValue, ID_CREDITO_EGRESOS: string) {
+    this.situacionFinancieraService.getguardarValorEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any[] ) => {
+        if (resultado.toString()==='Actualizado!')
+          this.successMessage = resultado.toString();
+      });
+    this.getSituacionFinancieraEgresos();
+    this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+  }
+
+    getCliente() {
     this.clienteService.getClienteCedula(this.mensajeServicio.Cedula)
     .pipe(map(data => data['CLIENTE']))
     .subscribe((data: any) => {
@@ -497,33 +479,32 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
 
   public getSituacionFinancieraIngresos(): any {
-    this.situacionFinancieraService.getIngresos('AC0101045')
+    this.situacionFinancieraService.getIngresos(this.mensajeServicio.NumeroCredito)
       .pipe(map(data => data['INGRESOS']))
       .subscribe((data: any) => {
         this.situacionFinancieraIngresos = data;
-        // console.log(this.situacionFinancieraIngresos);
+        this.sumatoriaIngresos = 0;
+        for ( var x in data){
+          if (data[x].VALOR_CREDITO_INGRESOS != null) {
+            this.sumatoriaIngresos = this.sumatoriaIngresos + data[x].VALOR_CREDITO_INGRESOS;
+            this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+          }
+        }
       });
   }
-
-  getConyuge() {
-    this.conyugesServices.getConyugeCedula(this.mensajeServicio.Cedula)
-    .pipe(map(data => data['CONYUGE']))
-    .subscribe((data: any) => {
-      let datosConyuge: Conyuge;
-      datosConyuge = data[0];
-      console.log(datosConyuge);
-      this.FormularioDatosConyuge.controls['cedula'].setValue(datosConyuge.CED_CON);
-      this.FormularioDatosConyuge.controls['genero'].setValue(datosConyuge.COD_GEN);
-      this.FormularioDatosConyuge.controls['tipoDocumentacion'].setValue(datosConyuge.COD_TDOC);
-      this.FormularioDatosConyuge.controls['apellidoConyuge'].setValue(datosConyuge.APE_CON);
-      this.FormularioDatosConyuge.controls['nombreConyuge'].setValue(datosConyuge.NOM_CON);
-      try{
-      let fechaNacimiento: Date = new Date(datosConyuge.FECH_NAC_CON);
-      this.FormularioDatosConyuge.controls['fechaNacimiento'].setValue(fechaNacimiento.toISOString().substring(0, 10));
-      } catch {}
-      this.FormularioDatosConyuge.controls['observaciones'].setValue(datosConyuge.OBSERVACIONES_CON);
-      this.FormularioDatosConyuge.controls['direccion'].setValue(datosConyuge.DIR_TRAB_CON);
-    });
+  public getSituacionFinancieraEgresos(): any {
+    this.situacionFinancieraService.getEgresos(this.mensajeServicio.NumeroCredito)
+      .pipe(map(data => data['EGRESOS']))
+      .subscribe((data: any) => {
+        this.situacionFinancieraEgresos = data;
+        this.sumatoriaEgresos = 0;
+        for ( var x in data){
+          if (data[x].VALOR_CREDITO_EGRESOS != null) {
+            this.sumatoriaEgresos = this.sumatoriaEgresos + data[x].VALOR_CREDITO_EGRESOS;
+            this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+          }
+        }
+      });
   }
 
   // RD Conyuges
@@ -532,7 +513,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .pipe(map(data => data["LISTACY"]))
       .subscribe((data: any) => {
         this.conyuges = data;
-        // console.log(data);
+        console.log(data);
       });
   }
 
@@ -542,7 +523,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .pipe(map(data => data["LISTAREF"]))
       .subscribe((data: any) => {
         this.referencias = data;
-        // console.log(data);
+        console.log(data);
       });
   }
 
@@ -596,9 +577,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     return this.formaTelefonos.get('NumeroTelefono').invalid && this.formaTelefonos.get('NumeroTelefono').touched;
   }
 
-  get valorArriendosNoValida() {
-    return this.formaSituacionFinanciera.get('valorArriendos').invalid && this.formaSituacionFinanciera.get('valorArriendos').touched;
-  }
 
   crearFormularioSituacionFinanciera() {
     this.formaSituacionFinanciera = this.fb.group( {
@@ -689,6 +667,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       ExtensionTelefono: ['']
     });
   }
+
+
+
 
   guardarDireccion() {
     if (this.formaDirecciones.invalid) {
