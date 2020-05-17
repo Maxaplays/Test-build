@@ -357,9 +357,9 @@
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="situacion-financiera">
-                 <ng-template ngbTabTitle><img src="assets/images/icon-situacion-financiera.svg"> <span>Situación financiera</span></ng-template>
+                <ng-template ngbTabTitle><img src="assets/images/icon-situacion-financiera.svg"> <span>Situación financiera</span></ng-template>
                 <ng-template ngbTabContent>
-                  <form class="forms forms-relative">
+                    <form class="forms forms-relative">
                         <div class="cols cols2">
                             <div class="table-flat">
                                 <h5>Ingresos Mensuales</h5>
@@ -372,13 +372,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let ingreso of situacionFinancieraIngresos" >
-                                            <td data-column="Descripción" >{{ingreso.NOMBRE_ING_PROD}}</td>
-                                            <td data-column="Valor" contenteditable="true"  type="number">
-                                              <input (change)="onDatosIngresosValorChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="text" value="{{ingreso.VALOR_CREDITO_INGRESOS}}">
+                                        <tr *ngFor="let ingreso of situacionFinancieraIngresos">
+                                            <td data-column="Descripción">{{ingreso.NOMBRE_ING_PROD}}</td>
+                                            <td data-column="Valor" contenteditable="true" type="number">
+                                                <input (change)="onDatosIngresosValorChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="text" value="{{ingreso.VALOR_CREDITO_INGRESOS}}">
                                             </td>
-                                            <td data-column="Comentario" contenteditable="true" >
-                                              <input (change)="onDatosIngresosChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="text" value="{{ingreso.COMENTARIO_CREDITO_INGRESOS}}">
+                                            <td data-column="Comentario" contenteditable="true">
+                                                <input (change)="onDatosIngresosChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="text" value="{{ingreso.COMENTARIO_CREDITO_INGRESOS}}">
                                             </td>
 
                                         </tr>
@@ -396,40 +396,40 @@
                             </div>
                             <div class="table-flat">
                                 <h5>Egresos Mensuales</h5>
-                              <table>
-                                <thead>
-                                <tr>
-                                  <th>Descripción</th>
-                                  <th>Valor</th>
-                                  <th>Comentario</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr *ngFor="let egresos of situacionFinancieraEgresos" >
-                                  <td data-column="Descripción" >{{egresos.NOMBRE_EGR_PROD}}</td>
-                                  <td data-column="Valor" contenteditable="true"  type="number">
-                                    <input (change)="onDatosEgresosValorChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="text" value="{{egresos.VALOR_CREDITO_EGRESOS}}">
-                                  </td>
-                                  <td data-column="Comentario" contenteditable="true" >
-                                    <input (change)="onDatosEgresosChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="text" value="{{egresos.COMENTARIO_CREDITO_EGRESOS}}">
-                                  </td>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Descripción</th>
+                                            <th>Valor</th>
+                                            <th>Comentario</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let egresos of situacionFinancieraEgresos">
+                                            <td data-column="Descripción">{{egresos.NOMBRE_EGR_PROD}}</td>
+                                            <td data-column="Valor" contenteditable="true" type="number">
+                                                <input (change)="onDatosEgresosValorChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="text" value="{{egresos.VALOR_CREDITO_EGRESOS}}">
+                                            </td>
+                                            <td data-column="Comentario" contenteditable="true">
+                                                <input (change)="onDatosEgresosChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="text" value="{{egresos.COMENTARIO_CREDITO_EGRESOS}}">
+                                            </td>
 
-                                </tr>
-                                <tr class="foot-td">
-                                  <td>
-                                    <b>Total</b>
-                                  </td>
-                                  <td>
-                                    <b>{{sumatoriaEgresos}}</b>
-                                  </td>
-                                  <td>&nbsp;</td>
-                                </tr>
-                                </tbody>
-                              </table>
+                                        </tr>
+                                        <tr class="foot-td">
+                                            <td>
+                                                <b>Total</b>
+                                            </td>
+                                            <td>
+                                                <b>{{sumatoriaEgresos}}</b>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div>
                                 <label class="label-postable label">Ingreso Disponible</label>
-                              <input readonly="readonly" type="number" placeholder="$0.000" style="max-width: 759px;"value="{{sumatoriaTotal}}">
+                                <input readonly="readonly" type="number" placeholder="$0.000" style="max-width: 759px;" value="{{sumatoriaTotal}}">
                             </div>
                             <div>&nbsp;</div>
                             <div class="table-flat">
@@ -546,7 +546,7 @@
                                 <input type="text" placeholder="$0.000" style="max-width: 759px;">
                             </div>
                         </div>
-                  </form>
+                    </form>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="datos-complementarios">
@@ -901,7 +901,7 @@
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
-                            <select formControlName="FormularioReferencias" class="form-control" class="form-control">
+                        <select formControlName="FormularioReferencias" class="form-control" class="form-control">
                                 <option *ngFor="let genero of generos" [value]="genero.NOM_GEN">{{genero.NOM_GEN}}</option>
                             </select>
                     </fieldset>
