@@ -5,6 +5,7 @@ import {map} from 'rxjs/operators';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
 
 import {FormControl} from '@angular/forms';
+import { GeneracionDocumentos, GeneraDocService, ReporteWebserviceUx } from '../../services/generaDoc/genera-doc.service';
 @Component({
   selector: 'app-content-fabrica-generacion',
   templateUrl: './content-fabrica-generacion.component.html',
@@ -25,7 +26,8 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   maxDate: Date;
   constructor(private modalService: NgbModal,
               private documentosService: DocumentosService,
-              private fabricaService: FabricaService) {
+              private fabricaService: FabricaService,
+              private generacionDocs: GeneraDocService) {
     this.EntidadFinanciera = this.getEntidadFinanciera();
     this.TipoCuenta = this.getTipoCuenta();
 
@@ -63,7 +65,38 @@ export class ContentFabricaGeneracionComponent implements OnInit {
         console.log(this.EntidadFinanciera);
       });
   }
-
+  generarDocumentos(content) {
+    console.log('Inciar Proceso');
+    let variable = new GeneracionDocumentos();
+    let reporte1 = new ReporteWebserviceUx();
+    let arregloReportes= new ReporteWebserviceUx[1]();
+    arregloReportes[0] = reporte1;
+    variable.ID_CRE = 'DEMOCC00066';
+    variable.reportesImprimir = arregloReportes;
+    variable.fechaPagare = '2020-01-01';
+    variable.fechaPrimerPago = '2020-01-10';
+    variable.entidadFinanciera = '';
+    variable.TipoDeCuenta = '';
+    variable.NumeroCuentaBancaria = '';
+    variable.urlArchivoGenerado = '';
+    variable.resultado = '';
+    variable.respuestaTablaAmortizacion = '';
+    variable.lblCuentasMupi = '';
+    variable.usuario = 'rdelatorre';
+    variable.ID_CLI = '0915651020';
+    console.log(variable);
+    this.generacionDocs.postGeneracionDocumentos(variable).subscribe(
+      (data: any) => {
+        let resultado = data;
+        // if(resultado === 'Cliente ingresado exitosamente!'){
+        //   this.successMessage = 'Cliente Guardado Exitosamente!';
+        // } else {
+        //   // Error
+        //   this.errorMessage = data;
+        this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+        // }
+      });
+  }
   getTipoCuenta(): any {
     if (this.NOMBRE_BANCO !== null || this.NOMBRE_BANCO !== undefined ) {
       this.documentosService.getTipoCuenta(this.NOMBRE_BANCO)

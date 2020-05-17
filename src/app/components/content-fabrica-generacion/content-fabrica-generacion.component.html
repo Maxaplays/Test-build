@@ -113,7 +113,7 @@
                 </fieldset>
                 <fieldset>
                     <label class="label">Fecha Primer Pago</label>
-                  <input formControlName="fechaPrimerPago" type="date" placeholder="dd/mm/aaaa" tabindex="4">
+                    <input formControlName="fechaPrimerPago" type="date" placeholder="dd/mm/aaaa" tabindex="4">
                 </fieldset>
                 <fieldset>
                     <label class="label">Días Inicio Crédito Máximo</label>
@@ -142,7 +142,8 @@
             </div>
         </div>
         <div class="align-right" style="padding-top: 40px;">
-            <button class="btn btn-solid-blue" (click)="openCustomWidthVariant(docGenerado)">Generar Documentación Seleccionada</button>
+            <!-- <button class="btn btn-solid-blue" (click)="generarDocumentos(docGenerado)">Generar Documentación Seleccionada</button> -->
+            <button (click)="generarDocumentos(docGenerado)">Generar Documentación Seleccionada</button>
         </div>
     </div>
 
@@ -289,29 +290,29 @@
 
 
 <ng-template #docGenerado let-modal>
-  <div class="modal-header-mfc variation">
-      <div class="cols cols2 align-middle">
-          <div class="align-left">
-              <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-documentacion-modal.svg">
-              <h4 class="modal-minititle-mfc">Documentación Generada</h4>
-          </div>
-          <div class="align-right">
-              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-documentacion-modal.svg">
+                <h4 class="modal-minititle-mfc">Documentación Generada</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
                   <span aria-hidden="true">&times;</span>
               </button>
-          </div>
-      </div>
-  </div>
-  <div class="modal-body only-pdf">
-      <div class="modal-with-viewer">
-          <div>
-              <iframe src="https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf"></iframe>
-          </div>
-      </div>
-  </div>
-  <div class="modal-footer-mfc full variation">
-    <div class="align-right">
-        <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cerrar</button>
+            </div>
+        </div>
     </div>
-  </div>
+    <div class="modal-body only-pdf">
+        <div class="modal-with-viewer">
+            <div>
+                <iframe src="https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer-mfc full variation">
+        <div class="align-right">
+            <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cerrar</button>
+        </div>
+    </div>
 </ng-template>
