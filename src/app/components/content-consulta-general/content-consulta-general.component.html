@@ -55,7 +55,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let credito of creditos | paginate: {itemsPerPage: 10, currentPage: pageActual}">
+                        <tr *ngFor="let credito of creditos | paginate: {itemsPerPage: 10, currentPage: pageActual}">
                             <td>
                                 <a href="fabrica/nueva-solicitud/solicitud-credito?idCre={{credito.ID_CRE}}" target="_blank"><span class="{{credito.VENDEDOR_COLORUX_ECRE}}"></span></a>
                             </td>
@@ -103,7 +103,7 @@
                         </tr>
                     </tbody>
                 </table>
-              <pagination-controls class="my-pagination align-content-center label" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="pageActual = $event"></pagination-controls>
+                <pagination-controls class="my-pagination align-content-center label" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="pageActual = $event"></pagination-controls>
             </div>
         </div>
     </form>
