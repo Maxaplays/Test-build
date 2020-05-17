@@ -3,6 +3,8 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
 import {DocumentosVisualizacionService} from '../../services/documentos/documentos-visualizacion.service';
 import {map} from 'rxjs/operators';
+import {ArchivosService} from '../../services/archivos/archivos.service';
+
 
 
 @Component({
@@ -14,6 +16,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   closeResult: string;
   paginaAcual = 1;
   marcarChecks = false;
+  archivoSeleccionado: File = null;
   // bkm
   mensajeServicio: DatosFabrica;
   requisitios: any[] = [];
@@ -21,7 +24,8 @@ export class ContentFabricaRequisitosComponent implements OnInit {
 
   constructor(private modalService: NgbModal,
               private fabricaService: FabricaService,
-              private documentoVisualizacion: DocumentosVisualizacionService) {
+              private documentoVisualizacion: DocumentosVisualizacionService,
+              private archivosService: ArchivosService) {
 
   }
 
@@ -64,5 +68,22 @@ export class ContentFabricaRequisitosComponent implements OnInit {
     } else {
       this.marcarChecks = !this.marcarChecks;
     }
+  }
+
+  onFileSelected(event) {
+    this.archivoSeleccionado = <File> event.target.files[0];
+    console.log(this.archivoSeleccionado);
+    const fd = new FormData();
+    /*fd.append('image', this.archivoSeleccionado, this.archivoSeleccionado.name);
+    this.http.post('http://localhost:4200', fd)
+      .subscribe(res => {
+        console.log(res);
+      });*/
+    this.archivosService.postArchivo(this.archivoSeleccionado)
+      .subscribe(
+        (data: any) => {
+
+        }
+      );
   }
 }
