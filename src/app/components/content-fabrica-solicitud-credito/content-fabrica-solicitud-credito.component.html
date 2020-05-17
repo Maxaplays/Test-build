@@ -687,70 +687,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td data-column="Descripción">Actividades Laborales</td>
+                                    <tr *ngFor="let dato of datosComplemetarios">
+                                        <td data-column="Descripción">{{dato.NOMBRE_COMPL_PROD}}</td>
                                         <td data-column="Valor">
-                                            <select>
-                                                <option>Seleccione...</option>
+                                            <select (change)="onDatosComplementariosChange($event.target.value,dato.ID_CREDITO_COMPLEMENTARIOS)" value="{{dato.VALOR_CREDITO_COMPLEMENTARIOS}}">
+                                                <option *ngFor="let catalogo of dato.catalogos" value="{{catalogo.valor}}">{{catalogo.valor}}</option>
                                             </select>
                                         </td>
                                         <td data-column="Comentario">
-                                            <input type="text" placeholder="-">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td data-column="Descripción">Antigüedad Laboral</td>
-                                        <td data-column="Valor">
-                                            <select>
-                                                <option>Seleccione...</option>
-                                            </select>
-                                        </td>
-                                        <td data-column="Comentario">
-                                            <input type="text" placeholder="-">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td data-column="Descripción">Finalidad del Bien</td>
-                                        <td data-column="Valor">
-                                            <select>
-                                                <option>Seleccione...</option>
-                                            </select>
-                                        </td>
-                                        <td data-column="Comentario">
-                                            <input type="text" placeholder="-">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td data-column="Descripción">Lugar de Residencia</td>
-                                        <td data-column="Valor">
-                                            <select>
-                                                <option>Seleccione...</option>
-                                            </select>
-                                        </td>
-                                        <td data-column="Comentario">
-                                            <input type="text" placeholder="-">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td data-column="Descripción">Nivel de Educación</td>
-                                        <td data-column="Valor">
-                                            <select>
-                                                <option>Seleccione...</option>
-                                            </select>
-                                        </td>
-                                        <td data-column="Comentario">
-                                            <input type="text" placeholder="-">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td data-column="Descripción">Tipo de vivienda</td>
-                                        <td data-column="Valor">
-                                            <select>
-                                                <option>Seleccione...</option>
-                                            </select>
-                                        </td>
-                                        <td data-column="Comentario">
-                                            <input type="text" placeholder="-">
+                                            <input (change)="onDatosComplementariosComentariosChange($event.target.value,dato.ID_CREDITO_COMPLEMENTARIOS)" type="text" value="{{dato.COMENTARIO_CREDITO_COMPLEMENTARIOS}}">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1030,7 +975,7 @@
                         <label class="label">Género</label>
                         <select>
                             <option *ngFor="let generos of VGeneros">{{generos.nom_gen}}</option>
-                        </select> 
+                        </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Nacionalidad</label>
@@ -1077,12 +1022,12 @@
         </div>
     </div>
     <div class="modal-body variation">
-        <form class="forms forms-relative" autocomplete="off" [formGroup]="FormularioReferencias" >
+        <form class="forms forms-relative" autocomplete="off" [formGroup]="FormularioReferencias">
             <div class="cols cols3">
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
-                            <select formControlName="FormularioReferencias" class="form-control" class="form-control">
+                        <select formControlName="FormularioReferencias" class="form-control" class="form-control">
                                 <option *ngFor="let genero of Vgeneros" [value]="genero.NOM_GEN">{{genero.NOM_GEN}}</option>
                             </select>
                     </fieldset>
