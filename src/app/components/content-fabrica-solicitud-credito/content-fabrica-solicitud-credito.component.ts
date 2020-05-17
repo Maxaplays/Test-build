@@ -8,7 +8,7 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { TipoDocumentacionService } from '../../services/tipo-documentacion.service';
 import { ActivatedRoute } from '@angular/router';
 import { SituacionFinancieraService } from '../../services/situacionFinanciera/situacion-financiera.service';
-import { ConyugesService } from 'src/app/services/conyuges/conyuges.service';
+import { ConyugesService, Conyuge } from 'src/app/services/conyuges/conyuges.service';
 import { ReferenciasService } from 'src/app/services/referencias/referencias.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Subject } from 'rxjs';
@@ -47,6 +47,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   formaTelefonos: FormGroup;
   FormularioReferencias: FormGroup;
   FormularioDatosCliente: FormGroup;
+  FormularioDatosConyuge: FormGroup;
   formaSituacionFinanciera: FormGroup;
   pestaniasIngreso: FormGroup;
   pestaniasIngresoMobile: FormGroup;
@@ -91,6 +92,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private clienteService: ClienteService) {
                 this.crearFormularioDirecciones();
                   this.crearFormularioCliente();
+                  this.crearFormularioConyuge();
                   this.crearFormularioTelefonos();
               this.activatedRoute.queryParams.subscribe(params => {
               this.idCredito = params['idCre'];
@@ -122,14 +124,15 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                   this.getEstadoCivil();
                   this.getProfesiones();
                   this.getCliente();
+                  this.getConyuge();
                 });
 }
 
   ngOnInit() {
     this.crearFormularioDirecciones();
     this.crearFormularioCliente();
+    this.crearFormularioConyuge();
     this.crearFormularioTelefonos();
-    this.crearFormularioReferencias();
     this.telefonos = this.getTelefonos();
     this.direcciones = this.getDirecciones();
     this.tipoDir = this.getTipoDir();
@@ -158,17 +161,39 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       razonSocialTrabajo: new FormControl(null)
     });
   }
-     // Formulario de Referencia
-     crearFormularioReferencias() {
-      this.FormularioReferencias = this.fb.group(
-        {
-          xcedula: [''],
-          xapellido: [''],
-          xnombre: [''],
-          xdireccion: [''],
-          xtelefono: ['']
-        });
-    }
+ 
+  crearFormularioConyuge(){
+    this.FormularioDatosConyuge = new FormGroup({
+      tipoRegistro: new FormControl(null),
+      tipoDocumentacion: new FormControl(null, Validators.required),
+      cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
+      apellidoConyuge: new FormControl(null, Validators.required),
+      nombreConyuge: new FormControl(null, Validators.required),
+      telefonoConyuge: new FormControl(null),
+      fechaNacimiento: new FormControl(null, Validators.required),
+      genero: new FormControl(null, Validators.required),
+      nacionalidad: new FormControl(null),
+      profesion: new FormControl(null),
+      direccion: new FormControl(null),
+      observaciones: new FormControl(null)
+     });
+  }
+  cargarFormularioConyuge(conyuge: any){
+    this.FormularioDatosConyuge.reset({
+      tipoRegistro: new FormControl(null),
+      tipoDocumentacion: conyuge.tipodoc,
+      cedula: conyuge.cliente,
+      apellidoConyuge: conyuge.apellido,
+      nombreConyuge: conyuge.nombre,
+      telefonoConyuge: new FormControl(null),
+      fechaNacimiento: conyuge.fecha,
+      genero: conyuge.genero,
+      nacionalidad: new FormControl(null),
+      profesion: new FormControl(null),
+      direccion: new FormControl(null),
+      observaciones: new FormControl(null)
+    });
+  }
   private getTipoDoc(): any {
     this.tipoDocumentacionService.getTipoDoc()
         .subscribe( (resultado: any[] ) => {
@@ -183,6 +208,14 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     } else {
       this.crearDireccion = false;
       this.cargarFormularioDirecciones(direccion);
+    }
+    this.modalService.open(content);
+  }
+  editarConyuge(content, conyuge: any) {
+    if (conyuge === undefined || conyuge === '') {
+      this.crearFormularioConyuge();
+    } else {
+      this.cargarFormularioConyuge(conyuge);
     }
     this.modalService.open(content);
   }
@@ -351,7 +384,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.tipoTel = data;
       });
   }
+  guardarConyuge(content){
 
+  }
   public getTelefonos(): any {
     this.telefonoService.getTelefonos(this.mensajeServicio.Cedula)
       .pipe(map(data => data['TELEFONOS']))
@@ -435,6 +470,27 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.situacionFinancieraIngresos = data;
         // console.log(this.situacionFinancieraIngresos);
       });
+  }
+
+  getConyuge() {
+    this.conyugesServices.getConyugeCedula(this.mensajeServicio.Cedula)
+    .pipe(map(data => data['CONYUGE']))
+    .subscribe((data: any) => {
+      let datosConyuge: Conyuge;
+      datosConyuge = data[0];
+      console.log(datosConyuge);
+      this.FormularioDatosConyuge.controls['cedula'].setValue(datosConyuge.CED_CON);
+      this.FormularioDatosConyuge.controls['genero'].setValue(datosConyuge.COD_GEN);
+      this.FormularioDatosConyuge.controls['tipoDocumentacion'].setValue(datosConyuge.COD_TDOC);
+      this.FormularioDatosConyuge.controls['apellidoConyuge'].setValue(datosConyuge.APE_CON);
+      this.FormularioDatosConyuge.controls['nombreConyuge'].setValue(datosConyuge.NOM_CON);
+      try{
+      let fechaNacimiento: Date = new Date(datosConyuge.FECH_NAC_CON);
+      this.FormularioDatosConyuge.controls['fechaNacimiento'].setValue(fechaNacimiento.toISOString().substring(0, 10));
+      } catch {}
+      this.FormularioDatosConyuge.controls['observaciones'].setValue(datosConyuge.OBSERVACIONES_CON);
+      this.FormularioDatosConyuge.controls['direccion'].setValue(datosConyuge.DIR_TRAB_CON);
+    });
   }
 
   // RD Conyuges
@@ -600,9 +656,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       ExtensionTelefono: ['']
     });
   }
-
-
-
 
   guardarDireccion() {
     if (this.formaDirecciones.invalid) {

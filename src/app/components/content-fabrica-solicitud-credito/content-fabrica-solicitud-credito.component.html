@@ -296,7 +296,7 @@
                                 <td data-column="Fecha de Nacimiento">{{conyuge.fecha}}</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarConyuges, conyuge)">
+                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="editarConyuge(agregarEditarConyuge, conyuge)">
                                     <img src="assets/images/icon-printer.svg" class="icon-with-action">
                                 </td>
                             </tr>
@@ -987,68 +987,66 @@
         </div>
     </div>
     <div class="modal-body variation">
-        <form class="forms forms-relative">
+        <form class="forms forms-relative" [formGroup]="FormularioDatosConyuge">
             <div class="cols cols3">
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
                         <select>
-                                    <option>Seleccione...</option>
-                                </select>
+                            <input formControlName="tipoRegistro" class="form-control" type="text" placeholder="Tipo Registro"> 
+                        </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Tipo de Documento</label>
-                        <select>
-                                    <option>Seleccione...</option>
-                                </select>
+                        <select formControlName="tipoDocumentacion" class="form-control" [class.is-invalid]="FormularioDatosConyuge.controls['tipoDocumentacion'].invalid" class="form-control">
+                                <option *ngFor="let tipo of tipoDoc" [value]="tipo.COD_TDOC">{{tipo.NOM_TDOC}}</option>
+                        </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">RUC / Cédula</label>
-                        <select>
-                                    <option>Seleccione...</option>
-                                </select>
+                        <input formControlName="cedula" class="form-control" type="text" placeholder="# Identificación" value="{{mensajeServicio.Cedula}}" disabled>
                     </fieldset>
                     <fieldset>
                         <label class="label">Apellidos</label>
-                        <input type="text" placeholder="Escriba Apellidos">
+                        <input formControlName="apellidoConyuge" class="form-control" type="text" placeholder="Apellidos">
                     </fieldset>
                     <fieldset>
                         <label class="label">Nombres</label>
-                        <input type="text" placeholder="Escriba Nombres">
+                        <input formControlName="nombreConyuge" class="form-control" type="text" placeholder="Nombres">
                     </fieldset>
                 </div>
                 <div>
                     <fieldset>
                         <label class="label">Teléfono Móvil</label>
-                        <input type="text" placeholder="Escriba Teléfono">
+                        <input formControlName="telefonoConyuge" class="form-control" type="text" placeholder="Teléfono">
                     </fieldset>
                     <fieldset>
                         <label class="label">Fecha de Nacimiento</label>
-                        <input type="date" placeholder="Escriba Fecha de Nacimiento">
+                        <input formControlName="fechaNacimiento" class="form-control" type="date" placeholder="Fecha de Nacimiento ">
                     </fieldset>
                     <fieldset>
                         <label class="label">Género</label>
-                        <select>
-                            <option *ngFor="let generos of VGeneros">{{generos.nom_gen}}</option>
-                        </select> 
+                        <select formControlName="genero" class="form-control">
+                            <option *ngFor="let gen of generos" [value]="gen.COD_GEN">{{gen.NOM_GEN}}</option>
+                        </select>                   
                     </fieldset>
                     <fieldset>
                         <label class="label">Nacionalidad</label>
-                        <input type="text" placeholder="Escriba Nacionalidad">
+                        <input formControlName="nacionalidad" class="form-control" type="text" placeholder="Nacionalidad">
                     </fieldset>
                     <fieldset>
                         <label class="label">Profesión</label>
-                        <input type="text" placeholder="Escriba Profesión">
+                        <input formControlName="profesion" class="form-control" type="text" placeholder="Profesión">
                     </fieldset>
                 </div>
                 <div>
                     <fieldset>
                         <label class="label">Dirección de Trabajo</label>
-                        <input type="text" placeholder="Escriba Dirección de Trabajo">
+                        <input formControlName="direccion" class="form-control" type="text" placeholder="Dirección del Trabajo">
                     </fieldset>
                     <fieldset>
                         <label class="label">Observaciones</label>
-                        <textarea placeholder="Escriba Observaciones" style="height: 138px;"></textarea>
+                        <input formControlName="observaciones" class="form-control" type="text" placeholder="Observaciones">
                     </fieldset>
                 </div>
             </div>
@@ -1057,7 +1055,7 @@
     <div class="modal-footer-mfc full variation">
         <div class="align-right">
             <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-            <button class="btn btn-solid-gray">Guardar cónyuge</button>
+            <button class="btn btn-solid-green" (click)="guardarConyuge(mensajeModalError)">Guardar</button>
         </div>
     </div>
 </ng-template>
@@ -1083,7 +1081,7 @@
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
                             <select formControlName="FormularioReferencias" class="form-control" class="form-control">
-                                <option *ngFor="let genero of Vgeneros" [value]="genero.NOM_GEN">{{genero.NOM_GEN}}</option>
+                                <option *ngFor="let genero of generos" [value]="genero.NOM_GEN">{{genero.NOM_GEN}}</option>
                             </select>
                     </fieldset>
                     <fieldset>
