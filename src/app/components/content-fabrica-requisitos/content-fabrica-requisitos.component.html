@@ -100,7 +100,7 @@
                         <th>Fecha Aprobado</th>
                         <th>Validado</th>
                         <th>Observaciones Validado</th>
-                        <th>Usuario Activo</th>
+                        <th>Usuario Archivo</th>
                         <th>Fecha Archivo</th>
                         <th>Nombre Archivo</th>
                         <th>Observaciones</th>
@@ -122,17 +122,17 @@
                         <td>{{requisito.VALOR_MAT}}</td>
                         <td><img src="{{requisito.CHECK_UX}}" class="check-center"></td>
                         <td>{{requisito.USR_VAL}}</td>
-                        <td>{{requisito.FECH_VAL | date: 'short'}}</td>
+                        <td>{{requisito.FECH_VAL | date: 'yyyy-MM-dd'}}</td>
                         <td>{{requisito.VALIDADO_VAL}}</td>
                         <td>{{requisito.OBS_VAL_VAL}}</td>
                         <td>{{requisito.USR_CARGA_ARCH_VAL}}</td>
-                        <td>{{requisito.FCH_CARGA_ARCH_VAL | date: 'short'}}</td>
+                        <td>{{requisito.FCH_CARGA_ARCH_VAL}}</td>
                         <td>{{requisito.NombreCorto}}</td>
                         <td>{{requisito.OBSER_VAL_EXC_VAL}}</td>
                         <td>{{requisito.USR_EXC_VAL}}</td>
-                        <td>{{requisito.FECH_EXC_VAL | date: 'short'}}</td>
+                        <td>{{requisito.FECH_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
                         <td>{{requisito.USR_VAL_EXC_VAL}}</td>
-                        <td>{{requisito.FECH_VAL_EXC_VAL | date: 'short'}}</td>
+                        <td>{{requisito.FECH_VAL_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
                         <td>{{requisito.ID_VAL}}</td>
                     </tr>
                 </tbody>
@@ -145,7 +145,7 @@
             <div class="align-left">
                 <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button>
                 <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Documentación</button>
-                <a class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event)" multiple=false></a>
+                <a class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event)"></a>
                 <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Subir</button>
             </div>
             <div class="align-right">
@@ -256,3 +256,5 @@
   </div>
 
 </ng-template>
+
+<ngb-alert *ngIf="successMessage" type="success" class="wbtn-success" (close)="successMessage = null"><img src="./assets/images/success.svg"><span>{{ successMessage }}</span></ngb-alert>

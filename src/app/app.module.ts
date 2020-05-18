@@ -49,6 +49,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { LoadingComponent } from './components/loading/loading.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { DomseguroPipe } from './pipes/domseguro.pipe';
 
 
 
@@ -115,6 +116,7 @@ const routes: Routes = [
     StepsComponent,
     ModalHistorialComponent,
     LoadingComponent,
+    DomseguroPipe,
 
   ],
   imports: [

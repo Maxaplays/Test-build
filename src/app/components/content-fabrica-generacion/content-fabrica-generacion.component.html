@@ -79,70 +79,63 @@
             <option value='resumen'>Resumen</option>
         </select>
     </form>
-
+    <app-loading *ngIf="loading"></app-loading>
     <div class="forms forms-relative">
         <div class="cols cols3">
-            <div>
-                <fieldset>
-                    <label class="label">Seleccione los items que desea imprimir</label>
-                    <div class="imit-input">
-                        <div>
-                            <input type="checkbox" id="solicitud"><label for="solicitud">Solicitud de Crédito</label>
+            <form class="forms forms-relative" [formGroup]="FormularioDatosReportes">
+                <div>
+                    <fieldset>
+                        <label class="label">Seleccione los items que desea imprimir</label>
+                        <div class="imit-input">
+                            <div *ngFor="let item of tipoReportes">
+                                <input type="checkbox" [checked]="item.selected" [value]="item.nombreReporte" (change)="item.selected = !item.selected"><label for="solicitud">{{item.nombreArchivo}}</label>
+                            </div>
                         </div>
-                        <div>
-                            <input type="checkbox" id="firma"><label for="firma">Firma de Solicitud</label>
-                        </div>
-                    </div>
 
-                </fieldset>
-            </div>
-            <div>
-                <fieldset>
-                    <label class="label">Fecha Pagaré</label>
-
-                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="fechaPagare">
-                    <mat-datepicker-toggle matSuffix [for]="fechaPagare"></mat-datepicker-toggle>
-                    <mat-datepicker #fechaPagare></mat-datepicker>
-
-
-                </fieldset>
-
-                <fieldset>
-                    <label class="label">Días Inicio Crédito</label>
-                    <input type="text" value="15" disabled>
-                </fieldset>
-                <fieldset>
-                    <label class="label">Fecha Primer Pago</label>
-                  <input formControlName="fechaPrimerPago" type="date" placeholder="dd/mm/aaaa" tabindex="4">
-                </fieldset>
-                <fieldset>
-                    <label class="label">Días Inicio Crédito Máximo</label>
-                    <input type="text" value="60" disabled>
-                </fieldset>
-            </div>
-            <div>
-                <fieldset>
-                    <label class="label">Entidad Financiera</label>
-                    <select id="NOMBRE_BANCO" name="NOMBRE_BANCO" [(ngModel)]="NOMBRE_BANCO" (change)="getTipoCuenta()">
-                <option *ngFor="let entidad of EntidadFinanciera" [value]="entidad.NOMBRE_BANCO">{{entidad.NOMBRE_BANCO}}</option>
-              </select>
-                </fieldset>
-                <fieldset>
-                    <label class="label">Tipo de Cuenta</label>
-                    <select id="TIPO_BANCO" name="TIPO_BANCO" [(ngModel)]="TIPO_BANCO" (change)="getNumeroCuenta()">
-                <option *ngFor="let tipo of TipoCuenta" [value]="tipo.cod_tcu">{{tipo.nom_tcu}}</option>
-              </select>
-                </fieldset>
-                <fieldset>
-                    <label class="label"># Cuenta Bancaria</label>
-                    <select>
-                <option *ngFor="let numero of NumeroCuenta" [value]="numero.NUMERO_CUENTA">{{numero.NUMERO_CUENTA}}</option>
-              </select>
-                </fieldset>
-            </div>
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset>
+                        <label class="label">Fecha Pagaré</label>
+                        <input formControlName="fechaPagare" type="date" placeholder="dd/mm/aaaa">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Días Inicio Crédito</label>
+                        <input formControlName="diasInicio" type="text" value="15" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Fecha Primer Pago</label>
+                        <input formControlName="fechaPrimerPago" type="date" placeholder="dd/mm/aaaa" tabindex="4">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Días Inicio Crédito Máximo</label>
+                        <input formControlName="creditoMaximo" type="text" type="text" value="60" disabled>
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset>
+                        <label class="label">Entidad Financiera</label>
+                        <select formControlName="entidadFinanciera" (change)="getTipoCuenta()">
+                            <option *ngFor="let entidad of EntidadFinanciera" [value]="entidad.NOMBRE_BANCO">{{entidad.NOMBRE_BANCO}}</option>
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Tipo de Cuenta</label>
+                        <select formControlName="tipoCuenta" (change)="getNumeroCuenta()">
+                            <option *ngFor="let tipo of TipoCuenta" [value]="tipo.cod_tcu">{{tipo.nom_tcu}}</option>
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label"># Cuenta Bancaria</label>
+                        <select formControlName="numeroCuenta">
+                            <option *ngFor="let numero of NumeroCuenta" [value]="numero.NUMERO_CUENTA">{{numero.NUMERO_CUENTA}}</option>
+                        </select>
+                    </fieldset>
+                </div>
+            </form>
         </div>
         <div class="align-right" style="padding-top: 40px;">
-            <button class="btn btn-solid-blue" (click)="openCustomWidthVariant(docGenerado)">Generar Documentación Seleccionada</button>
+            <button class="btn btn-solid-blue" (click)="generarDocumentos(docGenerado)">Generar Documentación Seleccionada</button>
         </div>
     </div>
 
@@ -289,29 +282,29 @@
 
 
 <ng-template #docGenerado let-modal>
-  <div class="modal-header-mfc variation">
-      <div class="cols cols2 align-middle">
-          <div class="align-left">
-              <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-documentacion-modal.svg">
-              <h4 class="modal-minititle-mfc">Documentación Generada</h4>
-          </div>
-          <div class="align-right">
-              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-documentacion-modal.svg">
+                <h4 class="modal-minititle-mfc">Documentación Generada</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
                   <span aria-hidden="true">&times;</span>
               </button>
-          </div>
-      </div>
-  </div>
-  <div class="modal-body only-pdf">
-      <div class="modal-with-viewer">
-          <div>
-              <iframe src="https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf"></iframe>
-          </div>
-      </div>
-  </div>
-  <div class="modal-footer-mfc full variation">
-    <div class="align-right">
-        <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cerrar</button>
+            </div>
+        </div>
     </div>
-  </div>
+    <div class="modal-body only-pdf">
+        <div class="modal-with-viewer">
+            <div>
+                <iframe [src]="urlArchivoGenerado | domseguro"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer-mfc full variation">
+        <div class="align-right">
+            <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cerrar</button>
+        </div>
+    </div>
 </ng-template>

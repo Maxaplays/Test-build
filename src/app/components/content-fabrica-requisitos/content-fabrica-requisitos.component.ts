@@ -4,6 +4,7 @@ import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fa
 import {DocumentosVisualizacionService} from '../../services/documentos/documentos-visualizacion.service';
 import {map} from 'rxjs/operators';
 import {ArchivosService} from '../../services/archivos/archivos.service';
+import {Subject} from 'rxjs';
 
 
 
@@ -14,6 +15,12 @@ import {ArchivosService} from '../../services/archivos/archivos.service';
 })
 export class ContentFabricaRequisitosComponent implements OnInit {
   closeResult: string;
+  private _error = new Subject<string>();
+  private _success = new Subject<string>();
+  staticAlertClosed = false;
+  errorMessage: string;
+  successMessage: string;
+
   paginaAcual = 1;
   marcarChecks = false;
   Archivos: File[] = [];
@@ -53,7 +60,6 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   }
 
   public getRequisitos(): any {
-    console.log(this.mensajeServicio.NumeroCredito);
     if (this.mensajeServicio.NumeroCredito !== '') {
       this.documentoVisualizacion.getRequisitos(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
       // this.documentoVisualizacion.getRequisitos('AC0101012', '1706689971')
@@ -70,45 +76,54 @@ export class ContentFabricaRequisitosComponent implements OnInit {
       for (let i = 0; i < this.requisitios.length; i++) {
         this.miDataInterior.push(this.requisitios[i]);
       }
-      console.log(this.miDataInterior);
     } else {
       this.marcarChecks = !this.marcarChecks;
       for (let i = 0; i < this.requisitios.length; i++) {
         this.miDataInterior = this.miDataInterior.filter(s => s !== this.requisitios[i]);
       }
-      console.log(this.miDataInterior);
     }
   }
 
   onFileSelected(event) {
+    let nombreArchivo = '';
+    let politicasValidacion = '';
     for (let i = 0; i < this.miDataInterior.length ; i++) {
-    this.archivoSeleccionado = <File> event.target.files[i];
-    this.Archivos.push(<File> event.target.files[i]);
-    console.log(this.archivoSeleccionado);
-    console.log(this.Archivos);
-    const fd = new FormData();
-    /*fd.append('image', this.archivoSeleccionado, this.archivoSeleccionado.name);
-    this.http.post('http://localhost:4200', fd)
-      .subscribe(res => {
-        console.log(res);
-      });*/
-    this.archivosService.postArchivo(this.Archivos)
-      .subscribe(
-        (data: any) => {
+      if ( i < this.miDataInterior.length - 1) {
+        nombreArchivo += this.miDataInterior[i].NOM_POL + ',';
+        politicasValidacion += this.miDataInterior[i].ID_VAL + ',';
 
-        }
-      );
-  }
+      } else if ( i === this.miDataInterior.length - 1) {
+        nombreArchivo += this.miDataInterior[i].NOM_POL;
+        politicasValidacion += this.miDataInterior[i].ID_VAL;
+      }
+
+    }
+    console.log(nombreArchivo);
+    if (this.miDataInterior.length > 0) {
+      this.archivoSeleccionado = <File> event.target.files[0];
+      this.Archivos.push(this.archivoSeleccionado);
+      this.archivosService.postArchivo(this.Archivos, this.mensajeServicio.NumeroCredito, localStorage.getItem('usuario'), nombreArchivo, politicasValidacion)
+        .subscribe(
+          (data: any) => {
+            if (data.listaResultado !== null) {
+              this.requisitios = this.getRequisitos();
+              let mensajeSucces = '';
+              for (const mensaje of data.listaResultado) {
+                mensajeSucces += mensaje + '\n';
+              }
+              console.log(mensajeSucces);
+              this.successMessage = mensajeSucces;
+            }
+          }
+        );
+    }
   }
 
   agregar(data: string) {
     this.miDataInterior.push(data);
-    console.log(this.miDataInterior);
   }
 
   quitar(data) {
     this.miDataInterior = this.miDataInterior.filter(s => s !== data);
-    console.log(this.miDataInterior);
   }
-
 }

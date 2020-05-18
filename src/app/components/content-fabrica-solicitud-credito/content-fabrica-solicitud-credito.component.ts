@@ -41,6 +41,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   crearReferencia = true;
   codigoDireccion: 0;
   codigoTelefono: 0;
+  sumatoriaIngresos: number = 0;
+  sumatoriaEgresos: number = 0;
+  sumatoriaTotal: number = 0;
   idCredito: string;
 
   // formas para ingreso y edición de datos - bkm
@@ -48,8 +51,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   formaTelefonos: FormGroup;
   FormularioDatosReferencia: FormGroup;
   FormularioDatosCliente: FormGroup;
-  FormularioDatosConyuge: FormGroup;
   formaSituacionFinanciera: FormGroup;
+  FormularioDatosConyuge: FormGroup;
   pestaniasIngreso: FormGroup;
   pestaniasIngresoMobile: FormGroup;
 
@@ -72,9 +75,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   tipoRegDir: any[] = ['CLIENTE', 'GARANTE'];
   tipoRegTel: any[] = ['CLIENTE', 'GARANTE'];
   situacionFinancieraIngresos: any[] = [];
+  situacionFinancieraEgresos: any[] = [];
+  total: number;
   conyuges: any[] = [];
   datosComplemetarios: CREDITO_DATOS_COMPLEMENTARIOS[] = [];
-
   // bkm
   // tslint:disable-next-line:max-line-length
   constructor(private modalService: NgbModal,
@@ -110,10 +114,27 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                           });
                       }
                 });
+                  this.crearFormularioCliente();
+                  this.crearFormularioTelefonos();
+                 this.crearFormularioSituacionFinanciera();
+                 this.crearFormularioConyuge();
+              this.activatedRoute.queryParams.subscribe(params => {
+              this.idCredito = params['idCre'];
+                  if (typeof this.idCredito !== 'undefined') {
+                      this.fabricaService.getRetomarCredito(this.idCredito, localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+                        (data: DatosFabrica) => {
+                          // console.log(data);
+                          this.fabricaService.changeMessage(data);
+                          this.acoplarPantalla(data.Estado);
+                        });
+                    }
+              });
               this.fabricaService.currentMessage.subscribe(
                 data => {
                   this.mensajeServicio = data;
                   this.direcciones = this.getDirecciones();
+                  this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
+                  this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
                   this.telefonos = this.getTelefonos();
                   this.tipoDir = this.getTipoDir();
                   this.provincias = this.getProvincia();
@@ -131,8 +152,14 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 }
 
   ngOnInit() {
+    this.crearFormularioDirecciones();
+    this.crearFormularioCliente();
+    this.crearFormularioTelefonos();
+    this.crearFormularioReferencias();
     this.telefonos = this.getTelefonos();
     this.direcciones = this.getDirecciones();
+    this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
+    this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
     this.tipoDir = this.getTipoDir();
     this.provincias = this.getProvincia();
     this.cantones = this.getCanton();
@@ -144,21 +171,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.getNacionalidades();
     this.getEstadoCivil();
     this.getProfesiones();
-  }
-  inicializarPestanias() {
-    this.pestaniasIngreso = new FormGroup({
-      selectTabs: new FormControl(null)
-    });
-    this.pestaniasIngresoMobile = new FormGroup({
-      selectTabs: new FormControl(null)
-    });
-  }
-  onDatosComplementariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
-    this.datosComplService.getguardarValor(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
-        .subscribe( (resultado: any[] ) => {
-          if (resultado.toString()==='Actualizado!')
-            this.successMessage = resultado.toString();
-        });
   }
   onDatosComplementariosComentariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
     this.datosComplService.getguardarComentario(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
@@ -400,18 +412,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
     this.modalService.open(content, {windowClass: 'custom-width-modal'});
   }
-
-  openCustomWidthVariant(content) {
-    this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
-  }
-
-  getTipoDir(): any {
-    this.direccionesService.getTipoDir()
-      .pipe(map (data => data['TIPODIR']))
-      .subscribe((data: any) => {
-        this.tipoDir = data;
-      });
-  }
   getDatosComplementarios(): any {
     this.datosComplService.getDatosComplementarios(this.mensajeServicio.NumeroCredito)
     .subscribe(
@@ -422,6 +422,17 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         // console.log('Error');
       }
     );
+  }
+  openCustomWidthVariant(content) {
+    this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+  }
+
+  getTipoDir(): any {
+    this.direccionesService.getTipoDir()
+      .pipe(map (data => data['TIPODIR']))
+      .subscribe((data: any) => {
+        this.tipoDir = data;
+      });
   }
 
   public getProvincia(): any {
@@ -496,7 +507,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
   acoplarPantalla(lblEstadoSolicitud: string) {
-    // console.log('Bloqueo de controles de '+ lblEstadoSolicitud);
+    console.log('Bloqueo de controles de '+ lblEstadoSolicitud);
     if (lblEstadoSolicitud === 'Documental' || lblEstadoSolicitud === 'Cancelada' ||
         lblEstadoSolicitud === 'Aprobada' || lblEstadoSolicitud === 'Autorizada' ||
         lblEstadoSolicitud === 'Re-Documental' || lblEstadoSolicitud === 'RechazadaCC' ||
@@ -504,10 +515,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
         lblEstadoSolicitud === 'Autorización Caducada') {
-                  // console.log('Bloqueado 0' + lblEstadoSolicitud);  
+                  console.log('Bloqueado 0' + lblEstadoSolicitud);
                     // pageControlCliente.TabPages[7].Enabled = true;
                     if (lblEstadoSolicitud === 'Aprobada') {
-                      // console.log('Bloqueado 1' + lblEstadoSolicitud);  
+                      console.log('Bloqueado 1' + lblEstadoSolicitud);
                       // btnSolicitarAnulacion.Visible = false;
                         // BtnEntregarCarpeta.Visible = true;
                         // btnSolicitarAnalisis.Visible = false;
@@ -517,7 +528,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                          lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
                           lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada') {
                             // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
-                            // console.log('Bloqueado 2' + lblEstadoSolicitud);
+                            console.log('Bloqueado 2' + lblEstadoSolicitud);
                             // btnSolicitarAnulacion.Visible = false;
                             // BtnEntregarCarpeta.Visible = false;
                             // ASPxButton1.Visible = false;
@@ -538,13 +549,13 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                             // btnMedioAprobacion.Visible = false;
                         } else {
                             if (lblEstadoSolicitud === 'Cancelada') {
-                              // console.log('Bloqueado 3' + lblEstadoSolicitud);
+                              console.log('Bloqueado 3' + lblEstadoSolicitud);
                                 // btnSolicitarAnulacion.Visible = false;
                                 // BtnEntregarCarpeta.Visible = false;
                                 // btnSolicitarAnalisis.Visible = false;
                                 // btnMedioAprobacion.Visible = false;
                             } else {
-                              // console.log('Bloqueado 4' + lblEstadoSolicitud);
+                              console.log('Bloqueado 4' + lblEstadoSolicitud);
                                 // btnSolicitarAnulacion.Visible = true;
                                 // BtnEntregarCarpeta.Visible = false;
                                 // btnSolicitarAnalisis.Visible = false;
@@ -552,7 +563,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                         }
                     }
                 } else {
-                  // console.log('Bloqueado 5' + lblEstadoSolicitud);
+                  console.log('Bloqueado 5' + lblEstadoSolicitud);
                     // pageControlCliente.TabPages[7].Enabled = false;
                 }
   }
@@ -564,7 +575,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
   }
 
-
   public getTelefonos(): any {
     this.telefonoService.getTelefonos(this.mensajeServicio.Cedula)
       .pipe(map(data => data['TELEFONOS']))
@@ -572,24 +582,68 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.telefonos = data;
       });
   }
-
-  public getDirecciones(): any {
-    this.direccionesService.getDirecciones(this.mensajeServicio.Cedula, this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
-      .pipe(map(data => data['DIRECCIONES']))
-      .subscribe((data: any) => {
-        this.direcciones = data;
+  // SITUACION FINANCIERA DDLT
+  onDatosIngresosChange(newValue, ID_CREDITO_INGRESOS: string) {
+    this.situacionFinancieraService.getguardarComentarioIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any[] ) => {
+        if (resultado.toString()==='Actualizado!')
+          this.successMessage = resultado.toString();
       });
+    this.getSituacionFinancieraIngresos();
+    this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+  }
+  onDatosIngresosValorChange(newValue, ID_CREDITO_INGRESOS: string) {
+    this.situacionFinancieraService.getguardarValorIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
+     .subscribe( (resultado: any[] ) => {
+      if (resultado.toString()==='Actualizado!')
+       this.successMessage = resultado.toString();
+     });
+    this.getSituacionFinancieraIngresos();
+    this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+  }
+  onDatosEgresosChange(newValue, ID_CREDITO_EGRESOS: string) {
+    this.situacionFinancieraService.getguardarComentarioEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any[] ) => {
+        if (resultado.toString()==='Actualizado!')
+          this.successMessage = resultado.toString();
+      });
+    this.getSituacionFinancieraEgresos();
+    this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+  }
+  onDatosEgresosValorChange(newValue, ID_CREDITO_EGRESOS: string) {
+    this.situacionFinancieraService.getguardarValorEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any[] ) => {
+        if (resultado.toString()==='Actualizado!')
+          this.successMessage = resultado.toString();
+      });
+    this.getSituacionFinancieraEgresos();
+    this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
   }
 
-  public getSituacionFinancieraIngresos(): any {
-    this.situacionFinancieraService.getIngresos('AC0101045')
-      .pipe(map(data => data['INGRESOS']))
-      .subscribe((data: any) => {
-        this.situacionFinancieraIngresos = data;
-        // console.log(this.situacionFinancieraIngresos);
-      });
+    getCliente() {
+    this.clienteService.getClienteCedula(this.mensajeServicio.Cedula)
+    .pipe(map(data => data['CLIENTE']))
+    .subscribe((data: any) => {
+      let datosCliente: Cliente;
+      datosCliente = data[0];
+      // console.log(datosCliente);
+      this.FormularioDatosCliente.controls['genero'].setValue(datosCliente.COD_GEN);
+      this.FormularioDatosCliente.controls['estadoCivil'].setValue(datosCliente.COD_ECIV);
+      this.FormularioDatosCliente.controls['profesionCliente'].setValue(datosCliente.COD_PRO);
+      this.FormularioDatosCliente.controls['tipoDocumentacion'].setValue(datosCliente.COD_TDOC);
+      this.FormularioDatosCliente.controls['nacionalidad'].setValue(datosCliente.COD_NAC);
+      this.FormularioDatosCliente.controls['apellidoCliente'].setValue(datosCliente.APE_CLI);
+      this.FormularioDatosCliente.controls['nombreCliente'].setValue(datosCliente.NOM_CLI);
+      try{
+      let fechaNacimiento: Date = new Date(datosCliente.FECH_NAC_CLI);
+      this.FormularioDatosCliente.controls['fechaNacimiento'].setValue(fechaNacimiento.toISOString().substring(0, 10));
+      } catch {}
+      this.FormularioDatosCliente.controls['cargasFamiliares'].setValue(datosCliente.CARGAS_CLI);
+      this.FormularioDatosCliente.controls['razonSocialTrabajo'].setValue(datosCliente.EMP_CLI);
+      this.FormularioDatosCliente.controls['rucTrabajo'].setValue(datosCliente.RUC_EMP_CLI);
+      this.FormularioDatosCliente.controls['emailCliente'].setValue(datosCliente.EMAIL_CLI);
+    });
   }
-
   getConyuge() {
     this.conyugesServices.getConyugeCedula(this.mensajeServicio.Cedula)
     .pipe(map(data => data['CONYUGE']))
@@ -610,14 +664,77 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       this.FormularioDatosConyuge.controls['direccion'].setValue(datosConyuge.DIR_TRAB_CON);
     });
   }
+  guardarCliente(content){
+    let datosCliente: Cliente = new Cliente();
+    let resultado: string;
 
+    datosCliente.ID_CLI = this.mensajeServicio.Cedula;
+    datosCliente.COD_GEN = this.FormularioDatosCliente.value.genero;
+    datosCliente.COD_ECIV = this.FormularioDatosCliente.value.estadoCivil;
+    datosCliente.COD_PRO = this.FormularioDatosCliente.value.profesionCliente;
+    datosCliente.COD_TDOC = this.FormularioDatosCliente.value.tipoDocumentacion;
+    datosCliente.COD_NAC = this.FormularioDatosCliente.value.nacionalidad;
+    datosCliente.APE_CLI = this.FormularioDatosCliente.value.apellidoCliente;
+    datosCliente.NOM_CLI = this.FormularioDatosCliente.value.nombreCliente;
+    try{
+    let fechaNacimiento: Date = new Date(this.FormularioDatosCliente.value.fechaNacimiento);
+    datosCliente.FECH_NAC_CLI = fechaNacimiento.toISOString().substring(0, 10);
+    } catch { }
+    datosCliente.CARGAS_CLI = this.FormularioDatosCliente.value.cargasFamiliares;
+    datosCliente.EMP_CLI = this.FormularioDatosCliente.value.razonSocialTrabajo;
+    datosCliente.RUC_EMP_CLI = this.FormularioDatosCliente.value.rucTrabajo;
+    datosCliente.EMAIL_CLI = this.FormularioDatosCliente.value.emailCliente;
+    datosCliente.EstadoOperacion = '';
+    datosCliente.INGRESOS_DEPENDIENTE = '0';
+    datosCliente.INGRESOS_INDEPENDIENTE = '0';
+    datosCliente.usuario = localStorage.getItem('usuario');
+
+  public getDirecciones(): any {
+    this.direccionesService.getDirecciones(this.mensajeServicio.Cedula, this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      .pipe(map(data => data['DIRECCIONES']))
+      .subscribe((data: any) => {
+        this.direcciones = data;
+      });
+  }
+
+  public getSituacionFinancieraIngresos(): any {
+    this.situacionFinancieraService.getIngresos(this.mensajeServicio.NumeroCredito)
+      .pipe(map(data => data['INGRESOS']))
+      .subscribe((data: any) => {
+        this.situacionFinancieraIngresos = data;
+        this.sumatoriaIngresos = 0;
+        for ( var x in data){
+          if (data[x].VALOR_CREDITO_INGRESOS != null) {
+            this.sumatoriaIngresos = this.sumatoriaIngresos + data[x].VALOR_CREDITO_INGRESOS;
+            this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+          }
+        }
+      });
+  }
+  public getSituacionFinancieraEgresos(): any {
+    this.situacionFinancieraService.getEgresos(this.mensajeServicio.NumeroCredito)
+      .pipe(map(data => data['EGRESOS']))
+      .subscribe((data: any) => {
+        this.situacionFinancieraEgresos = data;
+        this.sumatoriaEgresos = 0;
+        for ( var x in data){
+          if (data[x].VALOR_CREDITO_EGRESOS != null) {
+            this.sumatoriaEgresos = this.sumatoriaEgresos + data[x].VALOR_CREDITO_EGRESOS;
+            this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+          }
+        }
+      });
+  }
+  guardarConyuge(content) {
+
+  }
   // RD Conyuges
   public getListaConyuges(): any {
     this.conyugesServices.getListaConyuges(this.mensajeServicio.Cedula)
       .pipe(map(data => data["LISTACY"]))
       .subscribe((data: any) => {
         this.conyuges = data;
-        // console.log(data);
+        console.log(data);
       });
   }
 
@@ -627,7 +744,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .pipe(map(data => data["LISTAREF"]))
       .subscribe((data: any) => {
         this.referencias = data;
-        // console.log(data);
+        console.log(data);
       });
   }
 
@@ -681,9 +798,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     return this.formaTelefonos.get('NumeroTelefono').invalid && this.formaTelefonos.get('NumeroTelefono').touched;
   }
 
-  get valorArriendosNoValida() {
-    return this.formaSituacionFinanciera.get('valorArriendos').invalid && this.formaSituacionFinanciera.get('valorArriendos').touched;
-  }
 
   crearFormularioSituacionFinanciera() {
     this.formaSituacionFinanciera = this.fb.group( {
@@ -774,6 +888,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       ExtensionTelefono: ['']
     });
   }
+
+
+
 
   guardarDireccion() {
     if (this.formaDirecciones.invalid) {

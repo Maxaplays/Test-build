@@ -359,7 +359,7 @@
             <ngb-tab id="situacion-financiera">
                 <ng-template ngbTabTitle><img src="assets/images/icon-situacion-financiera.svg"> <span>Situación financiera</span></ng-template>
                 <ng-template ngbTabContent>
-                    <form class="forms forms-relative" [formGroup]="formaSituacionFinanciera">
+                    <form class="forms forms-relative">
                         <div class="cols cols2">
                             <div class="table-flat">
                                 <h5>Ingresos Mensuales</h5>
@@ -372,84 +372,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td data-column="Descripción">Arriendos</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00" formControlName="valorArriendos" class="form-control">
+                                        <tr *ngFor="let ingreso of situacionFinancieraIngresos">
+                                            <td data-column="Descripción">{{ingreso.NOMBRE_ING_PROD}}</td>
+                                            <td data-column="Valor" contenteditable="true" type="number">
+                                                <input (change)="onDatosIngresosValorChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="text" value="{{ingreso.VALOR_CREDITO_INGRESOS}}">
                                             </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-" formControlName="comentarioArriendos" class="form-control">
+                                            <td data-column="Comentario" contenteditable="true">
+                                                <input (change)="onDatosIngresosChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="text" value="{{ingreso.COMENTARIO_CREDITO_INGRESOS}}">
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-column="Descripción">Honorarios</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00" formControlName="valorHonorarios" class="form-control">
-                                            </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-" formControlName="comentarioHonorarios" class="form-control">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-column="Descripción">Otros ingresos 1</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00" formControlName="valorOtrosIngresos1" class="form-control">
-                                            </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-" formControlName="comentarioOtrosIngresos1" class="form-control">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-column="Descripción">Otros ingresos 2</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00" formControlName="valorOtrosIngresos2" class="form-control">
-                                            </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-" formControlName="comentarioOtrosIngresos2" class="form-control">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-column="Descripción">Otros ingresos 3</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00" formControlName="valorOtrosIngresos3" class="form-control">
-                                            </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-" formControlName="comentarioOtrosIngresos3" class="form-control">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-column="Descripción">Sueldo Conyuge</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00" formControlName="valorSueldoConyuge" class="form-control">
-                                            </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-" formControlName="comentarioSueldoConyuge" class="form-control">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-column="Descripción">Sueldo Mensual</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00" formControlName="valorSueldoMensual" class="form-control">
-                                            </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-" formControlName="comentarioSueldoMensual" class="form-control">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-column="Descripción">Utilidad Mensual (Sólo independientes)</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00" formControlName="valorUtilidadMensual" class="form-control">
-                                            </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-" formControlName="comentarioUtilidadMensual" class="form-control">
-                                            </td>
+
                                         </tr>
                                         <tr class="foot-td">
                                             <td>
                                                 <b>Total</b>
                                             </td>
                                             <td>
-                                                <b>0,00</b>
+                                                <b>{{sumatoriaIngresos}}</b>
                                             </td>
                                             <td>&nbsp;</td>
                                         </tr>
@@ -467,84 +405,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td data-column="Descripción">Alimentación</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                        <tr *ngFor="let egresos of situacionFinancieraEgresos">
+                                            <td data-column="Descripción">{{egresos.NOMBRE_EGR_PROD}}</td>
+                                            <td data-column="Valor" contenteditable="true" type="number">
+                                                <input (change)="onDatosEgresosValorChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="text" value="{{egresos.VALOR_CREDITO_EGRESOS}}">
                                             </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
+                                            <td data-column="Comentario" contenteditable="true">
+                                                <input (change)="onDatosEgresosChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="text" value="{{egresos.COMENTARIO_CREDITO_EGRESOS}}">
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-column="Descripción">Arriendo Mensual Local</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
-                                            </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-column="Descripción">Arriendo Mensual Vivienda</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
-                                            </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-column="Descripción">Cuota Mensual Hipoteca</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
-                                            </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-column="Descripción">Cuota Mensual Vehículo</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
-                                            </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-column="Descripción">Educación</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
-                                            </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-column="Descripción">Mutualista Egreso 1</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
-                                            </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td data-column="Descripción">Otros Egresos 1</td>
-                                            <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
-                                            </td>
-                                            <td data-column="Comentario">
-                                                <input type="text" placeholder="-">
-                                            </td>
+
                                         </tr>
                                         <tr class="foot-td">
                                             <td>
                                                 <b>Total</b>
                                             </td>
                                             <td>
-                                                <b>0,00</b>
+                                                <b>{{sumatoriaEgresos}}</b>
                                             </td>
                                             <td>&nbsp;</td>
                                         </tr>
@@ -553,7 +429,7 @@
                             </div>
                             <div>
                                 <label class="label-postable label">Ingreso Disponible</label>
-                                <input type="text" placeholder="$0.000" style="max-width: 759px;">
+                                <input readonly="readonly" type="number" placeholder="$0.000" style="max-width: 759px;" value="{{sumatoriaTotal}}">
                             </div>
                             <div>&nbsp;</div>
                             <div class="table-flat">

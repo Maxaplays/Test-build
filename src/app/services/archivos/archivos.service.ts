@@ -29,17 +29,15 @@ export class ArchivosService {
     };
   }
 
-  public postArchivo(archivos: File[]) {
-    console.log(archivos);
-    const url = environment.urlServiciosBackend + `Archivos/nuevoArchivo`;
+  public postArchivo(archivos: File[], ID_CRE: string, USR_DOC: string, NOM_DOC: string, politicasValidacion: string) {
+    console.log('paso');
+    const url = environment.urlServiciosBackend + `Archivos/nuevoArchivo/${ID_CRE}/${USR_DOC}/${NOM_DOC}/${politicasValidacion}`;
 
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
     for ( let i = 0; i < archivos.length ; i++) {
-      formData.append('archivo', archivos[i]);
-
-      return this.http.post<File>(url, formData);
+      formData.append(archivos[i].name, archivos[i]);
     }
-
+    return this.http.post<File>(url, formData);
   }
 }
