@@ -269,7 +269,7 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-conyuges.svg"> <span>Cónyuges</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button class="btn btn-solid-green" (click)="openLg(agregarEditarConyuge,'')">Añadir Cónyuge</button>
+                        <button class="btn btn-solid-green" (click)="editarConyuge(agregarEditarConyuge,'')">Añadir Cónyuge</button>
                     </div>
                     <table>
                         <thead>
@@ -311,7 +311,7 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-referencias-tab.svg"> <span>Referencias</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button class="btn btn-solid-green" (click)="openLg(agregarEditarReferencia,'')">Añadir Referencia</button>
+                        <button class="btn btn-solid-green" (click)="editarConyuge(agregarEditarConyuge,'')">Añadir Referencia</button>
                     </div>
                     <table>
                         <thead>
@@ -344,7 +344,7 @@
                                 <td data-column="Observaciones">{{referencia.observa}}</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarReferencia, referencia)">
+                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="editarConyuge(agregarEditarConyuge, referencia)">
                                     <img src="assets/images/icon-printer.svg" class="icon-with-action">
                                 </td>
                             </tr>
@@ -972,7 +972,7 @@
                     <fieldset>
                         <label class="label">Género</label>
                         <select formControlName="genero" class="form-control">
-                            <option *ngFor="let gen of generos" [value]="gen.COD_GEN">{{gen.NOM_GEN}}</option>
+                            <option *ngFor="let genero of generos" [value]="gen.COD_GEN">{{genero.NOM_GEN}}</option>
                         </select>                   
                     </fieldset>
                     <fieldset>
@@ -1020,41 +1020,31 @@
         </div>
     </div>
     <div class="modal-body variation">
-        <form class="forms forms-relative" autocomplete="off" [formGroup]="FormularioReferencias">
             <div class="cols cols3">
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
-                            <select formControlName="FormularioReferencias" class="form-control" class="form-control">
-                                <option *ngFor="let genero of generos" [value]="genero.NOM_GEN">{{genero.NOM_GEN}}</option>
-                            </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Cédula</label>
-                        <input formControlName="xcedula" class="form-control" type="text" placeholder="Escriba Cédula" disabled>
                     </fieldset>
                     <fieldset>
                         <label class="label">Parenteso / Referencia</label>
-                        <input type="text" placeholder="Escriba Parenteso / Referencia">
                     </fieldset>
                     <fieldset>
                         <label class="label">Apellidos</label>
-                        <input formControlName="xapellido" class="form-control" type="text" placeholder="Digite los Apellidos" disabled>
                     </fieldset>
                     <fieldset>
                         <label class="label">Nombres</label>
-                        <input formControlName="xnombre" class="form-control" type="text" placeholder="Escriba Nombres" disabled>
                     </fieldset>
                 </div>
                 <div>
                     <fieldset>
                         <label class="label">Dirección Domicilio</label>
-                        <input formControlName="xdireccion" class="form-control" type="text" placeholder="Digite la dirección" disabled>
                     </fieldset>
                     <fieldset>
                         <label class="label">Teléfono Domicilio</label>
-                        <input formControlName="xtelefono" class="form-control" type="text" placeholder="Digite el número telefónico" disabled>
-                    </fieldset>
+                     </fieldset>
                     <fieldset>
                         <label class="label">Celular</label>
                         <input type="text" placeholder="Escriba Celular">
@@ -1083,7 +1073,6 @@
                     </fieldset>
                 </div>
             </div>
-        </form>
     </div>
     <div class="modal-footer-mfc full variation">
         <div class="align-right">

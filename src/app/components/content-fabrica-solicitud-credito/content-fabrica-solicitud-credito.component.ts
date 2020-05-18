@@ -183,7 +183,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       razonSocialTrabajo: new FormControl(null)
     });
   }
- 
+
   crearFormularioConyuge(){
     this.FormularioDatosConyuge = new FormGroup({
       tipoRegistro: new FormControl(null),
@@ -233,6 +233,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
     this.modalService.open(content);
   }
+
   editarConyuge(content, conyuge: any) {
     if (conyuge === undefined || conyuge === '') {
       this.crearFormularioConyuge();
