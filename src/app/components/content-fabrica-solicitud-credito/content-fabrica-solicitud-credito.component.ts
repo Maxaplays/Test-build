@@ -53,8 +53,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   FormularioDatosCliente: FormGroup;
   formaSituacionFinanciera: FormGroup;
   FormularioDatosConyuge: FormGroup;
-  pestaniasIngreso: FormGroup;
-  pestaniasIngresoMobile: FormGroup;
 
 
   // variables para presentacion - bkm
@@ -98,26 +96,11 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private clienteService: ClienteService,
               private datosComplService: DatosComplementariosService) {
                 this.crearFormularioDirecciones();
-                this.crearFormularioCliente();
-                this.crearFormularioTelefonos();
-                this.inicializarPestanias();
-                this.crearFormularioReferencia();
-                this.crearFormularioConyuge();
-                this.activatedRoute.queryParams.subscribe(params => {
-                this.idCredito = params['idCre'];
-                    if (typeof this.idCredito !== 'undefined') {
-                        this.fabricaService.getRetomarCredito(this.idCredito, localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
-                          (data: DatosFabrica) => {
-                            // console.log(data);
-                            this.fabricaService.changeMessage(data);
-                            this.acoplarPantalla(data.Estado);
-                          });
-                      }
-                });
                   this.crearFormularioCliente();
                   this.crearFormularioTelefonos();
                  this.crearFormularioSituacionFinanciera();
                  this.crearFormularioConyuge();
+                 this.crearFormularioReferencia();
               this.activatedRoute.queryParams.subscribe(params => {
               this.idCredito = params['idCre'];
                   if (typeof this.idCredito !== 'undefined') {
@@ -144,9 +127,12 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                   this.tipoDoc = this.getTipoDoc();
                   this.telefonos = this.getTelefonos();
                   this.conyuges = this.getListaConyuges();
-                  this.referencias = this.getListaReferencias();   
+                  this.referencias = this.getListaReferencias();
+                  this.getGeneros();
+                  this.getNacionalidades();
+                  this.getEstadoCivil();
+                  this.getProfesiones();
                   this.getCliente();
-                  // this.getConyuge();
                   this.getDatosComplementarios();
                 });
 }
@@ -155,7 +141,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.crearFormularioDirecciones();
     this.crearFormularioCliente();
     this.crearFormularioTelefonos();
-    this.crearFormularioReferencias();
     this.telefonos = this.getTelefonos();
     this.direcciones = this.getDirecciones();
     this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
@@ -299,9 +284,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       direccion: conyuge.direccion,
       observaciones: conyuge.observaciones
     });
-  }
-  guardarConyuge(content) {
-
   }
 
   editarReferencia(content, referencia: any) {
@@ -619,31 +601,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.getSituacionFinancieraEgresos();
     this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
   }
-
-    getCliente() {
-    this.clienteService.getClienteCedula(this.mensajeServicio.Cedula)
-    .pipe(map(data => data['CLIENTE']))
-    .subscribe((data: any) => {
-      let datosCliente: Cliente;
-      datosCliente = data[0];
-      // console.log(datosCliente);
-      this.FormularioDatosCliente.controls['genero'].setValue(datosCliente.COD_GEN);
-      this.FormularioDatosCliente.controls['estadoCivil'].setValue(datosCliente.COD_ECIV);
-      this.FormularioDatosCliente.controls['profesionCliente'].setValue(datosCliente.COD_PRO);
-      this.FormularioDatosCliente.controls['tipoDocumentacion'].setValue(datosCliente.COD_TDOC);
-      this.FormularioDatosCliente.controls['nacionalidad'].setValue(datosCliente.COD_NAC);
-      this.FormularioDatosCliente.controls['apellidoCliente'].setValue(datosCliente.APE_CLI);
-      this.FormularioDatosCliente.controls['nombreCliente'].setValue(datosCliente.NOM_CLI);
-      try{
-      let fechaNacimiento: Date = new Date(datosCliente.FECH_NAC_CLI);
-      this.FormularioDatosCliente.controls['fechaNacimiento'].setValue(fechaNacimiento.toISOString().substring(0, 10));
-      } catch {}
-      this.FormularioDatosCliente.controls['cargasFamiliares'].setValue(datosCliente.CARGAS_CLI);
-      this.FormularioDatosCliente.controls['razonSocialTrabajo'].setValue(datosCliente.EMP_CLI);
-      this.FormularioDatosCliente.controls['rucTrabajo'].setValue(datosCliente.RUC_EMP_CLI);
-      this.FormularioDatosCliente.controls['emailCliente'].setValue(datosCliente.EMAIL_CLI);
-    });
-  }
   getConyuge() {
     this.conyugesServices.getConyugeCedula(this.mensajeServicio.Cedula)
     .pipe(map(data => data['CONYUGE']))
@@ -664,30 +621,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       this.FormularioDatosConyuge.controls['direccion'].setValue(datosConyuge.DIR_TRAB_CON);
     });
   }
-  guardarCliente(content){
-    let datosCliente: Cliente = new Cliente();
-    let resultado: string;
-
-    datosCliente.ID_CLI = this.mensajeServicio.Cedula;
-    datosCliente.COD_GEN = this.FormularioDatosCliente.value.genero;
-    datosCliente.COD_ECIV = this.FormularioDatosCliente.value.estadoCivil;
-    datosCliente.COD_PRO = this.FormularioDatosCliente.value.profesionCliente;
-    datosCliente.COD_TDOC = this.FormularioDatosCliente.value.tipoDocumentacion;
-    datosCliente.COD_NAC = this.FormularioDatosCliente.value.nacionalidad;
-    datosCliente.APE_CLI = this.FormularioDatosCliente.value.apellidoCliente;
-    datosCliente.NOM_CLI = this.FormularioDatosCliente.value.nombreCliente;
-    try{
-    let fechaNacimiento: Date = new Date(this.FormularioDatosCliente.value.fechaNacimiento);
-    datosCliente.FECH_NAC_CLI = fechaNacimiento.toISOString().substring(0, 10);
-    } catch { }
-    datosCliente.CARGAS_CLI = this.FormularioDatosCliente.value.cargasFamiliares;
-    datosCliente.EMP_CLI = this.FormularioDatosCliente.value.razonSocialTrabajo;
-    datosCliente.RUC_EMP_CLI = this.FormularioDatosCliente.value.rucTrabajo;
-    datosCliente.EMAIL_CLI = this.FormularioDatosCliente.value.emailCliente;
-    datosCliente.EstadoOperacion = '';
-    datosCliente.INGRESOS_DEPENDIENTE = '0';
-    datosCliente.INGRESOS_INDEPENDIENTE = '0';
-    datosCliente.usuario = localStorage.getItem('usuario');
 
   public getDirecciones(): any {
     this.direccionesService.getDirecciones(this.mensajeServicio.Cedula, this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
@@ -958,7 +891,13 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       );
     }
   }
-
+  onDatosComplementariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
+    this.datosComplService.getguardarValor(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
+        .subscribe( (resultado: any[] ) => {
+          if (resultado.toString()==='Actualizado!')
+            this.successMessage = resultado.toString();
+        });
+  }
 
 }
 

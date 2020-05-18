@@ -67,8 +67,8 @@
 
     <app-steps></app-steps>
 
-    <form class="steps-mobile" [formGroup]="pestaniasIngreso">
-        <select id='selectSteps' formControlName="selectTabs">
+    <form class="steps-mobile">
+        <select id='selectSteps' >
                 <option value='datos-basicos'>Datos básicos</option>
                 <option value='credito'>Crédito</option>
                 <option value='solicitud-credito' selected>Solicitud Crédito</option>
@@ -80,8 +80,8 @@
             </select>
     </form>
 
-    <form class="tabs-mobile" [formGroup]="pestaniasIngresoMobile">
-        <select id='selectTabs' formControlName="selectTabs">
+    <form class="tabs-mobile" >
+        <select id='selectTabs' >
                 <option value='cliente'>Cliente</option>
                 <option value='direcciones'>Direcciones</option>
                 <option value='telefonos'>Teléfonos</option>
