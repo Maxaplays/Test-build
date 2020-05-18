@@ -32,10 +32,10 @@ export class ReferenciasService {
     if (nuevo) {
       referencia.Nuevo = false;
     }
-    const url = environment.urlServiciosBackend + `referencias/nuevaDireccion`;
+    const url = environment.urlServiciosBackend + `referencias/nuevaReferencia`;
     return this.http.post<Referencia>(url, referencia, this.httpOptions)
       .pipe(
-        catchError(this.handleError('addSmartphone', referencia))
+        catchError(this.handleError('postReferencias', referencia))
       );
   }
 
@@ -49,11 +49,17 @@ export class ReferenciasService {
   }
 }
 export class Referencia {
-  xcedula: string;
-  xapellido: string;
-  xnombre: string;
-  xdireccion: string;
-  xtelefono: string;
+  cedula: string;
+  apellido: string;
+  nombre: string;
+  direccion: string;
+  telefono_dom: string;
+  celular: string;
+  telefono_trab: string;
+  empresa: string;
+  direc_emp: string;
+  observa: string;
+  cliente: string;
   Nuevo: boolean;
   ID_REF: number;
 }
