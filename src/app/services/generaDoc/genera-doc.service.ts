@@ -17,7 +17,11 @@ export class GeneraDocService {
   };
 
   constructor(private http: HttpClient) { }
-
+  
+  private getQuery(query: string) {
+    const url = environment.urlServiciosBackend + query;
+    return this.http.get(url);
+  }
   public postGeneracionDocumentos(valores: GeneracionDocumentos) {
     // console.log(valoresSimulador);
     const url = environment.urlServiciosBackend + `GeneracionDocumentos/generarDocumentos`;
@@ -33,10 +37,13 @@ export class GeneraDocService {
       return of(result as T);
     };
   }
+  public getReportesDisponibles(idCredito: string ) {
+    return this.getQuery(`GeneracionDocumentos/generarReportesDisponibles?idCredito=${idCredito}`);
+  }
 }
 export class GeneracionDocumentos {
     ID_CRE: string;
-    reportesImprimir: ReporteWebserviceUx[];
+    reportesImprimir: Array<ReporteWebserviceUx>;
     fechaPagare: string;
     fechaPrimerPago: string;
     entidadFinanciera: string;
@@ -48,9 +55,14 @@ export class GeneracionDocumentos {
     lblCuentasMupi: string;
     usuario: string;
     ID_CLI: string;
+
+    constructor(){
+      this.reportesImprimir = new Array<ReporteWebserviceUx>();
+    }
 }
 export class ReporteWebserviceUx
 {
     nombreArchivo: string;
     nombreReporte: string;
+    selected: boolean;
 }
