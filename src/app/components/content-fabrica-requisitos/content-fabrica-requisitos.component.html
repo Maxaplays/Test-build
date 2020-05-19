@@ -112,7 +112,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let requisito of requisitios | paginate: {itemsPerPage: 5, currentPage: paginaAcual}, let i = index">
+                    <tr *ngFor="let requisito of requisitios | paginate: {itemsPerPage: 10, currentPage: paginaAcual}, let i = index">
                         <td><input class="form-check-input" type="checkbox" [checked]="marcarChecks" name= "miDataInterior" (change)="$event.target.checked ? agregar(requisito) : quitar(requisito)"></td>
                         <td><a class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion)">Solicitar</a></td>
                         <td><span class="{{requisito.COLOR_UX}}"></span></td>
@@ -146,7 +146,6 @@
                 <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button>
                 <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Documentación</button>
                 <a class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event)"></a>
-                <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Subir</button>
             </div>
             <div class="align-right">
                 <button class="btn btn-border-gray">Cancelar</button>
