@@ -287,13 +287,13 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let conyuge of conyuges">
-                                <td data-column="Tipo de Registro">{{conyuge.tipo_registro}}</td>
-                                <td data-column="Nombres">{{conyuge.nombre}}</td>
-                                <td data-column="Apellidos">{{conyuge.apellido}}</td>
+                                <td data-column="Tipo de Registro">Cliente</td>
+                                <td data-column="Nombres">{{conyuge.NOM_CON}}</td>
+                                <td data-column="Apellidos">{{conyuge.APE_CON}}</td>
                                 <td data-column="Género">{{conyuge.genero}}</td>
                                 <td data-column="Tipo de Documento">{{conyuge.tipodoc}}</td>
-                                <td data-column="RUC / Cédula">{{conyuge.cedula}}</td>
-                                <td data-column="Fecha de Nacimiento">{{conyuge.fecha}}</td>
+                                <td data-column="RUC / Cédula">{{conyuge.CED_CON}}</td>
+                                <td data-column="Fecha de Nacimiento">{{conyuge.FECH_NAC_CON}}</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
                                     <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="editarConyuge(agregarEditarConyuge, conyuge)">
@@ -851,11 +851,15 @@
                     </fieldset>
                     <fieldset>
                         <label class="label">Nacionalidad</label>
-                        <input formControlName="nacionalidad" class="form-control" type="text" placeholder="Nacionalidad">
+                        <select formControlName="nacionalidad" class="form-control">
+                            <option *ngFor="let nacion of nacionalidades" [value]="nacion.COD_NAC">{{nacion.NOM_NAC}}</option>
+                        </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Profesión</label>
-                        <input formControlName="profesion" class="form-control" type="text" placeholder="Profesión">
+                        <select formControlName="profesion" class="form-control">
+                            <option *ngFor="let profesion of profesiones" [value]="profesion.COD_PRO">{{profesion.NOM_PRO}}</option>
+                        </select>
                     </fieldset>
                 </div>
                 <div>

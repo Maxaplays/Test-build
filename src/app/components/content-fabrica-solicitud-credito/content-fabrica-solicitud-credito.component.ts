@@ -75,7 +75,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   situacionFinancieraIngresos: any[] = [];
   situacionFinancieraEgresos: any[] = [];
   total: number;
-  conyuges: any[] = [];
+  conyuges: Conyuge[] = [];
   datosComplemetarios: CREDITO_DATOS_COMPLEMENTARIOS[] = [];
   // bkm
   // tslint:disable-next-line:max-line-length
@@ -162,6 +162,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         .subscribe( (resultado: any[] ) => {
           if (resultado.toString()==='Actualizado!')
             this.successMessage = resultado.toString();
+            this.getDatosComplementarios();
         });
   }
   crearFormularioCliente() {
@@ -244,8 +245,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
   }
 
-  editarConyuge(content, conyuge: any) {
-    if (conyuge === undefined || conyuge === '') {
+  editarConyuge(content, conyuge: Conyuge) {
+    if (conyuge === undefined || conyuge.CED_CON === '') {
       this.crearFormularioConyuge();
     } else {
       this.cargarFormularioConyuge(conyuge);
@@ -269,20 +270,21 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       observaciones: new FormControl(null)
      });
   }
-  cargarFormularioConyuge(conyuge: any) {
+  cargarFormularioConyuge(conyuge: Conyuge) {
+    console.log(conyuge);
     this.FormularioDatosConyuge.reset({
-      tipo_registro: conyuge.tipo_registro,
+      tipo_registro: 'CLIENTE',
       tipoDocumentacion: conyuge.COD_TDOC,
-      cedula: conyuge.cedula,
-      apellidoConyuge: conyuge.apellido,
-      nombreConyuge: conyuge.nombre,
+      cedula: conyuge.CED_CON,
+      apellidoConyuge: conyuge.APE_CON,
+      nombreConyuge: conyuge.NOM_CON,
       telefonoConyuge: '',
-      fechaNacimiento: conyuge.fecha,
+      fechaNacimiento: conyuge.FECH_NAC_CON,
       genero: conyuge.COD_GEN,
-      nacionalidad: conyuge.nacionalidad,
-      profesion: conyuge.profesion,
-      direccion: conyuge.direccion,
-      observaciones: conyuge.observaciones
+      nacionalidad: conyuge.COD_NAC,
+      profesion: conyuge.COD_PRO,
+      direccion: conyuge.DIR_TRAB_CON,
+      observaciones: conyuge.OBSERVACIONES_CON
     });
   }
 
@@ -660,7 +662,40 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
   }
   guardarConyuge(content) {
+    let datosConyuge: Conyuge = new Conyuge();
+    let resultado: string;
+    datosConyuge.ID_CLI = this.mensajeServicio.Cedula;
+    datosConyuge.COD_GEN = this.FormularioDatosConyuge.value.genero;
+    datosConyuge.CED_CON = this.FormularioDatosConyuge.value.cedula;
+    datosConyuge.COD_TDOC = this.FormularioDatosConyuge.value.tipoDocumentacion;
+    datosConyuge.APE_CON = this.FormularioDatosConyuge.value.apellidoConyuge;
+    datosConyuge.NOM_CON = this.FormularioDatosConyuge.value.nombreConyuge;
+    datosConyuge.telefono = this.FormularioDatosConyuge.value.telefonoConyuge;
+    datosConyuge.COD_NAC = this.FormularioDatosConyuge.value.nacionalidad;
+    datosConyuge.COD_PRO = this.FormularioDatosConyuge.value.profesion;
+    try {
+    let fechaNacimiento: Date = new Date(this.FormularioDatosConyuge.value.fechaNacimiento);
+    datosConyuge.FECH_NAC_CON = fechaNacimiento.toISOString().substring(0, 10);
+    } catch { }
+    datosConyuge.OBSERVACIONES_CON = this.FormularioDatosConyuge.value.observaciones;
+    datosConyuge.DIR_TRAB_CON = this.FormularioDatosConyuge.value.direccion;
+    datosConyuge.ESTADO_CON = this.FormularioDatosConyuge.value.rucTrabajo;
+    datosConyuge.usuario = localStorage.getItem('usuario');
 
+    this.conyugesServices.postConyuge(datosConyuge).subscribe(
+      (data: any) => {
+        resultado = data;
+        console.log(resultado);
+        if (resultado === 'Conyuge actualizado exitosamente!'){
+          this.successMessage = 'Conyuge actualizado exitosamente!';
+          this.getListaConyuges();
+          this.modalService.dismissAll();
+        } else {
+          // Error
+          this.errorMessage = data;
+          this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+        }
+      });
   }
   // RD Conyuges
   public getListaConyuges(): any {
@@ -892,7 +927,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.datosComplService.getguardarValor(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
         .subscribe( (resultado: any[] ) => {
           if (resultado.toString()==='Actualizado!')
-            this.successMessage = resultado.toString();
+          this.getDatosComplementarios();  
+          this.successMessage = resultado.toString();
         });
   }
 
