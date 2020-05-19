@@ -113,11 +113,15 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let requisito of requisitios | paginate: {itemsPerPage: 10, currentPage: paginaAcual}, let i = index">
-                        <td><input class="form-check-input" type="checkbox" [checked]="marcarChecks" name= "miDataInterior" (change)="$event.target.checked ? agregar(requisito) : quitar(requisito)"></td>
+                        <td><input class="form-check-input" type="checkbox" [checked]="marcarChecks" name="miDataInterior" (change)="$event.target.checked ? agregar(requisito) : quitar(requisito)"></td>
                         <td><a class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion, requisito)">Solicitar</a></td>
                         <td><span class="{{requisito.COLOR_UX}}"></span></td>
-                        <td *ngIf="requisito.URL_DOC"><a href="{{requisito.URL_DOC}}" target="_blank"><img src="assets/images/icon-url.svg" class="check-center"></a></td>
-                        <td *ngIf="!requisito.URL_DOC"><a ></a></td>
+                        <td *ngIf="requisito.URL_DOC">
+                            <a href="{{requisito.URL_DOC}}" target="_blank"><img src="assets/images/icon-url.svg" class="check-center"></a>
+                        </td>
+                        <td *ngIf="!requisito.URL_DOC">
+                            <a></a>
+                        </td>
                         <td>{{requisito.NOM_POL}}</td>
                         <td>{{requisito.VALOR_MAT}}</td>
                         <td><img src="{{requisito.CHECK_UX}}" class="check-center"></td>
@@ -138,12 +142,12 @@
                 </tbody>
             </table>
         </div>
-      <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaAcual = $event"></pagination-controls>
+        <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaAcual = $event"></pagination-controls>
     </div>
     <div class="footer-fixed-forms">
         <div class="cols cols2">
             <div class="align-left">
-                <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button>
+                <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial,'')"><img src="assets/images/icon-reloj.svg">Historial</button>
                 <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Documentación</button>
                 <a class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event)" *ngIf="subirArchivo()"></a>
             </div>
@@ -186,73 +190,73 @@
 
 <ng-template #solicitudExcepcion let-modal>
 
-  <div class="modal-header-mfc variation">
-      <div class="cols cols2 align-middle">
-          <div class="align-left">
-              <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-documentacion-modal.svg">
-              <h4 class="modal-minititle-mfc">Solicitud de Excepción</h4>
-          </div>
-          <div class="align-right">
-              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-documentacion-modal.svg">
+                <h4 class="modal-minititle-mfc">Solicitud de Excepción</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
                   <span aria-hidden="true">&times;</span>
               </button>
-          </div>
-      </div>
-  </div>
-
-  <div class="modal-body variation">
-      <div class="modal-with-viewer modal-without-pdf">
-          <div class="forms forms-relative">
-              <div class="cols cols2">
-                  <div>
-                      <fieldset>
-                          <label class="label">ID</label>
-                          <span class="text-data">{{requisitoExepcion.ID_VAL}}</span>
-                      </fieldset>
-                  </div>
-                  <div>
-                      <fieldset>
-                          <label class="label">Tipo</label>
-                          <span class="text-data">Requisito</span>
-                      </fieldset>
-                  </div>
-              </div>
-              <fieldset>
-                  <label class="label">Comentarios</label>
-                  <textarea placeholder="Escriba Comentarios" style="max-height: 100px;" id="comentarioExcepcion" name="comentarioExcepcion" [(ngModel)]="comentarioExcepcion" ></textarea>
-              </fieldset>
-              <div id="table-scroll">
-                  <table class="width-filters" style="max-width: calc(100% - 8px);margin-top: 8px;">
-                      <thead>
-                          <tr>
-                              <th>#</th>
-                              <th>Validación</th>
-                              <th>Fecha</th>
-                              <th>Usuario</th>
-                              <th>Observaciones</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr *ngFor="let excepcion of excepciones">
-                              <td>&nbsp;</td>
-                              <td>{{excepcion.VALIDADO_VPOL}}</td>
-                              <td>{{excepcion.USR_VAL_VPOL}}</td>
-                              <td>{{excepcion.FECH_VAL_VPOL}}</td>
-                              <td>{{excepcion.OBS_VAL_VPOL}}</td>
-                          </tr>
-                      </tbody>
-                  </table>
-              </div>
-          </div>
-      </div>
-  </div>
-
-  <div class="modal-footer-mfc full variation">
-    <div class="align-right">
-        <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-        <button class="btn btn-solid-green" (click)="guardarExcepcion()">Guardar</button>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <div class="modal-body variation">
+        <div class="modal-with-viewer modal-without-pdf">
+            <div class="forms forms-relative">
+                <div class="cols cols2">
+                    <div>
+                        <fieldset>
+                            <label class="label">ID</label>
+                            <span class="text-data">{{requisitoExepcion.ID_VAL}}</span>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <label class="label">Tipo</label>
+                            <span class="text-data">Requisito</span>
+                        </fieldset>
+                    </div>
+                </div>
+                <fieldset>
+                    <label class="label">Comentarios</label>
+                    <textarea placeholder="Escriba Comentarios" style="max-height: 100px;" id="comentarioExcepcion" name="comentarioExcepcion" [(ngModel)]="comentarioExcepcion"></textarea>
+                </fieldset>
+                <div id="table-scroll">
+                    <table class="width-filters" style="max-width: calc(100% - 8px);margin-top: 8px;">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Validación</th>
+                                <th>Fecha</th>
+                                <th>Usuario</th>
+                                <th>Observaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let excepcion of excepciones">
+                                <td>&nbsp;</td>
+                                <td>{{excepcion.VALIDADO_VPOL}}</td>
+                                <td>{{excepcion.USR_VAL_VPOL}}</td>
+                                <td>{{excepcion.FECH_VAL_VPOL}}</td>
+                                <td>{{excepcion.OBS_VAL_VPOL}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer-mfc full variation">
+        <div class="align-right">
+            <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+            <button class="btn btn-solid-green" (click)="guardarExcepcion()">Guardar</button>
+        </div>
+    </div>
 
 </ng-template>
 

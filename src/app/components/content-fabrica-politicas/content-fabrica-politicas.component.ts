@@ -25,7 +25,7 @@ export class ContentFabricaPoliticasComponent implements OnInit {
   politicas: any[] = [];
   excepciones: any[] = [];
   comentarioExcepcion;
-  politicasExepcion: any[] = [];
+  politicasExepcion: any;
   // bkm
   constructor(private modalService: NgbModal,
               private fabricaService: FabricaService,
@@ -79,7 +79,7 @@ export class ContentFabricaPoliticasComponent implements OnInit {
 
   guardarExcepcion() {
     const excepcion: Excepcion = new Excepcion();
-    excepcion.ID_VPOL = this.politicasExepcion["ID_VAL"];
+    excepcion.ID_VPOL = this.politicasExepcion.ID_VAL;
     excepcion.IDE_CRE = this.mensajeServicio.NumeroCredito;
     excepcion.Tipo = 'Requisito';
     excepcion.USR_EXC_VAL = localStorage.getItem('usuario');

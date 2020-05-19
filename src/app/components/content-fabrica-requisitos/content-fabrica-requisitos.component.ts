@@ -26,7 +26,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   Archivos: File[] = [];
   archivoSeleccionado: File = null;
   miDataInterior = [];
-  requisitoExepcion: any[] = [];
+  requisitoExepcion: any = [];
   // bkm
   mensajeServicio: DatosFabrica;
   requisitios: any[] = [];
@@ -144,7 +144,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
 
   guardarExcepcion() {
     const excepcion: Excepcion = new Excepcion();
-    excepcion.ID_VPOL = this.requisitoExepcion["ID_VAL"];
+    excepcion.ID_VPOL = this.requisitoExepcion.ID_VAL;
     excepcion.IDE_CRE = this.mensajeServicio.NumeroCredito;
     excepcion.Tipo = 'Requisito';
     excepcion.USR_EXC_VAL = localStorage.getItem('usuario');

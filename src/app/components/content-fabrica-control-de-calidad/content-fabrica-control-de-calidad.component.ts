@@ -30,7 +30,7 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
   controlCalidad: any[] = [];
   excepciones: any[] = [];
   comentarioExcepcion;
-  controlExepcion: any[] = [];
+  controlExepcion: any;
   // bkm
   constructor(private modalService: NgbModal,
               private fabricaService: FabricaService,
@@ -147,7 +147,7 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
 
   guardarExcepcion() {
     const excepcion: Excepcion = new Excepcion();
-    excepcion.ID_VPOL = this.controlExepcion["ID_VAL"];
+    excepcion.ID_VPOL = this.controlExepcion.ID_VAL;
     excepcion.IDE_CRE = this.mensajeServicio.NumeroCredito;
     excepcion.Tipo = 'Requisito';
     excepcion.USR_EXC_VAL = localStorage.getItem('usuario');
