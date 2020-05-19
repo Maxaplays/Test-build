@@ -110,9 +110,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let control of controlCalidad | paginate: {itemsPerPage: 5, currentPage: paginaAcual}">
-                        <td><input type="checkbox" [checked]="marcarChecks"></td>
-                        <td><a class="tag-with-radius">Solicitar</a></td>
+                    <tr *ngFor="let control of controlCalidad | paginate: {itemsPerPage: 10, currentPage: paginaAcual}">
+                        <td><input type="checkbox" [checked]="marcarChecks" name= "miDataInterior" (change)="$event.target.checked ? agregar(control) : quitar(control)"></td>
+                        <td><a class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion)">Solicitar</a></td>
                         <td><span class="{{control.COLOR_UX}}"></span></td>
                         <td *ngIf="control.URL_DOC"><a href="{{control.URL_DOC}}" target="_blank"><img src="assets/images/icon-url.svg" class="check-center"></a></td>
                         <td *ngIf="!control.URL_DOC"><a ></a></td>
@@ -120,15 +120,15 @@
                         <td>{{control.VALOR_MAT}}</td>
                         <td><img src="{{control.CHECK_UX}}" class="check-center"></td>
                         <td>{{control.USR_VAL}}</td>
-                        <td>{{control.FECH_VAL | date: 'short'}}</td>
+                        <td>{{control.FECH_VAL | date: 'yyyy-MM-dd'}}</td>
                         <td>{{control.USR_CARGA_ARCH_VAL}}</td>
-                        <td>{{control.FCH_CARGA_ARCH_VAL | date: 'short'}}</td>
+                        <td>{{control.FCH_CARGA_ARCH_VAL}}</td>
                         <td>{{control.NombreCorto}}</td>
                         <td>{{control.OBSER_VAL_EXC_VAL}}</td>
                         <td>{{control.USR_EXC_VAL}}</td>
-                        <td>{{control.FECH_EXC_VAL | date: 'short'}}</td>
+                        <td>{{control.FECH_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
                         <td>{{control.USR_VAL_EXC_VAL}}</td>
-                        <td>{{control.FECH_VAL_EXC_VAL | date: 'short'}}</td>
+                        <td>{{control.FECH_VAL_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
                         <td>{{control.ID_VAL}}</td>
                     </tr>
                 </tbody>
@@ -143,6 +143,7 @@
                 <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button>
                 <button class="btn btn-border-blue"><img src="assets/images/icon-folder.svg">Documentación</button>
                 <button class="btn btn-border-blue">Cancelar</button>
+              <a class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event)" disabled="!miDataInterior"></a>
             </div>
             <div class="align-right">
 
@@ -179,3 +180,5 @@
         </div>
     </div>
 </ng-template>
+
+<ngb-alert *ngIf="successMessage" type="success" class="wbtn-success" (close)="successMessage = null"><img src="./assets/images/success.svg"><span>{{ successMessage }}</span></ngb-alert>
