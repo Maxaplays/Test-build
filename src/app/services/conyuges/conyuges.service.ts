@@ -65,4 +65,9 @@ export class Conyuge {
   DIR_TRAB_CON: string;
   ESTADO_CON: string;
   usuario: string;
+  telefono: string;
+  COD_NAC: string;
+  COD_PRO: string;
+  tipodoc: string;
+  genero: string;
 }

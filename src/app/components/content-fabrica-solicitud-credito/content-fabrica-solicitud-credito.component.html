@@ -68,7 +68,7 @@
     <app-steps></app-steps>
 
     <form class="steps-mobile">
-        <select id='selectSteps' >
+        <select id='selectSteps'>
                 <option value='datos-basicos'>Datos básicos</option>
                 <option value='credito'>Crédito</option>
                 <option value='solicitud-credito' selected>Solicitud Crédito</option>
@@ -80,8 +80,8 @@
             </select>
     </form>
 
-    <form class="tabs-mobile" >
-        <select id='selectTabs' >
+    <form class="tabs-mobile">
+        <select id='selectTabs'>
                 <option value='cliente'>Cliente</option>
                 <option value='direcciones'>Direcciones</option>
                 <option value='telefonos'>Teléfonos</option>
@@ -269,7 +269,7 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-conyuges.svg"> <span>Cónyuges</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button class="btn btn-solid-green" (click)="editarConyuge(agregarEditarConyuge,'')">Añadir Cónyuge</button>
+                        <button class="btn btn-solid-green" (click)="editarConyuge(agregarEditarConyuge,null)">Añadir Cónyuge</button>
                     </div>
                     <table>
                         <thead>
@@ -287,13 +287,13 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let conyuge of conyuges">
-                                <td data-column="Tipo de Registro">{{conyuge.tipo_registro}}</td>
-                                <td data-column="Nombres">{{conyuge.nombre}}</td>
-                                <td data-column="Apellidos">{{conyuge.apellido}}</td>
+                                <td data-column="Tipo de Registro">Cliente</td>
+                                <td data-column="Nombres">{{conyuge.NOM_CON}}</td>
+                                <td data-column="Apellidos">{{conyuge.APE_CON}}</td>
                                 <td data-column="Género">{{conyuge.genero}}</td>
                                 <td data-column="Tipo de Documento">{{conyuge.tipodoc}}</td>
-                                <td data-column="RUC / Cédula">{{conyuge.cedula}}</td>
-                                <td data-column="Fecha de Nacimiento">{{conyuge.fecha}}</td>
+                                <td data-column="RUC / Cédula">{{conyuge.CED_CON}}</td>
+                                <td data-column="Fecha de Nacimiento">{{conyuge.FECH_NAC_CON}}</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
                                     <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="editarConyuge(agregarEditarConyuge, conyuge)">
@@ -813,7 +813,7 @@
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
-                            <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Tipo Registro"> 
+                        <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Tipo Registro">
                     </fieldset>
                     <fieldset>
                         <label class="label">Tipo de Documento</label>
@@ -847,15 +847,19 @@
                         <label class="label">Género</label>
                         <select formControlName="genero" class="form-control">
                             <option *ngFor="let genero of generos" [value]="genero.COD_GEN">{{genero.NOM_GEN}}</option>
-                        </select>                   
+                        </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Nacionalidad</label>
-                        <input formControlName="nacionalidad" class="form-control" type="text" placeholder="Nacionalidad">
+                        <select formControlName="nacionalidad" class="form-control">
+                            <option *ngFor="let nacion of nacionalidades" [value]="nacion.COD_NAC">{{nacion.NOM_NAC}}</option>
+                        </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Profesión</label>
-                        <input formControlName="profesion" class="form-control" type="text" placeholder="Profesión">
+                        <select formControlName="profesion" class="form-control">
+                            <option *ngFor="let profesion of profesiones" [value]="profesion.COD_PRO">{{profesion.NOM_PRO}}</option>
+                        </select>
                     </fieldset>
                 </div>
                 <div>
@@ -904,7 +908,7 @@
                     <fieldset>
                         <label class="label">Cédula</label>
                         <input formControlName="cedula" class="form-control" type="text" placeholder="Escriba Cédula">
-                     </fieldset>
+                    </fieldset>
                     <fieldset>
                         <label class="label">Parenteso / Referencia</label>
                         <select formControlName="parentesco" class="form-control">
@@ -914,7 +918,7 @@
                     <fieldset>
                         <label class="label">Apellidos</label>
                         <input formControlName="apellido" class="form-control" type="text" placeholder="Escriba Apellidos">
-                     </fieldset>
+                    </fieldset>
                     <fieldset>
                         <label class="label">Nombres</label>
                         <input formControlName="nombre" class="form-control" type="text" placeholder="Escriba Nombres">
@@ -928,7 +932,7 @@
                     <fieldset>
                         <label class="label">Teléfono Domicilio</label>
                         <input formControlName="telefono_dom" class="form-control" type="text" placeholder="Escriba Teléfono Domicilio">
-                     </fieldset>
+                    </fieldset>
                     <fieldset>
                         <label class="label">Celular</label>
                         <input formControlName="celular" class="form-control" type="text" placeholder="Escriba Celular">
@@ -956,12 +960,12 @@
                         <input formControlName="observa" class="form-control" type="text" placeholder="Escriba Observaciones">
                         <input formControlName="cliente" class="form-control" type="text">
                         <input formControlName="ID_REF" class="form-control" type="text">
-                   </fieldset>
+                    </fieldset>
                 </div>
             </div>
         </form>
     </div>
- 
+
     <div class="modal-footer-mfc full variation">
         <div class="align-right">
             <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>

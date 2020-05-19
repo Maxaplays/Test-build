@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
-import {DocumentosVisualizacionService} from '../../services/documentos/documentos-visualizacion.service';
+import {DocumentosVisualizacionService, Excepcion} from '../../services/documentos/documentos-visualizacion.service';
 import {map} from 'rxjs/operators';
 import {ArchivosService} from '../../services/archivos/archivos.service';
 import {Subject} from 'rxjs';
@@ -26,9 +26,12 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   Archivos: File[] = [];
   archivoSeleccionado: File = null;
   miDataInterior = [];
+  requisitoExepcion: any = [];
   // bkm
   mensajeServicio: DatosFabrica;
   requisitios: any[] = [];
+  excepciones: any[] = [];
+  comentarioExcepcion;
   // bkm
 
   constructor(private modalService: NgbModal,
@@ -55,7 +58,9 @@ export class ContentFabricaRequisitosComponent implements OnInit {
     this.modalService.open(content, {windowClass: 'custom-width-modal'});
   }
 
-  openCustomWidthVariant(content) {
+  openCustomWidthVariant(content, requisito: any) {
+    this.requisitoExepcion = requisito;
+    this.excepciones = this.getExcepciones(requisito.ID_VAL);
     this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
   }
 
@@ -111,7 +116,6 @@ export class ContentFabricaRequisitosComponent implements OnInit {
               for (const mensaje of data.listaResultado) {
                 mensajeSucces += mensaje + '\n';
               }
-              console.log(mensajeSucces);
               this.successMessage = mensajeSucces;
             }
           }
@@ -125,5 +129,44 @@ export class ContentFabricaRequisitosComponent implements OnInit {
 
   quitar(data) {
     this.miDataInterior = this.miDataInterior.filter(s => s !== data);
+  }
+
+  public getExcepciones(ID_VAL: string): any {
+    if (ID_VAL !== undefined || ID_VAL !== '') {
+      this.documentoVisualizacion.getExcepciones(ID_VAL)
+        // this.documentoVisualizacion.getRequisitos('AC0101012', '1706689971')
+        .pipe(map(data => data["EXCEPCIONES"]))
+        .subscribe((data: any) => {
+          this.excepciones = data;
+        });
+    }
+  }
+
+  guardarExcepcion() {
+    const excepcion: Excepcion = new Excepcion();
+    excepcion.ID_VPOL = this.requisitoExepcion.ID_VAL;
+    excepcion.IDE_CRE = this.mensajeServicio.NumeroCredito;
+    excepcion.Tipo = 'Requisito';
+    excepcion.USR_EXC_VAL = localStorage.getItem('usuario');
+    excepcion.OBSER_VAL_EXC_VAL = this.comentarioExcepcion;
+    this.documentoVisualizacion.postExcepcion(excepcion).subscribe(
+      (data: any) => {
+        if (data.resultado !== null) {
+          this.modalService.dismissAll();
+          let mensajeSucces = '';
+          this.excepciones = this.getExcepciones(this.requisitoExepcion["ID_VAL"]);
+          this.requisitios = this.getRequisitos();
+          for (const mensaje of data.listaResultado) {
+            mensajeSucces += mensaje + '\n';
+          }
+          this.successMessage = mensajeSucces;
+          this.comentarioExcepcion = '';
+        }
+      }
+    );
+  }
+
+  subirArchivo() {
+    if (this.miDataInterior.length > 0) {return true; } else { return false; }
   }
 }

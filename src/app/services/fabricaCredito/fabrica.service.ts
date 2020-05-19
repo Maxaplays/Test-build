@@ -163,4 +163,5 @@ export class DatosFabrica {
   public Estado: string;
   public FechaCreacion: string;
   public AsesorAsociado: string;
+  public CreditoAnterior: string;
 }
