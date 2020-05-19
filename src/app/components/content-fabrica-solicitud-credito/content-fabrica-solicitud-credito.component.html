@@ -899,7 +899,7 @@
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
-                        <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Tipo Registro">
+                        <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Tipo Registro" disabled>
                      </fieldset>
                     <fieldset>
                         <label class="label">Cédula</label>
@@ -907,7 +907,9 @@
                      </fieldset>
                     <fieldset>
                         <label class="label">Parenteso / Referencia</label>
-                        <input formControlName="parentesco" class="form-control" type="text" placeholder="Escriba Parenteso / Referencia">
+                        <select formControlName="parentesco" class="form-control">
+                            <option *ngFor="let parentesco of parentescos" [value]="parentesco.COD_PARE">{{parentesco.NOM_PARE}}</option>
+                     </select>
                      </fieldset>
                     <fieldset>
                         <label class="label">Apellidos</label>
@@ -937,7 +939,7 @@
                     </fieldset>
                     <fieldset>
                         <label class="label">E-mail</label>
-                        <input formControlName="email" class="form-control" type="text" placeholder="Escriba E-mail">
+                        <input formControlName="email" class="form-control" type="email" placeholder="Escriba E-mail">
                     </fieldset>
                 </div>
                 <div>
@@ -952,6 +954,7 @@
                     <fieldset>
                         <label class="label">Observaciones</label>
                         <input formControlName="observa" class="form-control" type="text" placeholder="Escriba Observaciones">
+                        <input formControlName="cliente" class="form-control" type="text">
                         <input formControlName="ID_REF" class="form-control" type="text">
                    </fieldset>
                 </div>
