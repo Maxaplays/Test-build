@@ -67,8 +67,8 @@
 
     <app-steps></app-steps>
 
-    <form class="steps-mobile" [formGroup]="pestaniasIngreso">
-        <select id='selectSteps' formControlName="selectTabs">
+    <form class="steps-mobile">
+        <select id='selectSteps' >
                 <option value='datos-basicos'>Datos básicos</option>
                 <option value='credito'>Crédito</option>
                 <option value='solicitud-credito' selected>Solicitud Crédito</option>
@@ -80,8 +80,8 @@
             </select>
     </form>
 
-    <form class="tabs-mobile" [formGroup]="pestaniasIngresoMobile">
-        <select id='selectTabs' formControlName="selectTabs">
+    <form class="tabs-mobile" >
+        <select id='selectTabs' >
                 <option value='cliente'>Cliente</option>
                 <option value='direcciones'>Direcciones</option>
                 <option value='telefonos'>Teléfonos</option>
@@ -269,7 +269,7 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-conyuges.svg"> <span>Cónyuges</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button class="btn btn-solid-green" (click)="openLg(agregarEditarConyuge,'')">Añadir Cónyuge</button>
+                        <button class="btn btn-solid-green" (click)="editarConyuge(agregarEditarConyuge,'')">Añadir Cónyuge</button>
                     </div>
                     <table>
                         <thead>
@@ -287,7 +287,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let conyuge of conyuges">
-                                <td data-column="Tipo de Registro">{{conyuge.cliente}}</td>
+                                <td data-column="Tipo de Registro">{{conyuge.tipo_registro}}</td>
                                 <td data-column="Nombres">{{conyuge.nombre}}</td>
                                 <td data-column="Apellidos">{{conyuge.apellido}}</td>
                                 <td data-column="Género">{{conyuge.genero}}</td>
@@ -311,7 +311,7 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-referencias-tab.svg"> <span>Referencias</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button class="btn btn-solid-green" (click)="openLg(agregarEditarReferencia,'')">Añadir Referencia</button>
+                        <button class="btn btn-solid-green" (click)="editarReferencia(agregarEditarReferencia,'')">Añadir Referencia</button>
                     </div>
                     <table>
                         <thead>
@@ -332,19 +332,19 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let referencia of referencias">
-                                <td data-column="Tipo de Registro">{{referencia.cliente}}</td>
+                                <td data-column="Tipo de Registro">{{referencia.tipo_registro}}</td>
                                 <td data-column="Cédula">{{referencia.cedula}}</td>
                                 <td data-column="Parentesco">{{referencia.parentesco}}</td>
                                 <td data-column="Apellidos">{{referencia.apellido}}</td>
                                 <td data-column="Nombres">{{referencia.nombre}}</td>
                                 <td data-column="Dirección Domicilio">{{referencia.direccion}}</td>
-                                <td data-column="Teléfono">{{referencia.telefono}}</td>
+                                <td data-column="Teléfono">{{referencia.telefono_dom}}</td>
                                 <td data-column="Celular">{{referencia.Celular}}</td>
-                                <td data-column="Teléfono Trabajo">{{referencia.telefonot}}</td>
+                                <td data-column="Teléfono Trabajo">{{referencia.telefono_trab}}</td>
                                 <td data-column="Observaciones">{{referencia.observa}}</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarReferencia, referencia)">
+                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="editarReferencia(agregarEditarReferencia, referencia)">
                                     <img src="assets/images/icon-printer.svg" class="icon-with-action">
                                 </td>
                             </tr>
@@ -813,9 +813,7 @@
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
-                        <select>
-                            <input formControlName="tipoRegistro" class="form-control" type="text" placeholder="Tipo Registro">
-                        </select>
+                            <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Tipo Registro"> 
                     </fieldset>
                     <fieldset>
                         <label class="label">Tipo de Documento</label>
@@ -825,7 +823,7 @@
                     </fieldset>
                     <fieldset>
                         <label class="label">RUC / Cédula</label>
-                        <input formControlName="cedula" class="form-control" type="text" placeholder="# Identificación" value="{{mensajeServicio.Cedula}}" disabled>
+                        <input formControlName="cedula" class="form-control" type="text" placeholder="# Identificación">
                     </fieldset>
                     <fieldset>
                         <label class="label">Apellidos</label>
@@ -848,8 +846,8 @@
                     <fieldset>
                         <label class="label">Género</label>
                         <select formControlName="genero" class="form-control">
-                            <option *ngFor="let gen of generos" [value]="gen.COD_GEN">{{gen.NOM_GEN}}</option>
-                        </select>
+                            <option *ngFor="let genero of generos" [value]="genero.COD_GEN">{{genero.NOM_GEN}}</option>
+                        </select>                   
                     </fieldset>
                     <fieldset>
                         <label class="label">Nacionalidad</label>
@@ -876,7 +874,7 @@
     <div class="modal-footer-mfc full variation">
         <div class="align-right">
             <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-            <button class="btn btn-solid-green" (click)="guardarConyuge(mensajeModalError)">Guardar</button>
+            <button [className]="FormularioDatosConyuge.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" (click)="guardarConyuge(mensajeModalError)">Guardar Conyuge</button>
         </div>
     </div>
 </ng-template>
@@ -896,75 +894,75 @@
         </div>
     </div>
     <div class="modal-body variation">
-        <form class="forms forms-relative" autocomplete="off" [formGroup]="FormularioReferencias">
+        <form class="forms forms-relative" [formGroup]="FormularioDatosReferencia">
             <div class="cols cols3">
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
-                        <select formControlName="FormularioReferencias" class="form-control" class="form-control">
-                                <option *ngFor="let genero of generos" [value]="genero.NOM_GEN">{{genero.NOM_GEN}}</option>
-                            </select>
-                    </fieldset>
+                        <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Tipo Registro">
+                     </fieldset>
                     <fieldset>
                         <label class="label">Cédula</label>
-                        <input formControlName="xcedula" class="form-control" type="text" placeholder="Escriba Cédula" disabled>
-                    </fieldset>
+                        <input formControlName="cedula" class="form-control" type="text" placeholder="Escriba Cédula">
+                     </fieldset>
                     <fieldset>
                         <label class="label">Parenteso / Referencia</label>
-                        <input type="text" placeholder="Escriba Parenteso / Referencia">
-                    </fieldset>
+                        <input formControlName="parentesco" class="form-control" type="text" placeholder="Escriba Parenteso / Referencia">
+                     </fieldset>
                     <fieldset>
                         <label class="label">Apellidos</label>
-                        <input formControlName="xapellido" class="form-control" type="text" placeholder="Digite los Apellidos" disabled>
-                    </fieldset>
+                        <input formControlName="apellido" class="form-control" type="text" placeholder="Escriba Apellidos">
+                     </fieldset>
                     <fieldset>
                         <label class="label">Nombres</label>
-                        <input formControlName="xnombre" class="form-control" type="text" placeholder="Escriba Nombres" disabled>
+                        <input formControlName="nombre" class="form-control" type="text" placeholder="Escriba Nombres">
                     </fieldset>
                 </div>
                 <div>
                     <fieldset>
                         <label class="label">Dirección Domicilio</label>
-                        <input formControlName="xdireccion" class="form-control" type="text" placeholder="Digite la dirección" disabled>
+                        <input formControlName="direccion" class="form-control" type="text" placeholder="Escriba Dirección Domicilio">
                     </fieldset>
                     <fieldset>
                         <label class="label">Teléfono Domicilio</label>
-                        <input formControlName="xtelefono" class="form-control" type="text" placeholder="Digite el número telefónico" disabled>
-                    </fieldset>
+                        <input formControlName="telefono_dom" class="form-control" type="text" placeholder="Escriba Teléfono Domicilio">
+                     </fieldset>
                     <fieldset>
                         <label class="label">Celular</label>
-                        <input type="text" placeholder="Escriba Celular">
+                        <input formControlName="celular" class="form-control" type="text" placeholder="Escriba Celular">
                     </fieldset>
                     <fieldset>
                         <label class="label">Teléfono Trabajo</label>
-                        <input type="text" placeholder="Escriba Teléfono Trabajo">
+                        <input formControlName="telefono_trab" class="form-control" type="text" placeholder="Escriba Teléfono Trabajo">
                     </fieldset>
                     <fieldset>
                         <label class="label">E-mail</label>
-                        <input type="email" placeholder="Escriba E-mail">
+                        <input formControlName="email" class="form-control" type="text" placeholder="Escriba E-mail">
                     </fieldset>
                 </div>
                 <div>
                     <fieldset>
                         <label class="label">Nombre de Empresa de Trabajo</label>
-                        <input type="text" placeholder="Escriba Nombre de Empresa de Trabajo">
+                        <input formControlName="empresa" class="form-control" type="text" placeholder="Escriba Nombre de Empresa de Trabajo">
                     </fieldset>
                     <fieldset>
                         <label class="label">Dirección Empresa</label>
-                        <input type="text" placeholder="Escriba Dirección Empresa">
+                        <input formControlName="direc_emp" class="form-control" type="text" placeholder="Escriba Dirección Empresa">
                     </fieldset>
                     <fieldset>
                         <label class="label">Observaciones</label>
-                        <textarea placeholder="Escriba Observaciones"></textarea>
-                    </fieldset>
+                        <input formControlName="observa" class="form-control" type="text" placeholder="Escriba Observaciones">
+                        <input formControlName="ID_REF" class="form-control" type="text">
+                   </fieldset>
                 </div>
             </div>
         </form>
     </div>
+ 
     <div class="modal-footer-mfc full variation">
         <div class="align-right">
             <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-            <button class="btn btn-solid-gray">Guardar referencia</button>
+            <button [class.btn-solid-green]="FormularioDatosReferencia.valid" [className]="FormularioDatosReferencia.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" (click)="guardarReferencia(mensajeModalError)">Guardar Referencia</button>
         </div>
     </div>
 </ng-template>
