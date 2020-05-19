@@ -313,6 +313,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       ID_REF: new FormControl(null)
      });
   }
+  
   cargarFormularioReferencia(referencia: any) {
     this.FormularioDatosReferencia.reset({
       tipo_registro: referencia.tipo_registro,
@@ -821,10 +822,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       ExtensionTelefono: ['']
     });
   }
-
-
-
-
   guardarDireccion() {
     if (this.formaDirecciones.invalid) {
       return Object.values(this.formaDirecciones.controls).forEach(control => {
