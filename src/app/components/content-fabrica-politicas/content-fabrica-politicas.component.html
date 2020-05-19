@@ -105,19 +105,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let politica of politicas | paginate: {itemsPerPage: 5, currentPage: paginaAcual}">
-                        <td><a class="tag-with-radius">Solicitar</a></td>
+                    <tr *ngFor="let politica of politicas | paginate: {itemsPerPage: 10, currentPage: paginaAcual}">
+                        <td><a class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion, politica)"> Solicitar </a></td>
                         <td>{{politica.NOM_POL}}</td>
                         <td>{{politica.VALOR_MAT}}</td>
                         <td><img src="{{politica.CHECK_UX}}" class="check-center"></td>
                         <td>{{politica.USR_VAL}}</td>
-                        <td>{{politica.FECH_VAL | date: 'short'}}</td>
+                        <td>{{politica.FECH_VAL | date: 'yyyy-MM-dd'}}</td>
                         <td><span class="{{politica.COLOR_UX}}"></span></td>
                         <td>{{politica.OBSER_VAL_EXC_VAL}}</td>
                         <td>{{politica.USR_EXC_VAL}}</td>
-                        <td>{{politica.FECH_EXC_VAL | date: 'short'}}</td>
+                        <td>{{politica.FECH_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
                         <td>{{politica.USR_VAL_EXC_VAL}}</td>
-                        <td>{{politica.FECH_VAL_EXC_VAL | date: 'short'}}</td>
+                        <td>{{politica.FECH_VAL_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
                         <td>{{politica.ID_VAL}}</td>
                     </tr>
                 </tbody>
@@ -168,3 +168,78 @@
         </div>
     </div>
 </ng-template>
+
+<ng-template #solicitudExcepcion let-modal>
+
+  <div class="modal-header-mfc variation">
+    <div class="cols cols2 align-middle">
+      <div class="align-left">
+        <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-documentacion-modal.svg">
+        <h4 class="modal-minititle-mfc">Solicitud de Excepción</h4>
+      </div>
+      <div class="align-right">
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-body variation">
+    <div class="modal-with-viewer modal-without-pdf">
+      <div class="forms forms-relative">
+        <div class="cols cols2">
+          <div>
+            <fieldset>
+              <label class="label">ID</label>
+              <span class="text-data">{{politicasExepcion.ID_VAL}}</span>
+            </fieldset>
+          </div>
+          <div>
+            <fieldset>
+              <label class="label">Tipo</label>
+              <span class="text-data">Requisito</span>
+            </fieldset>
+          </div>
+        </div>
+        <fieldset>
+          <label class="label">Comentarios</label>
+          <textarea placeholder="Escriba Comentarios" style="max-height: 100px;" id="comentarioExcepcion" name="comentarioExcepcion" [(ngModel)]="comentarioExcepcion" ></textarea>
+        </fieldset>
+        <div id="table-scroll">
+          <table class="width-filters" style="max-width: calc(100% - 8px);margin-top: 8px;">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Validación</th>
+              <th>Fecha</th>
+              <th>Usuario</th>
+              <th>Observaciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let excepcion of excepciones">
+              <td>&nbsp;</td>
+              <td>{{excepcion.VALIDADO_VPOL}}</td>
+              <td>{{excepcion.USR_VAL_VPOL}}</td>
+              <td>{{excepcion.FECH_VAL_VPOL}}</td>
+              <td>{{excepcion.OBS_VAL_VPOL}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer-mfc full variation">
+    <div class="align-right">
+      <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+      <button class="btn btn-solid-green" (click)="guardarExcepcion()">Guardar</button>
+    </div>
+  </div>
+
+</ng-template>
+
+<ngb-alert *ngIf="successMessage" type="success" class="wbtn-success" (close)="successMessage = null"><img src="./assets/images/success.svg"><span>{{ successMessage }}</span></ngb-alert>
+

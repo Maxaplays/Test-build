@@ -165,4 +165,8 @@ export class ContentFabricaRequisitosComponent implements OnInit {
       }
     );
   }
+
+  subirArchivo() {
+    if (this.miDataInterior.length > 0) {return true; } else { return false; }
+  }
 }
