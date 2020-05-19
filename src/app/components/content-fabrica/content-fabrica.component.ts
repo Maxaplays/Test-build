@@ -36,6 +36,8 @@ export class ContentFabricaComponent implements OnInit {
   mensajeServicio: DatosFabrica;
   mensajeValidacion: string;
   mensajeValidacionInterno: string;
+  idCreditoPrevioIngresado: string;
+  linkIdCreditoPrevioIngresado: string;
   // bkm
 
   constructor(private modalService: NgbModal,
@@ -154,7 +156,7 @@ export class ContentFabricaComponent implements OnInit {
       tipoDocumentacion: new FormControl(null, Validators.required),
       cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
       estadoCivil: new FormControl(null),
-      fechaNacimiento: new FormControl(null),
+      // fechaNacimiento: new FormControl(null),
       ingresosDependiente: new FormControl(null, Validators.required),
       ingresosIndependiente: new FormControl(null, Validators.required),
       ingresosDisponible: new FormControl({value: '0', disabled: true}, Validators.required),
@@ -174,7 +176,8 @@ export class ContentFabricaComponent implements OnInit {
       envioDatos.cedula = this.FormularioDatosBasicos.controls['cedula'].value;
       envioDatos.tipoDocumento = this.FormularioDatosBasicos.controls['tipoDocumentacion'].value;
       envioDatos.estadoCivil = this.FormularioDatosBasicos.controls['estadoCivil'].value;
-      envioDatos.fechaNacimiento = this.FormularioDatosBasicos.controls['fechaNacimiento'].value;
+      // envioDatos.fechaNacimiento = this.FormularioDatosBasicos.controls['fechaNacimiento'].value;
+      envioDatos.fechaNacimiento = '';
       envioDatos.IngresosIndependiente = this.FormularioDatosBasicos.controls['ingresosIndependiente'].value;
       envioDatos.IngresoDependiente = this.FormularioDatosBasicos.controls['ingresosDependiente'].value;
       envioDatos.VentaTotal = this.FormularioDatosBasicos.controls['ventaTotal'].value;
@@ -193,18 +196,29 @@ export class ContentFabricaComponent implements OnInit {
           this.datosGenerales.idProducto = this.FormularioDatosBasicos.controls['producto'].value;
           this.fabricaService.changeMessage(this.datosGenerales);
           // console.log('Padre:');
-          console.log(data);
-          if (this.datosGenerales.Error === 'Solicitud creada exitosamente'){
+          if (this.datosGenerales.Error === 'Solicitud creada exitosamente') {
             this.loading = false;
             this.router.navigate(['/fabrica/nueva-solicitud/credito']);
           } else {
-            // console.log('error ingreso');
-            this.mensajeValidacion = 'Errores detectados:';
-            this.mensajeValidacionInterno = this.datosGenerales.Error;
-            // console.log(this.mensajeValidacion);
-            // console.log(this.mensajeValidacionInterno);
-            this.loading = false;
-            this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+            if (this.datosGenerales.Error === 'El cliente ya tiene una solicitud previa:') {
+              // Credito de cliente duplicado
+              this.mensajeValidacion = 'Errores detectados:';
+              this.mensajeValidacionInterno = this.datosGenerales.Error + data.CreditoAnterior;
+              this.linkIdCreditoPrevioIngresado = '/fabrica/nueva-solicitud/solicitud-credito?idCre=' + data.CreditoAnterior;
+              this.idCreditoPrevioIngresado = data.CreditoAnterior;
+              // console.log(this.linkIdCreditoPrevioIngresado);
+              // console.log(this.idCreditoPrevioIngresado);
+              this.loading = false;
+              this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+            } else {
+              // Error General
+              this.mensajeValidacion = 'Errores detectados:';
+              this.mensajeValidacionInterno = this.datosGenerales.Error;
+              // console.log(this.mensajeValidacion);
+              // console.log(this.mensajeValidacionInterno);
+              this.loading = false;
+              this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+            }
           }
         }, ( errorServicio ) => {
           // console.log('Error');
