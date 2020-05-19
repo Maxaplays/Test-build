@@ -61,6 +61,11 @@ export class ContentFabricaCreditoComponent implements OnInit {
     this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
   }
 
+
+  openCustomWidth(content) {
+    this.modalService.open(content, {windowClass: 'custom-width-modal'});
+  }
+
   enviarNuevoMensaje() {
     this.fabricaService.changeMessage(new DatosFabrica());
   }
@@ -75,7 +80,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
     this.FormularioDatosBasicos.controls['aplicadoTasa'].setValue(this.mensajeServicio.Tasa.replace(',', '.'));
     this.FormularioDatosBasicos.controls['wsPerfilSugerido'].setValue(this.mensajeServicio.Perfil.replace(',', '.'));
     this.FormularioDatosBasicos.controls['wsPorcentajeEntrada'].setValue(this.mensajeServicio.PorcentajeEntradaSugerida.replace(',', '.'));
-    
+
     try {
       let wsCreditoSugerido: number = Number.parseFloat(this.mensajeServicio.MontoSugerido.replace(',', '.'));
       let wsPorcengajeEntradaSugerida: number = Number.parseFloat(this.mensajeServicio.PorcentajeEntradaSugerida.replace(',', '.'));
@@ -84,8 +89,8 @@ export class ContentFabricaCreditoComponent implements OnInit {
       let wsVentaTotal: number = wsCreditoSugerido / (1 - (wsPorcengajeEntradaSugerida / 100));
       this.FormularioDatosBasicos.controls['wsVentaMaxima'].setValue(wsVentaTotal.toString().replace(',', '.'));
     } catch (error) {
-      
-    } 
+
+    }
     this.FormularioDatosBasicos.controls['wsCreditoSugerido'].setValue(this.mensajeServicio.MontoSugerido.replace(',', '.'));
     this.FormularioDatosBasicos.controls['wsProducto'].setValue(this.mensajeServicio.idProducto);
     this.FormularioDatosBasicos.controls['wsCapacidadPagoMax'].setValue(this.mensajeServicio.CapacidadPagoSugerida.replace(',', '.'));
@@ -219,7 +224,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
               this.loading = false;
               this.successMessage = 'Validación Correcta!';
               // this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
-            } 
+            }
           }
           if (tipo === 'Continuar') {
             if (this.listadoErrores.length > 0) {
@@ -237,7 +242,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
               this.fabricaService.changeMessage(this.mensajeServicio);
               this.loading = false;
               this.router.navigate(['/fabrica/nueva-solicitud/solicitud-credito']);
-            } 
+            }
           }
           // this.router.navigate(['/fabrica/nueva-solicitud/credito']);
         }, ( errorServicio ) => {
