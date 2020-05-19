@@ -50,6 +50,7 @@ export class ReferenciasService {
 }
 export class Referencia {
   cedula: string;
+  parentesco: string;
   apellido: string;
   nombre: string;
   direccion: string;
@@ -59,7 +60,8 @@ export class Referencia {
   empresa: string;
   direc_emp: string;
   observa: string;
+  email: string;
   cliente: string;
-  Nuevo: boolean;
   ID_REF: number;
+  Nuevo: boolean;
 }

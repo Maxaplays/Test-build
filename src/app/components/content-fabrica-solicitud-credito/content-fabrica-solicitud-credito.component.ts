@@ -18,6 +18,7 @@ import { EstadoCivilService } from 'src/app/services/estadoCivil/estado-civil.se
 import { ProfesionService } from 'src/app/services/profesion/profesion.service';
 import { ClienteService, Cliente } from 'src/app/services/cliente/cliente.service';
 import { DatosComplementariosService, CREDITO_DATOS_COMPLEMENTARIOS } from '../../services/datosComplementarios/datos-complementarios.service';
+import { ParentescoService } from 'src/app/services/parentesco/parentesco.service';
 
 
 @Component({
@@ -26,6 +27,7 @@ import { DatosComplementariosService, CREDITO_DATOS_COMPLEMENTARIOS } from '../.
   styleUrls: ['./content-fabrica-solicitud-credito.component.css']
 })
 export class ContentFabricaSolicitudCreditoComponent implements OnInit {
+
   closeResult: string;
   private _error = new Subject<string>();
   private _success = new Subject<string>();
@@ -67,6 +69,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   referencias: any[] = [];
   tipoDoc: any[];
   generos: any[];
+  parentescos: any[];
   nacionalidades: any[];
   estadoCivil: any = []; // tipos de estados civiles para el combo
   profesiones: any = [];
@@ -90,6 +93,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private situacionFinancieraService: SituacionFinancieraService,
               private generoService: GeneroService,
+              private parentescoServices: ParentescoService,
               private nacionalidadesService: NacionalidadesService,
               private estadoCivilService: EstadoCivilService,
               private profesionService: ProfesionService,
@@ -129,6 +133,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                   this.conyuges = this.getListaConyuges();
                   this.referencias = this.getListaReferencias();
                   this.getGeneros();
+                  this.getParentescos();
                   this.getNacionalidades();
                   this.getEstadoCivil();
                   this.getProfesiones();
@@ -153,6 +158,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.tipoDoc = this.getTipoDoc();
     this.telefonos = this.getTelefonos();
     this.getGeneros();
+    this.getParentescos();
     this.getNacionalidades();
     this.getEstadoCivil();
     this.getProfesiones();
@@ -297,19 +303,20 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   crearFormularioReferencia() {
     this.FormularioDatosReferencia = new FormGroup({
-      tipo_registro: new FormControl(null, Validators.required),
+      tipo_registro: new FormControl(null),
       cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
       parentesco: new FormControl(null, Validators.required),
       apellido: new FormControl(null, Validators.required),
       nombre: new FormControl(null, Validators.required),
-      email: new FormControl(null),
       direccion: new FormControl(null, Validators.required),
-      telefono_dom: new FormControl(null, Validators.required),
+      telefono_dom: new FormControl(null),
       celular: new FormControl(null),
       telefono_trab: new FormControl(null),
-      observa: new FormControl(null),
       empresa: new FormControl(null),
       direc_emp: new FormControl(null),
+      observa: new FormControl(null),
+      email: new FormControl(null),
+      cliente: new FormControl(null),
       ID_REF: new FormControl(null)
      });
   }
@@ -317,17 +324,18 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.FormularioDatosReferencia.reset({
       tipo_registro: referencia.tipo_registro,
       cedula: referencia.cedula,
-      parentesco: referencia.parentesco,
+      parentesco: referencia.COD_PARE,
       apellido: referencia.apellido,
       nombre: referencia.nombre,
       direccion: referencia.direccion,
-      email: referencia.email,
       telefono_dom: referencia.telefono_dom,
       celular: referencia.celular,
       telefono_trab: referencia.telefono_trab,
-      observa: referencia.observa,
       empresa: referencia.empresa,
       direc_emp: referencia.direc_emp,
+      observa: referencia.observa,
+      email: referencia.email,
+      cliente: referencia.cliente,
       ID_REF: referencia.ID_REF
     });
   }
@@ -335,8 +343,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   guardarReferencia(content) {
     console.log('Inicia Proceso');
     const datosReferencia: Referencia = new Referencia();
-    datosReferencia.cliente = this.mensajeServicio.Cedula;
     datosReferencia.cedula = this.FormularioDatosReferencia.value.cedula;
+    datosReferencia.parentesco = this.FormularioDatosReferencia.value.parentesco;
     datosReferencia.apellido = this.FormularioDatosReferencia.value.apellido;
     datosReferencia.nombre = this.FormularioDatosReferencia.value.nombre;
     datosReferencia.direccion = this.FormularioDatosReferencia.value.direccion;
@@ -346,6 +354,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     datosReferencia.empresa = this.FormularioDatosReferencia.value.empresa;
     datosReferencia.direc_emp = this.FormularioDatosReferencia.value.direc_emp;
     datosReferencia.observa = this.FormularioDatosReferencia.value.observa;
+    datosReferencia.email = this.FormularioDatosReferencia.value.email;
+    datosReferencia.cliente = this.mensajeServicio.Cedula;
     datosReferencia.ID_REF = this.FormularioDatosReferencia.value.ID_REF;
     console.log(datosReferencia);
     this.referenciasServices.postReferencias(datosReferencia, this.crearReferencia).subscribe(
@@ -431,6 +441,15 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.generos = data;
       });
   }
+
+  getParentescos(){
+    this.parentescoServices.getParentescos()
+    .pipe(map (data => data['PARENTESCO']))
+    .subscribe((data: any) => {
+      this.parentescos = data;
+    });
+  }
+
   getNacionalidades(){
     this.nacionalidadesService.getNacionalidades()
       .pipe(map (data => data['NACIONALIDAD']))
