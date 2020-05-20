@@ -3,9 +3,9 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { DocumentosService } from '../../services/documentos.service';
 import {map} from 'rxjs/operators';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
-
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { GeneracionDocumentos, GeneraDocService, ReporteWebserviceUx } from '../../services/generaDoc/genera-doc.service';
+
 @Component({
   selector: 'app-content-fabrica-generacion',
   templateUrl: './content-fabrica-generacion.component.html',
