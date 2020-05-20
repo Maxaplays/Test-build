@@ -140,7 +140,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                   this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
                   this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
                 });
-}
+  }
 
   ngOnInit() {
 
@@ -493,7 +493,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
   acoplarPantalla(lblEstadoSolicitud: string) {
-    // console.log('Bloqueo de controles de '+ lblEstadoSolicitud);
     if (lblEstadoSolicitud === 'Documental' || lblEstadoSolicitud === 'Cancelada' ||
         lblEstadoSolicitud === 'Aprobada' || lblEstadoSolicitud === 'Autorizada' ||
         lblEstadoSolicitud === 'Re-Documental' || lblEstadoSolicitud === 'RechazadaCC' ||

@@ -27,6 +27,13 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   tipoReportes: ReporteWebserviceUx[];
   arregloReportes = new Array<ReporteWebserviceUx>();
   FormularioDatosReportes: FormGroup;
+  numeroCuentaEnabled = false;
+  entidadFinancieraEnabled = false;
+  tipoCuentaEnabled = false;
+  FechaPagareMax: Date;
+  FechaPagareMin: Date;
+  FechaPrimerPagoMax: Date;
+  FechaPrimerPagoMin: Date;
   // bkm
   minDate: Date;
   maxDate: Date;
@@ -44,9 +51,9 @@ export class ContentFabricaGeneracionComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.EntidadFinanciera = this.getEntidadFinanciera();
-    this.TipoCuenta = this.getTipoCuenta();
-    this.NumeroCuenta = this.getNumeroCuenta();
+    this.inicializarDatosCuentas();
+    this.getEntidadFinanciera();
+    this.getTipoCuenta();
     const currentYear = new  Date () .getFullYear ();
     const Mont = new  Date () .getMonth();
     const day = new  Date ().getDay();
@@ -81,7 +88,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
       }
     );
   }
-  getEntidadFinanciera(): any {
+  getEntidadFinanciera() {
     this.documentosService.getEntidadFinanciera()
       .pipe(map (data => data["ENTI_FINA"]))
       .subscribe((data: any) => {
@@ -106,7 +113,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     variable.entidadFinanciera = this.FormularioDatosReportes.controls['entidadFinanciera'].value;
     variable.TipoDeCuenta = this.FormularioDatosReportes.controls['tipoCuenta'].value;
     variable.NumeroCuentaBancaria = this.FormularioDatosReportes.controls['numeroCuenta'].value;
-    variable.lblCuentasMupi = '';
+    variable.lblCuentasMupi = this.mensajeServicio.CuentasMupi;
     variable.usuario = localStorage.getItem('usuario');
     variable.ID_CLI = this.mensajeServicio.Cedula;
     console.log(variable);
@@ -126,21 +133,51 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   }
   getTipoCuenta(): any {
     // if (this.NOMBRE_BANCO !== null || this.NOMBRE_BANCO !== undefined ) {
-      this.documentosService.getTipoCuenta(this.NOMBRE_BANCO)
-        .pipe(map (data => data["TIPO_CUENTA"]))
+      this.documentosService.getTipoCuenta()
+        .pipe(map (data => data["TIPO_CUENTA_BANCARIA"]))
         .subscribe((data: any) => {
           this.TipoCuenta = data;
           // console.log(this.TipoCuenta);
         });
     // }
   }
-  getNumeroCuenta(): any {
-      this.documentosService.getNumeroCuenta(this.NOMBRE_BANCO, this.TIPO_BANCO)
-        .pipe(map (data => data["NUMERO_CUENTA"]))
-        .subscribe((data: any) => {
-          this.NumeroCuenta = data;
-          // console.log(this.NumeroCuenta);
-        });
+  inicializarDatosCuentas() {
+    console.log(this.mensajeServicio.CuentasMupi);
+    this.FormularioDatosReportes.controls['entidadFinanciera'].setValue(this.mensajeServicio.Banco);
+    this.FormularioDatosReportes.controls['tipoCuenta'].setValue(this.mensajeServicio.TipoDeCuentaBancaria);
+    this.FormularioDatosReportes.controls['numeroCuenta'].setValue(this.mensajeServicio.CuentaBanco);
+    this.FormularioDatosReportes.controls['diasInicio'].setValue(this.mensajeServicio.DiasInicioCredito);
+    this.FormularioDatosReportes.controls['creditoMaximo'].setValue(this.mensajeServicio.DiasInicioMaximoCredito);
+    try{
+      let FCH_PAGARE_SOL: Date = new Date(this.mensajeServicio.FCH_PAGARE_SOL);
+      this.FormularioDatosReportes.controls['fechaPagare'].setValue(FCH_PAGARE_SOL.toISOString().substring(0, 10));
+      this.FechaPrimerPagoMin = new Date(this.addDays(FCH_PAGARE_SOL, Number(this.mensajeServicio.DiasInicioCredito)));
+      this.FechaPrimerPagoMax = new Date(this.addDays(FCH_PAGARE_SOL, Number(this.mensajeServicio.DiasInicioMaximoCredito)));
+    } catch {}
+    try {
+        let FECHA_INICIO_CREDITO_REAL_CRE: Date = new Date(this.mensajeServicio.FECHA_INICIO_CREDITO_REAL_CRE);
+        this.FormularioDatosReportes.controls['fechaPrimerPago'].setValue(FECHA_INICIO_CREDITO_REAL_CRE.toISOString().substring(0, 10));
+     } catch {}
+     try {
+      this.FechaPagareMin = new Date(this.mensajeServicio.FechaPagareMin);
+      this.FechaPagareMax = new Date(this.mensajeServicio.FechaPagareMax);
+     } catch {
+
+     }
+    if (this.mensajeServicio.CuentasMupi === 'True') {
+      this.numeroCuentaEnabled = true;
+      this.entidadFinancieraEnabled = true;
+      this.tipoCuentaEnabled = true;
+    } else {
+      this.numeroCuentaEnabled = false;
+      this.entidadFinancieraEnabled = false;
+      this.tipoCuentaEnabled = false;
+    }
+  }
+  addDays(date: Date, days: number): Date {
+    var dias = days;
+    date.setDate(date.getDate() + dias);
+    return date;
   }
 }
 
