@@ -361,7 +361,7 @@
                 <ng-template ngbTabContent>
                     <form class="forms forms-relative">
                         <div class="cols cols2">
-                            <div class="table-flat">
+                            <div class="table-flat equal-width">
                                 <h5>Ingresos Mensuales</h5>
                                 <table>
                                     <thead>
@@ -374,10 +374,10 @@
                                     <tbody>
                                         <tr *ngFor="let ingreso of situacionFinancieraIngresos">
                                             <td data-column="Descripción">{{ingreso.NOMBRE_ING_PROD}}</td>
-                                            <td data-column="Valor" contenteditable="true" type="number">
-                                                <input (change)="onDatosIngresosValorChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="text" value="{{ingreso.VALOR_CREDITO_INGRESOS}}">
+                                            <td data-column="Valor"  type="number">
+                                                <input (change)="onDatosIngresosValorChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="number" value="{{ingreso.VALOR_CREDITO_INGRESOS}}">
                                             </td>
-                                            <td data-column="Comentario" contenteditable="true">
+                                            <td data-column="Comentario" >
                                                 <input (change)="onDatosIngresosChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="text" value="{{ingreso.COMENTARIO_CREDITO_INGRESOS}}">
                                             </td>
 
@@ -407,10 +407,10 @@
                                     <tbody>
                                         <tr *ngFor="let egresos of situacionFinancieraEgresos">
                                             <td data-column="Descripción">{{egresos.NOMBRE_EGR_PROD}}</td>
-                                            <td data-column="Valor" contenteditable="true" type="number">
-                                                <input (change)="onDatosEgresosValorChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="text" value="{{egresos.VALOR_CREDITO_EGRESOS}}">
+                                            <td data-column="Valor"  type="number">
+                                                <input (change)="onDatosEgresosValorChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="number" value="{{egresos.VALOR_CREDITO_EGRESOS}}">
                                             </td>
-                                            <td data-column="Comentario" contenteditable="true">
+                                            <td data-column="Comentario" >
                                                 <input (change)="onDatosEgresosChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="text" value="{{egresos.COMENTARIO_CREDITO_EGRESOS}}">
                                             </td>
 

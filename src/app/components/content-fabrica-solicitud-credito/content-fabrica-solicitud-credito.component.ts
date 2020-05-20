@@ -322,7 +322,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       ID_REF: new FormControl(null)
      });
   }
-  
+
   cargarFormularioReferencia(referencia: any) {
     this.FormularioDatosReferencia.reset({
       tipo_registro: referencia.tipo_registro,
@@ -591,37 +591,42 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.situacionFinancieraService.getguardarComentarioIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any[] ) => {
         if (resultado.toString()==='Actualizado!')
+          this.getSituacionFinancieraIngresos();
+         this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
           this.successMessage = resultado.toString();
       });
-    this.getSituacionFinancieraIngresos();
-    this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+
   }
   onDatosIngresosValorChange(newValue, ID_CREDITO_INGRESOS: string) {
     this.situacionFinancieraService.getguardarValorIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
      .subscribe( (resultado: any[] ) => {
       if (resultado.toString()==='Actualizado!')
+        this.getSituacionFinancieraIngresos();
+       this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
        this.successMessage = resultado.toString();
      });
-    this.getSituacionFinancieraIngresos();
-    this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+
   }
   onDatosEgresosChange(newValue, ID_CREDITO_EGRESOS: string) {
     this.situacionFinancieraService.getguardarComentarioEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any[] ) => {
         if (resultado.toString()==='Actualizado!')
+          this.getSituacionFinancieraEgresos();
+         this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
           this.successMessage = resultado.toString();
       });
-    this.getSituacionFinancieraEgresos();
-    this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+
   }
   onDatosEgresosValorChange(newValue, ID_CREDITO_EGRESOS: string) {
     this.situacionFinancieraService.getguardarValorEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any[] ) => {
         if (resultado.toString()==='Actualizado!')
+          this.getSituacionFinancieraEgresos();
+          this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
           this.successMessage = resultado.toString();
       });
-    this.getSituacionFinancieraEgresos();
-    this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+
+
   }
   getConyuge() {
     this.conyugesServices.getConyugeCedula(this.mensajeServicio.Cedula)
@@ -946,7 +951,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.datosComplService.getguardarValor(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
         .subscribe( (resultado: any[] ) => {
           if (resultado.toString()==='Actualizado!')
-          this.getDatosComplementarios();  
+          this.getDatosComplementarios();
           this.successMessage = resultado.toString();
         });
   }
