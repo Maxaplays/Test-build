@@ -99,76 +99,60 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private profesionService: ProfesionService,
               private clienteService: ClienteService,
               private datosComplService: DatosComplementariosService) {
+                this.crearFormularioCliente();
                 this.crearFormularioDirecciones();
-                  this.crearFormularioCliente();
-                  this.crearFormularioTelefonos();
-                 this.crearFormularioSituacionFinanciera();
-                 this.crearFormularioConyuge();
-                 this.crearFormularioReferencia();
-              this.activatedRoute.queryParams.subscribe(params => {
-              this.idCredito = params['idCre'];
-                  if (typeof this.idCredito !== 'undefined') {
-                      this.fabricaService.getRetomarCredito(this.idCredito, localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+                this.crearFormularioTelefonos();
+                this.crearFormularioSituacionFinanciera();
+                this.crearFormularioConyuge();
+                this.crearFormularioReferencia();
+                this.tipoDoc = this.getTipoDoc();
+                this.getGeneros();
+                this.getNacionalidades();
+                this.getParentescos();
+                this.getEstadoCivil();
+                this.getProfesiones();
+                this.tipoDir = this.getTipoDir();
+                this.provincias = this.getProvincia();
+                this.cantones = this.getCanton();
+                this.barrios = this.getBarrio();
+                this.tipoTel = this.getTipoTel();
+                this.activatedRoute.queryParams.subscribe(params => {
+                this.idCredito = params['idCre'];
+                if (typeof this.idCredito !== 'undefined') {
+                    this.fabricaService.getRetomarCredito(this.idCredito, 
+                      localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
                         (data: DatosFabrica) => {
                           // console.log(data);
                           this.fabricaService.changeMessage(data);
                           this.acoplarPantalla(data.Estado);
                         });
                     }
-              });
-              this.fabricaService.currentMessage.subscribe(
-                data => {
+                });
+                this.fabricaService.currentMessage.subscribe(
+                  data => {
                   this.mensajeServicio = data;
+                  this.getCliente();
+                  this.getDatosComplementarios();
                   this.direcciones = this.getDirecciones();
-                  this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
-                  this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
-                  this.telefonos = this.getTelefonos();
-                  this.tipoDir = this.getTipoDir();
-                  this.provincias = this.getProvincia();
-                  this.cantones = this.getCanton();
-                  this.barrios = this.getBarrio();
-                  this.tipoTel = this.getTipoTel();
-                  this.tipoDoc = this.getTipoDoc();
                   this.telefonos = this.getTelefonos();
                   this.conyuges = this.getListaConyuges();
                   this.referencias = this.getListaReferencias();
-                  this.getGeneros();
-                  this.getParentescos();
-                  this.getNacionalidades();
-                  this.getEstadoCivil();
-                  this.getProfesiones();
-                  this.getCliente();
-                  this.getDatosComplementarios();
+                  this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
+                  this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
                 });
 }
 
   ngOnInit() {
-    this.crearFormularioDirecciones();
-    this.crearFormularioCliente();
-    this.crearFormularioTelefonos();
-    this.telefonos = this.getTelefonos();
-    this.direcciones = this.getDirecciones();
-    this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
-    this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
-    this.tipoDir = this.getTipoDir();
-    this.provincias = this.getProvincia();
-    this.cantones = this.getCanton();
-    this.barrios = this.getBarrio();
-    this.tipoTel = this.getTipoTel();
-    this.tipoDoc = this.getTipoDoc();
-    this.telefonos = this.getTelefonos();
-    this.getGeneros();
-    this.getParentescos();
-    this.getNacionalidades();
-    this.getEstadoCivil();
-    this.getProfesiones();
+
   }
+
   onDatosComplementariosComentariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
     this.datosComplService.getguardarComentario(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
         .subscribe( (resultado: any[] ) => {
-          if (resultado.toString()==='Actualizado!')
-            this.successMessage = resultado.toString();
-            this.getDatosComplementarios();
+            if (resultado.toString() === 'Actualizado!'){
+              this.successMessage = resultado.toString();
+              this.getDatosComplementarios();
+            }
         });
   }
   crearFormularioCliente() {
@@ -190,31 +174,33 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
 
   getCliente() {
-    this.clienteService.getClienteCedula(this.mensajeServicio.Cedula)
-    .pipe(map(data => data['CLIENTE']))
-    .subscribe((data: any) => {
-      let datosCliente: Cliente;
-      datosCliente = data[0];
-      // console.log(datosCliente);
-      this.FormularioDatosCliente.controls['genero'].setValue(datosCliente.COD_GEN);
-      this.FormularioDatosCliente.controls['estadoCivil'].setValue(datosCliente.COD_ECIV);
-      this.FormularioDatosCliente.controls['profesionCliente'].setValue(datosCliente.COD_PRO);
-      this.FormularioDatosCliente.controls['tipoDocumentacion'].setValue(datosCliente.COD_TDOC);
-      this.FormularioDatosCliente.controls['nacionalidad'].setValue(datosCliente.COD_NAC);
-      this.FormularioDatosCliente.controls['apellidoCliente'].setValue(datosCliente.APE_CLI);
-      this.FormularioDatosCliente.controls['nombreCliente'].setValue(datosCliente.NOM_CLI);
-      try{
-      let fechaNacimiento: Date = new Date(datosCliente.FECH_NAC_CLI);
-      this.FormularioDatosCliente.controls['fechaNacimiento'].setValue(fechaNacimiento.toISOString().substring(0, 10));
-      } catch {}
-      this.FormularioDatosCliente.controls['cargasFamiliares'].setValue(datosCliente.CARGAS_CLI);
-      this.FormularioDatosCliente.controls['razonSocialTrabajo'].setValue(datosCliente.EMP_CLI);
-      this.FormularioDatosCliente.controls['rucTrabajo'].setValue(datosCliente.RUC_EMP_CLI);
-      this.FormularioDatosCliente.controls['emailCliente'].setValue(datosCliente.EMAIL_CLI);
-    });
+    if (this.mensajeServicio.Cedula !== '' && this.mensajeServicio.Cedula !== undefined) {
+      this.clienteService.getClienteCedula(this.mensajeServicio.Cedula)
+      .pipe(map(data => data['CLIENTE']))
+      .subscribe((data: any) => {
+        let datosCliente: Cliente;
+        datosCliente = data[0];
+        // console.log(data[0]);
+        this.FormularioDatosCliente.controls['genero'].setValue(datosCliente.COD_GEN);
+        this.FormularioDatosCliente.controls['estadoCivil'].setValue(datosCliente.COD_ECIV);
+        this.FormularioDatosCliente.controls['profesionCliente'].setValue(datosCliente.COD_PRO);
+        this.FormularioDatosCliente.controls['tipoDocumentacion'].setValue(datosCliente.COD_TDOC);
+        this.FormularioDatosCliente.controls['nacionalidad'].setValue(datosCliente.COD_NAC);
+        this.FormularioDatosCliente.controls['apellidoCliente'].setValue(datosCliente.APE_CLI);
+        this.FormularioDatosCliente.controls['nombreCliente'].setValue(datosCliente.NOM_CLI);
+        try{
+        let fechaNacimiento: Date = new Date(datosCliente.FECH_NAC_CLI);
+        this.FormularioDatosCliente.controls['fechaNacimiento'].setValue(fechaNacimiento.toISOString().substring(0, 10));
+        } catch {}
+        this.FormularioDatosCliente.controls['cargasFamiliares'].setValue(datosCliente.CARGAS_CLI);
+        this.FormularioDatosCliente.controls['razonSocialTrabajo'].setValue(datosCliente.EMP_CLI);
+        this.FormularioDatosCliente.controls['rucTrabajo'].setValue(datosCliente.RUC_EMP_CLI);
+        this.FormularioDatosCliente.controls['emailCliente'].setValue(datosCliente.EMAIL_CLI);
+      });
+    }
   }
 
-  guardarCliente(content){
+  guardarCliente(content) {
     let datosCliente: Cliente = new Cliente();
     let resultado: string;
     datosCliente.ID_CLI = this.mensajeServicio.Cedula;
@@ -252,11 +238,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
 
   editarConyuge(content, conyuge: Conyuge) {
-    if (conyuge === undefined || conyuge.CED_CON === '') {
-      this.crearFormularioConyuge();
-    } else {
-      this.cargarFormularioConyuge(conyuge);
-    }
+    this.cargarFormularioConyuge(conyuge);
     this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
   }
 
@@ -277,7 +259,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
      });
   }
   cargarFormularioConyuge(conyuge: Conyuge) {
-    console.log(conyuge);
+    // console.log(conyuge);
     this.FormularioDatosConyuge.reset({
       tipo_registro: 'CLIENTE',
       tipoDocumentacion: conyuge.COD_TDOC,
@@ -344,7 +326,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
     // cedula, apellido, nombre, direccion, telefono_dom, celular, telefono_trab, empresa, direc_emp, observa
   guardarReferencia(content) {
-    console.log('Inicia Proceso');
+    // console.log('Inicia Proceso');
     const datosReferencia: Referencia = new Referencia();
     datosReferencia.cedula = this.FormularioDatosReferencia.value.cedula;
     datosReferencia.parentesco = this.FormularioDatosReferencia.value.parentesco;
@@ -360,11 +342,11 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     datosReferencia.email = this.FormularioDatosReferencia.value.email;
     datosReferencia.cliente = this.mensajeServicio.Cedula;
     datosReferencia.ID_REF = this.FormularioDatosReferencia.value.ID_REF;
-    console.log(datosReferencia);
+    // console.log(datosReferencia);
     this.referenciasServices.postReferencias(datosReferencia, this.crearReferencia).subscribe(
       (data: any) => {
         let resultado = data;
-        console.log(data);
+        // console.log(data);
         if(resultado.resultado === 'Referencia ingresada'){
           this.modalService.dismissAll();
           this.successMessage = 'Referencia Guardado Exitosamente!';
@@ -437,7 +419,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.provincias = data;
       });
   }
-  getGeneros(){
+  getGeneros() {
     this.generoService.getGeneros()
       .pipe(map (data => data['GENERO']))
       .subscribe((data: any) => {
@@ -445,7 +427,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
   }
 
-  getParentescos(){
+  getParentescos() {
     this.parentescoServices.getParentescos()
     .pipe(map (data => data['PARENTESCO']))
     .subscribe((data: any) => {
@@ -453,7 +435,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     });
   }
 
-  getNacionalidades(){
+  getNacionalidades() {
     this.nacionalidadesService.getNacionalidades()
       .pipe(map (data => data['NACIONALIDAD']))
       .subscribe((data: any) => {
@@ -511,7 +493,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
   acoplarPantalla(lblEstadoSolicitud: string) {
-    console.log('Bloqueo de controles de '+ lblEstadoSolicitud);
+    // console.log('Bloqueo de controles de '+ lblEstadoSolicitud);
     if (lblEstadoSolicitud === 'Documental' || lblEstadoSolicitud === 'Cancelada' ||
         lblEstadoSolicitud === 'Aprobada' || lblEstadoSolicitud === 'Autorizada' ||
         lblEstadoSolicitud === 'Re-Documental' || lblEstadoSolicitud === 'RechazadaCC' ||
@@ -519,10 +501,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
         lblEstadoSolicitud === 'Autorización Caducada') {
-                  console.log('Bloqueado 0' + lblEstadoSolicitud);
+                  // console.log('Bloqueado 0' + lblEstadoSolicitud);
                     // pageControlCliente.TabPages[7].Enabled = true;
                     if (lblEstadoSolicitud === 'Aprobada') {
-                      console.log('Bloqueado 1' + lblEstadoSolicitud);
+                      // console.log('Bloqueado 1' + lblEstadoSolicitud);
                       // btnSolicitarAnulacion.Visible = false;
                         // BtnEntregarCarpeta.Visible = true;
                         // btnSolicitarAnalisis.Visible = false;
@@ -532,7 +514,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                          lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
                           lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada') {
                             // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
-                            console.log('Bloqueado 2' + lblEstadoSolicitud);
+                            // ('Bloqueado 2' + lblEstadoSolicitud);
                             // btnSolicitarAnulacion.Visible = false;
                             // BtnEntregarCarpeta.Visible = false;
                             // ASPxButton1.Visible = false;
@@ -553,13 +535,13 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                             // btnMedioAprobacion.Visible = false;
                         } else {
                             if (lblEstadoSolicitud === 'Cancelada') {
-                              console.log('Bloqueado 3' + lblEstadoSolicitud);
+                              // console.log('Bloqueado 3' + lblEstadoSolicitud);
                                 // btnSolicitarAnulacion.Visible = false;
                                 // BtnEntregarCarpeta.Visible = false;
                                 // btnSolicitarAnalisis.Visible = false;
                                 // btnMedioAprobacion.Visible = false;
                             } else {
-                              console.log('Bloqueado 4' + lblEstadoSolicitud);
+                              // console.log('Bloqueado 4' + lblEstadoSolicitud);
                                 // btnSolicitarAnulacion.Visible = true;
                                 // BtnEntregarCarpeta.Visible = false;
                                 // btnSolicitarAnalisis.Visible = false;
@@ -567,7 +549,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                         }
                     }
                 } else {
-                  console.log('Bloqueado 5' + lblEstadoSolicitud);
+                  // console.log('Bloqueado 5' + lblEstadoSolicitud);
                     // pageControlCliente.TabPages[7].Enabled = false;
                 }
   }
@@ -634,7 +616,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     .subscribe((data: any) => {
       let datosConyuge: Conyuge;
       datosConyuge = data[0];
-      console.log(datosConyuge);
+      // console.log(datosConyuge);
       this.FormularioDatosConyuge.controls['cedula'].setValue(datosConyuge.CED_CON);
       this.FormularioDatosConyuge.controls['genero'].setValue(datosConyuge.COD_GEN);
       this.FormularioDatosConyuge.controls['tipoDocumentacion'].setValue(datosConyuge.COD_TDOC);
@@ -709,7 +691,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.conyugesServices.postConyuge(datosConyuge).subscribe(
       (data: any) => {
         resultado = data;
-        console.log(resultado);
+        // console.log(resultado);
         if (resultado === 'Conyuge actualizado exitosamente!'){
           this.successMessage = 'Conyuge actualizado exitosamente!';
           this.getListaConyuges();
@@ -727,7 +709,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .pipe(map(data => data["LISTACY"]))
       .subscribe((data: any) => {
         this.conyuges = data;
-        console.log(data);
+        // console.log(data);
       });
   }
 
@@ -737,7 +719,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .pipe(map(data => data["LISTAREF"]))
       .subscribe((data: any) => {
         this.referencias = data;
-        console.log(data);
+        // console.log(data);
       });
   }
 
@@ -935,14 +917,14 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                                         this.formaTelefonos.value.ExtensionTelefono, this.codigoTelefono, this.crearTelefono).subscribe(
         (data: any) => {
           if (data.error !== null) {
-            console.log(data.error);
+            // console.log(data.error);
           } else {
             this.modalService.dismissAll();
             this.telefonos = this.getTelefonos();
             this.successMessage = 'Información guardada!';
           }
         }, (errorServicio) => {
-          console.log('Error');
+          // console.log('Error');
         }
       );
     }
@@ -955,6 +937,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
           this.successMessage = resultado.toString();
         });
   }
-
+  nuevoConyuge(content) {
+      this.crearFormularioConyuge();
+      this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+  }
 }
 
