@@ -31,7 +31,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   closeResult: string;
   private _error = new Subject<string>();
   private _success = new Subject<string>();
-
+  paginaActual = 1;
   staticAlertClosed = false;
   errorMessage: string;
   successMessage: string;
@@ -119,7 +119,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                 this.activatedRoute.queryParams.subscribe(params => {
                 this.idCredito = params['idCre'];
                 if (typeof this.idCredito !== 'undefined') {
-                    this.fabricaService.getRetomarCredito(this.idCredito, 
+                    this.fabricaService.getRetomarCredito(this.idCredito,
                       localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
                         (data: DatosFabrica) => {
                           // console.log(data);
