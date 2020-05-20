@@ -202,7 +202,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let direccion of direcciones">
+                            <tr *ngFor="let direccion of direcciones | paginate: {itemsPerPage: 10, currentPage: paginaActual}">
                                 <td data-column="Tipo de Registro">{{direccion.TipoRegistro}}</td>
                                 <td data-column="Tipo de Dirección">{{direccion.NOM_TDIR}}</td>
                                 <td data-column="Calle Principal">{{direccion.PRINC_DIR}}</td>
@@ -222,6 +222,7 @@
                             </tr>
                         </tbody>
                     </table>
+                  <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="telefonos">
@@ -244,7 +245,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let telefono of telefonos">
+                            <tr *ngFor="let telefono of telefonos | paginate: {itemsPerPage: 10, currentPage: paginaActual}">
                                 <td data-column="Tipo de Registro">{{telefono.TIPO}}</td>
                                 <td data-column="Tipo de Teléfono">{{telefono.NOM_TDIS}}</td>
                                 <td data-column="Número de Teléfono">{{telefono.VALOR_DIS}}</td>
@@ -263,6 +264,7 @@
 
                         </tbody>
                     </table>
+                  <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="conyuges">
@@ -286,7 +288,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let conyuge of conyuges">
+                            <tr *ngFor="let conyuge of conyuges | paginate: {itemsPerPage: 10, currentPage: paginaActual}">
                                 <td data-column="Tipo de Registro">Cliente</td>
                                 <td data-column="Nombres">{{conyuge.NOM_CON}}</td>
                                 <td data-column="Apellidos">{{conyuge.APE_CON}}</td>
@@ -305,6 +307,7 @@
                             </tr>
                         </tbody>
                     </table>
+                  <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="referencias">
@@ -331,7 +334,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let referencia of referencias">
+                            <tr *ngFor="let referencia of referencias | paginate: {itemsPerPage: 10, currentPage: paginaActual}">
                                 <td data-column="Tipo de Registro">{{referencia.tipo_registro}}</td>
                                 <td data-column="Cédula">{{referencia.cedula}}</td>
                                 <td data-column="Parentesco">{{referencia.parentesco}}</td>
@@ -354,6 +357,7 @@
 
                         </tbody>
                     </table>
+                  <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="situacion-financiera">
