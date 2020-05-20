@@ -269,7 +269,7 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-conyuges.svg"> <span>Cónyuges</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button class="btn btn-solid-green" (click)="editarConyuge(agregarEditarConyuge,null)">Añadir Cónyuge</button>
+                        <button class="btn btn-solid-green" (click)="nuevoConyuge(agregarEditarConyuge)">Añadir Cónyuge</button>
                     </div>
                     <table>
                         <thead>
@@ -904,7 +904,7 @@
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
                         <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Tipo Registro" disabled>
-                     </fieldset>
+                    </fieldset>
                     <fieldset>
                         <label class="label">Cédula</label>
                         <input formControlName="cedula" class="form-control" type="text" placeholder="Escriba Cédula">
@@ -914,7 +914,7 @@
                         <select formControlName="parentesco" class="form-control">
                             <option *ngFor="let parentesco of parentescos" [value]="parentesco.COD_PARE">{{parentesco.NOM_PARE}}</option>
                      </select>
-                     </fieldset>
+                    </fieldset>
                     <fieldset>
                         <label class="label">Apellidos</label>
                         <input formControlName="apellido" class="form-control" type="text" placeholder="Escriba Apellidos">
