@@ -269,7 +269,7 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-conyuges.svg"> <span>Cónyuges</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button class="btn btn-solid-green" (click)="editarConyuge(agregarEditarConyuge,null)">Añadir Cónyuge</button>
+                        <button class="btn btn-solid-green" (click)="nuevoConyuge(agregarEditarConyuge)">Añadir Cónyuge</button>
                     </div>
                     <table>
                         <thead>
@@ -361,7 +361,7 @@
                 <ng-template ngbTabContent>
                     <form class="forms forms-relative">
                         <div class="cols cols2">
-                            <div class="table-flat">
+                            <div class="table-flat equal-width">
                                 <h5>Ingresos Mensuales</h5>
                                 <table>
                                     <thead>
@@ -374,10 +374,10 @@
                                     <tbody>
                                         <tr *ngFor="let ingreso of situacionFinancieraIngresos">
                                             <td data-column="Descripción">{{ingreso.NOMBRE_ING_PROD}}</td>
-                                            <td data-column="Valor" contenteditable="true" type="number">
-                                                <input (change)="onDatosIngresosValorChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="text" value="{{ingreso.VALOR_CREDITO_INGRESOS}}">
+                                            <td data-column="Valor"  type="number">
+                                                <input (change)="onDatosIngresosValorChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="number" value="{{ingreso.VALOR_CREDITO_INGRESOS}}">
                                             </td>
-                                            <td data-column="Comentario" contenteditable="true">
+                                            <td data-column="Comentario" >
                                                 <input (change)="onDatosIngresosChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="text" value="{{ingreso.COMENTARIO_CREDITO_INGRESOS}}">
                                             </td>
 
@@ -407,10 +407,10 @@
                                     <tbody>
                                         <tr *ngFor="let egresos of situacionFinancieraEgresos">
                                             <td data-column="Descripción">{{egresos.NOMBRE_EGR_PROD}}</td>
-                                            <td data-column="Valor" contenteditable="true" type="number">
-                                                <input (change)="onDatosEgresosValorChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="text" value="{{egresos.VALOR_CREDITO_EGRESOS}}">
+                                            <td data-column="Valor"  type="number">
+                                                <input (change)="onDatosEgresosValorChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="number" value="{{egresos.VALOR_CREDITO_EGRESOS}}">
                                             </td>
-                                            <td data-column="Comentario" contenteditable="true">
+                                            <td data-column="Comentario" >
                                                 <input (change)="onDatosEgresosChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="text" value="{{egresos.COMENTARIO_CREDITO_EGRESOS}}">
                                             </td>
 
@@ -886,7 +886,7 @@
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
                         <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Tipo Registro" disabled>
-                     </fieldset>
+                    </fieldset>
                     <fieldset>
                         <label class="label">Cédula</label>
                         <input formControlName="cedula" class="form-control" type="text" placeholder="Escriba Cédula">
@@ -896,7 +896,7 @@
                         <select formControlName="parentesco" class="form-control">
                             <option *ngFor="let parentesco of parentescos" [value]="parentesco.COD_PARE">{{parentesco.NOM_PARE}}</option>
                      </select>
-                     </fieldset>
+                    </fieldset>
                     <fieldset>
                         <label class="label">Apellidos</label>
                         <input formControlName="apellido" class="form-control" type="text" placeholder="Escriba Apellidos">
