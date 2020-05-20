@@ -164,4 +164,12 @@ export class DatosFabrica {
   public FechaCreacion: string;
   public AsesorAsociado: string;
   public CreditoAnterior: string;
+  public FechaPagareMaxDate: string;
+  public FechaPagareMinDate: string;
+  public CuentaBanco: string;
+  public Banco: string;
+  public TipoDeCuentaBancaria: string;
+  public aplicadoMontoVenta: string;
+  public FCH_PAGARE_SOL: string;
+  public FECHA_INICIO_CREDITO_REAL_CRE: string;
 }

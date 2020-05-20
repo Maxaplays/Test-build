@@ -98,6 +98,7 @@
                     <fieldset>
                         <label class="label">Fecha Pagaré</label>
                         <input formControlName="fechaPagare" type="date" placeholder="dd/mm/aaaa">
+                        <label class="label">Fecha Minima:{{FechaPagareMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPagareMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
                     <fieldset>
                         <label class="label">Días Inicio Crédito</label>
@@ -106,6 +107,7 @@
                     <fieldset>
                         <label class="label">Fecha Primer Pago</label>
                         <input formControlName="fechaPrimerPago" type="date" placeholder="dd/mm/aaaa" tabindex="4">
+                        <label class="label">Fecha Minima:{{FechaPrimerPagoMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPrimerPagoMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
                     <fieldset>
                         <label class="label">Días Inicio Crédito Máximo</label>
@@ -115,40 +117,38 @@
                 <div>
                     <fieldset>
                         <label class="label">Entidad Financiera</label>
-                        <select formControlName="entidadFinanciera" (change)="getTipoCuenta()">
+                        <select formControlName="entidadFinanciera">
                             <option *ngFor="let entidad of EntidadFinanciera" [value]="entidad.NOMBRE_BANCO">{{entidad.NOMBRE_BANCO}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Tipo de Cuenta</label>
-                        <select formControlName="tipoCuenta" (change)="getNumeroCuenta()">
-                            <option *ngFor="let tipo of TipoCuenta" [value]="tipo.cod_tcu">{{tipo.nom_tcu}}</option>
+                        <select formControlName="tipoCuenta">
+                            <option *ngFor="let tipo of TipoCuenta" [value]="tipo.cod_tcu ">{{tipo.nom_tcu}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
-                        <label class="label"># Cuenta Bancaria</label>
-                        <select formControlName="numeroCuenta">
-                            <option *ngFor="let numero of NumeroCuenta" [value]="numero.NUMERO_CUENTA">{{numero.NUMERO_CUENTA}}</option>
-                        </select>
+                        <label class="label "># Cuenta Bancaria</label>
+                        <input formControlName="numeroCuenta" type="text" type="text">
                     </fieldset>
                 </div>
             </form>
         </div>
-        <div class="align-right" style="padding-top: 40px;">
-            <button class="btn btn-solid-blue" (click)="generarDocumentos(docGenerado)">Generar Documentación Seleccionada</button>
+        <div class="align-right " style="padding-top: 40px; ">
+            <button class="btn btn-solid-blue " (click)="generarDocumentos(docGenerado) ">Generar Documentación Seleccionada</button>
         </div>
     </div>
 
-    <div class="footer-fixed-forms">
-        <div class="cols cols2">
-            <div class="align-left">
-                <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button>
-                <button class="btn btn-border-blue" (click)="openLg(verDocumentacion)"><img src="assets/images/icon-folder.svg">Documentación</button>
-                <button class="btn btn-border-blue">Cancelar</button>
+    <div class="footer-fixed-forms ">
+        <div class="cols cols2 ">
+            <div class="align-left ">
+                <button class="btn btn-border-blue " (click)="openCustomWidthVariant(verHistorial) "><img src="assets/images/icon-reloj.svg ">Historial</button>
+                <button class="btn btn-border-blue " (click)="openLg(verDocumentacion) "><img src="assets/images/icon-folder.svg ">Documentación</button>
+                <button class="btn btn-border-blue ">Cancelar</button>
             </div>
-            <div class="align-right">
-                <button class="btn btn-border-gray">Anterior</button>
-                <button class="btn btn-solid-green">Continuar</button>
+            <div class="align-right ">
+                <button class="btn btn-border-gray ">Anterior</button>
+                <button class="btn btn-solid-green ">Continuar</button>
             </div>
         </div>
     </div>
@@ -156,85 +156,85 @@
 
 
 <ng-template #verDocumentacion let-modal>
-    <div class="modal-header-mfc variation">
-        <div class="cols cols2 align-middle">
-            <div class="align-left">
-                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-documentacion-modal.svg">
-                <h4 class="modal-minititle-mfc">Documentación</h4>
+    <div class="modal-header-mfc variation ">
+        <div class="cols cols2 align-middle ">
+            <div class="align-left ">
+                <img width="20 " alt="MICRO FACTORY CAPITAL " src="./assets/images/icon-documentacion-modal.svg ">
+                <h4 class="modal-minititle-mfc ">Documentación</h4>
             </div>
-            <div class="align-right">
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                    <span aria-hidden="true">&times;</span>
+            <div class="align-right ">
+                <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Close click') ">
+                    <span aria-hidden="true ">&times;</span>
                 </button>
             </div>
         </div>
     </div>
-    <div class="modal-body variation">
-        <div class="forms forms-relative">
-            <label class="label">Nuevo archivo</label>
-            <div class="false-inputfile">
-                <input type="text" disabled placeholder="Elija un archivo para subir...">
-                <button class="btn btn-solid-blue" type="button" (click)="fileInput.click()">
+    <div class="modal-body variation ">
+        <div class="forms forms-relative ">
+            <label class="label ">Nuevo archivo</label>
+            <div class="false-inputfile ">
+                <input type="text " disabled placeholder="Elija un archivo para subir... ">
+                <button class="btn btn-solid-blue " type="button " (click)="fileInput.click() ">
                     <span>Cargar archivo</span>
-                    <input #fileInput type="file" style="display:none;" />
+                    <input #fileInput type="file " style="display:none; " />
                 </button>
             </div>
-            <div class="drag-div">Arrastra una columna aquí para agrupar por dicha columna</div>
-            <div id="table-scroll">
-                <table class="width-filters">
+            <div class="drag-div ">Arrastra una columna aquí para agrupar por dicha columna</div>
+            <div id="table-scroll ">
+                <table class="width-filters ">
                     <thead>
                         <tr>
-                            <th><input type="checkbox"></th>
+                            <th><input type="checkbox "></th>
                             <th>
-                                <select class="filter-for-table">
+                                <select class="filter-for-table ">
                                     <option>Nombre de documento</option>
                                 </select>
                             </th>
                             <th>
-                                <select class="filter-for-table">
+                                <select class="filter-for-table ">
                                     <option>Fecha ingreso</option>
                                 </select>
                             </th>
                             <th>
-                                <select class="filter-for-table">
+                                <select class="filter-for-table ">
                                     <option>Usuario Ingreso</option>
                                 </select>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="tr-filters">
+                        <tr class="tr-filters ">
                             <td></td>
                             <td>
-                                <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                <div class="component-filter "><input type="text "><span class="btn-filter "><img src="assets/images/icon-filter.svg "></span></div>
                             </td>
                             <td>
-                                <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                <div class="component-filter "><input type="text "><span class="btn-filter "><img src="assets/images/icon-filter.svg "></span></div>
                             </td>
                             <td>
-                                <div class="component-filter"><input type="text"><span class="btn-filter"><img src="assets/images/icon-filter.svg"></span></div>
+                                <div class="component-filter "><input type="text "><span class="btn-filter "><img src="assets/images/icon-filter.svg "></span></div>
                             </td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox "></td>
                             <td>
-                                <a href="#" class="link-doc"><img src="assets/images/icon-document-list.svg"> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a>
+                                <a href="# " class="link-doc "><img src="assets/images/icon-document-list.svg "> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a>
                             </td>
                             <td>25/06/2019</td>
                             <td>vegas@mfcapitalgroup.com</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox "></td>
                             <td>
-                                <a href="#" class="link-doc"><img src="assets/images/icon-document-list.svg"> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a>
+                                <a href="# " class="link-doc "><img src="assets/images/icon-document-list.svg "> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a>
                             </td>
                             <td>25/06/2019</td>
                             <td>vegas@mfcapitalgroup.com</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox "></td>
                             <td>
-                                <a href="#" class="link-doc"><img src="assets/images/icon-document-list.svg"> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a>
+                                <a href="# " class="link-doc "><img src="assets/images/icon-document-list.svg "> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a>
                             </td>
                             <td>25/06/2019</td>
                             <td>vegas@mfcapitalgroup.com</td>
@@ -244,9 +244,9 @@
             </div>
         </div>
     </div>
-    <div class="modal-footer-mfc full variation">
-        <div class="align-right">
-            <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Cerrar</button>
+    <div class="modal-footer-mfc full variation ">
+        <div class="align-right ">
+            <button class="btn btn-solid-blue " (click)="modal.close( 'Cancelar click') ">Cerrar</button>
         </div>
     </div>
 </ng-template>
@@ -254,27 +254,27 @@
 
 
 <ng-template #verHistorial let-modal>
-    <div class="modal-header-mfc variation">
-        <div class="cols cols2 align-middle">
-            <div class="align-left">
-                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-historial-modal.svg">
-                <h4 class="modal-minititle-mfc">Historial</h4>
+    <div class="modal-header-mfc variation ">
+        <div class="cols cols2 align-middle ">
+            <div class="align-left ">
+                <img width="20 " alt="MICRO FACTORY CAPITAL " src="./assets/images/icon-historial-modal.svg ">
+                <h4 class="modal-minititle-mfc ">Historial</h4>
             </div>
-            <div class="align-right">
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                    <span aria-hidden="true">&times;</span>
+            <div class="align-right ">
+                <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Close click') ">
+                    <span aria-hidden="true ">&times;</span>
                 </button>
             </div>
         </div>
     </div>
     <app-modal-historial></app-modal-historial>
-    <div class="modal-footer-mfc full variation">
-        <div class="cols cols2">
-            <div class="align-left">
-                <button class="btn btn-border-blue" routerLink="/configuracion/respuestas" (click)="modal.close('Cancelar click')">Generar respuesta</button>
+    <div class="modal-footer-mfc full variation ">
+        <div class="cols cols2 ">
+            <div class="align-left ">
+                <button class="btn btn-border-blue " routerLink="/configuracion/respuestas " (click)="modal.close( 'Cancelar click') ">Generar respuesta</button>
             </div>
-            <div class="align-right">
-                <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Guardar</button>
+            <div class="align-right ">
+                <button class="btn btn-solid-blue " (click)="modal.close( 'Cancelar click') ">Guardar</button>
             </div>
         </div>
     </div>
@@ -282,29 +282,29 @@
 
 
 <ng-template #docGenerado let-modal>
-    <div class="modal-header-mfc variation">
-        <div class="cols cols2 align-middle">
-            <div class="align-left">
-                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-documentacion-modal.svg">
-                <h4 class="modal-minititle-mfc">Documentación Generada</h4>
+    <div class="modal-header-mfc variation ">
+        <div class="cols cols2 align-middle ">
+            <div class="align-left ">
+                <img width="20 " alt="MICRO FACTORY CAPITAL " src="./assets/images/icon-documentacion-modal.svg ">
+                <h4 class="modal-minititle-mfc ">Documentación Generada</h4>
             </div>
-            <div class="align-right">
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                  <span aria-hidden="true">&times;</span>
+            <div class="align-right ">
+                <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Close click') ">
+                  <span aria-hidden="true ">&times;</span>
               </button>
             </div>
         </div>
     </div>
-    <div class="modal-body only-pdf">
-        <div class="modal-with-viewer">
+    <div class="modal-body only-pdf ">
+        <div class="modal-with-viewer ">
             <div>
-                <iframe [src]="urlArchivoGenerado | domseguro"></iframe>
+                <iframe [src]="urlArchivoGenerado | domseguro "></iframe>
             </div>
         </div>
     </div>
-    <div class="modal-footer-mfc full variation">
-        <div class="align-right">
-            <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cerrar</button>
+    <div class="modal-footer-mfc full variation ">
+        <div class="align-right ">
+            <button class="btn btn-border-gray " (click)="modal.close( 'Cancelar click') ">Cerrar</button>
         </div>
     </div>
 </ng-template>
