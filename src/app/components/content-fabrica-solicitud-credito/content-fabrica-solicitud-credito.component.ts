@@ -19,6 +19,7 @@ import { ProfesionService } from 'src/app/services/profesion/profesion.service';
 import { ClienteService, Cliente } from 'src/app/services/cliente/cliente.service';
 import { DatosComplementariosService, CREDITO_DATOS_COMPLEMENTARIOS } from '../../services/datosComplementarios/datos-complementarios.service';
 import { ParentescoService } from 'src/app/services/parentesco/parentesco.service';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 
 @Component({
@@ -570,41 +571,45 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   // SITUACION FINANCIERA DDLT
   onDatosIngresosChange(newValue, ID_CREDITO_INGRESOS: string) {
     this.situacionFinancieraService.getguardarComentarioIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any[] ) => {
-        if (resultado.toString()==='Actualizado!')
-          this.getSituacionFinancieraIngresos();
-         this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
-          this.successMessage = resultado.toString();
+      .subscribe( (resultado: any ) => {
+          console.log(resultado);
+          let totalSumaBackend: number;
+          totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+          this.sumatoriaIngresos = totalSumaBackend;
+          this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
       });
 
   }
   onDatosIngresosValorChange(newValue, ID_CREDITO_INGRESOS: string) {
     this.situacionFinancieraService.getguardarValorIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
-     .subscribe( (resultado: any[] ) => {
-      if (resultado.toString()==='Actualizado!')
-        this.getSituacionFinancieraIngresos();
-       this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
-       this.successMessage = resultado.toString();
+     .subscribe( (resultado: any ) => {
+        console.log(resultado);
+        let totalSumaBackend: number;
+        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+        this.sumatoriaIngresos = totalSumaBackend;
+        this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
      });
 
   }
   onDatosEgresosChange(newValue, ID_CREDITO_EGRESOS: string) {
     this.situacionFinancieraService.getguardarComentarioEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any[] ) => {
-        if (resultado.toString()==='Actualizado!')
-          this.getSituacionFinancieraEgresos();
-         this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
-          this.successMessage = resultado.toString();
+      .subscribe( (resultado: any ) => {
+        console.log(resultado);
+        let totalSumaBackend: number;
+        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+        this.sumatoriaEgresos = totalSumaBackend;
+        this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;  
       });
 
   }
   onDatosEgresosValorChange(newValue, ID_CREDITO_EGRESOS: string) {
     this.situacionFinancieraService.getguardarValorEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any[] ) => {
-        if (resultado.toString()==='Actualizado!')
-          this.getSituacionFinancieraEgresos();
-          this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
-          this.successMessage = resultado.toString();
+      .subscribe( (resultado: any ) => {
+        console.log(resultado);
+        let totalSumaBackend: number;
+        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+        this.sumatoriaEgresos = totalSumaBackend;
+        this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;  
       });
 
 
