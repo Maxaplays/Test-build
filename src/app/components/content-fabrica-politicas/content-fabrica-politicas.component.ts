@@ -55,6 +55,9 @@ export class ContentFabricaPoliticasComponent implements OnInit {
     this.excepciones = this.getExcepciones(politica.ID_VAL);
     this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
   }
+  openCustomWidthVariantCancelar(content) {
+    this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+  }
 
   public getPoliticas(): any {
     if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined ) {
