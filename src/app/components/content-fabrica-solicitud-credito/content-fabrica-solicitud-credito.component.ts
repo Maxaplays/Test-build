@@ -149,9 +149,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   onDatosComplementariosComentariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
     this.datosComplService.getguardarComentario(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
         .subscribe( (resultado: any[] ) => {
-            if (resultado.toString() === 'Actualizado!'){
-              this.successMessage = resultado.toString();
-              this.getDatosComplementarios();
+            if (resultado.toString() === 'Actualizado!') {
+              // this.successMessage = resultado.toString();
+              // this.getDatosComplementarios();
             }
         });
   }
@@ -931,14 +931,43 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   onDatosComplementariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
     this.datosComplService.getguardarValor(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
         .subscribe( (resultado: any[] ) => {
-          if (resultado.toString()==='Actualizado!')
-          this.getDatosComplementarios();
-          this.successMessage = resultado.toString();
+          if (resultado.toString() === 'Actualizado!') {
+            // this.getDatosComplementarios();
+            // this.successMessage = resultado.toString();
+          }
         });
   }
   nuevoConyuge(content) {
       this.crearFormularioConyuge();
       this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+  }
+  openCustomWidthVariantCancelar(content) {
+    this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+  }
+  generarCancelacion(motivo: string) {
+    this.modalService.dismissAll();
+    this.fabricaService.getCancelarSolicitud(this.mensajeServicio.NumeroCredito,
+                                            localStorage.getItem('usuario'), motivo).subscribe(
+      data => {
+        if (data.toString() === 'Solicitud Cancelada exitosamente!') {
+          this.mensajeServicio.Estado = 'Cancelada';
+          this.successMessage = data.toString();
+        }
+      });
+  }
+  solicitarAnalisis(content) {
+    this.fabricaService.getSolicitarAnalisis(this.mensajeServicio.NumeroCredito,
+                                            localStorage.getItem('usuario')).subscribe(
+        data => {
+          var resultado: number = data.toString().indexOf('Solicitud en estado: ');
+          if (resultado >= 0) {
+            this.mensajeServicio.Estado = 'Cancelada';
+            this.successMessage = data.toString();
+          } else {
+            this.errorMessage = data.toString();
+            this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+          }
+          });
   }
 }
 
