@@ -116,25 +116,25 @@
                 <div>
                     <fieldset>
                         <label class="label">Entidad Financiera</label>
-                        <select formControlName="entidadFinanciera">
+                        <select formControlName="entidadFinanciera" [attr.disabled]="entidadFinancieraEnabled">
                             <option *ngFor="let entidad of EntidadFinanciera" [value]="entidad.NOMBRE_BANCO">{{entidad.NOMBRE_BANCO}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Tipo de Cuenta</label>
-                        <select formControlName="tipoCuenta">
+                        <select formControlName="tipoCuenta" [attr.disabled]="tipoCuentaEnabled">
                             <option *ngFor="let tipo of TipoCuenta" [value]="tipo.cod_tcu ">{{tipo.nom_tcu}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label "># Cuenta Bancaria</label>
-                        <input formControlName="numeroCuenta" type="text" type="text">
+                        <input formControlName="numeroCuenta" type="text" type="text" [attr.disabled]="numeroCuentaEnabled">
                     </fieldset>
                 </div>
             </form>
         </div>
         <div class="align-right " style="padding-top: 40px; ">
-            <button class="btn btn-solid-blue " (click)="generarDocumentos(docGenerado) ">Generar Documentación Seleccionada</button>
+            <button class="btn btn-solid-blue " (click)="generarDocumentos(docGenerado,mensajeModalError)">Generar Documentación Seleccionada</button>
         </div>
     </div>
 
@@ -142,8 +142,8 @@
         <div class="cols cols2 ">
             <div class="align-left ">
                 <button class="btn btn-border-blue " (click)="openCustomWidthVariant(verHistorial) "><img src="assets/images/icon-reloj.svg ">Historial</button>
+                <button class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
                 <button class="btn btn-border-blue " (click)="openLg(verDocumentacion) "><img src="assets/images/icon-folder.svg ">Documentación</button>
-                <button class="btn btn-border-blue ">Cancelar</button>
             </div>
             <div class="align-right ">
                 <button class="btn btn-border-gray ">Anterior</button>
@@ -304,6 +304,59 @@
     <div class="modal-footer-mfc full variation ">
         <div class="align-right ">
             <button class="btn btn-border-gray " (click)="modal.close( 'Cancelar click') ">Cerrar</button>
+        </div>
+    </div>
+</ng-template>
+
+<ngb-alert *ngIf="successMessage" type="success" class="wbtn-success" (close)="successMessage = null"><img src="./assets/images/success.svg"><span>{{ successMessage }}</span></ngb-alert>
+
+<ng-template #mensajeModalError let-modal>
+    <div class="modal-error">
+        <div>
+            <div class="cols cols2 align-middle">
+                <div class="align-left">
+                    <img src="./assets/images/warning.svg" width="42">
+                    <p>{{errorMessage}}</p>
+                    <ul>
+                        <li *ngFor="let error of listadoErrores">
+                            * {{ error }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="align-right">
+            <button class="btn btn-solid-white" (click)="modal.close('Cancelar click')">Aceptar</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #cancelarSolicitud let-modal>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-folder.svg">
+                <h4 class="modal-minititle-mfc">Cancelar Solicitud</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body variation">
+        <div class="forms forms-relative" style="margin: 20px -8px 0;padding: 0;">
+            <fieldset>
+                <label class="label">Ingrese el motivo para cancelar la solicitud:</label>
+                <textarea #motivoCancelacion placeholder="Escriba el motivo" style="max-height: 100px;"></textarea>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="modal-footer-mfc full variation">
+        <div class="align-right">
+            <button class="btn btn-solid-blue" (click)="generarCancelacion(motivoCancelacion.value)">Cancelar Solicitud</button>
         </div>
     </div>
 </ng-template>

@@ -168,4 +168,32 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   subirArchivo() {
     if (this.miDataInterior.length > 0) {return true; } else { return false; }
   }
+  openCustomWidthVariantCancelar(content) {
+    this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+  }
+  generarCancelacion(motivo: string) {
+    this.modalService.dismissAll();
+    this.fabricaService.getCancelarSolicitud(this.mensajeServicio.NumeroCredito,
+                                            localStorage.getItem('usuario'), motivo).subscribe(
+      data => {
+        if (data.toString() === 'Solicitud Cancelada exitosamente!') {
+          this.mensajeServicio.Estado = 'Cancelada';
+          this.successMessage = data.toString();
+        }
+      });
+  }
+  solicitarAnalisis(content) {
+    this.fabricaService.getSolicitarAnalisis(this.mensajeServicio.NumeroCredito,
+                                            localStorage.getItem('usuario')).subscribe(
+        data => {
+          var resultado: number = data.toString().indexOf('Solicitud en estado: ');
+          if (resultado >= 0) {
+            this.mensajeServicio.Estado = 'Cancelada';
+            this.successMessage = data.toString();
+          } else {
+            this.errorMessage = data.toString();
+            this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+          }
+          });
+  }
 }

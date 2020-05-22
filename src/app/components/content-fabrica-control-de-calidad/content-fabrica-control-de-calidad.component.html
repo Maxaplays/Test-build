@@ -145,8 +145,8 @@
         <div class="cols cols2">
             <div class="align-left">
                 <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial,'')"><img src="assets/images/icon-reloj.svg">Historial</button>
+                <button class="btn btn-border-blue" (click)="openCustomWidth(cancelarSolicitud)">Cancelar solicitud</button>
                 <button class="btn btn-border-blue"><img src="assets/images/icon-folder.svg">Documentación</button>
-                <button class="btn btn-border-blue">Cancelar</button>
                 <a class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event)" *ngIf="subirArchivo()"></a>
             </div>
             <div class="align-right">
@@ -214,7 +214,7 @@
                     <div>
                         <fieldset>
                             <label class="label">Tipo</label>
-                            <span class="text-data">Control de Calidad</span>
+                            <span class="text-data">Requisito</span>
                         </fieldset>
                     </div>
                 </div>
@@ -258,3 +258,34 @@
 </ng-template>
 
 <ngb-alert *ngIf="successMessage" type="success" class="wbtn-success" (close)="successMessage = null"><img src="./assets/images/success.svg"><span>{{ successMessage }}</span></ngb-alert>
+
+<ng-template #cancelarSolicitud let-modal>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-folder.svg">
+                <h4 class="modal-minititle-mfc">Cancelar Solicitud</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body variation">
+        <div class="forms forms-relative" style="margin: 20px -8px 0;padding: 0;">
+            <fieldset>
+                <label class="label">Ingrese el motivo para cancelar la solicitud:</label>
+                <textarea #motivoCancelacion placeholder="Escriba el motivo" style="max-height: 100px;"></textarea>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="modal-footer-mfc full variation">
+        <div class="align-right">
+            <button class="btn btn-solid-blue" (click)="generarCancelacion(motivoCancelacion.value)">Cancelar Solicitud</button>
+        </div>
+    </div>
+</ng-template>

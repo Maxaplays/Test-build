@@ -85,9 +85,9 @@ export class ContentFabricaCreditoComponent implements OnInit {
       let wsCreditoSugerido: number = Number.parseFloat(this.mensajeServicio.MontoSugerido.replace(',', '.'));
       let wsPorcengajeEntradaSugerida: number = Number.parseFloat(this.mensajeServicio.PorcentajeEntradaSugerida.replace(',', '.'));
       let wsEntrada: number = wsCreditoSugerido * (wsPorcengajeEntradaSugerida / 100);
-      this.FormularioDatosBasicos.controls['wsEntradaSugerida'].setValue(wsEntrada.toString().replace(',', '.'));
+      this.FormularioDatosBasicos.controls['wsEntradaSugerida'].setValue(wsEntrada.toFixed(2).toString().replace(',', '.'));
       let wsVentaTotal: number = wsCreditoSugerido / (1 - (wsPorcengajeEntradaSugerida / 100));
-      this.FormularioDatosBasicos.controls['wsVentaMaxima'].setValue(wsVentaTotal.toString().replace(',', '.'));
+      this.FormularioDatosBasicos.controls['wsVentaMaxima'].setValue(wsVentaTotal.toFixed(2).toString().replace(',', '.'));
     } catch (error) {
 
     }
@@ -109,11 +109,11 @@ export class ContentFabricaCreditoComponent implements OnInit {
     let tasa: number = this.FormularioDatosBasicos.controls['aplicadoTasa'].value;
     let diferencia : number = Total - entrada;
     let porcentajeEntrada: number = (entrada / Total) * 100;
-    this.FormularioDatosBasicos.controls['montoCredito'].setValue(diferencia);
-    this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(porcentajeEntrada);
+    this.FormularioDatosBasicos.controls['montoCredito'].setValue(diferencia.toFixed(2));
+    this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(porcentajeEntrada.toFixed(2));
     let cuotaMensual = this.calcularCuotaFija(diferencia, plazos, tasa, entrada);
     let cuotaMensualDecimal = cuotaMensual;
-    this.FormularioDatosBasicos.controls['cuotaMensualFija'].setValue(cuotaMensualDecimal);
+    this.FormularioDatosBasicos.controls['cuotaMensualFija'].setValue(cuotaMensualDecimal.toFixed(2));
     // this.mensajeServicio.PorcentajeEntrada = porcentajeEntrada.toString();
     // this.mensajeServicio.CuotaMensual = this.calcularCuotaFija(diferencia, plazos, tasa, entrada).toString();
     // this.mensajeServicio.Monto = diferencia.toString();
@@ -209,7 +209,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
           let entrada: number = data.seEntradaAplicada;
           let VentaTotal: number = montoCredito + entrada;
           this.FormularioDatosBasicos.controls['aplicadoMontoVenta'].setValue(data.seMontoAprobado.toString().replace(',', '.'));
-          this.FormularioDatosBasicos.controls['aplicadoVentaTotal'].setValue(VentaTotal.toString().replace(',', '.'));
+          this.FormularioDatosBasicos.controls['aplicadoVentaTotal'].setValue(VentaTotal.toFixed(2).toString().replace(',', '.'));
           this.FormularioDatosBasicos.controls['aplicadoPorcentajeEntrada'].setValue(data.sePorcentajeEntrada.toString().replace(',', '.'));
           this.FormularioDatosBasicos.controls['aplicadoEntrada'].setValue(data.seEntradaAplicada.toString().replace(',', '.'));
           this.FormularioDatosBasicos.controls['aplicadoMontoReferencial'].setValue(data.lblventaMaxSugerida.toString().replace(',', '.'));
@@ -252,6 +252,17 @@ export class ContentFabricaCreditoComponent implements OnInit {
     } else {
       console.log('Formulario Inválido...' + this.FormularioDatosBasicos.status);
     }
+  }
+  generarCancelacion(motivo: string) {
+    this.modalService.dismissAll();
+    this.fabricaService.getCancelarSolicitud(this.mensajeServicio.NumeroCredito,
+                                            localStorage.getItem('usuario'), motivo).subscribe(
+      data => {
+        if (data.toString() === 'Solicitud Cancelada exitosamente!') {
+          this.mensajeServicio.Estado = 'Cancelada';
+          this.successMessage = data.toString();
+        }
+      });
   }
   // bkm
 }

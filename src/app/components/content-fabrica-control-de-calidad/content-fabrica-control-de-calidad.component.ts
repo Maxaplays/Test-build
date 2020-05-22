@@ -168,4 +168,15 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
       }
     );
   }
+  generarCancelacion(motivo: string) {
+    this.modalService.dismissAll();
+    this.fabricaService.getCancelarSolicitud(this.mensajeServicio.NumeroCredito,
+                                            localStorage.getItem('usuario'), motivo).subscribe(
+      data => {
+        if (data.toString() === 'Solicitud Cancelada exitosamente!') {
+          this.mensajeServicio.Estado = 'Cancelada';
+          this.successMessage = data.toString();
+        }
+      });
+  }
 }

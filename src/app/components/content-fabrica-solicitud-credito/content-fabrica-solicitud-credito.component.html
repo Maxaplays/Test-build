@@ -222,7 +222,7 @@
                             </tr>
                         </tbody>
                     </table>
-                  <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
+                    <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="telefonos">
@@ -264,7 +264,7 @@
 
                         </tbody>
                     </table>
-                  <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
+                    <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="conyuges">
@@ -307,7 +307,7 @@
                             </tr>
                         </tbody>
                     </table>
-                  <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
+                    <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="referencias">
@@ -357,7 +357,7 @@
 
                         </tbody>
                     </table>
-                  <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
+                    <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="situacion-financiera">
@@ -378,10 +378,10 @@
                                     <tbody>
                                         <tr *ngFor="let ingreso of situacionFinancieraIngresos">
                                             <td data-column="Descripción">{{ingreso.NOMBRE_ING_PROD}}</td>
-                                            <td data-column="Valor"  type="number">
+                                            <td data-column="Valor" type="number">
                                                 <input (change)="onDatosIngresosValorChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="number" value="{{ingreso.VALOR_CREDITO_INGRESOS}}">
                                             </td>
-                                            <td data-column="Comentario" >
+                                            <td data-column="Comentario">
                                                 <input (change)="onDatosIngresosChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="text" value="{{ingreso.COMENTARIO_CREDITO_INGRESOS}}">
                                             </td>
 
@@ -411,10 +411,10 @@
                                     <tbody>
                                         <tr *ngFor="let egresos of situacionFinancieraEgresos">
                                             <td data-column="Descripción">{{egresos.NOMBRE_EGR_PROD}}</td>
-                                            <td data-column="Valor"  type="number">
+                                            <td data-column="Valor" type="number">
                                                 <input (change)="onDatosEgresosValorChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="number" value="{{egresos.VALOR_CREDITO_EGRESOS}}">
                                             </td>
-                                            <td data-column="Comentario" >
+                                            <td data-column="Comentario">
                                                 <input (change)="onDatosEgresosChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="text" value="{{egresos.COMENTARIO_CREDITO_EGRESOS}}">
                                             </td>
 
@@ -588,7 +588,7 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-garante.svg"> <span>Garante / Representante Legal</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                      <button class="btn btn-border-gray">Añadir Garante</button>
+                        <button class="btn btn-border-gray">Añadir Garante</button>
                     </div>
                     <table>
                         <thead>
@@ -603,7 +603,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                       <tr class="foot-td">
+                            <tr class="foot-td">
                                 <td colspan="7"><span class="foot-table">2 garantes</span></td>
                             </tr>
                         </tbody>
@@ -621,10 +621,11 @@
         <div class="cols cols2">
             <div class="align-left">
                 <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button>
+                <button class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
                 <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Documentación</button>
             </div>
             <div class="align-right">
-                <button class="btn btn-border-gray">Cancelar</button>
+                <button class="btn btn-solid-green" (click)="solicitarAnalisis(mensajeModalError)">Solicitar análisis</button>
                 <button class="btn btn-solid-green" (click)="guardarCliente(mensajeModalError)">Guardar</button>
                 <button class="btn btn-solid-blue">Siguiente</button>
             </div>
@@ -799,7 +800,7 @@
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
-                        <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Tipo Registro">
+                        <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Cliente" value="Cliente" disabled>
                     </fieldset>
                     <fieldset>
                         <label class="label">Tipo de Documento</label>
@@ -889,7 +890,7 @@
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
-                        <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Tipo Registro" disabled>
+                        <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Cliente" value="Cliente" disabled>
                     </fieldset>
                     <fieldset>
                         <label class="label">Cédula</label>
@@ -1146,6 +1147,37 @@
         </div>
         <div class="align-right">
             <button class="btn btn-solid-white" (click)="modal.close('Cancelar click')">Aceptar</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #cancelarSolicitud let-modal>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-folder.svg">
+                <h4 class="modal-minititle-mfc">Cancelar Solicitud</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body variation">
+        <div class="forms forms-relative" style="margin: 20px -8px 0;padding: 0;">
+            <fieldset>
+                <label class="label">Ingrese el motivo para cancelar la solicitud:</label>
+                <textarea #motivoCancelacion placeholder="Escriba el motivo" style="max-height: 100px;"></textarea>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="modal-footer-mfc full variation">
+        <div class="align-right">
+            <button class="btn btn-solid-blue" (click)="generarCancelacion(motivoCancelacion.value)">Cancelar Solicitud</button>
         </div>
     </div>
 </ng-template>

@@ -18,6 +18,7 @@ export class ContentFabricaPoliticasComponent implements OnInit {
   private _success = new Subject<string>();
   staticAlertClosed = false;
   errorMessage: string;
+  listadoErrores: string[];
   successMessage: string;
   paginaAcual = 1;
   // bkm
@@ -52,6 +53,9 @@ export class ContentFabricaPoliticasComponent implements OnInit {
   openCustomWidthVariant(content, politica: any) {
     this.politicasExepcion = politica;
     this.excepciones = this.getExcepciones(politica.ID_VAL);
+    this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+  }
+  openCustomWidthVariantCancelar(content) {
     this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
   }
 
@@ -99,5 +103,30 @@ export class ContentFabricaPoliticasComponent implements OnInit {
         }
       }
     );
+  }
+  generarCancelacion(motivo: string) {
+  this.modalService.dismissAll();
+  this.fabricaService.getCancelarSolicitud(this.mensajeServicio.NumeroCredito,
+                                          localStorage.getItem('usuario'), motivo).subscribe(
+    data => {
+      if (data.toString() === 'Solicitud Cancelada exitosamente!') {
+        this.mensajeServicio.Estado = 'Cancelada';
+        this.successMessage = data.toString();
+      }
+    });
+  }
+  solicitarAnalisis(content) {
+    this.fabricaService.getSolicitarAnalisis(this.mensajeServicio.NumeroCredito,
+                                            localStorage.getItem('usuario')).subscribe(
+        data => {
+          var resultado: number = data.toString().indexOf('Solicitud en estado: ');
+          if (resultado >= 0) {
+            this.mensajeServicio.Estado = 'Cancelada';
+            this.successMessage = data.toString();
+          } else {
+            this.errorMessage = data.toString();
+            this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+          }
+          });
   }
 }

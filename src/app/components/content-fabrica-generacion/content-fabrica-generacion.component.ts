@@ -5,6 +5,7 @@ import {map} from 'rxjs/operators';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { GeneracionDocumentos, GeneraDocService, ReporteWebserviceUx } from '../../services/generaDoc/genera-doc.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-content-fabrica-generacion',
@@ -12,24 +13,27 @@ import { GeneracionDocumentos, GeneraDocService, ReporteWebserviceUx } from '../
   styleUrls: ['./content-fabrica-generacion.component.css']
 })
 export class ContentFabricaGeneracionComponent implements OnInit {
-
+  private _error = new Subject<string>();
+  private _success = new Subject<string>();
+  errorMessage: string;
+  successMessage: string;
   NOMBRE_BANCO: string;
   TIPO_BANCO: string;
   closeResult: string;
+  listadoErrores: string[];
   EntidadFinanciera: any[] = [];
   TipoCuenta: any[] = [];
   NumeroCuenta: any[] = [];
   loading: boolean;
   // bkm
   mensajeServicio: DatosFabrica;
-  errorMessage: string;
   urlArchivoGenerado: string;
   tipoReportes: ReporteWebserviceUx[];
   arregloReportes = new Array<ReporteWebserviceUx>();
   FormularioDatosReportes: FormGroup;
-  numeroCuentaEnabled = false;
-  entidadFinancieraEnabled = false;
-  tipoCuentaEnabled = false;
+  numeroCuentaEnabled = true;
+  entidadFinancieraEnabled = true;
+  tipoCuentaEnabled = true;
   FechaPagareMax: Date;
   FechaPagareMin: Date;
   FechaPrimerPagoMax: Date;
@@ -51,9 +55,9 @@ export class ContentFabricaGeneracionComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.inicializarDatosCuentas();
     this.getEntidadFinanciera();
     this.getTipoCuenta();
+    this.inicializarDatosCuentas();
     const currentYear = new  Date () .getFullYear ();
     const Mont = new  Date () .getMonth();
     const day = new  Date ().getDay();
@@ -97,7 +101,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
       });
   }
 
-  generarDocumentos(content) {
+  generarDocumentos(content, contentError) {
     this.loading = true;
     const variable = new GeneracionDocumentos();
     const arregloReportesEnviar = new Array<ReporteWebserviceUx>();
@@ -127,7 +131,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
         } else {
           this.errorMessage = resultado.resultado;
           this.loading = false;
-          this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+          this.modalService.open(contentError, {windowClass: 'custom-width-error-modal'});
         }
       });
   }
@@ -165,19 +169,35 @@ export class ContentFabricaGeneracionComponent implements OnInit {
 
      }
     if (this.mensajeServicio.CuentasMupi === 'True') {
+      // debe poner true para deshabilitar el control
       this.numeroCuentaEnabled = true;
       this.entidadFinancieraEnabled = true;
       this.tipoCuentaEnabled = true;
     } else {
-      this.numeroCuentaEnabled = false;
-      this.entidadFinancieraEnabled = false;
-      this.tipoCuentaEnabled = false;
+      // no debe deshabilitar el control
+      this.numeroCuentaEnabled = true;
+      this.entidadFinancieraEnabled = true;
+      this.tipoCuentaEnabled = true;
     }
   }
   addDays(date: Date, days: number): Date {
     var dias = days;
     date.setDate(date.getDate() + dias);
     return date;
+  }
+  openCustomWidthVariantCancelar(content) {
+    this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+  }
+  generarCancelacion(motivo: string) {
+    this.modalService.dismissAll();
+    this.fabricaService.getCancelarSolicitud(this.mensajeServicio.NumeroCredito,
+                                            localStorage.getItem('usuario'), motivo).subscribe(
+      data => {
+        if (data.toString() === 'Solicitud Cancelada exitosamente!') {
+          this.mensajeServicio.Estado = 'Cancelada';
+          this.successMessage = data.toString();
+        }
+      });
   }
 }
 

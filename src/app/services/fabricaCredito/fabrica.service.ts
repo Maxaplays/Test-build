@@ -45,6 +45,10 @@ export class FabricaService {
     const url = environment.urlServiciosBackend + `FabricaCredito/ConsultaGeneralGuias?usuario=${usuario}&fechaDesde=${desde}&fechaHasta=${hasta}`;
     return this.http.get(url);
   }
+  public getCancelarSolicitud(idCredito: string, usuario: string, motivoAnulacion: string) {
+    const url = environment.urlServiciosBackend + `FabricaCredito/cancelarSolicitud?idCredito=${idCredito}&usuario=${usuario}&motivoAnulacion=${motivoAnulacion}`;
+    return this.http.get(url);
+  }
   public getcalcularValoresSimulador(valoresSimulador: ValoresSimulador) {
     console.log(valoresSimulador);
     const url = environment.urlServiciosBackend + `FabricaCredito/calcularValoresSimulador`;
@@ -63,6 +67,10 @@ export class FabricaService {
   
       return of(result as T);
     };
+  }
+  public getSolicitarAnalisis(idCredito: string, usuario: string) {
+    const url = environment.urlServiciosBackend + `FabricaCredito/solicitarAnalisis?Usuario=${usuario}&numeroCredito=${idCredito}`;
+    return this.http.get(url);
   }
 }
 export class EnvioFabricaServiceBi {
