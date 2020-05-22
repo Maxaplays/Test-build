@@ -68,7 +68,7 @@
     <app-steps></app-steps>
 
     <form class="steps-mobile">
-        <select id='selectSteps'>
+        <select #tabs1 id='selectSteps'>
                 <option value='datos-basicos'>Datos básicos</option>
                 <option value='credito'>Crédito</option>
                 <option value='solicitud-credito' selected>Solicitud Crédito</option>
@@ -81,7 +81,7 @@
     </form>
 
     <form class="tabs-mobile">
-        <select id='selectTabs'>
+        <select #tabs2 id='selectTabs'>
                 <option value='cliente'>Cliente</option>
                 <option value='direcciones'>Direcciones</option>
                 <option value='telefonos'>Teléfonos</option>
@@ -604,16 +604,13 @@
                         </thead>
                         <tbody>
                             <tr class="foot-td">
-                                <td colspan="7"><span class="foot-table">2 garantes</span></td>
+                                <td colspan="7"><span class="foot-table"></span></td>
                             </tr>
                         </tbody>
                     </table>
                 </ng-template>
             </ngb-tab>
         </ngb-tabset>
-
-
-
     </div>
 
 

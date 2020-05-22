@@ -102,6 +102,27 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   }
 
   generarDocumentos(content, contentError) {
+    let string1 = this.FormularioDatosReportes.controls['fechaPagare'].value.substring(0, 10) + ' 00:00:00';
+    let string2 = this.FormularioDatosReportes.controls['fechaPrimerPago'].value.substring(0, 10) + ' 00:00:00';
+    let FechaPagareCalculada: Date = new Date(string1);
+    let FechaPrimerPagoCalculada: Date = new Date(string2);
+    if (FechaPagareCalculada >= this.FechaPagareMin && FechaPagareCalculada <= this.FechaPagareMax) {
+      // Fecha Correcta
+      
+    } else {
+      // fecha Incorrecta
+      this.errorMessage = 'Fecha de pagaré fuera del rango permitido';
+      this.modalService.open(contentError, {windowClass: 'custom-width-error-modal'});
+      return;
+    }
+    if (FechaPrimerPagoCalculada >= this.FechaPrimerPagoMin && FechaPrimerPagoCalculada <= this.FechaPrimerPagoMax) {
+      // Fecha Correcta
+    } else {
+      // fecha Incorrecta
+      this.errorMessage = 'Fecha Primer pago fuera del rango permitido';
+      this.modalService.open(contentError, {windowClass: 'custom-width-error-modal'});
+      return;
+    }
     this.loading = true;
     const variable = new GeneracionDocumentos();
     const arregloReportesEnviar = new Array<ReporteWebserviceUx>();
@@ -198,6 +219,15 @@ export class ContentFabricaGeneracionComponent implements OnInit {
           this.successMessage = data.toString();
         }
       });
+  }
+  cambioFechaPagare(fechaPagare) {
+      try {
+        let FechaPagareCalculada: Date = new Date(fechaPagare);
+        this.FechaPrimerPagoMin = new Date(this.addDays(FechaPagareCalculada,
+                                            Number(this.FormularioDatosReportes.controls['diasInicio'].value)));
+        this.FechaPrimerPagoMax = new Date(this.addDays(FechaPagareCalculada,
+                                            Number(this.FormularioDatosReportes.controls['creditoMaximo'].value)));
+      } catch {}
   }
 }
 

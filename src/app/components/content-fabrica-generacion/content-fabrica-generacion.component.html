@@ -96,7 +96,7 @@
                 <div>
                     <fieldset>
                         <label class="label">Fecha Pagaré</label>
-                        <input formControlName="fechaPagare" type="date" placeholder="dd/mm/aaaa">
+                        <input formControlName="fechaPagare" type="date" placeholder="dd/mm/aaaa" (keyup)="cambioFechaPagare($event.target.value)">
                         <label class="label">Fecha Minima:{{FechaPagareMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPagareMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
                     <fieldset>

@@ -48,6 +48,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   sumatoriaEgresos: number = 0;
   sumatoriaTotal: number = 0;
   idCredito: string;
+  tabActual;
 
   // formas para ingreso y edición de datos - bkm
   formaDirecciones: FormGroup;
@@ -202,6 +203,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
 
   guardarCliente(content) {
+    this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
+    this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
+    this.getDatosComplementarios();
     let datosCliente: Cliente = new Cliente();
     let resultado: string;
     datosCliente.ID_CLI = this.mensajeServicio.Cedula;
@@ -229,7 +233,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       (data: any) => {
         resultado = data;
         if(resultado === 'Cliente ingresado exitosamente!'){
-          this.successMessage = 'Cliente Guardado Exitosamente!';
+          this.successMessage = 'Guardado Exitosamente!';
         } else {
           // Error
           this.errorMessage = data;
