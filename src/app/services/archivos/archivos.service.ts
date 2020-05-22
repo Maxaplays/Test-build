@@ -29,9 +29,9 @@ export class ArchivosService {
     };
   }
 
-  public postArchivo(archivos: File[], ID_CRE: string, USR_DOC: string, NOM_DOC: string, Validacion: string) {
-    console.log('paso');
-    const url = environment.urlServiciosBackend + `Archivos/nuevoArchivo/${ID_CRE}/${USR_DOC}/${NOM_DOC}/${Validacion}`;
+  public postArchivo(archivos: File[], ID_CRE: string, USR_DOC: string, NOM_DOC: string, Validacion: string, Tipo: string) {
+    /*console.log('paso');*/
+    const url = environment.urlServiciosBackend + `Archivos/nuevoArchivo/${ID_CRE}/${USR_DOC}/''/${Validacion}/${Tipo}`;
 
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
@@ -40,5 +40,6 @@ export class ArchivosService {
     }
     return this.http.post<File>(url, formData);
   }
-
 }
+
+

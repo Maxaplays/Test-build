@@ -101,13 +101,12 @@ export class ContentFabricaRequisitosComponent implements OnInit {
         nombreArchivo += this.miDataInterior[i].NOM_POL;
         politicasValidacion += this.miDataInterior[i].ID_VAL;
       }
-
     }
     console.log(nombreArchivo);
     if (this.miDataInterior.length > 0) {
       this.archivoSeleccionado = <File> event.target.files[0];
       this.Archivos.push(this.archivoSeleccionado);
-      this.archivosService.postArchivo(this.Archivos, this.mensajeServicio.NumeroCredito, localStorage.getItem('usuario'), nombreArchivo, politicasValidacion)
+      this.archivosService.postArchivo(this.Archivos, this.mensajeServicio.NumeroCredito, localStorage.getItem('usuario'), nombreArchivo, politicasValidacion, 'Requisito')
         .subscribe(
           (data: any) => {
             if (data.listaResultado !== null) {

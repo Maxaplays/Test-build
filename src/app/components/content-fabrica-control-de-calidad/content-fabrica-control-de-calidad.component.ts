@@ -105,7 +105,7 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
     if (this.miDataInterior.length > 0) {
       this.archivoSeleccionado = <File> event.target.files[0];
       this.Archivos.push(this.archivoSeleccionado);
-      this.archivosService.postArchivo(this.Archivos, this.mensajeServicio.NumeroCredito, localStorage.getItem('usuario'), nombreArchivo, controlCalidadValidacion)
+      this.archivosService.postArchivo(this.Archivos, this.mensajeServicio.NumeroCredito, localStorage.getItem('usuario'), nombreArchivo, controlCalidadValidacion, 'Control')
         .subscribe(
           (data: any) => {
             if (data.listaResultado !== null) {
@@ -149,7 +149,7 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
     const excepcion: Excepcion = new Excepcion();
     excepcion.ID_VPOL = this.controlExepcion.ID_VAL;
     excepcion.IDE_CRE = this.mensajeServicio.NumeroCredito;
-    excepcion.Tipo = 'Requisito';
+    excepcion.Tipo = 'Calidad';
     excepcion.USR_EXC_VAL = localStorage.getItem('usuario');
     excepcion.OBSER_VAL_EXC_VAL = this.comentarioExcepcion;
     this.documentoVisualizacion.postExcepcion(excepcion).subscribe(

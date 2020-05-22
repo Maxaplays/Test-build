@@ -81,7 +81,7 @@ export class ContentFabricaPoliticasComponent implements OnInit {
     const excepcion: Excepcion = new Excepcion();
     excepcion.ID_VPOL = this.politicasExepcion.ID_VAL;
     excepcion.IDE_CRE = this.mensajeServicio.NumeroCredito;
-    excepcion.Tipo = 'Requisito';
+    excepcion.Tipo = 'Politica';
     excepcion.USR_EXC_VAL = localStorage.getItem('usuario');
     excepcion.OBSER_VAL_EXC_VAL = this.comentarioExcepcion;
     this.documentoVisualizacion.postExcepcion(excepcion).subscribe(
