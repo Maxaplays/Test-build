@@ -89,7 +89,7 @@
             <table class="width-filters">
                 <thead>
                     <tr>
-                        <th><input type="checkbox" (change)="marcarTodos($event)"></th>
+                        <th><input type="checkbox" (change)="marcarTodos($event)" [checked]=false ></th>
                         <th>Solicitar Excepción</th>
                         <th>Estado</th>
                         <th>Url</th>
@@ -150,7 +150,7 @@
                 <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial,'')"><img src="assets/images/icon-reloj.svg">Historial</button>
                 <button class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
                 <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Documentación</button>
-                <a class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event)" *ngIf="subirArchivo()"></a>
+                <a class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event,mensajeModalError, mensajeAdvertencia)" *ngIf="subirArchivo()" ></a>
             </div>
             <div class="align-right">
                 <!-- <button class="btn btn-border-gray">Cancelar</button> -->
@@ -256,7 +256,7 @@
     <div class="modal-footer-mfc full variation">
         <div class="align-right">
             <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-            <button class="btn btn-solid-green" (click)="guardarExcepcion()">Guardar</button>
+            <button class="btn btn-solid-green" (click)="guardarExcepcion(mensajeAdvertencia, mensajeModalError)">Guardar</button>
         </div>
     </div>
 
@@ -309,4 +309,32 @@
             <button class="btn btn-solid-white" (click)="modal.close('Cancelar click')">Aceptar</button>
         </div>
     </div>
+</ng-template>
+
+<ng-template #mensajeAdvertencia let-modal>
+  <div class="modal-header-mfc variation modal-mensaje">
+    <div class="cols cols2 align-middle">
+      <div class="align-left">
+        <img width="32" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-mensaje-warning.svg">
+        <h4 class="modal-minititle-mfc">Importante</h4>
+      </div>
+      <div class="align-right">
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-body variation modal-mensaje">
+    <p>{{advertenceMessage}}</p>
+  </div>
+  <div class="modal-footer-mfc full variation">
+    <div class="cols cols2">
+
+      <div class="align-right">
+        <button class="btn btn-solid-green" (click)="modal.close('Cancelar click')">Aceptar</button>
+      </div>
+    </div>
+  </div>
 </ng-template>
