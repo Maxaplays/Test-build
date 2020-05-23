@@ -5,6 +5,7 @@ import {DocumentosVisualizacionService, Excepcion} from '../../services/document
 import {map} from 'rxjs/operators';
 import {ArchivosService} from '../../services/archivos/archivos.service';
 import {Subject} from 'rxjs';
+import { RouterModule, Router } from '@angular/router';
 
 
 
@@ -32,12 +33,14 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   requisitios: any[] = [];
   excepciones: any[] = [];
   comentarioExcepcion;
+  desmarcar;
   // bkm
 
   constructor(private modalService: NgbModal,
               private fabricaService: FabricaService,
               private documentoVisualizacion: DocumentosVisualizacionService,
-              private archivosService: ArchivosService) {
+              private archivosService: ArchivosService,
+              private router: Router) {
 
   }
 
@@ -102,7 +105,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
         politicasValidacion += this.miDataInterior[i].ID_VAL;
       }
     }
-    console.log(nombreArchivo);
+    //console.log(nombreArchivo);
     if (this.miDataInterior.length > 0) {
       this.archivoSeleccionado = <File> event.target.files[0];
       this.Archivos.push(this.archivoSeleccionado);
@@ -119,6 +122,23 @@ export class ContentFabricaRequisitosComponent implements OnInit {
             }
           }
         );
+      if(this.miDataInterior.length === this.requisitios.length) {
+        this.desmarcar = false;
+        this.marcarChecks = !this.marcarChecks;
+        for (let i = 0; i < this.requisitios.length; i++) {
+          this.miDataInterior = this.miDataInterior.filter(s => s !== this.requisitios[i]);
+          this.miDataInterior = [];
+          this.subirArchivo();
+          this.desmarcar = false;
+          this.Archivos = [];
+        }
+      }
+      this.miDataInterior = [];
+      this.subirArchivo();
+      this.desmarcar = false;
+      this.Archivos = [];
+      this.router.navigate(['/fabrica/nueva-solicitud/requisitos']);
+
     }
   }
 

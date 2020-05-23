@@ -89,7 +89,7 @@
             <table class="width-filters">
                 <thead>
                     <tr>
-                        <th><input type="checkbox" (change)="marcarTodos($event)"></th>
+                        <th><input type="checkbox" (change)="marcarTodos($event)" [checked]=false ></th>
                         <th>Solicitar Excepción</th>
                         <th>Estado</th>
                         <th>Url</th>
@@ -150,7 +150,7 @@
                 <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial,'')"><img src="assets/images/icon-reloj.svg">Historial</button>
                 <button class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
                 <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Documentación</button>
-                <a class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event)" *ngIf="subirArchivo()"></a>
+                <a class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event)" *ngIf="subirArchivo()" ></a>
             </div>
             <div class="align-right">
                 <!-- <button class="btn btn-border-gray">Cancelar</button> -->
