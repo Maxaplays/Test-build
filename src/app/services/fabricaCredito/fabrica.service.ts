@@ -180,4 +180,7 @@ export class DatosFabrica {
   public aplicadoMontoVenta: string;
   public FCH_PAGARE_SOL: string;
   public FECHA_INICIO_CREDITO_REAL_CRE: string;
+  public CedulaConyuge: string;
+  public NroCargas: string;
+  public Sexo: string;
 }

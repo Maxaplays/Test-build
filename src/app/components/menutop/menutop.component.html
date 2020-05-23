@@ -34,10 +34,6 @@
                 <label class="label">{{usuario}}</label>
             </fieldset>
             <fieldset>
-                <label class="label">Fecha</label>
-                <input type="date">
-            </fieldset>
-            <fieldset>
                 <label class="label">Sucursal</label>
                 <select #SucursalActual>
                     <option *ngFor="let sucursal of sucursales" value="{{sucursal.ID_SUC}}" >{{sucursal.NOM_SUC}}</option>
