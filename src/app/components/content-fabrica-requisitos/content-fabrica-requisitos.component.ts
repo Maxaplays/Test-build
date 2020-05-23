@@ -21,6 +21,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   staticAlertClosed = false;
   errorMessage: string;
   successMessage: string;
+  advertenceMessage: string;
 
   paginaAcual = 1;
   marcarChecks = false;
@@ -92,7 +93,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
     }
   }
 
-  onFileSelected(event) {
+  onFileSelected(event, contentE, contentA) {
     let nombreArchivo = '';
     let politicasValidacion = '';
     for (let i = 0; i < this.miDataInterior.length ; i++) {
@@ -105,24 +106,36 @@ export class ContentFabricaRequisitosComponent implements OnInit {
         politicasValidacion += this.miDataInterior[i].ID_VAL;
       }
     }
-    //console.log(nombreArchivo);
     if (this.miDataInterior.length > 0) {
       this.archivoSeleccionado = <File> event.target.files[0];
       this.Archivos.push(this.archivoSeleccionado);
-      this.archivosService.postArchivo(this.Archivos, this.mensajeServicio.NumeroCredito, localStorage.getItem('usuario'), nombreArchivo, politicasValidacion, 'Requisito')
+      this.archivosService.postArchivo(this.Archivos, this.mensajeServicio.NumeroCredito,
+        localStorage.getItem('usuario'), nombreArchivo, politicasValidacion, 'Requisito')
         .subscribe(
           (data: any) => {
-            if (data.listaResultado !== null) {
-              this.requisitios = this.getRequisitos();
-              let mensajeSucces = '';
-              for (const mensaje of data.listaResultado) {
-                mensajeSucces += mensaje + '\n';
-              }
-              this.successMessage = mensajeSucces;
+            if (data.listaResultado.length > 0) {
+              this.successMessage = 'Archivo cargado';
             }
+            if (data.listaErrores.length > 0) {
+              let mensajeError = '';
+              for (const mensaje of data.listaErrores) {
+                mensajeError += mensaje + '\n';
+              }
+              this.errorMessage = mensajeError;
+              this.modalService.open(contentE, {windowClass: 'custom-width-error-modal'});
+            }
+            if (data.listaAdvertencias.length > 0) {
+              let mensajeAdvertencia = '';
+              for (const mensaje of data.listaAdvertencias) {
+                mensajeAdvertencia += mensaje + '\n';
+              }
+              this.advertenceMessage = mensajeAdvertencia;
+              this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+            }
+            this.requisitios = this.getRequisitos();
           }
         );
-      if(this.miDataInterior.length === this.requisitios.length) {
+      if (this.miDataInterior.length === this.requisitios.length) {
         this.desmarcar = false;
         this.marcarChecks = !this.marcarChecks;
         for (let i = 0; i < this.requisitios.length; i++) {
@@ -161,7 +174,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
     }
   }
 
-  guardarExcepcion() {
+  guardarExcepcion(contentA, contentE) {
     const excepcion: Excepcion = new Excepcion();
     excepcion.ID_VPOL = this.requisitoExepcion.ID_VAL;
     excepcion.IDE_CRE = this.mensajeServicio.NumeroCredito;
@@ -175,10 +188,25 @@ export class ContentFabricaRequisitosComponent implements OnInit {
           let mensajeSucces = '';
           this.excepciones = this.getExcepciones(this.requisitoExepcion["ID_VAL"]);
           this.requisitios = this.getRequisitos();
-          for (const mensaje of data.listaResultado) {
-            mensajeSucces += mensaje + '\n';
+          if (data.listaResultado.length > 0) {
+            this.successMessage = 'Excepción generada';
           }
-          this.successMessage = mensajeSucces;
+          if (data.listaErrores.length > 0) {
+            let mensajeError = '';
+            for (const mensaje of data.listaErrores) {
+              mensajeError += mensaje + '\n';
+            }
+            this.errorMessage = mensajeError;
+            this.modalService.open(contentE, {windowClass: 'custom-width-error-modal'});
+          }
+          if (data.listaAdvertencia.length > 0) {
+            let mensajeAdvertencia = '';
+            for (const mensaje of data.listaAdvertencia) {
+              mensajeAdvertencia += mensaje + '\n';
+            }
+            this.advertenceMessage = mensajeAdvertencia;
+            this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+          }
           this.comentarioExcepcion = '';
         }
       }
