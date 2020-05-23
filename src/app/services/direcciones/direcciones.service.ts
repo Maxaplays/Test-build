@@ -84,4 +84,5 @@ export class Direccion {
   Cedula: string;
   Nuevo: boolean;
   ID_DIR: number;
+  Usuario: string;
 }

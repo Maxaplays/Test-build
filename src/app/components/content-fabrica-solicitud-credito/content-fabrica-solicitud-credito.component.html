@@ -755,12 +755,8 @@
                             <option *ngFor="let tipo of tipoTel" [value]="tipo.COD_TDIS">{{tipo.NOM_TDIS}}</option>
                         </select>
             </fieldset>
-            <fieldset class="complex">
+            <fieldset class="label">
                 <label class="label">Número de Teléfono</label>
-                <select formControlName="CodigoTelefono">
-                            <option>02</option>
-                            <option>09</option>
-                        </select>
                 <input type="text" placeholder="Teléfono" formControlName="NumeroTelefono" class="form-control" [class.is-invalid]="NumeroTelefonoNoValido">
             </fieldset>
             <fieldset>
