@@ -29,10 +29,7 @@ export class ReferenciasService {
   }
 
   public postReferencias(referencia: Referencia, nuevo: boolean) {
-    if (nuevo) {
-      referencia.Nuevo = false;
-    }
-    const url = environment.urlServiciosBackend + `referencias/nuevaReferencia`;
+      const url = environment.urlServiciosBackend + `referencias/nuevaReferencia`;
     return this.http.post<Referencia>(url, referencia, this.httpOptions)
       .pipe(
         catchError(this.handleError('postReferencias', referencia))
@@ -62,6 +59,4 @@ export class Referencia {
   observa: string;
   email: string;
   cliente: string;
-  ID_REF: number;
-  Nuevo: boolean;
 }
