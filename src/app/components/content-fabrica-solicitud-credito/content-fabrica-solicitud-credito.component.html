@@ -788,8 +788,8 @@
         </div>
     </div>
     <div class="modal-body variation">
-        <form class="forms forms-relative" [formGroup]="FormularioDatosConyuge">
-            <div class="cols cols3">
+          <form class="forms forms-relative" autocomplete="off" [formGroup]="FormularioDatosConyuge">
+          <div class="cols cols3">
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Registro</label>
@@ -797,21 +797,21 @@
                     </fieldset>
                     <fieldset>
                         <label class="label">Tipo de Documento</label>
-                        <select formControlName="tipoDocumentacion" class="form-control" [class.is-invalid]="FormularioDatosConyuge.controls['tipoDocumentacion'].invalid" class="form-control">
+                        <select formControlName="tipoDocumentacion" (change)="getTipoDoc()" class="form-control" [class.is-invalid]="tipoDocCYNoValida">
                                 <option *ngFor="let tipo of tipoDoc" [value]="tipo.COD_TDOC">{{tipo.NOM_TDOC}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">RUC / Cédula</label>
-                        <input formControlName="cedula" class="form-control" type="text" placeholder="# Identificación">
+                        <input type="text" placeholder="# Identificación" class="form-control" formControlName="cedula" [class.is-invalid]="cedulaCYNoValida">
                     </fieldset>
                     <fieldset>
                         <label class="label">Apellidos</label>
-                        <input formControlName="apellidoConyuge" class="form-control" type="text" placeholder="Apellidos">
+                        <input formControlName="apellidoConyuge" class="form-control" type="text" placeholder="Apellidos" [class.is-invalid]="apellidoCYNoValido">
                     </fieldset>
                     <fieldset>
                         <label class="label">Nombres</label>
-                        <input formControlName="nombreConyuge" class="form-control" type="text" placeholder="Nombres">
+                        <input formControlName="nombreConyuge" class="form-control" type="text" placeholder="Nombres" [class.is-invalid]="nombreCYNoValido">
                     </fieldset>
                 </div>
                 <div>
@@ -825,19 +825,19 @@
                     </fieldset>
                     <fieldset>
                         <label class="label">Género</label>
-                        <select formControlName="genero" class="form-control">
+                        <select formControlName="genero" class="form-control" (change)="getGeneros()" class="form-control" [class.is-invalid]="generoCYNoValido">
                             <option *ngFor="let genero of generos" [value]="genero.COD_GEN">{{genero.NOM_GEN}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Nacionalidad</label>
-                        <select formControlName="nacionalidad" class="form-control">
+                        <select formControlName="nacionalidad" class="form-control" (change)="getNacionalidades()" class="form-control" [class.is-invalid]="nacionalidadCYNoValido">
                             <option *ngFor="let nacion of nacionalidades" [value]="nacion.COD_NAC">{{nacion.NOM_NAC}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Profesión</label>
-                        <select formControlName="profesion" class="form-control">
+                        <select formControlName="profesion" class="form-control" (change)="getProfesiones()" class="form-control" [class.is-invalid]="profesionCYNoValido">
                             <option *ngFor="let profesion of profesiones" [value]="profesion.COD_PRO">{{profesion.NOM_PRO}}</option>
                         </select>
                     </fieldset>
@@ -887,27 +887,27 @@
                     </fieldset>
                     <fieldset>
                         <label class="label">Cédula</label>
-                        <input formControlName="cedula" class="form-control" type="text" placeholder="Escriba Cédula">
+                        <input formControlName="cedula" class="form-control" type="text" placeholder="Escriba Cédula" [class.is-invalid]="cedulaREFNoValida">
                     </fieldset>
                     <fieldset>
                         <label class="label">Parenteso / Referencia</label>
-                        <select formControlName="parentesco" class="form-control">
+                        <select formControlName="parentesco" class="form-control" (change)="getParentescos()" class="form-control" [class.is-invalid]="parentescoREFNoValido">
                             <option *ngFor="let parentesco of parentescos" [value]="parentesco.COD_PARE">{{parentesco.NOM_PARE}}</option>
                      </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Apellidos</label>
-                        <input formControlName="apellido" class="form-control" type="text" placeholder="Escriba Apellidos">
+                        <input formControlName="apellido" class="form-control" type="text" placeholder="Escriba Apellidos" [class.is-invalid]="apellidoREFNoValida">
                     </fieldset>
                     <fieldset>
                         <label class="label">Nombres</label>
-                        <input formControlName="nombre" class="form-control" type="text" placeholder="Escriba Nombres">
+                        <input formControlName="nombre" class="form-control" type="text" placeholder="Escriba Nombres" [class.is-invalid]="nombreREFNoValida">
                     </fieldset>
                 </div>
                 <div>
                     <fieldset>
                         <label class="label">Dirección Domicilio</label>
-                        <input formControlName="direccion" class="form-control" type="text" placeholder="Escriba Dirección Domicilio">
+                        <input formControlName="direccion" class="form-control" type="text" placeholder="Escriba Dirección Domicilio" [class.is-invalid]="direccionREFNoValida">
                     </fieldset>
                     <fieldset>
                         <label class="label">Teléfono Domicilio</label>
@@ -938,8 +938,6 @@
                     <fieldset>
                         <label class="label">Observaciones</label>
                         <input formControlName="observa" class="form-control" type="text" placeholder="Escriba Observaciones">
-                        <input formControlName="cliente" class="form-control" type="text">
-                        <input formControlName="ID_REF" class="form-control" type="text">
                     </fieldset>
                 </div>
             </div>

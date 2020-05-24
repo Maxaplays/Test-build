@@ -257,11 +257,11 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       telefonoConyuge: new FormControl(null),
       fechaNacimiento: new FormControl(null, Validators.required),
       genero: new FormControl(null, Validators.required),
-      nacionalidad: new FormControl(null),
-      profesion: new FormControl(null),
+      nacionalidad: new FormControl(null, Validators.required),
+      profesion: new FormControl(null, Validators.required),
       direccion: new FormControl(null),
       observaciones: new FormControl(null)
-     });
+    });
   }
   cargarFormularioConyuge(conyuge: Conyuge) {
     // console.log(conyuge);
@@ -305,14 +305,12 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       direc_emp: new FormControl(null),
       observa: new FormControl(null),
       email: new FormControl(null),
-      cliente: new FormControl(null),
-      ID_REF: new FormControl(null)
      });
   }
 
   cargarFormularioReferencia(referencia: any) {
     this.FormularioDatosReferencia.reset({
-      tipo_registro: referencia.tipo_registro,
+      tipo_registro: 'Cliente',
       cedula: referencia.cedula,
       parentesco: referencia.COD_PARE,
       apellido: referencia.apellido,
@@ -325,8 +323,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       direc_emp: referencia.direc_emp,
       observa: referencia.observa,
       email: referencia.email,
-      cliente: referencia.cliente,
-      ID_REF: referencia.ID_REF
     });
   }
     // cedula, apellido, nombre, direccion, telefono_dom, celular, telefono_trab, empresa, direc_emp, observa
@@ -346,8 +342,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     datosReferencia.observa = this.FormularioDatosReferencia.value.observa;
     datosReferencia.email = this.FormularioDatosReferencia.value.email;
     datosReferencia.cliente = this.mensajeServicio.Cedula;
-    datosReferencia.ID_REF = this.FormularioDatosReferencia.value.ID_REF;
-    // console.log(datosReferencia);
+     // console.log(datosReferencia);
     this.referenciasServices.postReferencias(datosReferencia, this.crearReferencia).subscribe(
       (data: any) => {
         let resultado = data;
@@ -731,7 +726,42 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
   }
 
-
+  get tipoDocCYNoValida() {
+    return this.FormularioDatosConyuge.get('tipoDocumentacion').invalid && this.FormularioDatosConyuge.get('tipoDocumentacion').touched;
+  }
+  get cedulaCYNoValida() {
+    return this.FormularioDatosConyuge.get('cedula').invalid && this.FormularioDatosConyuge.get('cedula').touched;
+  }
+  get apellidoCYNoValido() {
+    return this.FormularioDatosConyuge.get('apellidoConyuge').invalid && this.FormularioDatosConyuge.get('apellidoConyuge').touched;
+  }
+  get nombreCYNoValido() {
+    return this.FormularioDatosConyuge.get('nombreConyuge').invalid && this.FormularioDatosConyuge.get('nombreConyuge').touched;
+  }
+  get generoCYNoValido() {
+    return this.FormularioDatosConyuge.get('genero').invalid && this.FormularioDatosConyuge.get('genero').touched;
+  }
+  get nacionalidadCYNoValido() {
+    return this.FormularioDatosConyuge.get('nacionalidad').invalid && this.FormularioDatosConyuge.get('nacionalidad').touched;
+  }
+  get profesionCYNoValido() {
+    return this.FormularioDatosConyuge.get('profesion').invalid && this.FormularioDatosConyuge.get('profesion').touched;
+  }
+  get cedulaREFNoValida() {
+    return this.FormularioDatosReferencia.get('cedula').invalid && this.FormularioDatosReferencia.get('cedula').touched;
+  }
+  get parentescoREFNoValido() {
+    return this.FormularioDatosReferencia.get('parentesco').invalid && this.FormularioDatosReferencia.get('parentesco').touched;
+  }
+  get apellidoREFNoValida() {
+    return this.FormularioDatosReferencia.get('apellido').invalid && this.FormularioDatosReferencia.get('apellido').touched;
+  }
+  get nombreREFNoValida() {
+    return this.FormularioDatosReferencia.get('nombre').invalid && this.FormularioDatosReferencia.get('nombre').touched;
+  }
+  get direccionREFNoValida() {
+    return this.FormularioDatosReferencia.get('direccion').invalid && this.FormularioDatosReferencia.get('direccion').touched;
+  }
 
   get tipoRegistroNoValido() {
     return this.formaDirecciones.get('tipoRegistro').invalid && this.formaDirecciones.get('tipoRegistro').touched;
