@@ -229,5 +229,16 @@ export class ContentFabricaGeneracionComponent implements OnInit {
                                             Number(this.FormularioDatosReportes.controls['creditoMaximo'].value)));
       } catch {}
   }
+  incializarCredito() {
+    this.fabricaService.getRetomarCredito(this.mensajeServicio.NumeroCredito,
+    localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+              (data: DatosFabrica) => {
+                // console.log(data);
+                this.getTipoReportes();
+                this.getEntidadFinanciera();
+                this.getTipoCuenta();
+                this.inicializarDatosCuentas();
+              });
+  }
 }
 

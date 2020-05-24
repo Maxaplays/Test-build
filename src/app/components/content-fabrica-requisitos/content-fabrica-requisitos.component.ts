@@ -173,7 +173,14 @@ export class ContentFabricaRequisitosComponent implements OnInit {
         });
     }
   }
-
+  incializarCredito() {
+    this.fabricaService.getRetomarCredito(this.mensajeServicio.NumeroCredito,
+    localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+              (data: DatosFabrica) => {
+                // console.log(data);
+                this.getRequisitos();
+              });
+  }
   guardarExcepcion(contentA, contentE) {
     const excepcion: Excepcion = new Excepcion();
     excepcion.ID_VPOL = this.requisitoExepcion.ID_VAL;

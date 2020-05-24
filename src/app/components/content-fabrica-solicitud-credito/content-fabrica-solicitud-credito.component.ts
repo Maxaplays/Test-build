@@ -119,35 +119,53 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                 this.barrios = this.getBarrio();
                 this.tipoTel = this.getTipoTel();
                 this.activatedRoute.queryParams.subscribe(params => {
-                this.idCredito = params['idCre'];
-                if (typeof this.idCredito !== 'undefined') {
-                    this.fabricaService.getRetomarCredito(this.idCredito,
-                      localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
-                        (data: DatosFabrica) => {
-                          // console.log(data);
-                          this.fabricaService.changeMessage(data);
-                          this.acoplarPantalla(data.Estado);
-                        });
-                    }
-                });
-                this.fabricaService.currentMessage.subscribe(
-                  data => {
-                  this.mensajeServicio = data;
-                  this.getCliente();
-                  this.getDatosComplementarios();
-                  this.direcciones = this.getDirecciones();
-                  this.telefonos = this.getTelefonos();
-                  this.conyuges = this.getListaConyuges();
-                  this.referencias = this.getListaReferencias();
-                  this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
-                  this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
-                });
+                  this.idCredito = params['idCre'];
+                  if (typeof this.idCredito !== 'undefined') {
+                      this.fabricaService.getRetomarCredito(this.idCredito,
+                        localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+                          (data: DatosFabrica) => {
+                            // console.log(data);
+                            this.fabricaService.changeMessage(data);
+                            this.acoplarPantalla(data.Estado);
+                          });
+                      }
+                  });
+                  this.fabricaService.currentMessage.subscribe(
+                    data => {
+                    this.mensajeServicio = data;
+                    this.getCliente();
+                    this.getDatosComplementarios();
+                    this.direcciones = this.getDirecciones();
+                    this.telefonos = this.getTelefonos();
+                    this.conyuges = this.getListaConyuges();
+                    this.referencias = this.getListaReferencias();
+                    this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
+                    this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
+                  });
   }
 
   ngOnInit() {
 
   }
-
+  incializarCredito() {
+    this.loading = true;
+    this.fabricaService.getRetomarCredito(this.idCredito,
+    localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+              (data: DatosFabrica) => {
+                // console.log(data);
+                this.fabricaService.changeMessage(data);
+                this.acoplarPantalla(data.Estado);
+                this.getCliente();
+                this.getDatosComplementarios();
+                this.direcciones = this.getDirecciones();
+                this.telefonos = this.getTelefonos();
+                this.conyuges = this.getListaConyuges();
+                this.referencias = this.getListaReferencias();
+                this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
+                this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
+                this.loading = false;
+              });
+  }
   onDatosComplementariosComentariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
     this.datosComplService.getguardarComentario(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
         .subscribe( (resultado: any[] ) => {
@@ -359,7 +377,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
   }
 
-  private getTipoDoc(): any {
+  public getTipoDoc(): any {
     this.tipoDocumentacionService.getTipoDoc()
         .subscribe( (resultado: any[] ) => {
           this.tipoDoc = resultado;

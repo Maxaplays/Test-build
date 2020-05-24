@@ -15,7 +15,7 @@
                 <span>{{mensajeServicio.NombreConsultado}}</span>
             </li>
             <li>
-                <h5>Estado</h5>
+                <h5>Estado<img src="assets/images/update.png" (click)="incializarCredito()" /></h5>
                 <span class="tag">{{mensajeServicio.Estado}}</span>
             </li>
             <li>
@@ -89,7 +89,7 @@
             <table class="width-filters">
                 <thead>
                     <tr>
-                        <th><input type="checkbox" (change)="marcarTodos($event)" [checked]=false ></th>
+                        <th><input type="checkbox" (change)="marcarTodos($event)" [checked]=false></th>
                         <th>Solicitar Excepción</th>
                         <th>Estado</th>
                         <th>Url</th>
@@ -312,29 +312,29 @@
 </ng-template>
 
 <ng-template #mensajeAdvertencia let-modal>
-  <div class="modal-header-mfc variation modal-mensaje">
-    <div class="cols cols2 align-middle">
-      <div class="align-left">
-        <img width="32" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-mensaje-warning.svg">
-        <h4 class="modal-minititle-mfc">Importante</h4>
-      </div>
-      <div class="align-right">
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+    <div class="modal-header-mfc variation modal-mensaje">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="32" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-mensaje-warning.svg">
+                <h4 class="modal-minititle-mfc">Importante</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="modal-body variation modal-mensaje">
-    <p>{{advertenceMessage}}</p>
-  </div>
-  <div class="modal-footer-mfc full variation">
-    <div class="cols cols2">
-
-      <div class="align-right">
-        <button class="btn btn-solid-green" (click)="modal.close('Cancelar click')">Aceptar</button>
-      </div>
+    <div class="modal-body variation modal-mensaje">
+        <p>{{advertenceMessage}}</p>
     </div>
-  </div>
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+
+            <div class="align-right">
+                <button class="btn btn-solid-green" (click)="modal.close('Cancelar click')">Aceptar</button>
+            </div>
+        </div>
+    </div>
 </ng-template>

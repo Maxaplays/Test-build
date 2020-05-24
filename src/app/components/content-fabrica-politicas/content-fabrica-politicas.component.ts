@@ -41,7 +41,14 @@ export class ContentFabricaPoliticasComponent implements OnInit {
         // console.log(data);
       });
   }
-
+  incializarCredito() {
+    this.fabricaService.getRetomarCredito(this.mensajeServicio.NumeroCredito,
+    localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+              (data: DatosFabrica) => {
+                // console.log(data);
+                this.getPoliticas();
+              });
+  }
   openLg(content) {
     this.modalService.open(content);
   }
