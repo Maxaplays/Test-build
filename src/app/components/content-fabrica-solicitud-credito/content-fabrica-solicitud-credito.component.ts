@@ -190,7 +190,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.FormularioDatosCliente.controls['nacionalidad'].setValue(datosCliente.COD_NAC);
         this.FormularioDatosCliente.controls['apellidoCliente'].setValue(datosCliente.APE_CLI);
         this.FormularioDatosCliente.controls['nombreCliente'].setValue(datosCliente.NOM_CLI);
-        try{
+        try {
         let fechaNacimiento: Date = new Date(datosCliente.FECH_NAC_CLI);
         this.FormularioDatosCliente.controls['fechaNacimiento'].setValue(fechaNacimiento.toISOString().substring(0, 10));
         } catch {}
@@ -602,7 +602,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         let totalSumaBackend: number;
         totalSumaBackend = Number(resultado.toString().replace(',', '.'));
         this.sumatoriaEgresos = totalSumaBackend;
-        this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;  
+        this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
       });
 
   }
@@ -613,7 +613,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         let totalSumaBackend: number;
         totalSumaBackend = Number(resultado.toString().replace(',', '.'));
         this.sumatoriaEgresos = totalSumaBackend;
-        this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;  
+        this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
       });
 
 
@@ -778,6 +778,15 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
 
   get NumeroTelefonoNoValido() {
+    if (this.formaTelefonos.get('TipoTelefono').value === 'FIJO') {
+      if (this.formaTelefonos.get('NumeroTelefono').value.toString().length < 9) {
+        return this.formaTelefonos.get('NumeroTelefono').invalid && this.formaTelefonos.get('NumeroTelefono').touched;
+      }
+    } else if (this.formaTelefonos.get('TipoTelefono').value === 'MOVIL') {
+      if (this.formaTelefonos.get('NumeroTelefono').value.toString().length < 10) {
+        return this.formaTelefonos.get('NumeroTelefono').invalid && this.formaTelefonos.get('NumeroTelefono').touched;
+      }
+    }
     return this.formaTelefonos.get('NumeroTelefono').invalid && this.formaTelefonos.get('NumeroTelefono').touched;
   }
 
@@ -855,8 +864,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.formaTelefonos.reset({
       TipoRegistroTelefono: telefono.TIPO.toUpperCase(),
       TipoTelefono: telefono['COD_TDIS'],
-      CodigoTelefono: telefono.VALOR_DIS.substring(0, 2),
-      NumeroTelefono: telefono.VALOR_DIS.substring(2, telefono.VALOR_DIS.length),
+      NumeroTelefono: telefono.VALOR_DIS,
       ExtensionTelefono: telefono['EXTEN_DIS']
     });
     this.codigoTelefono = telefono['ID_DIS'];
@@ -866,13 +874,13 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.formaTelefonos = this.fb.group({
       TipoRegistroTelefono: ['CLIENTE'],
       TipoTelefono: ['FIJO'],
-      CodigoTelefono: ['02'],
-      NumeroTelefono: ['', [Validators.required, Validators.minLength(7), Validators.pattern('^[0-9]*$')]],
+      NumeroTelefono: ['', [Validators.required, Validators.minLength(9), Validators.pattern('^[0-9]*$')]],
       ExtensionTelefono: ['']
     });
   }
   guardarDireccion() {
-    if (this.formaDirecciones.invalid) {
+    console.log(this.formaDirecciones);
+    if (this.formaDirecciones.invalid == true) {
       return Object.values(this.formaDirecciones.controls).forEach(control => {
         if (control instanceof FormGroup) {
           // tslint:disable-next-line:no-shadowed-variable
@@ -896,6 +904,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       direccion.CodigoPostal = this.formaDirecciones.value.CodigoPostalDireccion;
       direccion.Cedula = this.mensajeServicio.Cedula;
       direccion.ID_DIR = this.codigoDireccion;
+      direccion.Usuario = localStorage.getItem('usuario');
       this.direccionesService.postDireccion(direccion, this.crearDireccion).subscribe(
         (data: any) => {
           if (data.resultado !== null) {
@@ -919,10 +928,14 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         }
       });
     } else {
+      let extension = ' ';
+      if (this.formaTelefonos.value.ExtensionTelefono !== '') {
+        extension = this.formaTelefonos.value.ExtensionTelefono;
+      }
       this.telefonoService.postTelefono(this.formaTelefonos.value.TipoTelefono,
                                         this.mensajeServicio.Cedula,
-                             this.formaTelefonos.value.CodigoTelefono.toString() + this.formaTelefonos.value.NumeroTelefono.toString(),
-                                        this.formaTelefonos.value.ExtensionTelefono, this.codigoTelefono, this.crearTelefono).subscribe(
+                             this.formaTelefonos.value.NumeroTelefono.toString(),
+                                        extension, this.codigoTelefono, this.crearTelefono, localStorage.getItem('usuario')).subscribe(
         (data: any) => {
           if (data.error !== null) {
             // console.log(data.error);
