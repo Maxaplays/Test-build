@@ -112,7 +112,7 @@
                 <tbody>
                     <tr *ngFor="let control of controlCalidad | paginate: {itemsPerPage: 10, currentPage: paginaAcual}">
                         <td><input type="checkbox" [checked]="marcarChecks" name="miDataInterior" (change)="$event.target.checked ? agregar(control) : quitar(control)"></td>
-                        <td><a class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion, control)">Solicitar</a></td>
+                        <td><a *ngIf="SolicitarExcepcion" class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion, control)">Solicitar</a></td>
                         <td><span class="{{control.COLOR_UX}}"></span></td>
                         <td *ngIf="control.URL_DOC">
                             <a href="{{control.URL_DOC}}" target="_blank"><img src="assets/images/icon-url.svg" class="check-center"></a>
@@ -145,9 +145,9 @@
         <div class="cols cols2">
             <div class="align-left">
                 <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial,'')"><img src="assets/images/icon-reloj.svg">Historial</button>
-                <button class="btn btn-border-blue" (click)="openCustomWidth(cancelarSolicitud)">Cancelar solicitud</button>
+                <button *ngIf="btnSolicitarAnulacion" class="btn btn-border-blue" (click)="openCustomWidth(cancelarSolicitud)">Cancelar solicitud</button>
                 <button class="btn btn-border-blue"><img src="assets/images/icon-folder.svg">Documentación</button>
-                <a class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event)" *ngIf="subirArchivo()"></a>
+                <a *ngIf="SubirArchivos" class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event)" *ngIf="subirArchivo()"></a>
             </div>
             <div class="align-right">
 

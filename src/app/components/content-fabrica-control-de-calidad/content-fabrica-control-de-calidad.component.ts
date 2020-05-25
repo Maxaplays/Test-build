@@ -25,6 +25,12 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
   Archivos: File[] = [];
   archivoSeleccionado: File = null;
   miDataInterior = [];
+  btnSolicitarAnulacion = true;
+  SubirArchivos = true;
+  BtnEntregarCarpeta = true;
+  btnSolicitarAnalisis = true;
+  ASPxActualizarSOL = true;
+  SolicitarExcepcion = true;
   // bkm
   mensajeServicio: DatosFabrica;
   controlCalidad: any[] = [];
@@ -43,6 +49,7 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
     this.fabricaService.currentMessage.subscribe(
       data => {
         this.mensajeServicio = data;
+        this.acoplarPantalla(this.mensajeServicio.Estado);
         this.controlCalidad = this.getControlCalidad();
         // console.log(data);
       });
@@ -184,7 +191,65 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
     localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
               (data: DatosFabrica) => {
                 // console.log(data);
+                this.acoplarPantalla(this.mensajeServicio.Estado);
                 this.controlCalidad = this.getControlCalidad();
               });
+  }
+  acoplarPantalla(lblEstadoSolicitud: string) {
+    console.log('Acoplando Pantalla: ' + lblEstadoSolicitud);
+    if (lblEstadoSolicitud === 'Documental' || lblEstadoSolicitud === 'Cancelada' ||
+        lblEstadoSolicitud === 'Aprobada' || lblEstadoSolicitud === 'Autorizada' ||
+        lblEstadoSolicitud === 'Re-Documental' || lblEstadoSolicitud === 'RechazadaCC' ||
+        lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Caducada' ||
+        lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
+        lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
+        lblEstadoSolicitud === 'Autorización Caducada') {
+                    // pageControlCliente.TabPages[7].Enabled = true;
+                    if (lblEstadoSolicitud === 'Aprobada') {
+                      // console.log('Bloqueado 1' + lblEstadoSolicitud);
+                      this.btnSolicitarAnulacion = false;
+                      this.SubirArchivos = false;
+                      this.BtnEntregarCarpeta = true;
+                      this.btnSolicitarAnalisis = false;
+                      this.ASPxActualizarSOL = false;
+                      this.SolicitarExcepcion = false;
+                    } else {
+                        if (lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Rechazada' ||
+                         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
+                          lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada') {
+                            // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
+                            // ('Bloqueado 2' + lblEstadoSolicitud);
+                            this.ASPxActualizarSOL = false;
+                            this.btnSolicitarAnulacion = false;
+                            this.BtnEntregarCarpeta = false;
+                            this.btnSolicitarAnalisis = false;
+                            this.SubirArchivos = false;
+                            // ASPxUploadControl1.Visible = false;
+                            // ASPxUploadControl2.Visible = false;
+                            // ASPxUploadControl3.Visible = false;
+                            // btnGenerarReportesDinamicos.Visible = false;
+                            // btnRefrescar.Visible = false;
+                            // BtnGuardar.Visible = false;
+                        } else {
+                            if (lblEstadoSolicitud === 'Cancelada') {
+                              console.log('Bloqueado 3' + lblEstadoSolicitud);
+                              this.ASPxActualizarSOL = false;
+                              this.btnSolicitarAnulacion = false;
+                              this.BtnEntregarCarpeta = false;
+                              this.btnSolicitarAnalisis = false;
+                              this.SubirArchivos = false;
+                            } else {
+                              // console.log('Bloqueado 4' + lblEstadoSolicitud);
+                              this.btnSolicitarAnulacion = true;
+                              this.BtnEntregarCarpeta = false;
+                              this.btnSolicitarAnalisis = false;
+                              this.SubirArchivos = false;
+                            }
+                        }
+                    }
+                } else {
+                  // console.log('Bloqueado 5' + lblEstadoSolicitud);
+                    // pageControlCliente.TabPages[7].Enabled = false;
+                }
   }
 }

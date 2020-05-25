@@ -106,7 +106,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let politica of politicas | paginate: {itemsPerPage: 10, currentPage: paginaAcual}">
-                        <td><a class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion, politica)"> Solicitar </a></td>
+                        <td><a *ngIf="SolicitarExcepcion" class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion, politica)"> Solicitar </a></td>
                         <td>{{politica.NOM_POL}}</td>
                         <td>{{politica.VALOR_MAT}}</td>
                         <td><img src="{{politica.CHECK_UX}}" class="check-center"></td>
@@ -130,13 +130,13 @@
         <div class="cols cols2">
             <div class="align-left">
                 <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial,'')"><img src="assets/images/icon-reloj.svg">Historial</button>
-                <button class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
+                <button *ngIf="btnSolicitarAnulacion" class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
                 <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Documentación</button>
             </div>
             <div class="align-right">
                 <!-- <button class="btn btn-border-gray">Cancelar</button> -->
-                <button class="btn btn-solid-green" (click)="solicitarAnalisis(mensajeModalError)">Solicitar análisis</button>
-                <button class="btn btn-solid-green">Guardar</button>
+                <button *ngIf="btnSolicitarAnalisis" class="btn btn-solid-green" (click)="solicitarAnalisis(mensajeModalError)">Solicitar análisis</button>
+                <button *ngIf="ASPxActualizarSOL" class="btn btn-solid-green">Guardar</button>
                 <button class="btn btn-solid-blue">Siguiente</button>
             </div>
         </div>

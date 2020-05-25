@@ -184,7 +184,7 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-direcciones.svg"> <span>Direcciones</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button class="btn btn-solid-green" (click)="openLg(agregarEditarDireccion, '')">Añadir Dirección</button>
+                        <button *ngIf="btnActualizarDirecciones" class="btn btn-solid-green" (click)="openLg(agregarEditarDireccion, '')">Añadir Dirección</button>
                     </div>
                     <table>
                         <thead>
@@ -213,7 +213,7 @@
                                 <td data-column="Observaciones">{{direccion.OBS_VAL_DIR}}</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarDireccion, direccion)">
+                                    <img *ngIf="btnActualizarDirecciones" src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarDireccion, direccion)">
                                     <img src="assets/images/icon-printer.svg" class="icon-with-action">
                                 </td>
                             </tr>
@@ -229,7 +229,7 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-phone.svg"> <span>Teléfonos</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button class="btn btn-solid-green" (click)="openCustomWidth(agregarEditarTelefono,'')">Añadir Teléfono</button>
+                        <button *ngIf="btnTelefonos" class="btn btn-solid-green" (click)="openCustomWidth(agregarEditarTelefono,'')">Añadir Teléfono</button>
                     </div>
                     <table>
                         <thead>
@@ -255,7 +255,7 @@
                                 <td *ngIf="telefono.ESTADO_DIS" data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td *ngIf="!telefono.ESTADO_DIS" data-column="Status" class="table-right"><span class="red-color">Inactivo</span></td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openCustomWidth(agregarEditarTelefono, telefono)">
+                                    <img *ngIf="btnTelefonos" src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openCustomWidth(agregarEditarTelefono, telefono)">
                                 </td>
                             </tr>
                             <tr class="foot-td">
@@ -271,7 +271,7 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-conyuges.svg"> <span>Cónyuges</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button class="btn btn-solid-green" (click)="nuevoConyuge(agregarEditarConyuge)">Añadir Cónyuge</button>
+                        <button *ngIf="btnConyuge" class="btn btn-solid-green" (click)="nuevoConyuge(agregarEditarConyuge)">Añadir Cónyuge</button>
                     </div>
                     <table>
                         <thead>
@@ -298,7 +298,7 @@
                                 <td data-column="Fecha de Nacimiento">{{conyuge.FECH_NAC_CON}}</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="editarConyuge(agregarEditarConyuge, conyuge)">
+                                    <img *ngIf="btnConyuge" src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="editarConyuge(agregarEditarConyuge, conyuge)">
                                     <img src="assets/images/icon-printer.svg" class="icon-with-action">
                                 </td>
                             </tr>
@@ -314,7 +314,7 @@
                 <ng-template ngbTabTitle><img src="assets/images/icon-referencias-tab.svg"> <span>Referencias</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button class="btn btn-solid-green" (click)="editarReferencia(agregarEditarReferencia,'')">Añadir Referencia</button>
+                        <button *ngIf="btnActualizarReferencias" class="btn btn-solid-green" (click)="editarReferencia(agregarEditarReferencia,'')">Añadir Referencia</button>
                     </div>
                     <table>
                         <thead>
@@ -347,7 +347,7 @@
                                 <td data-column="Observaciones">{{referencia.observa}}</td>
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="editarReferencia(agregarEditarReferencia, referencia)">
+                                    <img *ngIf="btnActualizarReferencias" src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="editarReferencia(agregarEditarReferencia, referencia)">
                                     <img src="assets/images/icon-printer.svg" class="icon-with-action">
                                 </td>
                             </tr>
@@ -618,12 +618,12 @@
         <div class="cols cols2">
             <div class="align-left">
                 <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button>
-                <button class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
+                <button *ngIf="btnSolicitarAnulacion" class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
                 <button class="btn btn-border-blue btn-cancel"><img src="assets/images/icon-folder.svg">Documentación</button>
             </div>
             <div class="align-right">
-                <button class="btn btn-solid-green" (click)="solicitarAnalisis(mensajeModalError)">Solicitar análisis</button>
-                <button class="btn btn-solid-green" (click)="guardarCliente(mensajeModalError)">Guardar</button>
+                <button *ngIf="btnSolicitarAnalisis" class="btn btn-solid-green" (click)="solicitarAnalisis(mensajeModalError)">Solicitar análisis</button>
+                <button *ngIf="ASPxActualizarSOL" class="btn btn-solid-green" (click)="guardarCliente(mensajeModalError)">Guardar</button>
                 <button class="btn btn-solid-blue">Siguiente</button>
             </div>
         </div>
@@ -719,7 +719,7 @@
             <div class="modal-footer-mfc full variation">
                 <div class="align-right">
                     <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-                    <button [class.btn-solid-green]="formaDirecciones.valid" [className]="formaDirecciones.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" type="submit">Guardar dirección</button>
+                    <button *ngIf="btnActualizarDirecciones" [class.btn-solid-green]="formaDirecciones.valid" [className]="formaDirecciones.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" type="submit">Guardar dirección</button>
                 </div>
             </div>
         </form>
@@ -766,7 +766,7 @@
             <div class="modal-footer-mfc full variation">
                 <div class="align-right">
                     <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-                    <button [class.btn-solid-green]="formaTelefonos.valid" [className]="formaTelefonos.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" (submit)="guardarTelefono()">Guardar teléfono</button>
+                    <button *ngIf="btnTelefonos" [class.btn-solid-green]="formaTelefonos.valid" [className]="formaTelefonos.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" (submit)="guardarTelefono()">Guardar teléfono</button>
                 </div>
             </div>
         </form>
@@ -858,7 +858,7 @@
     <div class="modal-footer-mfc full variation">
         <div class="align-right">
             <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-            <button [className]="FormularioDatosConyuge.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" (click)="guardarConyuge(mensajeModalError)">Guardar Conyuge</button>
+            <button *ngIf="btnConyuge" [className]="FormularioDatosConyuge.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" (click)="guardarConyuge(mensajeModalError)">Guardar Conyuge</button>
         </div>
     </div>
 </ng-template>
@@ -947,7 +947,7 @@
     <div class="modal-footer-mfc full variation">
         <div class="align-right">
             <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-            <button [class.btn-solid-green]="FormularioDatosReferencia.valid" [className]="FormularioDatosReferencia.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" (click)="guardarReferencia(mensajeModalError)">Guardar Referencia</button>
+            <button *ngIf="btnActualizarReferencias" [class.btn-solid-green]="FormularioDatosReferencia.valid" [className]="FormularioDatosReferencia.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" (click)="guardarReferencia(mensajeModalError)">Guardar Referencia</button>
         </div>
     </div>
 </ng-template>

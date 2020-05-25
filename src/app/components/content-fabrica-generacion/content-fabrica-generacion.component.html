@@ -134,15 +134,15 @@
             </form>
         </div>
         <div class="align-right " style="padding-top: 40px; ">
-            <button class="btn btn-solid-blue " (click)="generarDocumentos(docGenerado,mensajeModalError)">Generar Documentación Seleccionada</button>
+            <button *ngIf="generarDocumentacion" class="btn btn-solid-blue " (click)="generarDocumentos(docGenerado,mensajeModalError)">Generar Documentación Seleccionada</button>
         </div>
     </div>
 
     <div class="footer-fixed-forms ">
         <div class="cols cols2 ">
             <div class="align-left ">
-                <button class="btn btn-border-blue " (click)="openCustomWidthVariant(verHistorial) "><img src="assets/images/icon-reloj.svg ">Historial</button>
-                <button class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
+                <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial) "><img src="assets/images/icon-reloj.svg ">Historial</button>
+                <button *ngIf="btnSolicitarAnulacion" class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
                 <button class="btn btn-border-blue " (click)="openLg(verDocumentacion) "><img src="assets/images/icon-folder.svg ">Documentación</button>
             </div>
             <div class="align-right ">
@@ -173,7 +173,7 @@
             <label class="label ">Nuevo archivo</label>
             <div class="false-inputfile ">
                 <input type="text " disabled placeholder="Elija un archivo para subir... ">
-                <button class="btn btn-solid-blue " type="button " (click)="fileInput.click() ">
+                <button *ngIf="SubirArchivos" class="btn btn-solid-blue " type="button " (click)="fileInput.click() ">
                     <span>Cargar archivo</span>
                     <input #fileInput type="file " style="display:none; " />
                 </button>

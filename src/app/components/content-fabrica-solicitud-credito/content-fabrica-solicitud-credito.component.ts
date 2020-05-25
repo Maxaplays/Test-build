@@ -49,6 +49,16 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   sumatoriaTotal: number = 0;
   idCredito: string;
   tabActual;
+  btnSolicitarAnulacion = true;
+  BtnEntregarCarpeta = true;
+  btnSolicitarAnalisis = true;
+  btnMedioAprobacion = true;
+  ASPxActualizarSOL = true;
+  btnTelefonos = true;
+  btnActualizarDirecciones = true;
+  btnConyuge = true;
+  btnActualizarReferencias = true;
+  grabarDatosIngresadosGrid = true;
 
   // formas para ingreso y edición de datos - bkm
   formaDirecciones: FormGroup;
@@ -126,6 +136,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                           (data: DatosFabrica) => {
                             // console.log(data);
                             this.fabricaService.changeMessage(data);
+                            console.log('Acoplar Pantalla: ' + data.Estado);
                             this.acoplarPantalla(data.Estado);
                           });
                       }
@@ -133,6 +144,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                   this.fabricaService.currentMessage.subscribe(
                     data => {
                     this.mensajeServicio = data;
+                    this.acoplarPantalla(data.Estado);
                     this.getCliente();
                     this.getDatosComplementarios();
                     this.direcciones = this.getDirecciones();
@@ -147,26 +159,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   ngOnInit() {
 
   }
-  incializarCredito() {
-    this.loading = true;
-    this.fabricaService.getRetomarCredito(this.idCredito,
-    localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
-              (data: DatosFabrica) => {
-                // console.log(data);
-                this.fabricaService.changeMessage(data);
-                this.acoplarPantalla(data.Estado);
-                this.getCliente();
-                this.getDatosComplementarios();
-                this.direcciones = this.getDirecciones();
-                this.telefonos = this.getTelefonos();
-                this.conyuges = this.getListaConyuges();
-                this.referencias = this.getListaReferencias();
-                this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
-                this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
-                this.loading = false;
-              });
-  }
   onDatosComplementariosComentariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
+    if (this.grabarDatosIngresadosGrid) {
     this.datosComplService.getguardarComentario(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
         .subscribe( (resultado: any[] ) => {
             if (resultado.toString() === 'Actualizado!') {
@@ -174,6 +168,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               // this.getDatosComplementarios();
             }
         });
+      }
   }
   crearFormularioCliente() {
     this.FormularioDatosCliente = new FormGroup({
@@ -511,6 +506,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
   acoplarPantalla(lblEstadoSolicitud: string) {
+    console.log('Acoplando Pantalla: ' + lblEstadoSolicitud);
     if (lblEstadoSolicitud === 'Documental' || lblEstadoSolicitud === 'Cancelada' ||
         lblEstadoSolicitud === 'Aprobada' || lblEstadoSolicitud === 'Autorizada' ||
         lblEstadoSolicitud === 'Re-Documental' || lblEstadoSolicitud === 'RechazadaCC' ||
@@ -518,50 +514,56 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
         lblEstadoSolicitud === 'Autorización Caducada') {
-                  // console.log('Bloqueado 0' + lblEstadoSolicitud);
                     // pageControlCliente.TabPages[7].Enabled = true;
                     if (lblEstadoSolicitud === 'Aprobada') {
                       // console.log('Bloqueado 1' + lblEstadoSolicitud);
-                      // btnSolicitarAnulacion.Visible = false;
-                        // BtnEntregarCarpeta.Visible = true;
-                        // btnSolicitarAnalisis.Visible = false;
-                        // btnMedioAprobacion.Visible = false;
+                      this.btnSolicitarAnulacion = false;
+                      this.BtnEntregarCarpeta = true;
+                      this.btnSolicitarAnalisis = false;
+                      this.btnMedioAprobacion = false;
+                      this.grabarDatosIngresadosGrid = false;
                     } else {
                         if (lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Rechazada' ||
                          lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
                           lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada') {
                             // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
                             // ('Bloqueado 2' + lblEstadoSolicitud);
-                            // btnSolicitarAnulacion.Visible = false;
-                            // BtnEntregarCarpeta.Visible = false;
-                            // ASPxButton1.Visible = false;
-                            // ASPxActualizarSOL.Visible = false;
-                            // btnTelefonos.Visible = false;
-                            // ASPxActualizarSOLGarante.Visible = false;
-                            // btnTelefonosGarante.Visible = false;
-                            // btnActualizarDirecciones.Visible = false;
-                            // btnConyuge.Visible = false;
-                            // btnActualizarReferencias.Visible = false;
+                            this.btnSolicitarAnulacion = false;
+                            this.BtnEntregarCarpeta = false;
+                            //this.ASPxButton1 = false;
+                            this.ASPxActualizarSOL = false;
+                            this.btnTelefonos = false;
+                            this.btnActualizarDirecciones = false;
+                            this.btnConyuge = false;
+                            this.btnActualizarReferencias = false;
+                            this.grabarDatosIngresadosGrid = false;
                             // ASPxUploadControl1.Visible = false;
                             // ASPxUploadControl2.Visible = false;
                             // ASPxUploadControl3.Visible = false;
                             // btnGenerarReportesDinamicos.Visible = false;
                             // btnRefrescar.Visible = false;
                             // BtnGuardar.Visible = false;
-                            // btnSolicitarAnalisis.Visible = false;
-                            // btnMedioAprobacion.Visible = false;
+                            this.btnSolicitarAnalisis = false;
+                            this.btnMedioAprobacion = false;
                         } else {
                             if (lblEstadoSolicitud === 'Cancelada') {
                               // console.log('Bloqueado 3' + lblEstadoSolicitud);
-                                // btnSolicitarAnulacion.Visible = false;
-                                // BtnEntregarCarpeta.Visible = false;
-                                // btnSolicitarAnalisis.Visible = false;
-                                // btnMedioAprobacion.Visible = false;
+                              this.ASPxActualizarSOL = false;
+                              this.btnSolicitarAnulacion = false;
+                              this.BtnEntregarCarpeta = false;
+                              this.btnSolicitarAnalisis = false;
+                              this.btnMedioAprobacion = false;
+                              this.btnTelefonos = false;
+                              this.btnActualizarDirecciones = false;
+                              this.btnConyuge = false;
+                              this.btnActualizarReferencias = false;
+                              this.grabarDatosIngresadosGrid = false;
                             } else {
                               // console.log('Bloqueado 4' + lblEstadoSolicitud);
-                                // btnSolicitarAnulacion.Visible = true;
-                                // BtnEntregarCarpeta.Visible = false;
-                                // btnSolicitarAnalisis.Visible = false;
+                              this.btnSolicitarAnulacion = true;
+                              this.BtnEntregarCarpeta = false;
+                              this.btnSolicitarAnalisis = false;
+                              this.grabarDatosIngresadosGrid = false;
                             }
                         }
                     }
@@ -587,6 +589,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
   // SITUACION FINANCIERA DDLT
   onDatosIngresosChange(newValue, ID_CREDITO_INGRESOS: string) {
+    if (this.grabarDatosIngresadosGrid) {
     this.situacionFinancieraService.getguardarComentarioIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any ) => {
           console.log(resultado);
@@ -595,9 +598,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
           this.sumatoriaIngresos = totalSumaBackend;
           this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
       });
-
+    }
   }
   onDatosIngresosValorChange(newValue, ID_CREDITO_INGRESOS: string) {
+    if (this.grabarDatosIngresadosGrid) {
     this.situacionFinancieraService.getguardarValorIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
      .subscribe( (resultado: any ) => {
         console.log(resultado);
@@ -606,9 +610,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.sumatoriaIngresos = totalSumaBackend;
         this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
      });
-
+    }
   }
   onDatosEgresosChange(newValue, ID_CREDITO_EGRESOS: string) {
+    if (this.grabarDatosIngresadosGrid) {
     this.situacionFinancieraService.getguardarComentarioEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any ) => {
         console.log(resultado);
@@ -617,9 +622,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.sumatoriaEgresos = totalSumaBackend;
         this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
       });
-
+    }
   }
   onDatosEgresosValorChange(newValue, ID_CREDITO_EGRESOS: string) {
+    if (this.grabarDatosIngresadosGrid) {
     this.situacionFinancieraService.getguardarValorEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any ) => {
         console.log(resultado);
@@ -628,8 +634,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.sumatoriaEgresos = totalSumaBackend;
         this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
       });
-
-
+    }
   }
   getConyuge() {
     this.conyugesServices.getConyugeCedula(this.mensajeServicio.Cedula)
@@ -999,6 +1004,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
   onDatosComplementariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
+    if (this.grabarDatosIngresadosGrid) {
     this.datosComplService.getguardarValor(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
         .subscribe( (resultado: any[] ) => {
           if (resultado.toString() === 'Actualizado!') {
@@ -1006,6 +1012,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
             // this.successMessage = resultado.toString();
           }
         });
+      }
   }
   nuevoConyuge(content) {
       this.crearFormularioConyuge();
