@@ -20,6 +20,7 @@ import { ClienteService, Cliente } from 'src/app/services/cliente/cliente.servic
 import { DatosComplementariosService, CREDITO_DATOS_COMPLEMENTARIOS } from '../../services/datosComplementarios/datos-complementarios.service';
 import { ParentescoService } from 'src/app/services/parentesco/parentesco.service';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { DocumentosService } from 'src/app/services/documentos.service';
 
 
 @Component({
@@ -59,6 +60,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   btnConyuge = true;
   btnActualizarReferencias = true;
   grabarDatosIngresadosGrid = true;
+  SubirArchivos = true;
 
   // formas para ingreso y edición de datos - bkm
   formaDirecciones: FormGroup;
@@ -89,6 +91,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   tipoRegTel: any[] = ['CLIENTE', 'GARANTE'];
   situacionFinancieraIngresos: any[] = [];
   situacionFinancieraEgresos: any[] = [];
+  documentosSubidos: any[] = [];
   total: number;
   conyuges: Conyuge[] = [];
   datosComplemetarios: CREDITO_DATOS_COMPLEMENTARIOS[] = [];
@@ -110,7 +113,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private estadoCivilService: EstadoCivilService,
               private profesionService: ProfesionService,
               private clienteService: ClienteService,
-              private datosComplService: DatosComplementariosService) {
+              private datosComplService: DatosComplementariosService,
+              private documentosService: DocumentosService) {
                 this.crearFormularioCliente();
                 this.crearFormularioDirecciones();
                 this.crearFormularioTelefonos();
@@ -141,7 +145,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                           });
                       }
                   });
-                  this.fabricaService.currentMessage.subscribe(
+                this.fabricaService.currentMessage.subscribe(
                     data => {
                     this.mensajeServicio = data;
                     this.getCliente();
@@ -407,7 +411,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
     this.modalService.open(content);
   }
-
+  openLgDocumentacion(content) {
+    this.getDocumentosCredito();
+    this.modalService.open(content);
+  }
   openCustomWidth(content, telefono: any) {
     // bkm - inicializar formas
     if ( telefono === undefined || telefono === '') {
@@ -540,6 +547,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                       this.btnSolicitarAnalisis = false;
                       this.btnMedioAprobacion = false;
                       this.grabarDatosIngresadosGrid = false;
+                      this.SubirArchivos = false;
                     } else {
                         if (lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Rechazada' ||
                          lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
@@ -555,6 +563,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                             this.btnConyuge = false;
                             this.btnActualizarReferencias = false;
                             this.grabarDatosIngresadosGrid = false;
+                            this.SubirArchivos = false;
                             // ASPxUploadControl1.Visible = false;
                             // ASPxUploadControl2.Visible = false;
                             // ASPxUploadControl3.Visible = false;
@@ -576,12 +585,14 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                               this.btnConyuge = false;
                               this.btnActualizarReferencias = false;
                               this.grabarDatosIngresadosGrid = false;
+                              this.SubirArchivos = false;
                             } else {
                               // console.log('Bloqueado 4' + lblEstadoSolicitud);
                               this.btnSolicitarAnulacion = true;
                               this.BtnEntregarCarpeta = false;
                               this.btnSolicitarAnalisis = false;
                               this.grabarDatosIngresadosGrid = false;
+                              this.SubirArchivos = false;
                             }
                         }
                     }
@@ -1063,6 +1074,14 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
             this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
           }
           });
+  }
+  getDocumentosCredito() {
+    this.documentosService.getDocumentosSubidos(this.mensajeServicio.NumeroCredito)
+        .pipe(map (data => data["DOCUMENTOS"]))
+        .subscribe((data: any) => {
+          this.documentosSubidos = data;
+          console.log(this.documentosSubidos);
+        });
   }
 }
 

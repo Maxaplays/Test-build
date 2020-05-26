@@ -5,6 +5,7 @@ import {DocumentosVisualizacionService, Excepcion} from 'src/app/services/docume
 import {map} from 'rxjs/operators';
 import {ArchivosService} from '../../services/archivos/archivos.service';
 import {Subject} from 'rxjs';
+import { DocumentosService } from 'src/app/services/documentos.service';
 
 
 @Component({
@@ -37,13 +38,15 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
   mensajeServicio: DatosFabrica;
   controlCalidad: any[] = [];
   excepciones: any[] = [];
+  documentosSubidos: any[] = [];
   comentarioExcepcion;
   controlExepcion: any;
   // bkm
   constructor(private modalService: NgbModal,
               private fabricaService: FabricaService,
               private documentoVisualizacion: DocumentosVisualizacionService,
-              private archivosService: ArchivosService) {
+              private archivosService: ArchivosService,
+              private documentosService: DocumentosService) {
 
   }
 
@@ -59,6 +62,7 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
 
   openLg(content) {
     this.modalService.open(content);
+    this.getDocumentosCredito();
   }
 
   openCustomWidth(content) {
@@ -303,5 +307,13 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
                   console.log('Bloqueado 5' + lblEstadoSolicitud);
                     // pageControlCliente.TabPages[7].Enabled = false;
                 }
+  }
+  getDocumentosCredito() {
+    this.documentosService.getDocumentosSubidos(this.mensajeServicio.NumeroCredito)
+        .pipe(map (data => data["DOCUMENTOS"]))
+        .subscribe((data: any) => {
+          this.documentosSubidos = data;
+          // console.log(this.documentosSubidos);
+        });
   }
 }

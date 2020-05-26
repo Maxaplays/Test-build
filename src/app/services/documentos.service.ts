@@ -26,4 +26,7 @@ export class DocumentosService {
   public getNumeroCuenta(id_banco: string, cod_tcu : string){
     return this.getQuery(`NumeroCuenta/${id_banco},${cod_tcu}`);
   }
+  public getDocumentosSubidos(idCredito: string) {
+    return this.getQuery(`getDocumentos?idCredito=${idCredito}`);
+  }
 }

@@ -24,6 +24,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   EntidadFinanciera: any[] = [];
   TipoCuenta: any[] = [];
   NumeroCuenta: any[] = [];
+  documentosSubidos: any[] = [];
   loading: boolean;
   // bkm
   mensajeServicio: DatosFabrica;
@@ -80,6 +81,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     });
   }
   openLg(content) {
+    this.getDocumentosCredito();
     this.modalService.open(content);
   }
 
@@ -293,6 +295,14 @@ export class ContentFabricaGeneracionComponent implements OnInit {
                   // console.log('Bloqueado 5' + lblEstadoSolicitud);
                     // pageControlCliente.TabPages[7].Enabled = false;
                 }
+  }
+  getDocumentosCredito() {
+    this.documentosService.getDocumentosSubidos(this.mensajeServicio.NumeroCredito)
+        .pipe(map (data => data["DOCUMENTOS"]))
+        .subscribe((data: any) => {
+          this.documentosSubidos = data;
+          // console.log(this.documentosSubidos);
+        });
   }
 }
 

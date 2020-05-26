@@ -143,7 +143,7 @@
             <div class="align-left ">
                 <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial) "><img src="assets/images/icon-reloj.svg ">Historial</button>
                 <button *ngIf="btnSolicitarAnulacion" class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
-                <button class="btn btn-border-blue " (click)="openLg(verDocumentacion) "><img src="assets/images/icon-folder.svg ">Documentación</button>
+                <button class="btn btn-border-blue " (click)="openLg(verDocumentacion)"><img src="assets/images/icon-folder.svg ">Documentación</button>
             </div>
             <div class="align-right ">
                 <button class="btn btn-border-gray ">Anterior</button>
@@ -214,29 +214,13 @@
                                 <div class="component-filter "><input type="text "><span class="btn-filter "><img src="assets/images/icon-filter.svg "></span></div>
                             </td>
                         </tr>
-                        <tr>
+                        <tr *ngFor="let documento of documentosSubidos">
                             <td><input type="checkbox "></td>
                             <td>
-                                <a href="# " class="link-doc "><img src="assets/images/icon-document-list.svg "> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a>
+                                <a href="{{documento.URL_DOC}}" target="_blank" class="link-doc "><img src="assets/images/icon-document-list.svg ">{{documento.NOM_DOC}}</a>
                             </td>
-                            <td>25/06/2019</td>
-                            <td>vegas@mfcapitalgroup.com</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox "></td>
-                            <td>
-                                <a href="# " class="link-doc "><img src="assets/images/icon-document-list.svg "> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a>
-                            </td>
-                            <td>25/06/2019</td>
-                            <td>vegas@mfcapitalgroup.com</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox "></td>
-                            <td>
-                                <a href="# " class="link-doc "><img src="assets/images/icon-document-list.svg "> EMA0100453-Cotizado-MFC-MUPI-v26-xls</a>
-                            </td>
-                            <td>25/06/2019</td>
-                            <td>vegas@mfcapitalgroup.com</td>
+                            <td>{{documento.FCH_DOC}}</td>
+                            <td>{{documento.USR_DOC}}</td>
                         </tr>
                     </tbody>
                 </table>

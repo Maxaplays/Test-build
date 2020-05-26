@@ -4,6 +4,7 @@ import { FabricaService, DatosFabrica } from 'src/app/services/fabricaCredito/fa
 import {DocumentosVisualizacionService, Excepcion} from '../../services/documentos/documentos-visualizacion.service';
 import {map} from 'rxjs/operators';
 import {Subject} from "rxjs";
+import { DocumentosService } from 'src/app/services/documentos.service';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class ContentFabricaPoliticasComponent implements OnInit {
   staticAlertClosed = false;
   errorMessage: string;
   listadoErrores: string[];
+  documentosSubidos: any[] = [];
   successMessage: string;
   advertenceMessage: string;
   paginaAcual = 1;
@@ -37,7 +39,8 @@ export class ContentFabricaPoliticasComponent implements OnInit {
   // bkm
   constructor(private modalService: NgbModal,
               private fabricaService: FabricaService,
-              private documentoVisualizacion: DocumentosVisualizacionService) {
+              private documentoVisualizacion: DocumentosVisualizacionService,
+              private documentosService: DocumentosService) {
   }
 
   ngOnInit() {
@@ -59,6 +62,7 @@ export class ContentFabricaPoliticasComponent implements OnInit {
               });
   }
   openLg(content) {
+    this.getDocumentosCredito();
     this.modalService.open(content);
   }
 
@@ -216,5 +220,13 @@ export class ContentFabricaPoliticasComponent implements OnInit {
                   // console.log('Bloqueado 5' + lblEstadoSolicitud);
                     // pageControlCliente.TabPages[7].Enabled = false;
                 }
+  }
+  getDocumentosCredito() {
+    this.documentosService.getDocumentosSubidos(this.mensajeServicio.NumeroCredito)
+        .pipe(map (data => data["DOCUMENTOS"]))
+        .subscribe((data: any) => {
+          this.documentosSubidos = data;
+          // console.log(this.documentosSubidos);
+        });
   }
 }

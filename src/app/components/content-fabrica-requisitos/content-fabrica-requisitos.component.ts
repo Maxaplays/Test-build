@@ -6,6 +6,7 @@ import {map} from 'rxjs/operators';
 import {ArchivosService} from '../../services/archivos/archivos.service';
 import {Subject} from 'rxjs';
 import { RouterModule, Router } from '@angular/router';
+import { DocumentosService } from 'src/app/services/documentos.service';
 
 
 
@@ -34,6 +35,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   mensajeServicio: DatosFabrica;
   requisitios: any[] = [];
   excepciones: any[] = [];
+  documentosSubidos: any[] = [];
   comentarioExcepcion;
   desmarcar;
   btnSolicitarAnulacion = true;
@@ -48,7 +50,8 @@ export class ContentFabricaRequisitosComponent implements OnInit {
               private fabricaService: FabricaService,
               private documentoVisualizacion: DocumentosVisualizacionService,
               private archivosService: ArchivosService,
-              private router: Router) {
+              private router: Router,
+              private documentosService: DocumentosService) {
 
   }
 
@@ -63,6 +66,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   }
 
   openLg(content) {
+    this.getDocumentosCredito();
     this.modalService.open(content);
   }
 
@@ -316,5 +320,13 @@ export class ContentFabricaRequisitosComponent implements OnInit {
             this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
           }
           });
+  }
+  getDocumentosCredito() {
+    this.documentosService.getDocumentosSubidos(this.mensajeServicio.NumeroCredito)
+        .pipe(map (data => data["DOCUMENTOS"]))
+        .subscribe((data: any) => {
+          this.documentosSubidos = data;
+          // console.log(this.documentosSubidos);
+        });
   }
 }
