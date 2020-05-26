@@ -204,8 +204,9 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
         lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
         lblEstadoSolicitud === 'Autorización Caducada') {
-                    // pageControlCliente.TabPages[7].Enabled = true;
-                    if (lblEstadoSolicitud === 'Aprobada') {
+          console.log('Bloqueado 0' + lblEstadoSolicitud);
+          // pageControlCliente.TabPages[7].Enabled = true;
+          if (lblEstadoSolicitud === 'Aprobada') {
                       // console.log('Bloqueado 1' + lblEstadoSolicitud);
                       this.btnSolicitarAnulacion = false;
                       this.SubirArchivos = false;
@@ -232,23 +233,31 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
                             // BtnGuardar.Visible = false;
                         } else {
                             if (lblEstadoSolicitud === 'Cancelada') {
-                              console.log('Bloqueado 3' + lblEstadoSolicitud);
+                              // console.log('Bloqueado 3' + lblEstadoSolicitud);
                               this.ASPxActualizarSOL = false;
                               this.btnSolicitarAnulacion = false;
                               this.BtnEntregarCarpeta = false;
                               this.btnSolicitarAnalisis = false;
                               this.SubirArchivos = false;
                             } else {
-                              // console.log('Bloqueado 4' + lblEstadoSolicitud);
-                              this.btnSolicitarAnulacion = true;
-                              this.BtnEntregarCarpeta = false;
-                              this.btnSolicitarAnalisis = false;
-                              this.SubirArchivos = false;
+                              if (lblEstadoSolicitud === 'Autorizada') {
+                                // console.log('Bloqueado 6' + lblEstadoSolicitud);
+                                this.btnSolicitarAnulacion = false;
+                                this.BtnEntregarCarpeta = true;
+                                this.btnSolicitarAnalisis = false;
+                                this.ASPxActualizarSOL = false;
+                              } else {
+                                // console.log('Bloqueado 4' + lblEstadoSolicitud);
+                                this.btnSolicitarAnulacion = true;
+                                this.BtnEntregarCarpeta = false;
+                                this.btnSolicitarAnalisis = false;
+                                this.SubirArchivos = false;
+                              }
                             }
                         }
                     }
                 } else {
-                  // console.log('Bloqueado 5' + lblEstadoSolicitud);
+                  console.log('Bloqueado 5' + lblEstadoSolicitud);
                     // pageControlCliente.TabPages[7].Enabled = false;
                 }
   }

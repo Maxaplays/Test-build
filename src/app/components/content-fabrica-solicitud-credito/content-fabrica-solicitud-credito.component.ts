@@ -144,7 +144,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                   this.fabricaService.currentMessage.subscribe(
                     data => {
                     this.mensajeServicio = data;
-                    this.acoplarPantalla(data.Estado);
                     this.getCliente();
                     this.getDatosComplementarios();
                     this.direcciones = this.getDirecciones();
@@ -158,6 +157,25 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+  incializarCredito() {
+    this.loading = true;
+    this.fabricaService.getRetomarCredito(this.idCredito,
+    localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+              (data: DatosFabrica) => {
+                // console.log(data);
+                this.fabricaService.changeMessage(data);
+                this.acoplarPantalla(data.Estado);
+                this.getCliente();
+                this.getDatosComplementarios();
+                this.direcciones = this.getDirecciones();
+                this.telefonos = this.getTelefonos();
+                this.conyuges = this.getListaConyuges();
+                this.referencias = this.getListaReferencias();
+                this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
+                this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
+                this.loading = false;
+              });
   }
   onDatosComplementariosComentariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
     if (this.grabarDatosIngresadosGrid) {
