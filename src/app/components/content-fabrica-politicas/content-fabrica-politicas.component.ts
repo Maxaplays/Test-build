@@ -20,6 +20,7 @@ export class ContentFabricaPoliticasComponent implements OnInit {
   errorMessage: string;
   listadoErrores: string[];
   successMessage: string;
+  advertenceMessage: string;
   paginaAcual = 1;
   btnSolicitarAnulacion = true;
   SubirArchivos = true;
@@ -96,7 +97,7 @@ export class ContentFabricaPoliticasComponent implements OnInit {
     }
   }
 
-  guardarExcepcion() {
+  guardarExcepcion(contentA, contentE) {
     const excepcion: Excepcion = new Excepcion();
     excepcion.ID_VPOL = this.politicasExepcion.ID_VAL;
     excepcion.IDE_CRE = this.mensajeServicio.NumeroCredito;
@@ -110,10 +111,25 @@ export class ContentFabricaPoliticasComponent implements OnInit {
           let mensajeSucces = '';
           this.excepciones = this.getExcepciones(this.politicasExepcion["ID_VAL"]);
           this.politicas = this.getPoliticas();
-          for (const mensaje of data.listaResultado) {
-            mensajeSucces += mensaje + '\n';
+          if (data.listaResultado.length > 0) {
+            this.successMessage = 'Excepción generada';
           }
-          this.successMessage = mensajeSucces;
+          if (data.listaErrores.length > 0) {
+            let mensajeError = '';
+            for (const mensaje of data.listaErrores) {
+              mensajeError += mensaje + '\n';
+            }
+            this.errorMessage = mensajeError;
+            this.modalService.open(contentE, {windowClass: 'custom-width-error-modal'});
+          }
+          if (data.listaAdvertencia.length > 0) {
+            let mensajeAdvertencia = '';
+            for (const mensaje of data.listaAdvertencia) {
+              mensajeAdvertencia += mensaje + '\n';
+            }
+            this.advertenceMessage = mensajeAdvertencia;
+            this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+          }
           this.comentarioExcepcion = '';
         }
       }
