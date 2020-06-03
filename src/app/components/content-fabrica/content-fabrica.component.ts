@@ -148,7 +148,7 @@ export class ContentFabricaComponent implements OnInit {
   onIngresosChange() {
     let depen : number = this.FormularioDatosBasicos.controls['ingresosDependiente'].value;
     let indepen : number = this.FormularioDatosBasicos.controls['ingresosIndependiente'].value;
-    let suma : number = depen + indepen;
+    let suma : number = +depen + +indepen;
     this.FormularioDatosBasicos.controls['ingresosDisponible'].setValue(suma);
   }
   private initForm() {
