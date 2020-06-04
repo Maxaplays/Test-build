@@ -29,4 +29,14 @@ export class DocumentosService {
   public getDocumentosSubidos(idCredito: string) {
     return this.getQuery(`getDocumentos?idCredito=${idCredito}`);
   }
+  public postFileImagen (archivos: File[], ID_CRE: string, USR_DOC: string) {
+    const url = environment.urlServiciosBackend + `Documentos/nuevoDocumento/${ID_CRE}/${USR_DOC}`;
+
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+    for ( let i = 0; i < archivos.length ; i++) {
+      formData.append(archivos[i].name, archivos[i]);
+    }
+    return this.http.post<File>(url, formData);
+  }
 }
