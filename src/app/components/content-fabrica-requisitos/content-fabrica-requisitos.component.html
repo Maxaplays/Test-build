@@ -235,7 +235,7 @@
     </div>
     <div class="modal-footer-mfc full variation ">
         <div class="align-right ">
-          <input type="file" (change)="fileChange($event,mensajeModalError,mensajeAdvertencia)" placeholder="Upload file" accept=".pdf,.doc,.docx">
+          <a class="btn btn-border-blue simulate-inputFile">Cargar archivo <input type="file" (change)="fileChange($event,mensajeModalError,mensajeAdvertencia)" placeholder="Upload file" accept=".pdf,.doc,.docx"></a>
             <button class="btn btn-solid-blue " (click)="modal.close( 'Cancelar click') ">Cerrar</button>
         </div>
     </div>
