@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {Direccion, DireccionesService} from '../../services/direcciones/direcciones.service';
 import {TelefonosService} from '../../services/telefonos/telefonos.service';
@@ -30,6 +30,8 @@ import { DocumentosService } from 'src/app/services/documentos.service';
 })
 export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
+  // @ts-ignore
+  @ViewChild('fileInput') fileInput;
   closeResult: string;
   private _error = new Subject<string>();
   private _success = new Subject<string>();
@@ -37,6 +39,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   staticAlertClosed = false;
   errorMessage: string;
   successMessage: string;
+  advertenceMessage: string;
   loading: boolean;
   // bkm
   mensajeServicio: DatosFabrica;
@@ -95,6 +98,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   total: number;
   conyuges: Conyuge[] = [];
   datosComplemetarios: CREDITO_DATOS_COMPLEMENTARIOS[] = [];
+  Archivos: File[] = [];
+  archivoSeleccionado: File = null;
+  nombreArchivo: string = '';
+
   // bkm
   // tslint:disable-next-line:max-line-length
   constructor(private modalService: NgbModal,
@@ -1075,13 +1082,46 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
           }
           });
   }
-  getDocumentosCredito() {
+  getDocumentosCredito(): any {
     this.documentosService.getDocumentosSubidos(this.mensajeServicio.NumeroCredito)
         .pipe(map (data => data["DOCUMENTOS"]))
         .subscribe((data: any) => {
           this.documentosSubidos = data;
           console.log(this.documentosSubidos);
         });
+  }
+  fileChange(event, contentE, contentA) {
+    this.archivoSeleccionado = <File> event.target.files[0];
+    this.Archivos.push(this.archivoSeleccionado);
+    if(this.Archivos.length > 0) {
+      //console.log(fileList);
+      this.documentosService.postFileImagen(this.Archivos, this.mensajeServicio.NumeroCredito,
+        localStorage.getItem('usuario'))
+        .subscribe(
+          (data: any) => {
+            if (data.listaResultado.length > 0) {
+              this.successMessage = 'Archivo cargado';
+            }
+            if (data.listaErrores.length > 0) {
+              let mensajeError = '';
+              for (const mensaje of data.listaErrores) {
+                mensajeError += mensaje + '\n';
+              }
+              this.errorMessage = mensajeError;
+              this.modalService.open(contentE, {windowClass: 'custom-width-error-modal'});
+            }
+            if (data.listaAdvertencias.length > 0) {
+              let mensajeAdvertencia = '';
+              for (const mensaje of data.listaAdvertencias) {
+                mensajeAdvertencia += mensaje + '\n';
+              }
+              this.advertenceMessage = mensajeAdvertencia;
+              this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+            }
+            this.documentosSubidos = this.getDocumentosCredito();
+          }
+        );
+    }
   }
 }
 

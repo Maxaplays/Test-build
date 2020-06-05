@@ -17,6 +17,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   private _success = new Subject<string>();
   errorMessage: string;
   successMessage: string;
+  advertenceMessage: string;
   NOMBRE_BANCO: string;
   TIPO_BANCO: string;
   closeResult: string;
@@ -42,6 +43,8 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   btnSolicitarAnulacion = true;
   SubirArchivos = true;
   generarDocumentacion = true;
+  Archivos: File[] = [];
+  archivoSeleccionado: File = null;
   // bkm
   minDate: Date;
   maxDate: Date;
@@ -114,7 +117,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     let FechaPrimerPagoCalculada: Date = new Date(string2);
     if (FechaPagareCalculada >= this.FechaPagareMin && FechaPagareCalculada <= this.FechaPagareMax) {
       // Fecha Correcta
-      
+
     } else {
       // fecha Incorrecta
       this.errorMessage = 'Fecha de pagaré fuera del rango permitido';
@@ -303,6 +306,40 @@ export class ContentFabricaGeneracionComponent implements OnInit {
           this.documentosSubidos = data;
           // console.log(this.documentosSubidos);
         });
+  }
+  fileChange(event, contentE, contentA) {
+    this.archivoSeleccionado = <File> event.target.files[0];
+    this.Archivos.push(this.archivoSeleccionado);
+    if(this.Archivos.length > 0) {
+      //console.log(fileList);
+      this.documentosService.postFileImagen(this.Archivos, this.mensajeServicio.NumeroCredito,
+        localStorage.getItem('usuario'))
+        .subscribe(
+          (data: any) => {
+            if (data.listaResultado.length > 0) {
+              this.successMessage = 'Archivo cargado';
+            }
+            if (data.listaErrores.length > 0) {
+              let mensajeError = '';
+              for (const mensaje of data.listaErrores) {
+                mensajeError += mensaje + '\n';
+              }
+              this.errorMessage = mensajeError;
+              this.modalService.open(contentE, {windowClass: 'custom-width-error-modal'});
+            }
+            if (data.listaAdvertencias.length > 0) {
+              let mensajeAdvertencia = '';
+              for (const mensaje of data.listaAdvertencias) {
+                mensajeAdvertencia += mensaje + '\n';
+              }
+              this.advertenceMessage = mensajeAdvertencia;
+              this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+            }
+            // @ts-ignore
+            this.documentosSubidos = this.getDocumentosCredito();
+          }
+        );
+    }
   }
 }
 
