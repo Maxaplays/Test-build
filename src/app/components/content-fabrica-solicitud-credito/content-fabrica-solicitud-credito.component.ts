@@ -977,7 +977,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   crearFormularioTelefonos() {
     this.formaTelefonos = this.fb.group({
       TipoRegistroTelefono: ['CLIENTE'],
-      TipoTelefono: ['FIJO'],
+      TipoTelefono: ['MOVIL'],
       NumeroTelefono: ['', [Validators.required, Validators.minLength(9), Validators.pattern('^[0-9]*$')]],
       ExtensionTelefono: ['']
     });

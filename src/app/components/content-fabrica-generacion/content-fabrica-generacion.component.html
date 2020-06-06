@@ -170,7 +170,6 @@
     </div>
     <div class="modal-body variation ">
         <div class="forms forms-relative ">
-            <label class="label ">Nuevo archivo</label>
             <div class="false-inputfile ">
             </div>
             <div id="table-scroll ">
@@ -178,34 +177,17 @@
                     <thead>
                         <tr>
                             <th>
-                                <select class="filter-for-table ">
                                     <option>Nombre de documento</option>
-                                </select>
                             </th>
                             <th>
-                                <select class="filter-for-table ">
                                     <option>Fecha ingreso</option>
-                                </select>
                             </th>
                             <th>
-                                <select class="filter-for-table ">
                                     <option>Usuario Ingreso</option>
-                                </select>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="tr-filters ">
-                            <td>
-                                <div class="component-filter "><input type="text "><span class="btn-filter "><img src="assets/images/icon-filter.svg "></span></div>
-                            </td>
-                            <td>
-                                <div class="component-filter "><input type="text "><span class="btn-filter "><img src="assets/images/icon-filter.svg "></span></div>
-                            </td>
-                            <td>
-                                <div class="component-filter "><input type="text "><span class="btn-filter "><img src="assets/images/icon-filter.svg "></span></div>
-                            </td>
-                        </tr>
                         <tr *ngFor="let documento of documentosSubidos">
                             <td>
                                 <a href="{{documento.URL_DOC}}" target="_blank" class="link-doc "><img src="assets/images/icon-document-list.svg ">{{documento.NOM_DOC}}</a>
