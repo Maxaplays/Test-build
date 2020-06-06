@@ -48,6 +48,17 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   sumatoriaIngresos: number = 0;
   sumatoriaEgresos: number = 0;
   sumatoriaTotal: number = 0;
+  sumatoriaActivos: number = 0;
+  TMuebles: number = 0;
+  TPropiedades: number = 0;
+  TVehiculos: number = 0;
+  TInversiones: number = 0;
+  TAcciones: number = 0;
+  TotalActivos: number = 0;
+  TDeudas: number = 0;
+  TTarjetas: number = 0;
+  TotalPasivos: number = 0;
+  TotalPatrimonio: number = 0;
   idCredito: string;
   tabActual;
   btnSolicitarAnulacion = true;
@@ -91,6 +102,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   tipoRegTel: any[] = ['CLIENTE', 'GARANTE'];
   situacionFinancieraIngresos: any[] = [];
   situacionFinancieraEgresos: any[] = [];
+  situacionFinancieraTotalPatrimonio: any[] = [];
+  situacionFinancieraMuebles: any[] = [];
   documentosSubidos: any[] = [];
   total: number;
   conyuges: Conyuge[] = [];
@@ -156,6 +169,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                     this.referencias = this.getListaReferencias();
                     this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
                     this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
+                    this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
                   });
   }
 
@@ -178,6 +192,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                 this.referencias = this.getListaReferencias();
                 this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
                 this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
+                this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
                 this.loading = false;
               });
   }
@@ -240,6 +255,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   guardarCliente(content) {
     this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
     this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
+    this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
     this.getDatosComplementarios();
     let datosCliente: Cliente = new Cliente();
     let resultado: string;
@@ -665,6 +681,81 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
     }
   }
+// Activos y Pasivos
+  onDatosMueblesValorChange(newValue) {
+    if (this.grabarDatosIngresadosGrid) {
+      let NumeroCredito: string;
+      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      this.situacionFinancieraService.getguardarValorMuebles(NumeroCredito, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any ) => {
+        console.log(resultado);
+        let totalSumaBackend: number;
+        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+        this.TotalActivos = totalSumaBackend;
+        this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
+      });
+    }
+  }
+  onDatosPropiedadesValorChange(newValue) {
+    if (this.grabarDatosIngresadosGrid) {
+      let NumeroCredito: string;
+      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      this.situacionFinancieraService.getguardarValorPropiedades(NumeroCredito, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any ) => {
+        console.log(resultado);
+        let totalSumaBackend: number;
+        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+        this.TotalActivos = totalSumaBackend;
+        this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
+      });
+    }
+  }
+  onDatosVehiculosValorChange(newValue) {
+    if (this.grabarDatosIngresadosGrid) {
+      let NumeroCredito: string;
+      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      this.situacionFinancieraService.getguardarValorVehiculos(NumeroCredito, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any ) => {
+        console.log(resultado);
+        let totalSumaBackend: number;
+        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+        this.TotalActivos = totalSumaBackend;
+        this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
+      });
+    }
+  }
+
+  onDatosInversionesValorChange(newValue) {
+    if (this.grabarDatosIngresadosGrid) {
+      let NumeroCredito: string;
+      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      this.situacionFinancieraService.getguardarValorInversiones(NumeroCredito, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any ) => {
+        console.log(resultado);
+        let totalSumaBackend: number;
+        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+        this.TotalActivos = totalSumaBackend;
+        this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
+      });
+    }
+  }
+
+  onDatosAccionesValorChange(newValue) {
+    if (this.grabarDatosIngresadosGrid) {
+      let NumeroCredito: string;
+      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      this.situacionFinancieraService.getguardarValorAcciones(NumeroCredito, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any ) => {
+        console.log(resultado);
+        let totalSumaBackend: number;
+        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+        this.TotalActivos = totalSumaBackend;
+        this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
+      });
+    }
+  }
+
+
   getConyuge() {
     this.conyugesServices.getConyugeCedula(this.mensajeServicio.Cedula)
     .pipe(map(data => data['CONYUGE']))
@@ -722,6 +813,25 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         }
       });
   }
+
+  public getSituacionFinancieraTotalPatrimonio(): any {
+    this.situacionFinancieraService.getTotalPatrimonio(this.mensajeServicio.NumeroCredito)
+      .pipe(map(data => data['PATRIMONIO']))
+      .subscribe((data: any) => {
+        this.situacionFinancieraTotalPatrimonio = data;
+        this.TMuebles = data[0].TMUEBLES;
+        this.TPropiedades = data[0].TPROPIEDADES;
+        this.TVehiculos = data[0].TVEHICULOS;
+        this.TInversiones = data[0].TINVERSIONES;
+        this.TAcciones = data[0].TACCIONES;
+        this.TotalActivos = data[0].TOTALACTIVOS;
+        this.TDeudas = data[0].TDEUDAS;
+        this.TTarjetas = data[0].TTARJETAS;
+        this.TotalPasivos = data[0].TOTALPASIVOS;
+        this.TotalPatrimonio = data[0].TOTALPATRIMONIO;
+      });
+  }
+
   guardarConyuge(content) {
     let datosConyuge: Conyuge = new Conyuge();
     let resultado: string;

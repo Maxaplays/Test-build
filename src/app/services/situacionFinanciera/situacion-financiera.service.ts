@@ -37,4 +37,31 @@ export class SituacionFinancieraService {
     const urlIngresos = `/guardarValorEgresos?idReg=${idReg}&comentario=${valor}&usuario=${usuario}`;
     return this.getQuery(urlIngresos);
   }
+  public getguardarValorMuebles(idCre: string, valor: string, usuario: string) {
+    const urlIngresos = `/guardarValorMuebles?idCre=${idCre}&valor=${valor}&usuario=${usuario}`;
+    return this.getQuery(urlIngresos);
+  }
+  public getguardarValorPropiedades(idCre: string, valor: string, usuario: string) {
+    const urlIngresos = `/guardarValorPropiedades?idCre=${idCre}&valor=${valor}&usuario=${usuario}`;
+    return this.getQuery(urlIngresos);
+  }
+  public getguardarValorVehiculos(idCre: string, valor: string, usuario: string) {
+    const urlIngresos = `/guardarValorVehiculos?idCre=${idCre}&valor=${valor}&usuario=${usuario}`;
+    return this.getQuery(urlIngresos);
+  }
+
+  public getguardarValorInversiones(idCre: string, valor: string, usuario: string) {
+    const urlIngresos = `/guardarValorInversiones?idCre=${idCre}&valor=${valor}&usuario=${usuario}`;
+    return this.getQuery(urlIngresos);
+  }
+
+  public getguardarValorAcciones(idCre: string, valor: string, usuario: string) {
+    const urlIngresos = `/guardarValorAcciones?idCre=${idCre}&valor=${valor}&usuario=${usuario}`;
+    return this.getQuery(urlIngresos);
+  }
+
+  public getTotalPatrimonio(idCre: string) {
+    const urlIngresos = `/totalPatrimonio?idCre=${idCre}`;
+    return this.getQuery(urlIngresos);
+  }
 }

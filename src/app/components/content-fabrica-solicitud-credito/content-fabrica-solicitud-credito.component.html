@@ -450,7 +450,7 @@
                                         <tr>
                                             <td data-column="Descripción">Muebles o Enseres</td>
                                             <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                                <input (change)="onDatosMueblesValorChange($event.target.value)" type="number" placeholder="0,00" value="{{TMuebles}}">
                                             </td>
                                             <td data-column="Comentario">
                                                 <input type="text" placeholder="-">
@@ -459,7 +459,7 @@
                                         <tr>
                                             <td data-column="Descripción">Propiedades</td>
                                             <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                                <input (change)="onDatosPropiedadesValorChange($event.target.value)" type="number" placeholder="0,00" value="{{TPropiedades}}">
                                             </td>
                                             <td data-column="Comentario">
                                                 <input type="text" placeholder="-">
@@ -468,7 +468,7 @@
                                         <tr>
                                             <td data-column="Descripción">Vehículos</td>
                                             <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                                <input (change)="onDatosVehiculosValorChange($event.target.value)" type="number" placeholder="0,00" value="{{TVehiculos}}">
                                             </td>
                                             <td data-column="Comentario">
                                                 <input type="text" placeholder="-">
@@ -477,7 +477,7 @@
                                         <tr>
                                             <td data-column="Descripción">Inversiones</td>
                                             <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                                <input (change)="onDatosInversionesValorChange($event.target.value)" type="number" placeholder="0,00" value="{{TInversiones}}">
                                             </td>
                                             <td data-column="Comentario">
                                                 <input type="text" placeholder="-">
@@ -486,7 +486,7 @@
                                         <tr>
                                             <td data-column="Descripción">Acciones o Participaciones</td>
                                             <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                                <input (change)="onDatosAccionesValorChange($event.target.value)" type="number" placeholder="0,00" value="{{TAcciones}}">
                                             </td>
                                             <td data-column="Comentario">
                                                 <input type="text" placeholder="-">
@@ -497,7 +497,7 @@
                                                 <b>Total</b>
                                             </td>
                                             <td>
-                                                <b>0,00</b>
+                                                <b>{{TotalActivos}}</b>
                                             </td>
                                             <td>&nbsp;</td>
                                         </tr>
@@ -518,7 +518,7 @@
                                         <tr>
                                             <td data-column="Descripción">Deudas</td>
                                             <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                                <input type="text" type="number" placeholder="0,00" value="{{TDeudas}}">
                                             </td>
                                             <td data-column="Comentario">
                                                 <input type="text" placeholder="-">
@@ -527,7 +527,7 @@
                                         <tr>
                                             <td data-column="Descripción">Tarjetas de Crédito</td>
                                             <td data-column="Valor">
-                                                <input type="text" placeholder="0,00">
+                                                <input type="text" type="number" placeholder="0,00" value="{{TTarjetas}}">
                                             </td>
                                             <td data-column="Comentario">
                                                 <input type="text" placeholder="-">
@@ -538,7 +538,7 @@
                                                 <b>Total</b>
                                             </td>
                                             <td>
-                                                <b>0,00</b>
+                                                <b>{{TotalPasivos}}</b>
                                             </td>
                                             <td>&nbsp;</td>
                                         </tr>
@@ -547,7 +547,7 @@
                             </div>
                             <div>
                                 <label class="label-postable label">Patrimonio</label>
-                                <input type="text" placeholder="$0.000" style="max-width: 759px;">
+                                <input type="text" placeholder="$0.000" style="max-width: 759px;" value="{{TotalPatrimonio}}">
                             </div>
                         </div>
                     </form>
