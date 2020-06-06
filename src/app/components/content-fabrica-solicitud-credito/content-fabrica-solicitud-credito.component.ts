@@ -201,16 +201,18 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
   crearFormularioCliente() {
     this.FormularioDatosCliente = new FormGroup({
-      tipoDocumentacion: new FormControl(null, Validators.required),
-      cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
+      tipoDocumentacion: new FormControl(null),
+      cedula: new FormControl(null),
       nombreCliente: new FormControl(null, Validators.required),
       apellidoCliente: new FormControl(null, Validators.required),
-      fechaNacimiento: new FormControl(null, Validators.required),
-      genero: new FormControl(null, Validators.required),
-      nacionalidad: new FormControl(null, Validators.required),
-      estadoCivil: new FormControl(null, Validators.required),
-      cargasFamiliares: new FormControl(null, Validators.required),
-      emailCliente: new FormControl(null, Validators.required),
+      fechaNacimiento: new FormControl(null),
+      genero: new FormControl(null),
+      nacionalidad: new FormControl(null),
+      estadoCivil: new FormControl(null),
+      cargasFamiliares: new FormControl(null),
+      emailCliente: new FormControl(null, [
+        Validators.required,
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
       profesionCliente: new FormControl(null),
       rucTrabajo: new FormControl(null),
       razonSocialTrabajo: new FormControl(null)
@@ -245,6 +247,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
 
   guardarCliente(content) {
+    if (this.FormularioDatosCliente.valid) {
     this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
     this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
     this.getDatosComplementarios();
@@ -282,6 +285,18 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
           this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
         }
       });
+    } else {
+      this.errorMessage = 'Datos de cliente incorrectos, favor revise';
+      this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+      return Object.values(this.FormularioDatosCliente.controls).forEach(control => {
+        if (control instanceof FormGroup) {
+          // tslint:disable-next-line:no-shadowed-variable
+          Object.values(control.controls). forEach( control => control.markAllAsTouched());
+        } else {
+          control.markAllAsTouched();
+        }
+      });
+    }
   }
 
   editarConyuge(content, conyuge: Conyuge) {
@@ -1068,17 +1083,18 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         }
       });
   }
-  solicitarAnalisis(content) {
+  solicitarAnalisis(content, contentWarning) {
     this.fabricaService.getSolicitarAnalisis(this.mensajeServicio.NumeroCredito,
                                             localStorage.getItem('usuario')).subscribe(
         data => {
           var resultado: number = data.toString().indexOf('Solicitud en estado: ');
           if (resultado >= 0) {
-            this.mensajeServicio.Estado = 'Cancelada';
-            this.successMessage = data.toString();
+            console.log('Si genera el cambio de estado:' + data.toString());
+            this.advertenceMessage = data.toString();
+            this.modalService.open(contentWarning, {windowClass: 'custom-width-modal'});
           } else {
             this.errorMessage = data.toString();
-            this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+            this.modalService.open(content, {windowClass: 'custom-width-modal'});
           }
           });
   }

@@ -293,12 +293,6 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
                                 this.BtnEntregarCarpeta = true;
                                 this.btnSolicitarAnalisis = false;
                                 this.ASPxActualizarSOL = false;
-                              } else {
-                                // console.log('Bloqueado 4' + lblEstadoSolicitud);
-                                this.btnSolicitarAnulacion = true;
-                                this.BtnEntregarCarpeta = false;
-                                this.btnSolicitarAnalisis = false;
-                                this.SubirArchivos = false;
                               }
                             }
                         }

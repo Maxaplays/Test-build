@@ -96,7 +96,7 @@
                 <div>
                     <fieldset>
                         <label class="label">Fecha Pagaré</label>
-                        <input formControlName="fechaPagare" type="date" placeholder="dd/mm/aaaa" (keyup)="cambioFechaPagare($event.target.value)">
+                        <input formControlName="fechaPagare" [disabled]="puedeCambiarFechas" type="date" placeholder="dd/mm/aaaa" (keyup)="cambioFechaPagare($event.target.value)">
                         <label class="label">Fecha Minima:{{FechaPagareMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPagareMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
                     <fieldset>
@@ -105,7 +105,7 @@
                     </fieldset>
                     <fieldset>
                         <label class="label">Fecha Primer Pago</label>
-                        <input formControlName="fechaPrimerPago" type="date" placeholder="dd/mm/aaaa" tabindex="4">
+                        <input formControlName="fechaPrimerPago" [disabled]="puedeCambiarFechas" type="date" placeholder="dd/mm/aaaa" tabindex="4">
                         <label class="label">Fecha Minima:{{FechaPrimerPagoMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPrimerPagoMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
                     <fieldset>
@@ -220,7 +220,7 @@
     </div>
     <div class="modal-footer-mfc full variation ">
         <div class="align-right ">
-          <a class="btn btn-border-blue simulate-inputFile">Cargar archivo <input type="file" (change)="fileChange($event,mensajeModalError,mensajeAdvertencia)" placeholder="Upload file" accept=".pdf,.doc,.docx"></a>
+            <a class="btn btn-border-blue simulate-inputFile">Cargar archivo <input type="file" (change)="fileChange($event,mensajeModalError,mensajeAdvertencia)" placeholder="Upload file" accept=".pdf,.doc,.docx"></a>
             <button class="btn btn-solid-blue " (click)="modal.close( 'Cancelar click') ">Cerrar</button>
         </div>
     </div>
@@ -337,30 +337,29 @@
     </div>
 </ng-template>
 <ng-template #mensajeAdvertencia let-modal>
-  <div class="modal-header-mfc variation modal-mensaje">
-    <div class="cols cols2 align-middle">
-      <div class="align-left">
-        <img width="32" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-mensaje-warning.svg">
-        <h4 class="modal-minititle-mfc">Importante</h4>
-      </div>
-      <div class="align-right">
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+    <div class="modal-header-mfc variation modal-mensaje">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="32" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-mensaje-warning.svg">
+                <h4 class="modal-minititle-mfc">Importante</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="modal-body variation modal-mensaje">
-    <p>{{advertenceMessage}}</p>
-  </div>
-  <div class="modal-footer-mfc full variation">
-    <div class="cols cols2">
-
-      <div class="align-right">
-        <button class="btn btn-solid-green" (click)="modal.close('Cancelar click')">Aceptar</button>
-      </div>
+    <div class="modal-body variation modal-mensaje">
+        <p>{{advertenceMessage}}</p>
     </div>
-  </div>
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+
+            <div class="align-right">
+                <button class="btn btn-solid-green" (click)="modal.close('Cancelar click')">Aceptar</button>
+            </div>
+        </div>
+    </div>
 </ng-template>
-

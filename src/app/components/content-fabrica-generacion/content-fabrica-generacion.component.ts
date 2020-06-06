@@ -43,6 +43,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   btnSolicitarAnulacion = true;
   SubirArchivos = true;
   generarDocumentacion = true;
+  puedeCambiarFechas = true;
   Archivos: File[] = [];
   archivoSeleccionado: File = null;
   // bkm
@@ -193,6 +194,13 @@ export class ContentFabricaGeneracionComponent implements OnInit {
         this.FormularioDatosReportes.controls['fechaPrimerPago'].setValue(FECHA_INICIO_CREDITO_REAL_CRE.toISOString().substring(0, 10));
      } catch {}
      try {
+          if (this.FormularioDatosReportes.controls['fechaPagare'].value !== '' && 
+            this.FormularioDatosReportes.controls['fechaPrimerPago'].value !== '') {
+        this.puedeCambiarFechas = false;
+        console.log('Cambio a no editable'+this.FormularioDatosReportes.controls['fechaPagare'].value+this.FormularioDatosReportes.controls['fechaPrimerPago'].value);
+       } else {
+        console.log('Si se puede editar');
+       }
       this.FechaPagareMin = new Date(this.mensajeServicio.FechaPagareMin);
       this.FechaPagareMax = new Date(this.mensajeServicio.FechaPagareMax);
      } catch {
