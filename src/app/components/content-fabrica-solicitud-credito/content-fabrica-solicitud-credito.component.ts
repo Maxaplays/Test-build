@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {Direccion, DireccionesService} from '../../services/direcciones/direcciones.service';
 import {TelefonosService} from '../../services/telefonos/telefonos.service';
@@ -30,6 +30,8 @@ import { DocumentosService } from 'src/app/services/documentos.service';
 })
 export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
+  // @ts-ignore
+  @ViewChild('fileInput') fileInput;
   closeResult: string;
   private _error = new Subject<string>();
   private _success = new Subject<string>();
@@ -37,6 +39,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   staticAlertClosed = false;
   errorMessage: string;
   successMessage: string;
+  advertenceMessage: string;
   loading: boolean;
   // bkm
   mensajeServicio: DatosFabrica;
@@ -108,6 +111,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   total: number;
   conyuges: Conyuge[] = [];
   datosComplemetarios: CREDITO_DATOS_COMPLEMENTARIOS[] = [];
+  Archivos: File[] = [];
+  archivoSeleccionado: File = null;
+  nombreArchivo: string = '';
+
   // bkm
   // tslint:disable-next-line:max-line-length
   constructor(private modalService: NgbModal,
@@ -209,16 +216,18 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
   crearFormularioCliente() {
     this.FormularioDatosCliente = new FormGroup({
-      tipoDocumentacion: new FormControl(null, Validators.required),
-      cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
+      tipoDocumentacion: new FormControl(null),
+      cedula: new FormControl(null),
       nombreCliente: new FormControl(null, Validators.required),
       apellidoCliente: new FormControl(null, Validators.required),
-      fechaNacimiento: new FormControl(null, Validators.required),
-      genero: new FormControl(null, Validators.required),
-      nacionalidad: new FormControl(null, Validators.required),
-      estadoCivil: new FormControl(null, Validators.required),
-      cargasFamiliares: new FormControl(null, Validators.required),
-      emailCliente: new FormControl(null, Validators.required),
+      fechaNacimiento: new FormControl(null),
+      genero: new FormControl(null),
+      nacionalidad: new FormControl(null),
+      estadoCivil: new FormControl(null),
+      cargasFamiliares: new FormControl(null),
+      emailCliente: new FormControl(null, [
+        Validators.required,
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
       profesionCliente: new FormControl(null),
       rucTrabajo: new FormControl(null),
       razonSocialTrabajo: new FormControl(null)
@@ -253,6 +262,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
 
   guardarCliente(content) {
+    if (this.FormularioDatosCliente.valid) {
     this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
     this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
     this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
@@ -291,6 +301,18 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
           this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
         }
       });
+    } else {
+      this.errorMessage = 'Datos de cliente incorrectos, favor revise';
+      this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+      return Object.values(this.FormularioDatosCliente.controls).forEach(control => {
+        if (control instanceof FormGroup) {
+          // tslint:disable-next-line:no-shadowed-variable
+          Object.values(control.controls). forEach( control => control.markAllAsTouched());
+        } else {
+          control.markAllAsTouched();
+        }
+      });
+    }
   }
 
   editarConyuge(content, conyuge: Conyuge) {
@@ -1065,7 +1087,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   crearFormularioTelefonos() {
     this.formaTelefonos = this.fb.group({
       TipoRegistroTelefono: ['CLIENTE'],
-      TipoTelefono: ['FIJO'],
+      TipoTelefono: ['MOVIL'],
       NumeroTelefono: ['', [Validators.required, Validators.minLength(9), Validators.pattern('^[0-9]*$')]],
       ExtensionTelefono: ['']
     });
@@ -1171,27 +1193,61 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         }
       });
   }
-  solicitarAnalisis(content) {
+  solicitarAnalisis(content, contentWarning) {
     this.fabricaService.getSolicitarAnalisis(this.mensajeServicio.NumeroCredito,
                                             localStorage.getItem('usuario')).subscribe(
         data => {
           var resultado: number = data.toString().indexOf('Solicitud en estado: ');
           if (resultado >= 0) {
-            this.mensajeServicio.Estado = 'Cancelada';
-            this.successMessage = data.toString();
+            console.log('Si genera el cambio de estado:' + data.toString());
+            this.advertenceMessage = data.toString();
+            this.modalService.open(contentWarning, {windowClass: 'custom-width-modal'});
           } else {
             this.errorMessage = data.toString();
-            this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+            this.modalService.open(content, {windowClass: 'custom-width-modal'});
           }
           });
   }
-  getDocumentosCredito() {
+  getDocumentosCredito(): any {
     this.documentosService.getDocumentosSubidos(this.mensajeServicio.NumeroCredito)
         .pipe(map (data => data["DOCUMENTOS"]))
         .subscribe((data: any) => {
           this.documentosSubidos = data;
           console.log(this.documentosSubidos);
         });
+  }
+  fileChange(event, contentE, contentA) {
+    this.archivoSeleccionado = <File> event.target.files[0];
+    this.Archivos.push(this.archivoSeleccionado);
+    if(this.Archivos.length > 0) {
+      //console.log(fileList);
+      this.documentosService.postFileImagen(this.Archivos, this.mensajeServicio.NumeroCredito,
+        localStorage.getItem('usuario'))
+        .subscribe(
+          (data: any) => {
+            if (data.listaResultado.length > 0) {
+              this.successMessage = 'Archivo cargado';
+            }
+            if (data.listaErrores.length > 0) {
+              let mensajeError = '';
+              for (const mensaje of data.listaErrores) {
+                mensajeError += mensaje + '\n';
+              }
+              this.errorMessage = mensajeError;
+              this.modalService.open(contentE, {windowClass: 'custom-width-error-modal'});
+            }
+            if (data.listaAdvertencias.length > 0) {
+              let mensajeAdvertencia = '';
+              for (const mensaje of data.listaAdvertencias) {
+                mensajeAdvertencia += mensaje + '\n';
+              }
+              this.advertenceMessage = mensajeAdvertencia;
+              this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+            }
+            this.documentosSubidos = this.getDocumentosCredito();
+          }
+        );
+    }
   }
 }
 

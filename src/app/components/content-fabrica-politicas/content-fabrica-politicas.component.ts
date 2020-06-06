@@ -30,6 +30,8 @@ export class ContentFabricaPoliticasComponent implements OnInit {
   btnSolicitarAnalisis = true;
   ASPxActualizarSOL = true;
   SolicitarExcepcion = true;
+  Archivos: File[] = [];
+  archivoSeleccionado: File = null;
   // bkm
   mensajeServicio: DatosFabrica;
   politicas: any[] = [];
@@ -228,5 +230,39 @@ export class ContentFabricaPoliticasComponent implements OnInit {
           this.documentosSubidos = data;
           // console.log(this.documentosSubidos);
         });
+  }
+  fileChange(event, contentE, contentA) {
+    this.archivoSeleccionado = <File> event.target.files[0];
+    this.Archivos.push(this.archivoSeleccionado);
+    if(this.Archivos.length > 0) {
+      //console.log(fileList);
+      this.documentosService.postFileImagen(this.Archivos, this.mensajeServicio.NumeroCredito,
+        localStorage.getItem('usuario'))
+        .subscribe(
+          (data: any) => {
+            if (data.listaResultado.length > 0) {
+              this.successMessage = 'Archivo cargado';
+            }
+            if (data.listaErrores.length > 0) {
+              let mensajeError = '';
+              for (const mensaje of data.listaErrores) {
+                mensajeError += mensaje + '\n';
+              }
+              this.errorMessage = mensajeError;
+              this.modalService.open(contentE, {windowClass: 'custom-width-error-modal'});
+            }
+            if (data.listaAdvertencias.length > 0) {
+              let mensajeAdvertencia = '';
+              for (const mensaje of data.listaAdvertencias) {
+                mensajeAdvertencia += mensaje + '\n';
+              }
+              this.advertenceMessage = mensajeAdvertencia;
+              this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+            }
+            // @ts-ignore
+            this.documentosSubidos = this.getDocumentosCredito();
+          }
+        );
+    }
   }
 }
