@@ -52,14 +52,21 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   sumatoriaEgresos: number = 0;
   sumatoriaTotal: number = 0;
   sumatoriaActivos: number = 0;
-  TMuebles: number = 0;
+  TMueble: number = 0;
+  CMuebles: string;
   TPropiedades: number = 0;
+  CPropiedades: string;
   TVehiculos: number = 0;
+  CVehiculos: string;
   TInversiones: number = 0;
+  CInversiones: string;
   TAcciones: number = 0;
+  CAcciones: string;
   TotalActivos: number = 0;
   TDeudas: number = 0;
+  CDeudas: string;
   TTarjetas: number = 0;
+  CTarjetas: string;
   TotalPasivos: number = 0;
   TotalPatrimonio: number = 0;
   idCredito: string;
@@ -706,11 +713,16 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 // Activos y Pasivos
   onDatosMueblesValorChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
+      console.log(newValue);
+      if (newValue == null) {
+        newValue = 0;
+        this.TMueble = 0;
+      }
       let NumeroCredito: string;
       NumeroCredito =  this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarValorMuebles(NumeroCredito, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any ) => {
-        console.log(resultado);
+        // console.log(resultado);
         let totalSumaBackend: number;
         totalSumaBackend = Number(resultado.toString().replace(',', '.'));
         this.TotalActivos = totalSumaBackend;
@@ -718,6 +730,19 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
     }
   }
+
+  onDatosMueblesComentarioChange(newValue) {
+    if (this.grabarDatosIngresadosGrid) {
+      let NumeroCredito: string;
+      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      console.log( 'Este mensaje es de comentario: ' + newValue);
+      this.situacionFinancieraService.getguardarComentarioMuebles(NumeroCredito, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any ) => {
+        // console.log(resultado);
+      });
+    }
+  }
+
   onDatosPropiedadesValorChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
@@ -732,6 +757,18 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
     }
   }
+
+  onDatosPropiedadesComentarioChange(newValue) {
+    if (this.grabarDatosIngresadosGrid) {
+      let NumeroCredito: string;
+      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      this.situacionFinancieraService.getguardarComentarioPropiedades(NumeroCredito, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any ) => {
+        // console.log(resultado);
+      });
+    }
+  }
+
   onDatosVehiculosValorChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
@@ -743,6 +780,17 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         totalSumaBackend = Number(resultado.toString().replace(',', '.'));
         this.TotalActivos = totalSumaBackend;
         this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
+      });
+    }
+  }
+
+  onDatosVehiculosComentarioChange(newValue) {
+    if (this.grabarDatosIngresadosGrid) {
+      let NumeroCredito: string;
+      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      this.situacionFinancieraService.getguardarComentarioVehiculos(NumeroCredito, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any ) => {
+        // console.log(resultado);
       });
     }
   }
@@ -762,6 +810,17 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
 
+  onDatosInversionesComentarioChange(newValue) {
+    if (this.grabarDatosIngresadosGrid) {
+      let NumeroCredito: string;
+      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      this.situacionFinancieraService.getguardarComentarioInversiones(NumeroCredito, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any ) => {
+        // console.log(resultado);
+      });
+    }
+  }
+
   onDatosAccionesValorChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
@@ -777,6 +836,68 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
 
+  onDatosAccionesComentarioChange(newValue) {
+    if (this.grabarDatosIngresadosGrid) {
+      let NumeroCredito: string;
+      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      this.situacionFinancieraService.getguardarComentarioAcciones(NumeroCredito, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any ) => {
+        // console.log(resultado);
+      });
+    }
+  }
+
+  onDatosDeudasValorChange(newValue) {
+    if (this.grabarDatosIngresadosGrid) {
+      let NumeroCredito: string;
+      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      this.situacionFinancieraService.getguardarValorDeudas(NumeroCredito, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any ) => {
+        console.log(resultado);
+        let totalSumaBackend: number;
+        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+        this.TotalPasivos = totalSumaBackend;
+        this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
+      });
+    }
+  }
+
+  onDatosDeudasComentarioChange(newValue) {
+    if (this.grabarDatosIngresadosGrid) {
+      let NumeroCredito: string;
+      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      this.situacionFinancieraService.getguardarComentarioDeudas(NumeroCredito, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any ) => {
+        // console.log(resultado);
+      });
+    }
+  }
+
+  onDatosTarjetasValorChange(newValue) {
+    if (this.grabarDatosIngresadosGrid) {
+      let NumeroCredito: string;
+      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      this.situacionFinancieraService.getguardarValorTarjetas(NumeroCredito, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any ) => {
+        console.log(resultado);
+        let totalSumaBackend: number;
+        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+        this.TotalPasivos = totalSumaBackend;
+        this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
+      });
+    }
+  }
+
+  onDatosTarjetasComentarioChange(newValue) {
+    if (this.grabarDatosIngresadosGrid) {
+      let NumeroCredito: string;
+      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      this.situacionFinancieraService.getguardarComentarioTarjetas(NumeroCredito, newValue, localStorage.getItem('usuario'))
+      .subscribe( (resultado: any ) => {
+        // console.log(resultado);
+      });
+    }
+  }
 
   getConyuge() {
     this.conyugesServices.getConyugeCedula(this.mensajeServicio.Cedula)
@@ -841,14 +962,21 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .pipe(map(data => data['PATRIMONIO']))
       .subscribe((data: any) => {
         this.situacionFinancieraTotalPatrimonio = data;
-        this.TMuebles = data[0].TMUEBLES;
+        this.TMueble = data[0].TMUEBLES;
+        this.CMuebles = data[0].CMUEBLES;
         this.TPropiedades = data[0].TPROPIEDADES;
+        this.CPropiedades = data[0].CPROPIEDADES;
         this.TVehiculos = data[0].TVEHICULOS;
+        this.CVehiculos = data[0].CVEHICULOS;
         this.TInversiones = data[0].TINVERSIONES;
+        this.CInversiones = data[0].CINVERSIONES;
         this.TAcciones = data[0].TACCIONES;
+        this.CAcciones = data[0].CACCIONES;
         this.TotalActivos = data[0].TOTALACTIVOS;
         this.TDeudas = data[0].TDEUDAS;
+        this.CDeudas = data[0].CDEUDAS;
         this.TTarjetas = data[0].TTARJETAS;
+        this.CTarjetas = data[0].CTARJETAS;
         this.TotalPasivos = data[0].TOTALPASIVOS;
         this.TotalPatrimonio = data[0].TOTALPATRIMONIO;
       });

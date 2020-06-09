@@ -37,16 +37,35 @@ export class SituacionFinancieraService {
     const urlIngresos = `/guardarValorEgresos?idReg=${idReg}&comentario=${valor}&usuario=${usuario}`;
     return this.getQuery(urlIngresos);
   }
+
+  // Patrimonio total
   public getguardarValorMuebles(idCre: string, valor: string, usuario: string) {
     const urlIngresos = `/guardarValorMuebles?idCre=${idCre}&valor=${valor}&usuario=${usuario}`;
     return this.getQuery(urlIngresos);
   }
+
+  public getguardarComentarioMuebles(idCre: string, comentario: string, usuario: string) {
+    const urlIngresos = `/guardarComentarioMuebles?idCre=${idCre}&comentario=${comentario}&usuario=${usuario}`;
+    return this.getQuery(urlIngresos);
+  }
+
   public getguardarValorPropiedades(idCre: string, valor: string, usuario: string) {
     const urlIngresos = `/guardarValorPropiedades?idCre=${idCre}&valor=${valor}&usuario=${usuario}`;
     return this.getQuery(urlIngresos);
   }
+
+  public getguardarComentarioPropiedades(idCre: string, comentario: string, usuario: string) {
+    const urlIngresos = `/guardarComentarioPropiedades?idCre=${idCre}&comentario=${comentario}&usuario=${usuario}`;
+    return this.getQuery(urlIngresos);
+  }
+
   public getguardarValorVehiculos(idCre: string, valor: string, usuario: string) {
     const urlIngresos = `/guardarValorVehiculos?idCre=${idCre}&valor=${valor}&usuario=${usuario}`;
+    return this.getQuery(urlIngresos);
+  }
+
+  public getguardarComentarioVehiculos(idCre: string, comentario: string, usuario: string) {
+    const urlIngresos = `/guardarComentarioVehiculos?idCre=${idCre}&comentario=${comentario}&usuario=${usuario}`;
     return this.getQuery(urlIngresos);
   }
 
@@ -55,8 +74,38 @@ export class SituacionFinancieraService {
     return this.getQuery(urlIngresos);
   }
 
+  public getguardarComentarioInversiones(idCre: string, comentario: string, usuario: string) {
+    const urlIngresos = `/guardarComentarioInversiones?idCre=${idCre}&comentario=${comentario}&usuario=${usuario}`;
+    return this.getQuery(urlIngresos);
+  }
+
   public getguardarValorAcciones(idCre: string, valor: string, usuario: string) {
     const urlIngresos = `/guardarValorAcciones?idCre=${idCre}&valor=${valor}&usuario=${usuario}`;
+    return this.getQuery(urlIngresos);
+  }
+
+  public getguardarComentarioAcciones(idCre: string, comentario: string, usuario: string) {
+    const urlIngresos = `/guardarComentarioAcciones?idCre=${idCre}&comentario=${comentario}&usuario=${usuario}`;
+    return this.getQuery(urlIngresos);
+  }
+
+  public getguardarValorDeudas(idCre: string, valor: string, usuario: string) {
+    const urlIngresos = `/guardarValorDeudas?idCre=${idCre}&valor=${valor}&usuario=${usuario}`;
+    return this.getQuery(urlIngresos);
+  }
+
+  public getguardarComentarioDeudas(idCre: string, comentario: string, usuario: string) {
+    const urlIngresos = `/guardarComentarioDeudas?idCre=${idCre}&comentario=${comentario}&usuario=${usuario}`;
+    return this.getQuery(urlIngresos);
+  }
+
+  public getguardarValorTarjetas(idCre: string, valor: string, usuario: string) {
+    const urlIngresos = `/guardarValorTarjetas?idCre=${idCre}&valor=${valor}&usuario=${usuario}`;
+    return this.getQuery(urlIngresos);
+  }
+
+  public getguardarComentarioTarjetas(idCre: string, comentario: string, usuario: string) {
+    const urlIngresos = `/guardarComentarioTarjetas?idCre=${idCre}&comentario=${comentario}&usuario=${usuario}`;
     return this.getQuery(urlIngresos);
   }
 
