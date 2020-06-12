@@ -59,8 +59,8 @@ import { DomseguroPipe } from './pipes/domseguro.pipe';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'inicio', component: DashboardComponent },
-  { path: 'configuracion/respuestas', component: ContentConfiguracionRespuestasComponent },
-  { path: 'configuracion/respuestas/gestionar-plantillas', component: GestionarPlantillasComponent },
+  // { path: 'configuracion/respuestas', component: ContentConfiguracionRespuestasComponent },
+  // { path: 'configuracion/respuestas/gestionar-plantillas', component: GestionarPlantillasComponent },
   { path: 'cuenta/editar', component: CuentaComponent },
   { path: 'fabrica/nueva-solicitud', component: FabricaComponent },
   { path: 'fabrica/nueva-solicitud/credito', component: FabricaStep2Component },
@@ -69,10 +69,10 @@ const routes: Routes = [
   { path: 'fabrica/nueva-solicitud/politicas', component: FabricaStep5Component },
   { path: 'fabrica/nueva-solicitud/generacion', component: FabricaStep6Component },
   { path: 'fabrica/nueva-solicitud/control-de-calidad', component: FabricaStep7Component },
-  { path: 'fabrica/consulta-general', component: ConsultaGeneralComponent },
-  { path: 'analisis/verificaciones', component: VerificacionesComponent },
-  { path: 'analisis/excepciones', component: ExcepcionesComponent },
-  { path: 'analisis/control-de-calidad', component: ControlDeCalidadComponent }
+  // { path: 'analisis/verificaciones', component: VerificacionesComponent },
+  // { path: 'analisis/excepciones', component: ExcepcionesComponent },
+  // { path: 'analisis/control-de-calidad', component: ControlDeCalidadComponent },
+  { path: 'fabrica/consulta-general', component: ConsultaGeneralComponent }
 ];
 
 @NgModule({
