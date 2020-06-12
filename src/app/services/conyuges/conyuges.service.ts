@@ -70,4 +70,5 @@ export class Conyuge {
   COD_PRO: string;
   tipodoc: string;
   genero: string;
+  ID_CON: string;
 }
