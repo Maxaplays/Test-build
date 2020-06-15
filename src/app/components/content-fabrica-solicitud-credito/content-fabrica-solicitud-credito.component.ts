@@ -1089,7 +1089,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .pipe(map(data => data["LISTAREF"]))
       .subscribe((data: any) => {
         this.referencias = data;
-        // console.log(data);
+        console.log(data);
       });
   }
 
