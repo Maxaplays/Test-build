@@ -9519,6 +9519,12 @@ body {
     padding-bottom: 5px;
 }
 
+.label.postinput {
+  padding-top: 8px;
+  color: #287fa2;
+  font-size: 12px;
+}
+
 .label b {
     color: red;
 }
@@ -10514,6 +10520,8 @@ body button.close:focus {
     color: #287FA2;
     text-decoration: none;
     display: inline-block;
+    white-space: normal;
+    line-height: 1.5;
 }
 
 .link-doc img {

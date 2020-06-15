@@ -59,4 +59,5 @@ export class Referencia {
   observa: string;
   email: string;
   cliente: string;
+  ID_REF: string;
 }

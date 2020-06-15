@@ -81,8 +81,8 @@
     </form>
     <app-loading *ngIf="loading"></app-loading>
     <div class="forms forms-relative">
-        <div class="cols cols3">
-            <form class="forms forms-relative" [formGroup]="FormularioDatosReportes">
+        <form [formGroup]="FormularioDatosReportes">
+            <div class="cols cols3">
                 <div>
                     <fieldset>
                         <label class="label">Seleccione los items que desea imprimir</label>
@@ -97,7 +97,7 @@
                     <fieldset>
                         <label class="label">Fecha Pagaré</label>
                         <input formControlName="fechaPagare" [disabled]="puedeCambiarFechas" type="date" placeholder="dd/mm/aaaa" (keyup)="cambioFechaPagare($event.target.value)">
-                        <label class="label">Fecha Minima:{{FechaPagareMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPagareMax | date: 'dd/MM/yyyy'}}</label>
+                        <label class="label postinput">Fecha Minima:{{FechaPagareMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPagareMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
                     <fieldset>
                         <label class="label">Días Inicio Crédito</label>
@@ -106,7 +106,7 @@
                     <fieldset>
                         <label class="label">Fecha Primer Pago</label>
                         <input formControlName="fechaPrimerPago" [disabled]="puedeCambiarFechas" type="date" placeholder="dd/mm/aaaa" tabindex="4">
-                        <label class="label">Fecha Minima:{{FechaPrimerPagoMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPrimerPagoMax | date: 'dd/MM/yyyy'}}</label>
+                        <label class="label postinput">Fecha Minima:{{FechaPrimerPagoMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPrimerPagoMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
                     <fieldset>
                         <label class="label">Días Inicio Crédito Máximo</label>
@@ -131,8 +131,8 @@
                         <input formControlName="numeroCuenta" type="text" type="text" [attr.disabled]="numeroCuentaEnabled">
                     </fieldset>
                 </div>
+              </div>
             </form>
-        </div>
         <div class="align-right " style="padding-top: 40px; ">
             <button *ngIf="generarDocumentacion" class="btn btn-solid-blue " (click)="generarDocumentos(docGenerado,mensajeModalError)">Generar Documentación Seleccionada</button>
         </div>
@@ -202,7 +202,7 @@
     </div>
     <div class="modal-footer-mfc full variation ">
         <div class="align-right ">
-            <a class="btn btn-border-blue simulate-inputFile">Cargar archivo <input type="file" (change)="fileChange($event,mensajeModalError,mensajeAdvertencia)" placeholder="Upload file" accept=".pdf,.doc,.docx"></a>
+            <a class="btn btn-border-blue simulate-inputFile">Subir archivo <input type="file" (change)="fileChange($event,mensajeModalError,mensajeAdvertencia)" placeholder="Upload file" accept=".pdf,.doc,.docx"></a>
             <button class="btn btn-solid-blue " (click)="modal.close( 'Cancelar click') ">Cerrar</button>
         </div>
     </div>

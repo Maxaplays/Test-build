@@ -70,6 +70,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   TotalPasivos: number = 0;
   TotalPatrimonio: number = 0;
   idCredito: string;
+  referenciaID_REFeditable: string = '';
+  conyugeID_CONeditable: string = '';
   tabActual;
   btnSolicitarAnulacion = true;
   BtnEntregarCarpeta = true;
@@ -167,7 +169,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                           (data: DatosFabrica) => {
                             // console.log(data);
                             this.fabricaService.changeMessage(data);
-                            console.log('Acoplar Pantalla: ' + data.Estado);
+                            // console.log('Acoplar Pantalla: ' + data.Estado);
                             this.acoplarPantalla(data.Estado);
                           });
                       }
@@ -323,28 +325,41 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
 
   editarConyuge(content, conyuge: Conyuge) {
-    this.cargarFormularioConyuge(conyuge);
+    if (conyuge === undefined) {
+      this.crearFormularioConyuge();
+      this.conyugeID_CONeditable = '';
+      // console.log('dato:' + this.conyugeID_CONeditable);
+    } else {
+      this.cargarFormularioConyuge(conyuge);
+      this.conyugeID_CONeditable = conyuge.ID_CON;
+      // console.log('dato:' + this.conyugeID_CONeditable);
+    }
     this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
   }
 
   crearFormularioConyuge() {
     this.FormularioDatosConyuge = new FormGroup({
       tipo_registro: new FormControl(null),
-      tipoDocumentacion: new FormControl(null, Validators.required),
-      cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
+      tipoDocumentacion: new FormControl(null),
+      cedula: new FormControl(null),
       apellidoConyuge: new FormControl(null, Validators.required),
       nombreConyuge: new FormControl(null, Validators.required),
       telefonoConyuge: new FormControl(null),
-      fechaNacimiento: new FormControl(null, Validators.required),
-      genero: new FormControl(null, Validators.required),
-      nacionalidad: new FormControl(null, Validators.required),
-      profesion: new FormControl(null, Validators.required),
+      fechaNacimiento: new FormControl(null),
+      genero: new FormControl(null),
+      nacionalidad: new FormControl(null),
+      profesion: new FormControl(null),
       direccion: new FormControl(null),
       observaciones: new FormControl(null)
     });
   }
   cargarFormularioConyuge(conyuge: Conyuge) {
-    // console.log(conyuge);
+    let fechaNacimientostring: string = '';
+    try {
+      let fechaNacimiento: Date = new Date(conyuge.FECH_NAC_CON);
+      fechaNacimientostring = fechaNacimiento.toISOString().substring(0, 10);
+      } catch {
+      }
     this.FormularioDatosConyuge.reset({
       tipo_registro: 'CLIENTE',
       tipoDocumentacion: conyuge.COD_TDOC,
@@ -352,7 +367,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       apellidoConyuge: conyuge.APE_CON,
       nombreConyuge: conyuge.NOM_CON,
       telefonoConyuge: '',
-      fechaNacimiento: conyuge.FECH_NAC_CON,
+      fechaNacimiento: fechaNacimientostring,
       genero: conyuge.COD_GEN,
       nacionalidad: conyuge.COD_NAC,
       profesion: conyuge.COD_PRO,
@@ -364,8 +379,12 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   editarReferencia(content, referencia: any) {
     if (referencia === undefined || referencia === '') {
       this.crearFormularioReferencia();
+      this.referenciaID_REFeditable = '';
+      // console.log('dato:' + this.referenciaID_REFeditable);
     } else {
       this.cargarFormularioReferencia(referencia);
+      this.referenciaID_REFeditable = referencia.ID_REF;
+      // console.log('dato:' + this.referenciaID_REFeditable);
     }
     this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
   }
@@ -373,13 +392,13 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   crearFormularioReferencia() {
     this.FormularioDatosReferencia = new FormGroup({
       tipo_registro: new FormControl(null),
-      cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
+      cedula: new FormControl(null),
       parentesco: new FormControl(null, Validators.required),
       apellido: new FormControl(null, Validators.required),
       nombre: new FormControl(null, Validators.required),
-      direccion: new FormControl(null, Validators.required),
+      direccion: new FormControl(null),
       telefono_dom: new FormControl(null),
-      celular: new FormControl(null),
+      celular: new FormControl(null, Validators.required),
       telefono_trab: new FormControl(null),
       empresa: new FormControl(null),
       direc_emp: new FormControl(null),
@@ -408,35 +427,49 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     // cedula, apellido, nombre, direccion, telefono_dom, celular, telefono_trab, empresa, direc_emp, observa
   guardarReferencia(content) {
     // console.log('Inicia Proceso');
-    const datosReferencia: Referencia = new Referencia();
-    datosReferencia.cedula = this.FormularioDatosReferencia.value.cedula;
-    datosReferencia.parentesco = this.FormularioDatosReferencia.value.parentesco;
-    datosReferencia.apellido = this.FormularioDatosReferencia.value.apellido;
-    datosReferencia.nombre = this.FormularioDatosReferencia.value.nombre;
-    datosReferencia.direccion = this.FormularioDatosReferencia.value.direccion;
-    datosReferencia.telefono_dom = this.FormularioDatosReferencia.value.telefono_dom;
-    datosReferencia.celular = this.FormularioDatosReferencia.value.celular;
-    datosReferencia.telefono_trab = this.FormularioDatosReferencia.value.telefono_trab;
-    datosReferencia.empresa = this.FormularioDatosReferencia.value.empresa;
-    datosReferencia.direc_emp = this.FormularioDatosReferencia.value.direc_emp;
-    datosReferencia.observa = this.FormularioDatosReferencia.value.observa;
-    datosReferencia.email = this.FormularioDatosReferencia.value.email;
-    datosReferencia.cliente = this.mensajeServicio.Cedula;
-     // console.log(datosReferencia);
-    this.referenciasServices.postReferencias(datosReferencia, this.crearReferencia).subscribe(
-      (data: any) => {
-        let resultado = data;
-        // console.log(data);
-        if(resultado.resultado === 'Referencia ingresada'){
-          this.modalService.dismissAll();
-          this.successMessage = 'Referencia Guardado Exitosamente!';
-          this.getListaReferencias();
-        } else {
-          // Error
-          this.errorMessage = data.error;
-          this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
-        }
-      });
+    if (this.FormularioDatosReferencia.valid) {
+      const datosReferencia: Referencia = new Referencia();
+      datosReferencia.cedula = this.FormularioDatosReferencia.value.cedula;
+      datosReferencia.parentesco = this.FormularioDatosReferencia.value.parentesco;
+      datosReferencia.apellido = this.FormularioDatosReferencia.value.apellido;
+      datosReferencia.nombre = this.FormularioDatosReferencia.value.nombre;
+      datosReferencia.direccion = this.FormularioDatosReferencia.value.direccion;
+      datosReferencia.telefono_dom = this.FormularioDatosReferencia.value.telefono_dom;
+      datosReferencia.celular = this.FormularioDatosReferencia.value.celular;
+      datosReferencia.telefono_trab = this.FormularioDatosReferencia.value.telefono_trab;
+      datosReferencia.empresa = this.FormularioDatosReferencia.value.empresa;
+      datosReferencia.direc_emp = this.FormularioDatosReferencia.value.direc_emp;
+      datosReferencia.observa = this.FormularioDatosReferencia.value.observa;
+      datosReferencia.email = this.FormularioDatosReferencia.value.email;
+      datosReferencia.cliente = this.mensajeServicio.Cedula;
+      datosReferencia.ID_REF = this.referenciaID_REFeditable;
+       // console.log(datosReferencia);
+      this.referenciasServices.postReferencias(datosReferencia, this.crearReferencia).subscribe(
+        (data: any) => {
+          let resultado = data;
+          // console.log(data);
+          if(resultado.resultado === 'Referencia ingresada'){
+            this.modalService.dismissAll();
+            this.successMessage = 'Referencia Guardado Exitosamente!';
+            this.getListaReferencias();
+          } else {
+            // Error
+            this.errorMessage = data.error;
+            this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+          }
+        });
+      } else {
+        this.errorMessage = 'Datos de referencia incorrectos, favor revise';
+        this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+        return Object.values(this.FormularioDatosReferencia.controls).forEach(control => {
+          if (control instanceof FormGroup) {
+            // tslint:disable-next-line:no-shadowed-variable
+            Object.values(control.controls). forEach( control => control.markAllAsTouched());
+          } else {
+            control.markAllAsTouched();
+          }
+        });
+      }
   }
 
   public getTipoDoc(): any {
@@ -576,7 +609,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
   acoplarPantalla(lblEstadoSolicitud: string) {
-    console.log('Acoplando Pantalla: ' + lblEstadoSolicitud);
+    // console.log('Acoplando Pantalla: ' + lblEstadoSolicitud);
     if (lblEstadoSolicitud === 'Documental' || lblEstadoSolicitud === 'Cancelada' ||
         lblEstadoSolicitud === 'Aprobada' || lblEstadoSolicitud === 'Autorizada' ||
         lblEstadoSolicitud === 'Re-Documental' || lblEstadoSolicitud === 'RechazadaCC' ||
@@ -666,7 +699,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     if (this.grabarDatosIngresadosGrid) {
     this.situacionFinancieraService.getguardarComentarioIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any ) => {
-          console.log(resultado);
+          // console.logconsole.log(resultado);
           let totalSumaBackend: number;
           totalSumaBackend = Number(resultado.toString().replace(',', '.'));
           this.sumatoriaIngresos = totalSumaBackend;
@@ -678,7 +711,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     if (this.grabarDatosIngresadosGrid) {
     this.situacionFinancieraService.getguardarValorIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
      .subscribe( (resultado: any ) => {
-        console.log(resultado);
+        // console.log(resultado);
         let totalSumaBackend: number;
         totalSumaBackend = Number(resultado.toString().replace(',', '.'));
         this.sumatoriaIngresos = totalSumaBackend;
@@ -690,7 +723,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     if (this.grabarDatosIngresadosGrid) {
     this.situacionFinancieraService.getguardarComentarioEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any ) => {
-        console.log(resultado);
+        // console.log(resultado);
         let totalSumaBackend: number;
         totalSumaBackend = Number(resultado.toString().replace(',', '.'));
         this.sumatoriaEgresos = totalSumaBackend;
@@ -702,7 +735,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     if (this.grabarDatosIngresadosGrid) {
     this.situacionFinancieraService.getguardarValorEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any ) => {
-        console.log(resultado);
+        // console.log(resultado);
         let totalSumaBackend: number;
         totalSumaBackend = Number(resultado.toString().replace(',', '.'));
         this.sumatoriaEgresos = totalSumaBackend;
@@ -713,7 +746,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 // Activos y Pasivos
   onDatosMueblesValorChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
-      console.log(newValue);
+      // console.log(newValue);
       if (newValue == null) {
         newValue = 0;
         this.TMueble = 0;
@@ -735,7 +768,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
       NumeroCredito =  this.mensajeServicio.NumeroCredito;
-      console.log( 'Este mensaje es de comentario: ' + newValue);
+      // console.log( 'Este mensaje es de comentario: ' + newValue);
       this.situacionFinancieraService.getguardarComentarioMuebles(NumeroCredito, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any ) => {
         // console.log(resultado);
@@ -749,7 +782,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       NumeroCredito =  this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarValorPropiedades(NumeroCredito, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any ) => {
-        console.log(resultado);
+        // console.log(resultado);
         let totalSumaBackend: number;
         totalSumaBackend = Number(resultado.toString().replace(',', '.'));
         this.TotalActivos = totalSumaBackend;
@@ -775,7 +808,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       NumeroCredito =  this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarValorVehiculos(NumeroCredito, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any ) => {
-        console.log(resultado);
+        // console.log(resultado);
         let totalSumaBackend: number;
         totalSumaBackend = Number(resultado.toString().replace(',', '.'));
         this.TotalActivos = totalSumaBackend;
@@ -801,7 +834,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       NumeroCredito =  this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarValorInversiones(NumeroCredito, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any ) => {
-        console.log(resultado);
+        // console.log(resultado);
         let totalSumaBackend: number;
         totalSumaBackend = Number(resultado.toString().replace(',', '.'));
         this.TotalActivos = totalSumaBackend;
@@ -827,7 +860,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       NumeroCredito =  this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarValorAcciones(NumeroCredito, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any ) => {
-        console.log(resultado);
+        // console.log(resultado);
         let totalSumaBackend: number;
         totalSumaBackend = Number(resultado.toString().replace(',', '.'));
         this.TotalActivos = totalSumaBackend;
@@ -853,7 +886,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       NumeroCredito =  this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarValorDeudas(NumeroCredito, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any ) => {
-        console.log(resultado);
+        // console.log(resultado);
         let totalSumaBackend: number;
         totalSumaBackend = Number(resultado.toString().replace(',', '.'));
         this.TotalPasivos = totalSumaBackend;
@@ -879,7 +912,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       NumeroCredito =  this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarValorTarjetas(NumeroCredito, newValue, localStorage.getItem('usuario'))
       .subscribe( (resultado: any ) => {
-        console.log(resultado);
+        // console.log(resultado);
         let totalSumaBackend: number;
         totalSumaBackend = Number(resultado.toString().replace(',', '.'));
         this.TotalPasivos = totalSumaBackend;
@@ -961,28 +994,33 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.situacionFinancieraService.getTotalPatrimonio(this.mensajeServicio.NumeroCredito)
       .pipe(map(data => data['PATRIMONIO']))
       .subscribe((data: any) => {
-        this.situacionFinancieraTotalPatrimonio = data;
-        this.TMueble = data[0].TMUEBLES;
-        this.CMuebles = data[0].CMUEBLES;
-        this.TPropiedades = data[0].TPROPIEDADES;
-        this.CPropiedades = data[0].CPROPIEDADES;
-        this.TVehiculos = data[0].TVEHICULOS;
-        this.CVehiculos = data[0].CVEHICULOS;
-        this.TInversiones = data[0].TINVERSIONES;
-        this.CInversiones = data[0].CINVERSIONES;
-        this.TAcciones = data[0].TACCIONES;
-        this.CAcciones = data[0].CACCIONES;
-        this.TotalActivos = data[0].TOTALACTIVOS;
-        this.TDeudas = data[0].TDEUDAS;
-        this.CDeudas = data[0].CDEUDAS;
-        this.TTarjetas = data[0].TTARJETAS;
-        this.CTarjetas = data[0].CTARJETAS;
-        this.TotalPasivos = data[0].TOTALPASIVOS;
-        this.TotalPatrimonio = data[0].TOTALPATRIMONIO;
+        // console.log(data);
+        if (data.length > 0) {
+          this.situacionFinancieraTotalPatrimonio = data;
+          this.TMueble = data[0].TMUEBLES;
+          this.CMuebles = data[0].CMUEBLES;
+          this.TPropiedades = data[0].TPROPIEDADES;
+          this.CPropiedades = data[0].CPROPIEDADES;
+          this.TVehiculos = data[0].TVEHICULOS;
+          this.CVehiculos = data[0].CVEHICULOS;
+          this.TInversiones = data[0].TINVERSIONES;
+          this.CInversiones = data[0].CINVERSIONES;
+          this.TAcciones = data[0].TACCIONES;
+          this.CAcciones = data[0].CACCIONES;
+          this.TotalActivos = data[0].TOTALACTIVOS;
+          this.TDeudas = data[0].TDEUDAS;
+          this.CDeudas = data[0].CDEUDAS;
+          this.TTarjetas = data[0].TTARJETAS;
+          this.CTarjetas = data[0].CTARJETAS;
+          this.TotalPasivos = data[0].TOTALPASIVOS;
+          this.TotalPatrimonio = data[0].TOTALPATRIMONIO;
+        }
       });
   }
 
   guardarConyuge(content) {
+    if (this.FormularioDatosConyuge.valid) {
+
     let datosConyuge: Conyuge = new Conyuge();
     let resultado: string;
     datosConyuge.ID_CLI = this.mensajeServicio.Cedula;
@@ -994,10 +1032,15 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     datosConyuge.telefono = this.FormularioDatosConyuge.value.telefonoConyuge;
     datosConyuge.COD_NAC = this.FormularioDatosConyuge.value.nacionalidad;
     datosConyuge.COD_PRO = this.FormularioDatosConyuge.value.profesion;
-    try {
-    let fechaNacimiento: Date = new Date(this.FormularioDatosConyuge.value.fechaNacimiento);
-    datosConyuge.FECH_NAC_CON = fechaNacimiento.toISOString().substring(0, 10);
-    } catch { }
+    if (this.FormularioDatosConyuge.value.fechaNacimiento !== null) {
+      try {
+      // console.log("Fecha ingresada:" + this.FormularioDatosConyuge.value.fechaNacimiento);
+      let fechaNacimiento: Date = new Date(this.FormularioDatosConyuge.value.fechaNacimiento);
+      datosConyuge.FECH_NAC_CON = fechaNacimiento.toISOString().substring(0, 10);
+      } catch { }
+    } else {
+      datosConyuge.FECH_NAC_CON = '';
+    }
     datosConyuge.OBSERVACIONES_CON = this.FormularioDatosConyuge.value.observaciones;
     datosConyuge.DIR_TRAB_CON = this.FormularioDatosConyuge.value.direccion;
     datosConyuge.ESTADO_CON = this.FormularioDatosConyuge.value.rucTrabajo;
@@ -1017,6 +1060,18 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
           this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
         }
       });
+    } else {
+      this.errorMessage = 'Datos de conyuge incorrectos, favor revise';
+      this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+      return Object.values(this.FormularioDatosConyuge.controls).forEach(control => {
+        if (control instanceof FormGroup) {
+          // tslint:disable-next-line:no-shadowed-variable
+          Object.values(control.controls). forEach( control => control.markAllAsTouched());
+        } else {
+          control.markAllAsTouched();
+        }
+      });
+    }
   }
   // RD Conyuges
   public getListaConyuges(): any {
@@ -1221,7 +1276,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     });
   }
   guardarDireccion() {
-    console.log(this.formaDirecciones);
+    // console.log(this.formaDirecciones);
     if (this.formaDirecciones.invalid == true) {
       return Object.values(this.formaDirecciones.controls).forEach(control => {
         if (control instanceof FormGroup) {
@@ -1305,6 +1360,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
   nuevoConyuge(content) {
       this.crearFormularioConyuge();
+      this.conyugeID_CONeditable = '';
       this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
   }
   openCustomWidthVariantCancelar(content) {
@@ -1327,7 +1383,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         data => {
           var resultado: number = data.toString().indexOf('Solicitud en estado: ');
           if (resultado >= 0) {
-            console.log('Si genera el cambio de estado:' + data.toString());
+            // console.log('Si genera el cambio de estado:' + data.toString());
             this.advertenceMessage = data.toString();
             this.modalService.open(contentWarning, {windowClass: 'custom-width-modal'});
           } else {
@@ -1341,7 +1397,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         .pipe(map (data => data["DOCUMENTOS"]))
         .subscribe((data: any) => {
           this.documentosSubidos = data;
-          console.log(this.documentosSubidos);
+          // console.log(this.documentosSubidos);
         });
   }
   fileChange(event, contentE, contentA) {
