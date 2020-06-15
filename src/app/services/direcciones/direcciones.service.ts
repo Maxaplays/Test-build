@@ -49,7 +49,7 @@ export class DireccionesService {
 }
 
   public postDireccion(direccion: Direccion, nuevo: boolean) {
-    if (nuevo) {
+    if (nuevo === false) {
       direccion.Nuevo = false;
     }
     const url = environment.urlServiciosBackend + `direcciones/nuevaDireccion`;
