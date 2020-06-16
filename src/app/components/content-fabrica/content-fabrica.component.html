@@ -26,7 +26,7 @@
                         </select>
                     </fieldset>
                     <fieldset>
-                        <label class="label"># Identificación</label>
+                        <label class="label"># Identificación <b>*</b></label>
                         <input formControlName="cedula" [class.is-invalid]="FormularioDatosBasicos.controls['cedula'].invalid && FormularioDatosBasicos.controls['cedula'].touched" class="form-control" type="text" placeholder="Escriba Número de identificación" tabindex="2">
                     </fieldset>
                     <fieldset>
@@ -77,11 +77,11 @@
                         <input formControlName="formularioPreimpreso" type="text" placeholder="Escriba # Formulario Preimpreso" tabindex="10">
                     </fieldset>
                     <fieldset>
-                        <label class="label">Venta Total</label>
+                        <label class="label">Venta Total <b>*</b></label>
                         <input formControlName="ventaTotal" [class.is-invalid]="FormularioDatosBasicos.controls['ventaTotal'].invalid && FormularioDatosBasicos.controls['ventaTotal'].touched" class="form-control" type="number" placeholder="Escriba un Monto de Venta Total" tabindex="11">
                     </fieldset>
                     <fieldset>
-                        <label class="label">Producto Crédito</label>
+                        <label class="label">Producto Crédito <b>*</b></label>
                         <select formControlName="producto" [class.is-invalid]="FormularioDatosBasicos.controls['producto'].invalid && FormularioDatosBasicos.controls['producto'].touched" class="form-control" tabindex="12">
                             <option *ngFor="let prod of productos" [value]="prod.ID_PROD">{{prod.NOM_PROD}}</option>
                         </select>

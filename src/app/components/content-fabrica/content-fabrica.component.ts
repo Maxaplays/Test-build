@@ -111,7 +111,7 @@ export class ContentFabricaComponent implements OnInit {
     this.tipoDocumentacionService.getTipoDoc()
         .subscribe( (resultado: any[] ) => {
           this.tipoDoc = resultado;
-          // console.log(this.tipoDoc);
+          //console.log(this.tipoDoc);
         });
   }
   getTipoContacto() {
@@ -153,7 +153,7 @@ export class ContentFabricaComponent implements OnInit {
   }
   private initForm() {
     this.FormularioDatosBasicos = new FormGroup({
-      tipoDocumentacion: new FormControl(null, Validators.required),
+      tipoDocumentacion: new FormControl('CED' , [Validators.required]),
       cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
       estadoCivil: new FormControl(null),
       // fechaNacimiento: new FormControl(null),
