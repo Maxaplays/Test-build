@@ -96,7 +96,7 @@
                 <div>
                     <fieldset>
                         <label class="label">Fecha Pagaré</label>
-                        <input formControlName="fechaPagare" [disabled]="puedeCambiarFechas" type="date" placeholder="dd/mm/aaaa" (keyup)="cambioFechaPagare($event.target.value)">
+                        <input formControlName="fechaPagare" type="date" placeholder="dd/mm/aaaa" (keyup)="cambioFechaPagare($event.target.value)">
                         <label class="label postinput">Fecha Minima:{{FechaPagareMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPagareMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
                     <fieldset>
@@ -105,7 +105,7 @@
                     </fieldset>
                     <fieldset>
                         <label class="label">Fecha Primer Pago</label>
-                        <input formControlName="fechaPrimerPago" [disabled]="puedeCambiarFechas" type="date" placeholder="dd/mm/aaaa" tabindex="4">
+                        <input formControlName="fechaPrimerPago" type="date" placeholder="dd/mm/aaaa" tabindex="4">
                         <label class="label postinput">Fecha Minima:{{FechaPrimerPagoMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPrimerPagoMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
                     <fieldset>
@@ -131,8 +131,8 @@
                         <input formControlName="numeroCuenta" type="text" type="text" [attr.disabled]="numeroCuentaEnabled">
                     </fieldset>
                 </div>
-              </div>
-            </form>
+            </div>
+        </form>
         <div class="align-right " style="padding-top: 40px; ">
             <button *ngIf="generarDocumentacion" class="btn btn-solid-blue " (click)="generarDocumentos(docGenerado,mensajeModalError)">Generar Documentación Seleccionada</button>
         </div>
@@ -177,13 +177,13 @@
                     <thead>
                         <tr>
                             <th>
-                                    <option>Nombre de documento</option>
+                                <option>Nombre de documento</option>
                             </th>
                             <th>
-                                    <option>Fecha ingreso</option>
+                                <option>Fecha ingreso</option>
                             </th>
                             <th>
-                                    <option>Usuario Ingreso</option>
+                                <option>Usuario Ingreso</option>
                             </th>
                         </tr>
                     </thead>

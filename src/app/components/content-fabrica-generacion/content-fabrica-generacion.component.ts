@@ -43,7 +43,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   btnSolicitarAnulacion = true;
   SubirArchivos = true;
   generarDocumentacion = true;
-  puedeCambiarFechas = true;
+  puedeCambiarFechas: boolean = false;
   Archivos: File[] = [];
   archivoSeleccionado: File = null;
   // bkm
@@ -151,7 +151,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     variable.lblCuentasMupi = this.mensajeServicio.CuentasMupi;
     variable.usuario = localStorage.getItem('usuario');
     variable.ID_CLI = this.mensajeServicio.Cedula;
-    console.log(variable);
+    // console.log(variable);
     this.generacionDocs.postGeneracionDocumentos(variable).subscribe(
       (data: any) => {
         let resultado = data;
@@ -177,35 +177,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     // }
   }
   inicializarDatosCuentas() {
-    console.log(this.mensajeServicio.CuentasMupi);
-    this.FormularioDatosReportes.controls['entidadFinanciera'].setValue(this.mensajeServicio.Banco);
-    this.FormularioDatosReportes.controls['tipoCuenta'].setValue(this.mensajeServicio.TipoDeCuentaBancaria);
-    this.FormularioDatosReportes.controls['numeroCuenta'].setValue(this.mensajeServicio.CuentaBanco);
-    this.FormularioDatosReportes.controls['diasInicio'].setValue(this.mensajeServicio.DiasInicioCredito);
-    this.FormularioDatosReportes.controls['creditoMaximo'].setValue(this.mensajeServicio.DiasInicioMaximoCredito);
-    try{
-      let FCH_PAGARE_SOL: Date = new Date(this.mensajeServicio.FCH_PAGARE_SOL);
-      this.FormularioDatosReportes.controls['fechaPagare'].setValue(FCH_PAGARE_SOL.toISOString().substring(0, 10));
-      this.FechaPrimerPagoMin = new Date(this.addDays(FCH_PAGARE_SOL, Number(this.mensajeServicio.DiasInicioCredito)));
-      this.FechaPrimerPagoMax = new Date(this.addDays(FCH_PAGARE_SOL, Number(this.mensajeServicio.DiasInicioMaximoCredito)));
-    } catch {}
-    try {
-        let FECHA_INICIO_CREDITO_REAL_CRE: Date = new Date(this.mensajeServicio.FECHA_INICIO_CREDITO_REAL_CRE);
-        this.FormularioDatosReportes.controls['fechaPrimerPago'].setValue(FECHA_INICIO_CREDITO_REAL_CRE.toISOString().substring(0, 10));
-     } catch {}
-     try {
-          if (this.FormularioDatosReportes.controls['fechaPagare'].value !== '' && 
-            this.FormularioDatosReportes.controls['fechaPrimerPago'].value !== '') {
-        this.puedeCambiarFechas = false;
-        console.log('Cambio a no editable'+this.FormularioDatosReportes.controls['fechaPagare'].value+this.FormularioDatosReportes.controls['fechaPrimerPago'].value);
-       } else {
-        console.log('Si se puede editar');
-       }
-      this.FechaPagareMin = new Date(this.mensajeServicio.FechaPagareMin);
-      this.FechaPagareMax = new Date(this.mensajeServicio.FechaPagareMax);
-     } catch {
-
-     }
+    // console.log(this.mensajeServicio.CuentasMupi);
     if (this.mensajeServicio.CuentasMupi === 'True') {
       // debe poner true para deshabilitar el control
       this.numeroCuentaEnabled = true;
@@ -217,6 +189,44 @@ export class ContentFabricaGeneracionComponent implements OnInit {
       this.entidadFinancieraEnabled = true;
       this.tipoCuentaEnabled = true;
     }
+    try {
+      if (this.mensajeServicio.FECHA_INICIO_CREDITO_REAL_CRE !== '' && this.mensajeServicio.FCH_PAGARE_SOL !== '') {
+         this.puedeCambiarFechas = true;
+       // console.log('Cambio a no editable '+this.puedeCambiarFechas);
+      } else {
+       // console.log('Si se puede editar ' + this.puedeCambiarFechas);
+      }
+     this.FechaPagareMin = new Date(this.mensajeServicio.FechaPagareMin);
+     this.FechaPagareMax = new Date(this.mensajeServicio.FechaPagareMax);
+    } catch {
+
+    }
+    let FCH_PAGARE_SOL: Date;
+    let FECHA_INICIO_CREDITO_REAL_CRE: Date;
+    try {
+      FCH_PAGARE_SOL = new Date(this.mensajeServicio.FCH_PAGARE_SOL);
+      this.FechaPrimerPagoMin = new Date(this.addDays(FCH_PAGARE_SOL, Number(this.mensajeServicio.DiasInicioCredito)));
+      this.FechaPrimerPagoMax = new Date(this.addDays(FCH_PAGARE_SOL, Number(this.mensajeServicio.DiasInicioMaximoCredito)));
+    } catch {}
+    try {
+      FECHA_INICIO_CREDITO_REAL_CRE = new Date(this.mensajeServicio.FECHA_INICIO_CREDITO_REAL_CRE);
+   } catch {}
+
+    this.FormularioDatosReportes = new FormGroup({
+      fechaPagare: new FormControl({value: FCH_PAGARE_SOL.toISOString().substring(0, 10),
+                                    disabled: this.puedeCambiarFechas}, Validators.required),
+      diasInicio: new FormControl(this.mensajeServicio.DiasInicioCredito),
+      fechaPrimerPago: new FormControl({value: FECHA_INICIO_CREDITO_REAL_CRE.toISOString().substring(0, 10),
+                                    disabled: this.puedeCambiarFechas}, Validators.required),
+      creditoMaximo: new FormControl(this.mensajeServicio.DiasInicioMaximoCredito),
+      entidadFinanciera: new FormControl({value: this.mensajeServicio.Banco,
+                                    disabled: this.entidadFinancieraEnabled}),
+      tipoCuenta: new FormControl({value: this.mensajeServicio.TipoDeCuentaBancaria,
+                                    disabled: this.tipoCuentaEnabled}),
+      numeroCuenta: new FormControl({value: this.mensajeServicio.CuentaBanco,
+                                    disabled: this.numeroCuentaEnabled})
+    });
+    
   }
   addDays(date: Date, days: number): Date {
     var dias = days;
@@ -259,7 +269,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
               });
   }
   acoplarPantalla(lblEstadoSolicitud: string) {
-    console.log('Acoplando Pantalla: ' + lblEstadoSolicitud);
+    // console.log('Acoplando Pantalla: ' + lblEstadoSolicitud);
     if (lblEstadoSolicitud === 'Documental' || lblEstadoSolicitud === 'Cancelada' ||
         lblEstadoSolicitud === 'Aprobada' || lblEstadoSolicitud === 'Autorizada' ||
         lblEstadoSolicitud === 'Re-Documental' || lblEstadoSolicitud === 'RechazadaCC' ||

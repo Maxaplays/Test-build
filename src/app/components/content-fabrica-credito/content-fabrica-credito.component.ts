@@ -27,6 +27,8 @@ export class ContentFabricaCreditoComponent implements OnInit {
   errorMessage: string;
   successMessage: string;
   loading: boolean;
+  tasaActual: number = 0;
+  wsProducto: string;
   // bkm
 
   constructor(private modalService: NgbModal,
@@ -41,7 +43,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
       data => {
         this.mensajeServicio = data;
         this.InicilizarValores();
-        // console.log(data.replace(',','.'));
+        console.log(data);
       });
       setTimeout(() => this.staticAlertClosed = true, 20000);
 
@@ -76,8 +78,8 @@ export class ContentFabricaCreditoComponent implements OnInit {
     this.FormularioDatosBasicos.controls['aplicadoVentaTotal'].setValue(this.mensajeServicio.ValorTotal.replace(',', '.'));
     this.FormularioDatosBasicos.controls['aplicadoPorcentajeEntrada'].setValue(this.mensajeServicio.PorcentajeEntradaAplicada.replace(',', '.'));
     this.FormularioDatosBasicos.controls['aplicadoEntrada'].setValue(this.mensajeServicio.EntradaAplicada.replace(',', '.'));
-    this.FormularioDatosBasicos.controls['aplicadoMontoReferencial'].setValue(this.mensajeServicio.MontoSugerido.replace(',', '.'));
-    this.FormularioDatosBasicos.controls['aplicadoTasa'].setValue(this.mensajeServicio.Tasa.replace(',', '.'));
+    // this.FormularioDatosBasicos.controls['aplicadoMontoReferencial'].setValue(this.mensajeServicio.MontoSugerido.replace(',', '.'));
+    this.tasaActual = Number.parseFloat(this.mensajeServicio.Tasa.replace(',', '.'));
     this.FormularioDatosBasicos.controls['wsPerfilSugerido'].setValue(this.mensajeServicio.Perfil.replace(',', '.'));
     this.FormularioDatosBasicos.controls['wsPorcentajeEntrada'].setValue(this.mensajeServicio.PorcentajeEntradaSugerida.replace(',', '.'));
 
@@ -92,9 +94,9 @@ export class ContentFabricaCreditoComponent implements OnInit {
 
     }
     this.FormularioDatosBasicos.controls['wsCreditoSugerido'].setValue(this.mensajeServicio.MontoSugerido.replace(',', '.'));
-    this.FormularioDatosBasicos.controls['wsProducto'].setValue(this.mensajeServicio.idProducto);
+    this.wsProducto = this.mensajeServicio.idProducto;
     this.FormularioDatosBasicos.controls['wsCapacidadPagoMax'].setValue(this.mensajeServicio.CapacidadPagoSugerida.replace(',', '.'));
-    this.FormularioDatosBasicos.controls['ventaSolicitada'].setValue(this.mensajeServicio.ValorTotal.replace(',', '.'));
+    // this.FormularioDatosBasicos.controls['ventaSolicitada'].setValue(this.mensajeServicio.ValorTotal.replace(',', '.'));
     this.FormularioDatosBasicos.controls['ventaTotal'].setValue(this.mensajeServicio.ValorTotal.replace(',', '.'));
     this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(this.mensajeServicio.PorcentajeEntradaSugerida.replace(',', '.'));
     this.FormularioDatosBasicos.controls['entrada'].setValue(this.mensajeServicio.Entrada.replace(',', '.'));
@@ -106,7 +108,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
     let entrada: number = this.FormularioDatosBasicos.controls['entrada'].value;
     let Total: number = this.FormularioDatosBasicos.controls['ventaTotal'].value;
     let plazos: number = this.FormularioDatosBasicos.controls['plazo'].value;
-    let tasa: number = this.FormularioDatosBasicos.controls['aplicadoTasa'].value;
+    let tasa: number = this.tasaActual;
     let diferencia : number = Total - entrada;
     let porcentajeEntrada: number = (entrada / Total) * 100;
     this.FormularioDatosBasicos.controls['montoCredito'].setValue(diferencia.toFixed(2));
@@ -147,16 +149,17 @@ export class ContentFabricaCreditoComponent implements OnInit {
       aplicadoVentaTotal: new FormControl({ value: '0', disabled: true}),
       aplicadoPorcentajeEntrada: new FormControl({ value: '0', disabled: true}),
       aplicadoEntrada: new FormControl({ value: '0', disabled: true}),
-      aplicadoMontoReferencial: new FormControl({ value: '0', disabled: true}),
-      aplicadoTasa: new FormControl({ value: '15', disabled: true}),
+      aplicadoCuotaMensual: new FormControl({ value: '0', disabled: true}),
+      // aplicadoMontoReferencial: new FormControl({ value: '0', disabled: true}),
+      // aplicadoTasa: new FormControl({ value: '15', disabled: true}),
       wsPerfilSugerido: new FormControl({value: '0', disabled: true}),
       wsVentaMaxima: new FormControl({ value: '0', disabled: true}),
       wsPorcentajeEntrada: new FormControl({ value: '0', disabled: true}),
       wsEntradaSugerida: new FormControl({ value: '0', disabled: true}),
       wsCreditoSugerido: new FormControl({ value: '0', disabled: true}, Validators.required),
-      wsProducto: new FormControl({ value: '0', disabled: true}, Validators.required),
+      // wsProducto: new FormControl({ value: '0', disabled: true}, Validators.required),
       wsCapacidadPagoMax: new FormControl({ value: '0', disabled: true}),
-      ventaSolicitada: new FormControl({ value: '0', disabled: true}, Validators.required),
+      // ventaSolicitada: new FormControl({ value: '0', disabled: true}, Validators.required),
       ventaTotal: new FormControl(null, Validators.required),
       porcentajeEntrada: new FormControl({ value: '0', disabled: true}, Validators.required),
       entrada: new FormControl(null, Validators.required),
@@ -175,14 +178,14 @@ export class ContentFabricaCreditoComponent implements OnInit {
       valoresSimulador.lblSucursal = this.mensajeServicio.idSucursal;
       valoresSimulador.seMonto = this.FormularioDatosBasicos.controls['montoCredito'].value;
       valoresSimulador.lblPerfilCliente = this.FormularioDatosBasicos.controls['wsPerfilSugerido'].value;
-      valoresSimulador.cmbProducto = this.FormularioDatosBasicos.controls['wsProducto'].value;
+      valoresSimulador.cmbProducto = this.wsProducto;
       valoresSimulador.lblSucursal = localStorage.getItem('codigoSucursal');
       valoresSimulador.seVentaTotalAplicada = this.FormularioDatosBasicos.controls['ventaTotal'].value;
       valoresSimulador.seMontoSugerido = this.FormularioDatosBasicos.controls['wsCreditoSugerido'].value;
       valoresSimulador.seEntrada = this.FormularioDatosBasicos.controls['entrada'].value;
       valoresSimulador.seValorTotal = this.FormularioDatosBasicos.controls['ventaTotal'].value;
       valoresSimulador.sePlazo = this.FormularioDatosBasicos.controls['plazo'].value;
-      valoresSimulador.seTasa = this.FormularioDatosBasicos.controls['aplicadoTasa'].value;
+      valoresSimulador.seTasa = this.tasaActual;
       valoresSimulador.lblPlazoSugerido = this.FormularioDatosBasicos.controls['plazo'].value;
       valoresSimulador.relacionLaboral = '';
       valoresSimulador.seCuotaFija = this.FormularioDatosBasicos.controls['cuotaMensualFija'].value;
@@ -209,10 +212,11 @@ export class ContentFabricaCreditoComponent implements OnInit {
           let entrada: number = data.seEntradaAplicada;
           let VentaTotal: number = montoCredito + entrada;
           this.FormularioDatosBasicos.controls['aplicadoMontoVenta'].setValue(data.seMontoAprobado.toString().replace(',', '.'));
-          this.FormularioDatosBasicos.controls['aplicadoVentaTotal'].setValue(VentaTotal.toFixed(2).toString().replace(',', '.'));
+          this.FormularioDatosBasicos.controls['aplicadoVentaTotal'].setValue(data.montoCreditoReal.toString().replace(',', '.'));
           this.FormularioDatosBasicos.controls['aplicadoPorcentajeEntrada'].setValue(data.sePorcentajeEntrada.toString().replace(',', '.'));
-          this.FormularioDatosBasicos.controls['aplicadoEntrada'].setValue(data.seEntradaAplicada.toString().replace(',', '.'));
-          this.FormularioDatosBasicos.controls['aplicadoMontoReferencial'].setValue(data.lblventaMaxSugerida.toString().replace(',', '.'));
+          this.FormularioDatosBasicos.controls['aplicadoEntrada'].setValue(data.entradaReal.toString().replace(',', '.'));
+          this.FormularioDatosBasicos.controls['aplicadoCuotaMensual'].setValue(data.seCuotaFija.toString().replace(',', '.'));
+          // this.FormularioDatosBasicos.controls['aplicadoMontoReferencial'].setValue(data.lblventaMaxSugerida.toString().replace(',', '.'));
           this.listadoErrores = data.listaErrores;
           if (tipo === 'Validar') {
             if (this.listadoErrores.length > 0) {
@@ -250,7 +254,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
         }
       );
     } else {
-      console.log('Formulario Inválido...' + this.FormularioDatosBasicos.status);
+      // console.log('Formulario Inválido...' + this.FormularioDatosBasicos.status);
     }
   }
   generarCancelacion(motivo: string) {

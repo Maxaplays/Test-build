@@ -84,95 +84,99 @@
         <form class="forms forms-relative" [formGroup]="FormularioDatosBasicos">
             <div class="cols cols3">
                 <div>
-                    <h6>Perfil Aplicado</h6>
+                    <h6>PERFIL APLICADO</h6>
                     <fieldset>
-                        <label class="label">Perfil Aplicado</label>
+                        <label class="label">Código de Perfil</label>
                         <input formControlName="aplicadoPerfil" type="number" placeholder="Perfil Aplicado">
                     </fieldset>
                     <fieldset>
-                        <label class="label">Monto Venta</label>
+                        <label class="label">Venta Total ($)</label>
                         <input formControlName="aplicadoMontoVenta" type="text" placeholder="Monto Venta">
                     </fieldset>
                     <fieldset>
-                        <label class="label">Venta Total Aplicada ($)</label>
-                        <input formControlName="aplicadoVentaTotal" type="number" placeholder="Venta Total Apliada">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">% Entrada aplicado</label>
-                        <input formControlName="aplicadoPorcentajeEntrada" type="text" placeholder="% Entrada aplicado">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Entrada aplicada mínima ($)</label>
+                        <label class="label">Entrada Mínima ($)</label>
                         <input formControlName="aplicadoEntrada" type="number" placeholder="Entrada aplicada mínima">
                     </fieldset>
                     <fieldset>
+                        <label class="label">Entrada Mínima (%)</label>
+                        <input formControlName="aplicadoPorcentajeEntrada" type="text" placeholder="% Entrada aplicado">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Monto a Financiar ($)</label>
+                        <input formControlName="aplicadoVentaTotal" type="number" placeholder="Venta Total Apliada">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Cuota Mensual ($)</label>
+                        <input formControlName="aplicadoCuotaMensual" type="number" placeholder="Monto Referencial">
+                    </fieldset>
+                    <!-- <fieldset>
                         <label class="label">Monto Referencial ($)</label>
                         <input formControlName="aplicadoMontoReferencial" type="number" placeholder="Monto Referencial">
                     </fieldset>
                     <fieldset>
                         <label class="label">Tasa</label>
                         <input formControlName="aplicadoTasa" type="number" placeholder="Tasa">
-                    </fieldset>
+                    </fieldset> -->
                 </div>
                 <div>
-                    <h6>Resultados WS</h6>
+                    <h6>PERFIL SUGERIDO</h6>
                     <fieldset>
-                        <label class="label">Perfil Sugerido</label>
+                        <label class="label">Código de Perfil</label>
                         <input formControlName="wsPerfilSugerido" type="number" placeholder="Perfil Sugerido">
                     </fieldset>
-                    <fieldset class="separator-top">
-                        <label class="label">Venta Máxima Sugerida ($)</label>
+                    <fieldset>
+                        <label class="label">Venta Máxima ($)</label>
                         <input formControlName="wsVentaMaxima" type="number" placeholder="Venta Máxima Sugerida">
                     </fieldset>
                     <fieldset>
-                        <label class="label">% Entrada sugerido</label>
-                        <input formControlName="wsPorcentajeEntrada" type="text" placeholder="% Entrada sugerido">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Entrada sugerida ($)</label>
+                        <label class="label">Entrada Mínima ($)</label>
                         <input formControlName="wsEntradaSugerida" type="number" placeholder="Entrada sugerida">
                     </fieldset>
                     <fieldset>
-                        <label class="label">Crédito Sugerido ($)</label>
+                        <label class="label">Entrada Mínima (%)</label>
+                        <input formControlName="wsPorcentajeEntrada" type="text" placeholder="% Entrada sugerido">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Monto a Financiar ($)</label>
                         <input formControlName="wsCreditoSugerido" type="number" placeholder="Crédito Sugerido">
                     </fieldset>
-                    <fieldset>
+                    <!-- <fieldset>
                         <label class="label">Producto</label>
                         <input formControlName="wsProducto" type="text" placeholder="Producto">
-                    </fieldset>
+                    </fieldset> -->
                     <fieldset>
-                        <label class="label">Capacidad Pago Máxima ($)</label>
+                        <label class="label">Capacidad Pago</label>
                         <input formControlName="wsCapacidadPagoMax" type="number" placeholder="Capacidad Pago Máxima">
                     </fieldset>
                 </div>
                 <div>
-                    <h6>Ingreso de Datos</h6>
-                    <fieldset class="separator-top">
-                        <label class="label">Venta Total Solicitada ($)</label>
-                        <input formControlName="ventaSolicitada" type="number" placeholder="Venta Total Asociada">
+                    <h6>INGRESO DE DATOS</h6>
+                    <fieldset>
+                        <label class="label">Plazo</label>
+                        <input formControlName="plazo" (input)="onIngresosChange()" type="number" placeholder="Plazo" tabindex="3">
                     </fieldset>
                     <fieldset>
                         <label class="label">Venta Total ($)</label>
                         <input formControlName="ventaTotal" (input)="onIngresosChange()" type="number" placeholder="Venta Total" tabindex="1">
                     </fieldset>
                     <fieldset>
-                        <label class="label">% Entrada</label>
-                        <input formControlName="porcentajeEntrada" type="text" placeholder="% Entrada">
-                    </fieldset>
-                    <fieldset>
                         <label class="label">Entrada ($)</label>
                         <input formControlName="entrada" (input)="onIngresosChange()" type="number" placeholder="Entrada" tabindex="2">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Entrada (%)</label>
+                        <input formControlName="porcentajeEntrada" type="text" placeholder="% Entrada">
                     </fieldset>
                     <fieldset>
                         <label class="label">Monto Crédito ($)</label>
                         <input formControlName="montoCredito" type="number" placeholder="Monto Crédito">
                     </fieldset>
+                    <!-- <fieldset>
+                        <label class="label">Venta Total Solicitada ($)</label>
+                        <input formControlName="ventaSolicitada" type="number" placeholder="Venta Total Asociada">
+                    </fieldset> -->
                     <fieldset>
-                        <label class="label">Plazo</label>
-                        <input formControlName="plazo" (input)="onIngresosChange()" type="number" placeholder="Plazo" tabindex="3">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Cuota Mensual Fija ($)</label>
+                        <label class="label">Cuota Mensual ($)</label>
                         <input formControlName="cuotaMensualFija" type="number" placeholder="Cuota Mensual Fija">
                     </fieldset>
                 </div>
