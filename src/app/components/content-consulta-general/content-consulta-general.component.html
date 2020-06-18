@@ -30,7 +30,7 @@
         <div class="forms forms-relative " style="padding-top: 0;border: none; ">
             <div class="buscador-general ">
                 <label class="label">Buscador General</label>
-                <input type="text" placeholder="Filtrar ">
+                <input type="text" placeholder="Filtrar: Estado/Cédula/Nombre" #busqueda (input)="Buscar(busqueda.value, 'BUSCADOR')">
             </div>
             <div id="table-scroll ">
                 <table class="width-filters ">
@@ -86,7 +86,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>Total de Registros: {{cantidadCreditos.toString()}}</td>
+                            <td *ngIf="creditos">Total de Registros: {{creditos.length}}</td>
                             <td></td>
                             <td>
                                 <a href="# "></a>

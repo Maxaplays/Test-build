@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FabricaService } from '../../services/fabricaCredito/fabrica.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-content-consulta-general',
@@ -59,5 +58,15 @@ export class ContentConsultaGeneralComponent implements OnInit {
       this.loading = false;
     }
   );
+  }
+
+  Buscar(busqueda: string, parametro: string) {
+    if (busqueda !== '') {
+      this.creditos = this.creditos.filter(res => {
+         return res[parametro].toLocaleLowerCase().match(busqueda.toLocaleLowerCase());
+      });
+    } else if (busqueda === '') {
+      this.getCreditos();
+    }
   }
 }
