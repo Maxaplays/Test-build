@@ -147,7 +147,8 @@
     <div class="footer-fixed-forms">
         <div class="cols cols2">
             <div class="align-left">
-                <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial,'')"><img src="assets/images/icon-reloj.svg">Historial</button>
+                <button class="btn btn-border-blue"><img src="assets/images/icon-reloj.svg">Historial</button>
+                <!--button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial,'')"><img src="assets/images/icon-reloj.svg">Historial</button-->
                 <button *ngIf="btnSolicitarAnulacion" class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
                 <button class="btn btn-border-blue btn-cancel" (click)="openLg(verDocumentacion)"><img src="assets/images/icon-folder.svg">Documentación</button>
                 <a *ngIf="SubirArchivos" class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event,mensajeModalError, mensajeAdvertencia)" *ngIf="subirArchivo()" ></a>
