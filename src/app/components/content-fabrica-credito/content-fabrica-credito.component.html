@@ -194,7 +194,7 @@
             <div class="align-right">
                 <!-- <button class="btn btn-border-gray">Borrar</button> -->
                 <button class="btn btn-solid-green" (click)="ValidarFormularioDatosBasicos(mensajeModalError,'Validar')" tabindex="4">Validar</button>
-                <button class="btn btn-solid-blue" (click)="ValidarFormularioDatosBasicos(mensajeModalError,'Continuar')">Continuar</button>
+                <button [class.btn-solid-blue]="FormularioDatosBasicos.valid" [className]="FormularioDatosBasicos.valid ? 'btn btn-solid-blue' : 'btn btn-border-gray'" (click)="ValidarFormularioDatosBasicos(mensajeModalError,'Continuar')">Continuar</button>
                 <!-- <button class="btn btn-solid-blue">Continuar</button> -->
             </div>
         </div>

@@ -186,6 +186,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                     this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
                     this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
                     this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
+                    this.acoplarPantalla(data.Estado);
                   });
   }
 
@@ -287,8 +288,11 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     datosCliente.APE_CLI = this.FormularioDatosCliente.value.apellidoCliente;
     datosCliente.NOM_CLI = this.FormularioDatosCliente.value.nombreCliente;
     try{
-    let fechaNacimiento: Date = new Date(this.FormularioDatosCliente.value.fechaNacimiento);
-    datosCliente.FECH_NAC_CLI = fechaNacimiento.toISOString().substring(0, 10);
+      console.log('Estado Civil: ' + this.FormularioDatosCliente.value.estadoCivil);
+      console.log('Fecha de Nacimiento: ' + this.FormularioDatosCliente.value.fechaNacimiento);
+      let fechaNacimiento: Date = new Date(this.FormularioDatosCliente.value.fechaNacimiento);
+      console.log("fecha de nacimiento convertida: " + fechaNacimiento.toISOString().substring(0, 10));
+      datosCliente.FECH_NAC_CLI = fechaNacimiento.toISOString().substring(0, 10);
     } catch { }
     datosCliente.CARGAS_CLI = this.FormularioDatosCliente.value.cargasFamiliares;
     datosCliente.EMP_CLI = this.FormularioDatosCliente.value.razonSocialTrabajo;
@@ -616,7 +620,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Caducada' ||
         lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
-        lblEstadoSolicitud === 'Autorización Caducada') {
+        lblEstadoSolicitud === 'Autorización Caducada' || lblEstadoSolicitud === 'Consultada') {
                     // pageControlCliente.TabPages[7].Enabled = true;
                     if (lblEstadoSolicitud === 'Aprobada') {
                       // console.log('Bloqueado 1' + lblEstadoSolicitud);
@@ -629,7 +633,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                     } else {
                         if (lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Rechazada' ||
                          lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
-                          lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada') {
+                          lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada' ||
+                          lblEstadoSolicitud === 'Consultada') {
                             // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
                             // ('Bloqueado 2' + lblEstadoSolicitud);
                             this.btnSolicitarAnulacion = false;
@@ -642,6 +647,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                             this.btnActualizarReferencias = false;
                             this.grabarDatosIngresadosGrid = false;
                             this.SubirArchivos = false;
+                            this.btnSolicitarAnalisis = false;
                             // ASPxUploadControl1.Visible = false;
                             // ASPxUploadControl2.Visible = false;
                             // ASPxUploadControl3.Visible = false;

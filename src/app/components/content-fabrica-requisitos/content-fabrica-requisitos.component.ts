@@ -202,7 +202,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
         lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Caducada' ||
         lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
-        lblEstadoSolicitud === 'Autorización Caducada') {
+        lblEstadoSolicitud === 'Autorización Caducada' || lblEstadoSolicitud === 'Consultada') {
                     // pageControlCliente.TabPages[7].Enabled = true;
                     if (lblEstadoSolicitud === 'Aprobada') {
                       // console.log('Bloqueado 1' + lblEstadoSolicitud);
@@ -215,7 +215,8 @@ export class ContentFabricaRequisitosComponent implements OnInit {
                     } else {
                         if (lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Rechazada' ||
                          lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
-                          lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada') {
+                          lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada' ||
+                          lblEstadoSolicitud === 'Consultada') {
                             // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
                             // ('Bloqueado 2' + lblEstadoSolicitud);
                             this.ASPxActualizarSOL = false;

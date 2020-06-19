@@ -56,22 +56,22 @@ export class ContentFabricaGeneracionComponent implements OnInit {
                 this.fabricaService.currentMessage.subscribe(
                   data => {
                     this.mensajeServicio = data;
+                    this.acoplarPantalla(this.mensajeServicio.Estado);
                     this.getTipoReportes();
-                    // console.log(data);
+                    console.log(this.mensajeServicio);
                   });
   }
 
   ngOnInit() {
     this.initForm();
-    this.acoplarPantalla(this.mensajeServicio.Estado);
     this.getEntidadFinanciera();
     this.getTipoCuenta();
     this.inicializarDatosCuentas();
-    const currentYear = new  Date () .getFullYear ();
-    const Mont = new  Date () .getMonth();
-    const day = new  Date ().getDay();
-    this .minDate = new  Date (currentYear , Mont , -day);
-    this .maxDate = new  Date (currentYear , Mont , day + 15 );
+    const currentYear = new  Date().getFullYear();
+    const Mont = new  Date().getMonth();
+    const day = new  Date().getDay();
+    this.minDate = new  Date(currentYear , Mont , -day);
+    this.maxDate = new  Date(currentYear , Mont , day + 15 );
   }
   private initForm() {
     this.FormularioDatosReportes = new FormGroup({
@@ -192,31 +192,34 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     try {
       if (this.mensajeServicio.FECHA_INICIO_CREDITO_REAL_CRE !== '' && this.mensajeServicio.FCH_PAGARE_SOL !== '') {
          this.puedeCambiarFechas = true;
-       // console.log('Cambio a no editable '+this.puedeCambiarFechas);
+         console.log('Cambio a no editable ' + this.puedeCambiarFechas);
       } else {
        // console.log('Si se puede editar ' + this.puedeCambiarFechas);
       }
      this.FechaPagareMin = new Date(this.mensajeServicio.FechaPagareMin);
      this.FechaPagareMax = new Date(this.mensajeServicio.FechaPagareMax);
-    } catch {
-
-    }
+    } catch {}
     let FCH_PAGARE_SOL: Date;
     let FECHA_INICIO_CREDITO_REAL_CRE: Date;
+    let fechaPagareTexto = '';
+    let fechaInicioCreditoTexto = '';
     try {
       FCH_PAGARE_SOL = new Date(this.mensajeServicio.FCH_PAGARE_SOL);
+      fechaPagareTexto = FCH_PAGARE_SOL.toISOString().substring(0, 10);
       this.FechaPrimerPagoMin = new Date(this.addDays(FCH_PAGARE_SOL, Number(this.mensajeServicio.DiasInicioCredito)));
       this.FechaPrimerPagoMax = new Date(this.addDays(FCH_PAGARE_SOL, Number(this.mensajeServicio.DiasInicioMaximoCredito)));
-    } catch {}
+    } catch {
+    }
     try {
       FECHA_INICIO_CREDITO_REAL_CRE = new Date(this.mensajeServicio.FECHA_INICIO_CREDITO_REAL_CRE);
+      fechaInicioCreditoTexto = FECHA_INICIO_CREDITO_REAL_CRE.toISOString().substring(0, 10);
    } catch {}
-
+   console.log('Iniciarliza formulario con ' + fechaPagareTexto +' ' + fechaInicioCreditoTexto);
     this.FormularioDatosReportes = new FormGroup({
-      fechaPagare: new FormControl({value: FCH_PAGARE_SOL.toISOString().substring(0, 10),
+      fechaPagare: new FormControl({value: fechaPagareTexto,
                                     disabled: this.puedeCambiarFechas}, Validators.required),
       diasInicio: new FormControl(this.mensajeServicio.DiasInicioCredito),
-      fechaPrimerPago: new FormControl({value: FECHA_INICIO_CREDITO_REAL_CRE.toISOString().substring(0, 10),
+      fechaPrimerPago: new FormControl({value: fechaInicioCreditoTexto,
                                     disabled: this.puedeCambiarFechas}, Validators.required),
       creditoMaximo: new FormControl(this.mensajeServicio.DiasInicioMaximoCredito),
       entidadFinanciera: new FormControl({value: this.mensajeServicio.Banco,
@@ -276,7 +279,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
         lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Caducada' ||
         lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
-        lblEstadoSolicitud === 'Autorización Caducada') {
+        lblEstadoSolicitud === 'Autorización Caducada' || lblEstadoSolicitud === 'Consultada') {
                     // pageControlCliente.TabPages[7].Enabled = true;
                     if (lblEstadoSolicitud === 'Aprobada') {
                       // console.log('Bloqueado 1' + lblEstadoSolicitud);
@@ -299,7 +302,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
                             // btnRefrescar.Visible = false;
                             // BtnGuardar.Visible = false;
                         } else {
-                            if (lblEstadoSolicitud === 'Cancelada') {
+                            if (lblEstadoSolicitud === 'Cancelada' || lblEstadoSolicitud === 'Consultada') {
                               // console.log('Bloqueado 3' + lblEstadoSolicitud);
                               this.btnSolicitarAnulacion = false;
                               this.SubirArchivos = false;

@@ -156,7 +156,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
       wsVentaMaxima: new FormControl({ value: '0', disabled: true}),
       wsPorcentajeEntrada: new FormControl({ value: '0', disabled: true}),
       wsEntradaSugerida: new FormControl({ value: '0', disabled: true}),
-      wsCreditoSugerido: new FormControl({ value: '0', disabled: true}, Validators.required),
+      wsCreditoSugerido: new FormControl({ value: '0', disabled: true}),
       // wsProducto: new FormControl({ value: '0', disabled: true}, Validators.required),
       wsCapacidadPagoMax: new FormControl({ value: '0', disabled: true}),
       // ventaSolicitada: new FormControl({ value: '0', disabled: true}, Validators.required),
@@ -169,8 +169,8 @@ export class ContentFabricaCreditoComponent implements OnInit {
     });
   }
   ValidarFormularioDatosBasicos(content: any, tipo: string) {
-    this.loading = true;
     if (this.FormularioDatosBasicos.valid) {
+      this.loading = true;
       // console.log('Inicio Proceso...' + this.FormularioDatosBasicos.status);
       let valoresSimulador: ValoresSimulador = new ValoresSimulador();
       valoresSimulador.tipoValidacion = tipo;
@@ -254,7 +254,8 @@ export class ContentFabricaCreditoComponent implements OnInit {
         }
       );
     } else {
-      // console.log('Formulario Inválido...' + this.FormularioDatosBasicos.status);
+      // this.errorMessage = 'Por favor ingrese los datos necesarios';
+      // this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
     }
   }
   generarCancelacion(motivo: string) {
