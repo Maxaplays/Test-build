@@ -143,7 +143,10 @@ export class ContentFabricaRequisitosComponent implements OnInit {
               }
               this.advertenceMessage = mensajeAdvertencia;
               this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
-            }
+              if (mensajeAdvertencia.includes('Solicitud')) {
+                this.router.navigate(['/fabrica/consulta-general']);
+              }
+}
             this.requisitios = this.getRequisitos();
           }
         );
