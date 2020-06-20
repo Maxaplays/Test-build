@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-content-dashboard',
@@ -8,7 +9,9 @@ import { FabricaService } from 'src/app/services/fabricaCredito/fabrica.service'
 })
 export class ContentDashboardComponent implements OnInit {
   // bkm
-  estadosUsuario: any[];
+  ingresando: string;
+  revision: string;
+  finalizadas: string;
   // bkm
 
   constructor(private fabricaService: FabricaService) { }
@@ -18,10 +21,12 @@ export class ContentDashboardComponent implements OnInit {
   }
   getConsultaDashboard() {
     // console.log(localStorage.getItem('codigoSucursal'));
-    this.fabricaService.getConsultaDashboard(localStorage.getItem('usuario')).subscribe(
-      (data: any) => {
-        this.estadosUsuario = data;
+    this.fabricaService.getConsultaDashboard(localStorage.getItem('usuario')).pipe(map(data => data["CREDITO"])).subscribe(
+      (data: any[]) => {
         console.log(data);
+        this.ingresando = data[0].Ingresando;
+        this.revision = data[0].Revision;
+        this.finalizadas = data[0].Finalizadas;
       }, ( errorServicio ) => {
         // console.log('Error');
       }
