@@ -1314,7 +1314,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
 
-  guardarTelefono() {
+  guardarTelefono(contentA) {
     if (this.formaTelefonos.invalid) {
       return Object.values(this.formaTelefonos.controls).forEach(control => {
         if (control instanceof FormGroup) {
@@ -1336,6 +1336,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         (data: any) => {
           if (data.error !== null) {
             // console.log(data.error);
+            this.advertenceMessage = 'Teléfono duplicado';
+            this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
           } else {
             this.modalService.dismissAll();
             this.telefonos = this.getTelefonos();
