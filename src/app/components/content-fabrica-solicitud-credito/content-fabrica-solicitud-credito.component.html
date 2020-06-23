@@ -794,7 +794,7 @@
         </div>
     </div>
     <div class="modal-body variation">
-        <form class="forms forms-relative" autocomplete="off" [formGroup]="formaTelefonos" (ngSubmit)="guardarTelefono()">
+        <form class="forms forms-relative" autocomplete="off" [formGroup]="formaTelefonos" (ngSubmit)="guardarTelefono(mensajeAdvertencia)">
             <fieldset>
                 <label class="label">Tipo de Registro</label>
                 <select formControlName="TipoRegistroTelefono">
@@ -818,7 +818,7 @@
             <div class="modal-footer-mfc full variation">
                 <div class="align-right">
                     <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-                    <button *ngIf="btnTelefonos" [class.btn-solid-green]="formaTelefonos.valid" [className]="formaTelefonos.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" (submit)="guardarTelefono()">Guardar teléfono</button>
+                    <button *ngIf="btnTelefonos" [class.btn-solid-green]="formaTelefonos.valid" [className]="formaTelefonos.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" (submit)="guardarTelefono(mensajeAdvertencia)">Guardar teléfono</button>
                 </div>
             </div>
         </form>
