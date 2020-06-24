@@ -294,7 +294,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
                             // ('Bloqueado 2' + lblEstadoSolicitud);
                             this.btnSolicitarAnulacion = false;
                             this.SubirArchivos = false;
-                            this.generarDocumentacion = true;
+                            this.generarDocumentacion = false;
                             // ASPxUploadControl1.Visible = false;
                             // ASPxUploadControl2.Visible = false;
                             // ASPxUploadControl3.Visible = false;

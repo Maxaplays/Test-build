@@ -38,7 +38,8 @@ acoplarPantalla(lblEstadoSolicitud: string) {
         lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Caducada' ||
         lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
-        lblEstadoSolicitud === 'Autorización Caducada') {
+        lblEstadoSolicitud === 'Autorización Caducada' || lblEstadoSolicitud === 'Consultada' ||
+        lblEstadoSolicitud === 'Devuelta') {
           this.datosbasicos = true;
           this.credito = true;
                     if (lblEstadoSolicitud === 'Aprobada') {
