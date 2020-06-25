@@ -74,8 +74,8 @@ export class ContentFabricaCreditoComponent implements OnInit {
   // bkm
   InicilizarValores() {
     this.FormularioDatosBasicos.controls['aplicadoPerfil'].setValue(this.mensajeServicio.PerfilAplicado.replace(',', '.'));
-    this.FormularioDatosBasicos.controls['aplicadoMontoVenta'].setValue(this.mensajeServicio.Monto.replace(',', '.'));
-    this.FormularioDatosBasicos.controls['aplicadoVentaTotal'].setValue(this.mensajeServicio.ValorTotal.replace(',', '.'));
+    this.FormularioDatosBasicos.controls['aplicadoMontoVenta'].setValue(this.mensajeServicio.ValorTotal.replace(',', '.'));
+    this.FormularioDatosBasicos.controls['aplicadoVentaTotal'].setValue(this.mensajeServicio.Monto.replace(',', '.'));
     this.FormularioDatosBasicos.controls['aplicadoPorcentajeEntrada'].setValue(this.mensajeServicio.PorcentajeEntradaAplicada.replace(',', '.'));
     this.FormularioDatosBasicos.controls['aplicadoEntrada'].setValue(this.mensajeServicio.EntradaAplicada.replace(',', '.'));
     // this.FormularioDatosBasicos.controls['aplicadoMontoReferencial'].setValue(this.mensajeServicio.MontoSugerido.replace(',', '.'));
@@ -103,6 +103,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
     this.FormularioDatosBasicos.controls['montoCredito'].setValue(this.mensajeServicio.Monto.replace(',', '.'));
     this.FormularioDatosBasicos.controls['plazo'].setValue(this.mensajeServicio.Plazo.replace(',', '.'));
     this.FormularioDatosBasicos.controls['cuotaMensualFija'].setValue(this.mensajeServicio.CuotaFija.replace(',', '.'));
+    this.FormularioDatosBasicos.controls['aplicadoCuotaMensual'].setValue(this.mensajeServicio.CuotaFija.toString().replace(',', '.'));
   }
   onIngresosChange() {
     let entrada: number = this.FormularioDatosBasicos.controls['entrada'].value;
@@ -211,7 +212,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
           let montoCredito: number = data.seMontoAprobado;
           let entrada: number = data.seEntradaAplicada;
           let VentaTotal: number = montoCredito + entrada;
-          this.FormularioDatosBasicos.controls['aplicadoMontoVenta'].setValue(data.seMontoAprobado.toString().replace(',', '.'));
+          this.FormularioDatosBasicos.controls['aplicadoMontoVenta'].setValue(data.ventaTotalReal.toString().replace(',', '.'));
           this.FormularioDatosBasicos.controls['aplicadoVentaTotal'].setValue(data.montoCreditoReal.toString().replace(',', '.'));
           this.FormularioDatosBasicos.controls['aplicadoPorcentajeEntrada'].setValue(data.sePorcentajeEntrada.toString().replace(',', '.'));
           this.FormularioDatosBasicos.controls['aplicadoEntrada'].setValue(data.entradaReal.toString().replace(',', '.'));
