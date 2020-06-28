@@ -114,6 +114,8 @@ export class ValoresSimulador{
   nombreConsultado: string;
   fechaNacimiento: string;
   resultado: string;
+  gestionCredito: string;
+  servicioDocumental: string;
 }
 export class DatosFabrica {
   public CapacidadPagoSugerida: string;
@@ -183,4 +185,7 @@ export class DatosFabrica {
   public CedulaConyuge: string;
   public NroCargas: string;
   public Sexo: string;
+  public PARAMETRO_GESTION_CREDITO: string;
+  public FEE_SERVICIO_DOCUMENTAL: string;
+  public IVA: string;
 }

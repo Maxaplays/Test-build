@@ -29,6 +29,8 @@ export class ContentFabricaCreditoComponent implements OnInit {
   loading: boolean;
   tasaActual: number = 0;
   wsProducto: string;
+  gestionCreditoSinIva: string = '';
+  gestionDocumentalSinIva: string = '';
   // bkm
 
   constructor(private modalService: NgbModal,
@@ -73,6 +75,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
   }
   // bkm
   InicilizarValores() {
+    console.log(this.mensajeServicio);
     this.FormularioDatosBasicos.controls['aplicadoPerfil'].setValue(this.mensajeServicio.PerfilAplicado.replace(',', '.'));
     this.FormularioDatosBasicos.controls['aplicadoMontoVenta'].setValue(this.mensajeServicio.ValorTotal.replace(',', '.'));
     this.FormularioDatosBasicos.controls['aplicadoVentaTotal'].setValue(this.mensajeServicio.Monto.replace(',', '.'));
@@ -90,6 +93,11 @@ export class ContentFabricaCreditoComponent implements OnInit {
       this.FormularioDatosBasicos.controls['wsEntradaSugerida'].setValue(wsEntrada.toFixed(2).toString().replace(',', '.'));
       let wsVentaTotal: number = wsCreditoSugerido / (1 - (wsPorcengajeEntradaSugerida / 100));
       this.FormularioDatosBasicos.controls['wsVentaMaxima'].setValue(wsVentaTotal.toFixed(2).toString().replace(',', '.'));
+      const IVA: number = (Number(this.mensajeServicio.IVA.replace(',', '.')) / 100) + 1;
+      // console.log('IVA:' + IVA.toString());
+      const FEE_SERVICIO_DOCUMENTAL: number = (Number(this.mensajeServicio.FEE_SERVICIO_DOCUMENTAL.replace(',', '.')) * IVA);
+      // console.log('FEE_SERVICIO_DOCUMENTAL:' + FEE_SERVICIO_DOCUMENTAL.toString());
+      this.FormularioDatosBasicos.controls['servicioDocumental'].setValue(FEE_SERVICIO_DOCUMENTAL.toFixed(2).toString().replace(',', '.'));
     } catch (error) {
 
     }
@@ -104,15 +112,24 @@ export class ContentFabricaCreditoComponent implements OnInit {
     this.FormularioDatosBasicos.controls['plazo'].setValue(this.mensajeServicio.Plazo.replace(',', '.'));
     this.FormularioDatosBasicos.controls['cuotaMensualFija'].setValue(this.mensajeServicio.CuotaFija.replace(',', '.'));
     this.FormularioDatosBasicos.controls['aplicadoCuotaMensual'].setValue(this.mensajeServicio.CuotaFija.toString().replace(',', '.'));
+    this.onIngresosChange();
   }
   onIngresosChange() {
     let entrada: number = this.FormularioDatosBasicos.controls['entrada'].value;
     let Total: number = this.FormularioDatosBasicos.controls['ventaTotal'].value;
     let plazos: number = this.FormularioDatosBasicos.controls['plazo'].value;
+    const CreditoSinAdiciones = Total - entrada;
+    const PARAMETRO_GESTION_CREDITO: number = Number(this.mensajeServicio.PARAMETRO_GESTION_CREDITO.replace(',', '.'));
+    const IVA: number = (Number(this.mensajeServicio.IVA.replace(',', '.')) / 100);
+    this.gestionCreditoSinIva = (PARAMETRO_GESTION_CREDITO * CreditoSinAdiciones).toFixed(2);
+    this.gestionDocumentalSinIva = (Number(this.mensajeServicio.FEE_SERVICIO_DOCUMENTAL.replace(',', '.')).toFixed(2));
+    let gestionCredito: number = (PARAMETRO_GESTION_CREDITO * CreditoSinAdiciones) * (IVA + 1);
+    const FEE_SERVICIO_DOCUMENTAL: number = (Number(this.mensajeServicio.FEE_SERVICIO_DOCUMENTAL.replace(',', '.')) * (IVA + 1));
     let tasa: number = this.tasaActual;
-    let diferencia : number = Total - entrada;
+    let diferencia : number = CreditoSinAdiciones + gestionCredito + FEE_SERVICIO_DOCUMENTAL;
     let porcentajeEntrada: number = (entrada / Total) * 100;
     this.FormularioDatosBasicos.controls['montoCredito'].setValue(diferencia.toFixed(2));
+    this.FormularioDatosBasicos.controls['gestionCredito'].setValue(gestionCredito.toFixed(2));
     this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(porcentajeEntrada.toFixed(2));
     let cuotaMensual = this.calcularCuotaFija(diferencia, plazos, tasa, entrada);
     let cuotaMensualDecimal = cuotaMensual;
@@ -120,6 +137,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
     // this.mensajeServicio.PorcentajeEntrada = porcentajeEntrada.toString();
     // this.mensajeServicio.CuotaMensual = this.calcularCuotaFija(diferencia, plazos, tasa, entrada).toString();
     // this.mensajeServicio.Monto = diferencia.toString();
+    
   }
   calcularCuotaFija(Monto: number, Plazos: number, tasa: number, anticipo: number): number {
     let Cuota_F: number = 0;
@@ -164,6 +182,8 @@ export class ContentFabricaCreditoComponent implements OnInit {
       ventaTotal: new FormControl(null, Validators.required),
       porcentajeEntrada: new FormControl({ value: '0', disabled: true}, Validators.required),
       entrada: new FormControl(null, Validators.required),
+      gestionCredito: new FormControl({ value: '0', disabled: true}, Validators.required),
+      servicioDocumental: new FormControl({ value: '0', disabled: true}, Validators.required),
       montoCredito: new FormControl({ value: '0', disabled: true}, Validators.required),
       plazo: new FormControl(null, Validators.required),
       cuotaMensualFija: new FormControl({ value: '0', disabled: true}, Validators.required)
