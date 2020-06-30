@@ -51,7 +51,7 @@
                 </select>
             </li>
             <li>
-                <h5>Valor de la Venta</h5>
+                <h5>Valor Total Factura</h5>
                 <span>{{mensajeServicio.ValorTotal}}</span>
             </li>
             <li>
@@ -180,13 +180,13 @@
                     <thead>
                         <tr>
                             <th>
-                                    <option>Nombre de documento</option>
+                                <option>Nombre de documento</option>
                             </th>
                             <th>
-                                    <option>Fecha ingreso</option>
+                                <option>Fecha ingreso</option>
                             </th>
                             <th>
-                                    <option>Usuario Ingreso</option>
+                                <option>Usuario Ingreso</option>
                             </th>
                         </tr>
                     </thead>
@@ -205,7 +205,7 @@
     </div>
     <div class="modal-footer-mfc full variation ">
         <div class="align-right ">
-          <a class="btn btn-border-blue simulate-inputFile">Subir archivo <input type="file" (change)="fileChange($event,mensajeModalError,mensajeAdvertencia)" placeholder="Upload file" accept=".pdf,.doc,.docx"></a>
+            <a class="btn btn-border-blue simulate-inputFile">Subir archivo <input type="file" (change)="fileChange($event,mensajeModalError,mensajeAdvertencia)" placeholder="Upload file" accept=".pdf,.doc,.docx"></a>
             <button class="btn btn-solid-blue " (click)="modal.close( 'Cancelar click') ">Cerrar</button>
         </div>
     </div>

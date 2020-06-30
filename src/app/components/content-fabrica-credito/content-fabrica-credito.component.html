@@ -51,7 +51,7 @@
                 </select>
             </li>
             <li>
-                <h5>Valor de la Venta</h5>
+                <h5>Valor Total Factura</h5>
                 <span>{{mensajeServicio.ValorTotal}}</span>
             </li>
             <li>
@@ -176,6 +176,10 @@
                         <label class="label">PVP Servicio Gestión Documental (con IVA) ($)</label>
                         <input formControlName="servicioDocumental" type="number" placeholder="Servicio Docuental">
                         <label class="label postinput">Servicio Gestión Documental sin Iva: ${{gestionDocumentalSinIva}}</label>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Valor Total Factura ($)</label>
+                        <input formControlName="valorTotalFactura" type="number" placeholder="Valor Total Factura">
                     </fieldset>
                     <fieldset>
                         <label class="label">Monto Crédito ($)</label>

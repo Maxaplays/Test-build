@@ -127,10 +127,12 @@ export class ContentFabricaCreditoComponent implements OnInit {
     const FEE_SERVICIO_DOCUMENTAL: number = (Number(this.mensajeServicio.FEE_SERVICIO_DOCUMENTAL.replace(',', '.')) * (IVA + 1));
     let tasa: number = this.tasaActual;
     let diferencia : number = CreditoSinAdiciones + gestionCredito + FEE_SERVICIO_DOCUMENTAL;
+    let valorTotalFactura: number = +Total + +gestionCredito + +FEE_SERVICIO_DOCUMENTAL;
     let porcentajeEntrada: number = (entrada / Total) * 100;
     this.FormularioDatosBasicos.controls['montoCredito'].setValue(diferencia.toFixed(2));
     this.FormularioDatosBasicos.controls['gestionCredito'].setValue(gestionCredito.toFixed(2));
     this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(porcentajeEntrada.toFixed(2));
+    this.FormularioDatosBasicos.controls['valorTotalFactura'].setValue(valorTotalFactura.toFixed(2));
     let cuotaMensual = this.calcularCuotaFija(diferencia, plazos, tasa, entrada);
     let cuotaMensualDecimal = cuotaMensual;
     this.FormularioDatosBasicos.controls['cuotaMensualFija'].setValue(cuotaMensualDecimal.toFixed(2));
@@ -186,7 +188,8 @@ export class ContentFabricaCreditoComponent implements OnInit {
       servicioDocumental: new FormControl({ value: '0', disabled: true}, Validators.required),
       montoCredito: new FormControl({ value: '0', disabled: true}, Validators.required),
       plazo: new FormControl(null, Validators.required),
-      cuotaMensualFija: new FormControl({ value: '0', disabled: true}, Validators.required)
+      cuotaMensualFija: new FormControl({ value: '0', disabled: true}, Validators.required),
+      valorTotalFactura: new FormControl({ value: '0', disabled: true}, Validators.required)
     });
   }
   ValidarFormularioDatosBasicos(content: any, tipo: string) {
