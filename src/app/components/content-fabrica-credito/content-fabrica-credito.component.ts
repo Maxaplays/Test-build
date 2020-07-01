@@ -89,10 +89,11 @@ export class ContentFabricaCreditoComponent implements OnInit {
     try {
       let wsCreditoSugerido: number = Number.parseFloat(this.mensajeServicio.MontoSugerido.replace(',', '.'));
       let wsPorcengajeEntradaSugerida: number = Number.parseFloat(this.mensajeServicio.PorcentajeEntradaSugerida.replace(',', '.'));
-      let wsEntrada: number = wsCreditoSugerido * (wsPorcengajeEntradaSugerida / 100);
-      this.FormularioDatosBasicos.controls['wsEntradaSugerida'].setValue(wsEntrada.toFixed(2).toString().replace(',', '.'));
       let wsVentaTotal: number = wsCreditoSugerido / (1 - (wsPorcengajeEntradaSugerida / 100));
       this.FormularioDatosBasicos.controls['wsVentaMaxima'].setValue(wsVentaTotal.toFixed(2).toString().replace(',', '.'));
+      let wsEntrada: number = wsVentaTotal * (wsPorcengajeEntradaSugerida / 100);
+      this.FormularioDatosBasicos.controls['wsEntradaSugerida'].setValue(wsEntrada.toFixed(2).toString().replace(',', '.'));
+      
       const IVA: number = (Number(this.mensajeServicio.IVA.replace(',', '.')) / 100) + 1;
       // console.log('IVA:' + IVA.toString());
       const FEE_SERVICIO_DOCUMENTAL: number = (Number(this.mensajeServicio.FEE_SERVICIO_DOCUMENTAL.replace(',', '.')) * IVA);
@@ -236,10 +237,11 @@ export class ContentFabricaCreditoComponent implements OnInit {
           let entrada: number = data.seEntradaAplicada;
           let VentaTotal: number = montoCredito + entrada;
           this.FormularioDatosBasicos.controls['aplicadoMontoVenta'].setValue(data.ventaTotalReal.toString().replace(',', '.'));
-          this.FormularioDatosBasicos.controls['aplicadoVentaTotal'].setValue(data.montoCreditoReal.toString().replace(',', '.'));
-          this.FormularioDatosBasicos.controls['aplicadoPorcentajeEntrada'].setValue(data.sePorcentajeEntrada.toString().replace(',', '.'));
-          this.FormularioDatosBasicos.controls['aplicadoEntrada'].setValue(data.entradaReal.toString().replace(',', '.'));
-          this.FormularioDatosBasicos.controls['aplicadoCuotaMensual'].setValue(data.seCuotaFija.toString().replace(',', '.'));
+          this.FormularioDatosBasicos.controls['aplicadoVentaTotal'].setValue(data.seMontoAprobado.toString().replace(',', '.'));
+          this.FormularioDatosBasicos.controls['aplicadoPorcentajeEntrada'].setValue(data.lblPorcentajeEntradaAplicada.toString().replace(',', '.'));
+          this.FormularioDatosBasicos.controls['aplicadoEntrada'].setValue(data.seEntradaAplicada.toString().replace(',', '.'));
+          let cuotaMensual = this.calcularCuotaFija(data.seMontoAprobado.toString().replace(',', '.'), valoresSimulador.sePlazo, valoresSimulador.seTasa, data.seEntradaAplicada.toString().replace(',', '.'));
+          this.FormularioDatosBasicos.controls['aplicadoCuotaMensual'].setValue(cuotaMensual.toFixed(2).toString().replace(',', '.'));
           // this.FormularioDatosBasicos.controls['aplicadoMontoReferencial'].setValue(data.lblventaMaxSugerida.toString().replace(',', '.'));
           this.listadoErrores = data.listaErrores;
           if (tipo === 'Validar') {
