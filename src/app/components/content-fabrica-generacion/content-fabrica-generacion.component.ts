@@ -156,6 +156,11 @@ export class ContentFabricaGeneracionComponent implements OnInit {
       (data: any) => {
         let resultado = data;
         if (resultado.resultado === 'Archivo Generado!') {
+          if (variable.TipoDeCuenta === '' && variable.NumeroCuentaBancaria === '' && variable.entidadFinanciera === '') {
+            this.FormularioDatosReportes.controls['entidadFinanciera'].setValue(resultado.entidadFinanciera);
+            this.FormularioDatosReportes.controls['tipoCuenta'].setValue(resultado.TipoDeCuenta);
+            this.FormularioDatosReportes.controls['numeroCuenta'].setValue(resultado.NumeroCuentaBancaria);
+          }
           this.urlArchivoGenerado = data.urlArchivoGenerado;
           this.loading = false;
           this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
