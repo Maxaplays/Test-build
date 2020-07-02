@@ -212,7 +212,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
       FCH_PAGARE_SOL = new Date(this.mensajeServicio.FCH_PAGARE_SOL);
       fechaPagareTexto = FCH_PAGARE_SOL.toISOString().substring(0, 10);
       this.FechaPrimerPagoMin = new Date(this.addDays(FCH_PAGARE_SOL, Number(this.mensajeServicio.DiasInicioCredito)));
-      this.FechaPrimerPagoMax = new Date(this.addDays(FCH_PAGARE_SOL, Number(this.mensajeServicio.DiasInicioMaximoCredito)));
+      this.FechaPrimerPagoMax = new Date(this.addDays(FCH_PAGARE_SOL, +Number(this.mensajeServicio.DiasInicioMaximoCredito)-Number(this.mensajeServicio.DiasInicioCredito)));
     } catch {
     }
     try {
@@ -261,7 +261,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
         this.FechaPrimerPagoMin = new Date(this.addDays(FechaPagareCalculada,
                                             Number(this.FormularioDatosReportes.controls['diasInicio'].value)));
         this.FechaPrimerPagoMax = new Date(this.addDays(FechaPagareCalculada,
-                                            Number(this.FormularioDatosReportes.controls['creditoMaximo'].value)));
+                                            +Number(this.FormularioDatosReportes.controls['creditoMaximo'].value)-Number(this.FormularioDatosReportes.controls['diasInicio'].value)));
       } catch {}
   }
   incializarCredito() {
@@ -322,7 +322,9 @@ export class ContentFabricaGeneracionComponent implements OnInit {
                     }
                 } else {
                   // console.log('Bloqueado 5' + lblEstadoSolicitud);
-                    // pageControlCliente.TabPages[7].Enabled = false;
+                  this.btnSolicitarAnulacion = false;
+                  this.SubirArchivos = false;
+                  this.generarDocumentacion = false;
                 }
   }
   getDocumentosCredito() {
