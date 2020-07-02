@@ -198,7 +198,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.fabricaService.getRetomarCredito(this.idCredito,
     localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
               (data: DatosFabrica) => {
-                // console.log(data);
+                console.log(data);
+                console.log('Acoplar Pantalla estado:' + data.Estado);
                 this.fabricaService.changeMessage(data);
                 this.acoplarPantalla(data.Estado);
                 this.getCliente();
@@ -682,7 +683,17 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                     }
                 } else {
                   // console.log('Bloqueado 5' + lblEstadoSolicitud);
-                    // pageControlCliente.TabPages[7].Enabled = false;
+                  this.btnSolicitarAnulacion = false;
+                  this.BtnEntregarCarpeta = true;
+                  this.btnSolicitarAnalisis = false;
+                  this.btnMedioAprobacion = false;
+                  this.grabarDatosIngresadosGrid = false;
+                  this.SubirArchivos = false;
+                  this.ASPxActualizarSOL = false;
+                  this.btnTelefonos = false;
+                  this.btnActualizarDirecciones = false;
+                  this.btnConyuge = false;
+                  this.btnActualizarReferencias = false;
                 }
   }
   public getTipoTel(): any {

@@ -221,7 +221,13 @@ export class ContentFabricaPoliticasComponent implements OnInit {
                     }
                 } else {
                   // console.log('Bloqueado 5' + lblEstadoSolicitud);
-                    // pageControlCliente.TabPages[7].Enabled = false;
+                  this.btnSolicitarAnulacion = false;
+                  this.SubirArchivos = false;
+                  this.BtnEntregarCarpeta = true;
+                  this.btnSolicitarAnalisis = false;
+                  this.ASPxActualizarSOL = false;
+                  this.SolicitarExcepcion = false;
+                  this.SubirArchivos = false;
                 }
   }
   getDocumentosCredito() {
