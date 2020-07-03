@@ -662,7 +662,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                             this.btnSolicitarAnalisis = false;
                             this.btnMedioAprobacion = false;
                         } else {
-                            if (lblEstadoSolicitud === 'Cancelada') {
+                            if (lblEstadoSolicitud === 'Cancelada' ) {
                               // console.log('Bloqueado 3' + lblEstadoSolicitud);
                               this.ASPxActualizarSOL = false;
                               this.btnSolicitarAnulacion = false;

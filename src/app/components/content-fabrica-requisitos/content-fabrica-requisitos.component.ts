@@ -238,16 +238,10 @@ export class ContentFabricaRequisitosComponent implements OnInit {
                             // btnRefrescar.Visible = false;
                             // BtnGuardar.Visible = false;
                         } else {
-                            if (lblEstadoSolicitud === 'Cancelada') {
+                            if (lblEstadoSolicitud === 'Cancelada' ) {
                               console.log('Bloqueado 3' + lblEstadoSolicitud);
                               this.ASPxActualizarSOL = false;
                               this.btnSolicitarAnulacion = false;
-                              this.BtnEntregarCarpeta = false;
-                              this.btnSolicitarAnalisis = false;
-                              this.SubirArchivos = false;
-                            } else {
-                              // console.log('Bloqueado 4' + lblEstadoSolicitud);
-                              this.btnSolicitarAnulacion = true;
                               this.BtnEntregarCarpeta = false;
                               this.btnSolicitarAnalisis = false;
                               this.SubirArchivos = false;

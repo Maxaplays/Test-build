@@ -214,12 +214,6 @@ export class ContentFabricaPoliticasComponent implements OnInit {
                               this.BtnEntregarCarpeta = false;
                               this.btnSolicitarAnalisis = false;
                               this.SubirArchivos = false;
-                            } else {
-                              // console.log('Bloqueado 4' + lblEstadoSolicitud);
-                              this.btnSolicitarAnulacion = true;
-                              this.BtnEntregarCarpeta = false;
-                              this.btnSolicitarAnalisis = false;
-                              this.SubirArchivos = false;
                             }
                         }
                     }

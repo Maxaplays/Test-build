@@ -316,11 +316,6 @@ export class ContentFabricaGeneracionComponent implements OnInit {
                               this.btnSolicitarAnulacion = false;
                               this.SubirArchivos = false;
                               this.generarDocumentacion = false;
-                            } else {
-                              // console.log('Bloqueado 4' + lblEstadoSolicitud);
-                              this.btnSolicitarAnulacion = false;
-                              this.SubirArchivos = false;
-                              this.generarDocumentacion = true;
                             }
                         }
                     }
