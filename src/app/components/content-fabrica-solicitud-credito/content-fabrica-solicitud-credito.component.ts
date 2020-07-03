@@ -170,7 +170,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                             // console.log(data);
                             this.fabricaService.changeMessage(data);
                             // console.log('Acoplar Pantalla: ' + data.Estado);
-                            this.acoplarPantalla(data.Estado);
+                            // this.acoplarPantalla(data.Estado);
                           });
                       }
                   });
@@ -614,14 +614,18 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
   acoplarPantalla(lblEstadoSolicitud: string) {
-    // console.log('Acoplando Pantalla: ' + lblEstadoSolicitud);
+    if (lblEstadoSolicitud === undefined) {
+      return;
+    }
     if (lblEstadoSolicitud === 'Documental' || lblEstadoSolicitud === 'Cancelada' ||
         lblEstadoSolicitud === 'Aprobada' || lblEstadoSolicitud === 'Autorizada' ||
         lblEstadoSolicitud === 'Re-Documental' || lblEstadoSolicitud === 'RechazadaCC' ||
         lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Caducada' ||
         lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
-        lblEstadoSolicitud === 'Autorización Caducada' || lblEstadoSolicitud === 'Consultada') {
+        lblEstadoSolicitud === 'Autorización Caducada' || lblEstadoSolicitud === 'Consultada' ||
+        lblEstadoSolicitud === 'Ingresando' || lblEstadoSolicitud === 'Verificando' || lblEstadoSolicitud === 'Devuelta' ||
+        lblEstadoSolicitud === 'Re-verificación' || lblEstadoSolicitud === 'Guardada') {
                     // pageControlCliente.TabPages[7].Enabled = true;
                     if (lblEstadoSolicitud === 'Aprobada') {
                       // console.log('Bloqueado 1' + lblEstadoSolicitud);
@@ -673,11 +677,11 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                               this.SubirArchivos = false;
                             } else {
                               // console.log('Bloqueado 4' + lblEstadoSolicitud);
-                              this.btnSolicitarAnulacion = true;
-                              this.BtnEntregarCarpeta = false;
-                              this.btnSolicitarAnalisis = false;
-                              this.grabarDatosIngresadosGrid = false;
-                              this.SubirArchivos = false;
+                              // this.btnSolicitarAnulacion = true;
+                              // this.BtnEntregarCarpeta = false;
+                              // this.btnSolicitarAnalisis = false;
+                              // this.grabarDatosIngresadosGrid = false;
+                              // this.SubirArchivos = false;
                             }
                         }
                     }

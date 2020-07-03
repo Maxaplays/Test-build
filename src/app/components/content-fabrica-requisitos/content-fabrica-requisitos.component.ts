@@ -198,14 +198,18 @@ export class ContentFabricaRequisitosComponent implements OnInit {
               });
   }
   acoplarPantalla(lblEstadoSolicitud: string) {
-    console.log('Acoplando Pantalla: ' + lblEstadoSolicitud);
+    if (lblEstadoSolicitud === undefined) {
+      return;
+    }
     if (lblEstadoSolicitud === 'Documental' || lblEstadoSolicitud === 'Cancelada' ||
-        lblEstadoSolicitud === 'Aprobada' || lblEstadoSolicitud === 'Autorizada' ||
-        lblEstadoSolicitud === 'Re-Documental' || lblEstadoSolicitud === 'RechazadaCC' ||
-        lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Caducada' ||
-        lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
-        lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
-        lblEstadoSolicitud === 'Autorización Caducada' || lblEstadoSolicitud === 'Consultada') {
+    lblEstadoSolicitud === 'Aprobada' || lblEstadoSolicitud === 'Autorizada' ||
+    lblEstadoSolicitud === 'Re-Documental' || lblEstadoSolicitud === 'RechazadaCC' ||
+    lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Caducada' ||
+    lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
+    lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
+    lblEstadoSolicitud === 'Autorización Caducada' || lblEstadoSolicitud === 'Consultada' ||
+    lblEstadoSolicitud === 'Ingresando' || lblEstadoSolicitud === 'Verificando' || lblEstadoSolicitud === 'Devuelta' ||
+    lblEstadoSolicitud === 'Re-verificación' || lblEstadoSolicitud === 'Guardada') {
                     // pageControlCliente.TabPages[7].Enabled = true;
                     if (lblEstadoSolicitud === 'Aprobada') {
                       // console.log('Bloqueado 1' + lblEstadoSolicitud);
