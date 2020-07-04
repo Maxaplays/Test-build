@@ -8,7 +8,6 @@ import { Observable, BehaviorSubject, of } from 'rxjs';
   providedIn: 'root'
 })
 export class FabricaService {
-  public isAutenticated: boolean;
   private messageSource = new BehaviorSubject<DatosFabrica>(new DatosFabrica());
   currentMessage = this.messageSource.asObservable();
 

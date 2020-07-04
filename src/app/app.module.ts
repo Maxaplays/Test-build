@@ -50,6 +50,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { LoadingComponent } from './components/loading/loading.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { DomseguroPipe } from './pipes/domseguro.pipe';
+import { CanActivateGuardGuard } from './guards/can-activate-guard.guard';
 
 
 

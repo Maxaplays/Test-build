@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { MenuService } from 'src/app/services/menu/menu.service';
+import { Router } from '@angular/router';
+import { FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-menutop',
@@ -21,7 +24,10 @@ export class MenutopComponent implements OnInit {
     this.classApplied = !this.classApplied;
   }
 
-  constructor(private modalService: NgbModal, private menuService: MenuService) {
+  constructor(private modalService: NgbModal, private menuService: MenuService,
+              private router: Router,
+              private fabricaService: FabricaService,
+              private loginService: LoginService) {
       this.usuario = localStorage.getItem('usuario');
       this.nombreSucursal = localStorage.getItem('nombreSucursal');
       this.getSucursales();
@@ -70,5 +76,17 @@ export class MenutopComponent implements OnInit {
       this.nombreSucursal = nombreSucursal.NOM_SUC;
       localStorage.setItem('nombreSucursal', nombreSucursal.NOM_SUC);
       localStorage.setItem('codigoSucursal', idSucursal);
+  }
+  cerrarSesion() {
+      localStorage.removeItem('usuario');
+      localStorage.removeItem('codigoSucursal');
+      localStorage.removeItem('emailUsuario');
+      localStorage.removeItem('nombreSucursal');
+      localStorage.removeItem('rolesUsuario');
+      localStorage.removeItem('idSucursal');
+      this.loginService.isAutenticated = false;
+      this.fabricaService = null;
+      this.router.navigate(['']);
+      // console.log("Cerrada Sesion!");
   }
 }
