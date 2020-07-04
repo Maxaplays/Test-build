@@ -8,6 +8,8 @@ import { MenuService } from 'src/app/services/menu/menu.service';
   styleUrls: ['./menutop.component.css']
 })
 export class MenutopComponent implements OnInit {
+
+  classApplied = false;
   closeResult: string;
   // bkm
   usuario: string = "";
@@ -15,14 +17,18 @@ export class MenutopComponent implements OnInit {
   sucursales: any[];
   // bkm
 
-  constructor(private modalService: NgbModal, private menuService: MenuService) { 
+  toggleClass() {
+    this.classApplied = !this.classApplied;
+  }
+
+  constructor(private modalService: NgbModal, private menuService: MenuService) {
       this.usuario = localStorage.getItem('usuario');
       this.nombreSucursal = localStorage.getItem('nombreSucursal');
       this.getSucursales();
   }
 
   ngOnInit() {
-    
+
   }
 
   open(content) {
@@ -42,7 +48,7 @@ export class MenutopComponent implements OnInit {
       return  `with: ${reason}`;
     }
   }
-  
+
   openSM(content) {
     this.modalService.open(content, {windowClass: 'custom-sm-modal'});
   }

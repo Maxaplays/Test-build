@@ -9,8 +9,14 @@
             <!--a routerLink="/cuenta/editar"-->
               <img width="24" alt="Editar Perfil" src="assets/images/gear.svg">
             <!--/a-->
-            <img width="38" alt="Perfil" src="assets/images/avatar.svg">
-            <span>{{usuario}}</span>
+            <span (click)="toggleClass()">
+              <img width="38" alt="Perfil" src="assets/images/avatar.svg">
+              <span>{{usuario}}</span>
+            </span>
+            <div id="submenu-user" [class.active]="classApplied">
+              <a href="#">Editar cuenta</a>
+              <a href="#">Cerrar sesión</a>
+            </div>
         </span>
         <a href="javascript:;" (click)="openSM(modalSucursal)" class="nameTop">{{nombreSucursal}}</a>
     </nav>
@@ -50,3 +56,4 @@
         </div>
     </form>
 </ng-template>
+

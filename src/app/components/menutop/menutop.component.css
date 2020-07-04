@@ -18,6 +18,7 @@ header > nav {
     cursor: pointer;
     font-size: 0;
     margin: 13px 0;
+    position: relative;
 }
 .avatar img {
     vertical-align: middle;
@@ -32,6 +33,34 @@ header > nav {
     overflow: hidden;
     white-space: nowrap;
 }
+
+#submenu-user {
+  position: absolute;
+  top: 59px;
+  left: 36px;
+  background: #285e80;
+  right: 0;
+  border-radius: 0 0 6px 6px;
+  padding: 8px 4px;
+  display: none;
+}
+
+#submenu-user.active {
+  display: block;
+}
+
+#submenu-user a {
+  display: block;
+  font-size: 14px;
+  padding: 4px 8px;
+  transition: all .3s ease;
+  color: #7e9eb3;
+}
+
+#submenu-user a:hover {
+  color: #ffffff;
+}
+
 #mobile-toggle-menu {
     float: left;
     margin: 16px 20px 16px 0px;
@@ -55,8 +84,18 @@ header > nav {
 
 @media screen and (max-width: 480px) {
 
-    .avatar {
-        display: none;
-    }
+  .avatar>img, .nameTop {
+    display: none;
+  }
+
+  #submenu-user {
+    top: 62px;
+    width: 120px;
+    left: 0;
+  }
+
+  #submenu-user a {
+    font-size: 16px;
+  }
 
 }
