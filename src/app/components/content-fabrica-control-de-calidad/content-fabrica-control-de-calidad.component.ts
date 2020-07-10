@@ -41,6 +41,7 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
   documentosSubidos: any[] = [];
   comentarioExcepcion;
   controlExepcion: any;
+  loading: boolean;
   // bkm
   constructor(private modalService: NgbModal,
               private fabricaService: FabricaService,
@@ -103,6 +104,7 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
   onFileSelected(event, contentE, contentA) {
     let nombreArchivo = '';
     let controlCalidadValidacion = '';
+    this.loading = true;
     for (let i = 0; i < this.miDataInterior.length; i++) {
       if (i < this.miDataInterior.length - 1) {
         nombreArchivo += this.miDataInterior[i].NOM_POL + ',';
@@ -116,8 +118,10 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
     }
     //console.log(nombreArchivo);
     if (this.miDataInterior.length > 0) {
+      this.loading = true;
       this.archivoSeleccionado = <File> event.target.files[0];
       this.Archivos.push(this.archivoSeleccionado);
+      this.loading = true;
       this.archivosService.postArchivo(this.Archivos, this.mensajeServicio.NumeroCredito, localStorage.getItem('usuario'), nombreArchivo, controlCalidadValidacion, 'Control')
         .subscribe(
           (data: any) => {
@@ -141,10 +145,12 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
               this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
             }
             this.controlCalidad = this.getControlCalidad();
+            this.loading = false;
           }
         );
       if (this.miDataInterior.length === this.controlCalidad.length) {
         this.desmarcar = false;
+        this.loading = false;
         this.marcarChecks = !this.marcarChecks;
         for (let i = 0; i < this.controlCalidad.length; i++) {
           this.miDataInterior = this.miDataInterior.filter(s => s !== this.controlCalidad[i]);
@@ -158,6 +164,7 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
       this.subirArchivo();
       this.desmarcar = false;
       this.Archivos = [];
+      this.loading = false;
     }
   }
 

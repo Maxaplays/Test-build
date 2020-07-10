@@ -44,6 +44,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   btnSolicitarAnalisis = true;
   ASPxActualizarSOL = true;
   SolicitarExcepcion = true;
+  loading: boolean;
   // bkm
 
   constructor(private modalService: NgbModal,
@@ -119,8 +120,10 @@ export class ContentFabricaRequisitosComponent implements OnInit {
       }
     }
     if (this.miDataInterior.length > 0) {
+      this.loading = true;
       this.archivoSeleccionado = <File> event.target.files[0];
       this.Archivos.push(this.archivoSeleccionado);
+      this.loading = true;
       this.archivosService.postArchivo(this.Archivos, this.mensajeServicio.NumeroCredito,
         localStorage.getItem('usuario'), nombreArchivo, politicasValidacion, 'Requisito')
         .subscribe(
@@ -148,6 +151,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
               }
 }
             this.requisitios = this.getRequisitos();
+            this.loading = false;
           }
         );
       if (this.miDataInterior.length === this.requisitios.length) {
@@ -158,6 +162,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
           this.miDataInterior = [];
           this.subirArchivo();
           this.desmarcar = false;
+          this.loading = false;
           this.Archivos = [];
         }
       }
@@ -166,7 +171,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
       this.desmarcar = false;
       this.Archivos = [];
       this.router.navigate(['/fabrica/nueva-solicitud/requisitos']);
-
+      this.loading = false;
     }
   }
 
@@ -338,8 +343,10 @@ export class ContentFabricaRequisitosComponent implements OnInit {
         });
   }
   fileChange(event, contentE, contentA) {
+    this.loading = true;
     this.archivoSeleccionado = <File> event.target.files[0];
     this.Archivos.push(this.archivoSeleccionado);
+    this.loading = true;
     if(this.Archivos.length > 0) {
       //console.log(fileList);
       this.documentosService.postFileImagen(this.Archivos, this.mensajeServicio.NumeroCredito,
@@ -367,8 +374,10 @@ export class ContentFabricaRequisitosComponent implements OnInit {
             }
             // @ts-ignore
             this.documentosSubidos = this.getDocumentosCredito();
+            this.loading = false;
           }
         );
     }
+    this.loading = false;
   }
 }

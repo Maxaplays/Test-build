@@ -67,6 +67,7 @@
 
     <app-steps></app-steps>
 
+
     <form class="steps-mobile">
         <select id='selectSteps'>
             <option value='datos-basicos'>Datos básicos</option>
@@ -79,7 +80,7 @@
             <option value='resumen'>Resumen</option>
         </select>
     </form>
-
+    <app-loading *ngIf="loading"></app-loading>
     <div class="forms forms-relative">
         <div class="buscador-general">
             <label class="label">Buscador General</label>
