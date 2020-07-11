@@ -184,7 +184,10 @@ export class ContentFabricaComponent implements OnInit {
       envioDatos.Producto = this.FormularioDatosBasicos.controls['producto'].value;
       envioDatos.IdSucursal = localStorage.getItem('codigoSucursal');
       envioDatos.Usuario = localStorage.getItem('usuario');
-      // console.log(envioDatos);
+      envioDatos.tipoTelefono = this.FormularioDatosBasicos.controls['tipoContacto'].value;
+      envioDatos.valorTelefono = this.FormularioDatosBasicos.controls['telefonoContacto'].value;
+      envioDatos.observacionesTelefono = this.FormularioDatosBasicos.controls['observacionesContacto'].value;
+
       this.fabricaService.getEnvioFabricaServiceBi(envioDatos).pipe(map (data => data["Table1"][0])).subscribe(
         (data: DatosFabrica) => {
           this.datosGenerales = data;

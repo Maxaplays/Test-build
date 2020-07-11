@@ -29,7 +29,8 @@ export class FabricaService {
     return this.http.get(url);
   }
   public getEnvioFabricaServiceBi(datosParaEnviar: EnvioFabricaServiceBi) {
-    const url = environment.urlServiciosBackend + `FabricaCredito?Identificacion=${datosParaEnviar.cedula}&TipoDocumentacion=${datosParaEnviar.tipoDocumento}&IngresosIndependiente=${datosParaEnviar.IngresosIndependiente}&IngresoDependiente=${datosParaEnviar.IngresoDependiente}&VentaTotal=${datosParaEnviar.VentaTotal}&Producto=${datosParaEnviar.Producto}&IdSucursal=${datosParaEnviar.IdSucursal}&Usuario=${datosParaEnviar.Usuario}`;
+    const url = environment.urlServiciosBackend + `FabricaCredito?Identificacion=${datosParaEnviar.cedula}&TipoDocumentacion=${datosParaEnviar.tipoDocumento}&IngresosIndependiente=${datosParaEnviar.IngresosIndependiente}&IngresoDependiente=${datosParaEnviar.IngresoDependiente}&VentaTotal=${datosParaEnviar.VentaTotal}
+    &Producto=${datosParaEnviar.Producto}&IdSucursal=${datosParaEnviar.IdSucursal}&Usuario=${datosParaEnviar.Usuario}&TipoTelefo=${datosParaEnviar.tipoTelefono}&Telefono=${datosParaEnviar.valorTelefono}&Observacion=${datosParaEnviar.observacionesTelefono}`;
     return this.http.get(url);
   }
   public getRetomarCredito(idCredito: string, usuario: string) {
@@ -63,7 +64,7 @@ export class FabricaService {
     return (error: any): Observable<T> => {
       console.error(error);
       console.log(`${operation} failed: ${error.message}`);
-  
+
       return of(result as T);
     };
   }
@@ -81,6 +82,9 @@ export class EnvioFabricaServiceBi {
   IngresoDependiente: string;
   VentaTotal: string;
   Producto: string;
+  tipoTelefono: string;
+  valorTelefono: string;
+  observacionesTelefono: string;
   IdSucursal: string;
   Usuario: string;
 }

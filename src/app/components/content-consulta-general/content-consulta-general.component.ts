@@ -22,8 +22,8 @@ export class ContentConsultaGeneralComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    let fechaDesde: Date = this.addDays(new Date(), -7);
-    let fechaHasta: Date = this.addDays(new Date(), 1);
+    let fechaDesde: Date = this.addDays(new Date(), -8);
+    let fechaHasta: Date = this.addDays(new Date(), -1);
     this.cantidadCreditos = 0;
     let desde = fechaDesde.toISOString().substring(0, 10);
     let hasta = fechaHasta.toISOString().substring(0, 10);
