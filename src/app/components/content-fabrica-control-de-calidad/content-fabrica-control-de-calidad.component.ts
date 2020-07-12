@@ -6,6 +6,7 @@ import {map} from 'rxjs/operators';
 import {ArchivosService} from '../../services/archivos/archivos.service';
 import {Subject} from 'rxjs';
 import { DocumentosService } from 'src/app/services/documentos.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -47,7 +48,8 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
               private fabricaService: FabricaService,
               private documentoVisualizacion: DocumentosVisualizacionService,
               private archivosService: ArchivosService,
-              private documentosService: DocumentosService) {
+              private documentosService: DocumentosService,
+              private router: Router) {
 
   }
 
@@ -239,6 +241,9 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
           this.successMessage = data.toString();
         }
       });
+    setTimeout (() => {
+    }, 2500);
+    this.router.navigate(['/fabrica/consulta-general']);
   }
   incializarCredito() {
     this.fabricaService.getRetomarCredito(this.mensajeServicio.NumeroCredito,
@@ -331,12 +336,14 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
   fileChange(event, contentE, contentA) {
     this.archivoSeleccionado = <File> event.target.files[0];
     this.Archivos.push(this.archivoSeleccionado);
+    this.loading=true;
     if(this.Archivos.length > 0) {
       //console.log(fileList);
       this.documentosService.postFileImagen(this.Archivos, this.mensajeServicio.NumeroCredito,
         localStorage.getItem('usuario'))
         .subscribe(
           (data: any) => {
+            this.loading = true;
             if (data.listaResultado.length > 0) {
               this.successMessage = 'Archivo cargado';
             }
@@ -357,8 +364,10 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
               this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
             }
             //this.documentosSubidos = this.getDocumentosCredito();
+            this.loading=false;
           }
         );
     }
+    this.loading=false;
   }
 }

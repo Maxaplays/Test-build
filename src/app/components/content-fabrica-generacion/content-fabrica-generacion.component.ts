@@ -6,6 +6,7 @@ import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fa
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { GeneracionDocumentos, GeneraDocService, ReporteWebserviceUx } from '../../services/generaDoc/genera-doc.service';
 import { Subject } from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-content-fabrica-generacion',
@@ -52,7 +53,8 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   constructor(private modalService: NgbModal,
               private documentosService: DocumentosService,
               private fabricaService: FabricaService,
-              private generacionDocs: GeneraDocService) {
+              private generacionDocs: GeneraDocService,
+              private router:Router) {
                 this.fabricaService.currentMessage.subscribe(
                   data => {
                     this.mensajeServicio = data;
@@ -234,7 +236,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
       numeroCuenta: new FormControl({value: this.mensajeServicio.CuentaBanco,
                                     disabled: this.numeroCuentaEnabled})
     });
-    
+
   }
   addDays(date: Date, days: number): Date {
     var dias = days;
@@ -254,6 +256,9 @@ export class ContentFabricaGeneracionComponent implements OnInit {
           this.successMessage = data.toString();
         }
       });
+    setTimeout (() => {
+    }, 2500);
+    this.router.navigate(['/fabrica/consulta-general']);
   }
   cambioFechaPagare(fechaPagare) {
       try {
@@ -338,11 +343,13 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     this.archivoSeleccionado = <File> event.target.files[0];
     this.Archivos.push(this.archivoSeleccionado);
     if(this.Archivos.length > 0) {
+      this.loading = true;
       //console.log(fileList);
       this.documentosService.postFileImagen(this.Archivos, this.mensajeServicio.NumeroCredito,
         localStorage.getItem('usuario'))
         .subscribe(
           (data: any) => {
+            this.loading = true;
             if (data.listaResultado.length > 0) {
               this.successMessage = 'Archivo cargado';
             }
@@ -364,9 +371,11 @@ export class ContentFabricaGeneracionComponent implements OnInit {
             }
             // @ts-ignore
             this.documentosSubidos = this.getDocumentosCredito();
+            this.loading = false;
           }
         );
     }
+    this.loading = false;
   }
 }
 

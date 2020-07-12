@@ -14,7 +14,6 @@
             <option value='resumen'>Resumen</option>
         </select>
     </form>
-    <app-loading *ngIf="loading"></app-loading>
     <div>
         <form class="forms forms-relative" [formGroup]="FormularioDatosBasicos">
             <div class="cols cols3">
@@ -425,7 +424,7 @@
         <p>{{mensajeValidacion}}</p>
         <p>{{mensajeValidacionInterno}} <a routerLink="{{linkIdCreditoPrevioIngresado}}" routerLinkActive="active">Ingrese Aqui...</a></p>
         <div class="align-right">
-            <button class="btn btn-solid-white" (click)="modal.close('Cancelar click')">Aceptar</button>
+            <button class="btn btn-solid-white" (click)="modal.close('Cancelar click')" a routerLink="/fabrica/consulta-general">Aceptar</button>
         </div>
     </div>
 </ng-template>

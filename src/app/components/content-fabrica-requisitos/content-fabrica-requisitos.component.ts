@@ -319,6 +319,9 @@ export class ContentFabricaRequisitosComponent implements OnInit {
           this.successMessage = data.toString();
         }
       });
+    setTimeout (() => {
+    }, 2500);
+    this.router.navigate(['/fabrica/consulta-general']);
   }
   solicitarAnalisis(content) {
     this.fabricaService.getSolicitarAnalisis(this.mensajeServicio.NumeroCredito,

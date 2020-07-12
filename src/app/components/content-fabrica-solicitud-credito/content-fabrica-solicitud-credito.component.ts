@@ -6,7 +6,7 @@ import {debounceTime, map} from 'rxjs/operators';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { TipoDocumentacionService } from '../../services/tipo-documentacion.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SituacionFinancieraService } from '../../services/situacionFinanciera/situacion-financiera.service';
 import { ConyugesService, Conyuge } from 'src/app/services/conyuges/conyuges.service';
 import { ReferenciasService, Referencia } from 'src/app/services/referencias/referencias.service';
@@ -89,7 +89,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   formaDirecciones: FormGroup;
   formaTelefonos: FormGroup;
   FormularioDatosReferencia: FormGroup;
-  FormularioDatosCliente: FormGroup;
+  FormularioDatosCliente: FormGroup;x
   formaSituacionFinanciera: FormGroup;
   FormularioDatosConyuge: FormGroup;
 
@@ -143,7 +143,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private profesionService: ProfesionService,
               private clienteService: ClienteService,
               private datosComplService: DatosComplementariosService,
-              private documentosService: DocumentosService) {
+              private documentosService: DocumentosService,
+              private router: Router,) {
                 this.crearFormularioCliente();
                 this.crearFormularioDirecciones();
                 this.crearFormularioTelefonos();
@@ -1399,6 +1400,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
           this.successMessage = data.toString();
         }
       });
+    setTimeout (() => {
+    }, 2500);
+    this.router.navigate(['/fabrica/consulta-general']);
   }
   solicitarAnalisis(content, contentWarning) {
     this.fabricaService.getSolicitarAnalisis(this.mensajeServicio.NumeroCredito,
@@ -1425,8 +1429,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
   fileChange(event, contentE, contentA) {
     this.archivoSeleccionado = <File> event.target.files[0];
+    this.loading = true;
     this.Archivos.push(this.archivoSeleccionado);
     if(this.Archivos.length > 0) {
+      this.loading = true;
       //console.log(fileList);
       this.documentosService.postFileImagen(this.Archivos, this.mensajeServicio.NumeroCredito,
         localStorage.getItem('usuario'))
@@ -1452,9 +1458,11 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
             }
             this.documentosSubidos = this.getDocumentosCredito();
+            this.loading = false;
           }
         );
     }
+    this.loading = false;
   }
 }
 

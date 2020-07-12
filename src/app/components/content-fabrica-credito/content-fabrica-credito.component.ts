@@ -93,7 +93,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
       this.FormularioDatosBasicos.controls['wsVentaMaxima'].setValue(wsVentaTotal.toFixed(2).toString().replace(',', '.'));
       let wsEntrada: number = wsVentaTotal * (wsPorcengajeEntradaSugerida / 100);
       this.FormularioDatosBasicos.controls['wsEntradaSugerida'].setValue(wsEntrada.toFixed(2).toString().replace(',', '.'));
-      
+
       const IVA: number = (Number(this.mensajeServicio.IVA.replace(',', '.')) / 100) + 1;
       // console.log('IVA:' + IVA.toString());
       const FEE_SERVICIO_DOCUMENTAL: number = (Number(this.mensajeServicio.FEE_SERVICIO_DOCUMENTAL.replace(',', '.')) * IVA);
@@ -140,7 +140,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
     // this.mensajeServicio.PorcentajeEntrada = porcentajeEntrada.toString();
     // this.mensajeServicio.CuotaMensual = this.calcularCuotaFija(diferencia, plazos, tasa, entrada).toString();
     // this.mensajeServicio.Monto = diferencia.toString();
-    
+
   }
   calcularCuotaFija(Monto: number, Plazos: number, tasa: number, anticipo: number): number {
     let Cuota_F: number = 0;
@@ -245,22 +245,26 @@ export class ContentFabricaCreditoComponent implements OnInit {
           // this.FormularioDatosBasicos.controls['aplicadoMontoReferencial'].setValue(data.lblventaMaxSugerida.toString().replace(',', '.'));
           this.listadoErrores = data.listaErrores;
           if (tipo === 'Validar') {
-            if (this.listadoErrores.length > 0) {
-              this.errorMessage = 'Errores detectados:';
+              this.errorMessage = 'Alerta !';
               this.loading = false;
               this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+              setTimeout (() => {
+              }, 2500);
+              this.router.navigate(['/fabrica/consulta-general']);
             } else {
               // Sin errores seguir con siguiente paso
               this.loading = false;
               this.successMessage = 'Validación Correcta!';
               // this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
             }
-          }
           if (tipo === 'Continuar') {
             if (this.listadoErrores.length > 0) {
               this.loading = false;
-              this.errorMessage = 'Errores detectados:';
+              this.errorMessage = 'Alerta !:';
               this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+              setTimeout (() => {
+              }, 2500);
+              this.router.navigate(['/fabrica/consulta-general']);
             } else {
               // Sin errores seguir con siguiente paso
               // console.log(data);
@@ -294,6 +298,9 @@ export class ContentFabricaCreditoComponent implements OnInit {
           this.successMessage = data.toString();
         }
       });
+    setTimeout (() => {
+    }, 2500);
+    this.router.navigate(['/fabrica/consulta-general']);
   }
   // bkm
 }

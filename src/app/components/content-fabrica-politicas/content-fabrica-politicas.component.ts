@@ -5,6 +5,7 @@ import {DocumentosVisualizacionService, Excepcion} from '../../services/document
 import {map} from 'rxjs/operators';
 import {Subject} from "rxjs";
 import { DocumentosService } from 'src/app/services/documentos.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -38,11 +39,13 @@ export class ContentFabricaPoliticasComponent implements OnInit {
   excepciones: any[] = [];
   comentarioExcepcion;
   politicasExepcion: any;
+  loading: boolean;
   // bkm
   constructor(private modalService: NgbModal,
               private fabricaService: FabricaService,
               private documentoVisualizacion: DocumentosVisualizacionService,
-              private documentosService: DocumentosService) {
+              private documentosService: DocumentosService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -151,6 +154,7 @@ export class ContentFabricaPoliticasComponent implements OnInit {
         this.successMessage = data.toString();
       }
     });
+  this.router.navigate(['/fabrica/consulta-general']);
   }
   solicitarAnalisis(content) {
     this.fabricaService.getSolicitarAnalisis(this.mensajeServicio.NumeroCredito,
@@ -238,6 +242,7 @@ export class ContentFabricaPoliticasComponent implements OnInit {
   }
   fileChange(event, contentE, contentA) {
     this.archivoSeleccionado = <File> event.target.files[0];
+    this.loading = true;
     this.Archivos.push(this.archivoSeleccionado);
     if(this.Archivos.length > 0) {
       //console.log(fileList);
@@ -245,6 +250,7 @@ export class ContentFabricaPoliticasComponent implements OnInit {
         localStorage.getItem('usuario'))
         .subscribe(
           (data: any) => {
+            this.loading = true;
             if (data.listaResultado.length > 0) {
               this.successMessage = 'Archivo cargado';
             }
@@ -266,8 +272,10 @@ export class ContentFabricaPoliticasComponent implements OnInit {
             }
             // @ts-ignore
             this.documentosSubidos = this.getDocumentosCredito();
+            this.loading = false;
           }
         );
     }
+    this.loading = false;
   }
 }

@@ -205,7 +205,7 @@ export class ContentFabricaComponent implements OnInit {
           } else {
             if (this.datosGenerales.Error === 'El cliente ya tiene una solicitud previa:') {
               // Credito de cliente duplicado
-              this.mensajeValidacion = 'Errores detectados:';
+              this.mensajeValidacion = 'Alerta !:';
               this.mensajeValidacionInterno = this.datosGenerales.Error + data.CreditoAnterior;
               this.linkIdCreditoPrevioIngresado = '/fabrica/nueva-solicitud/solicitud-credito?idCre=' + data.CreditoAnterior;
               this.idCreditoPrevioIngresado = data.CreditoAnterior;
@@ -213,14 +213,20 @@ export class ContentFabricaComponent implements OnInit {
               // console.log(this.idCreditoPrevioIngresado);
               this.loading = false;
               this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+              setTimeout (() => {
+              }, 5500);
+              this.router.navigate(['/fabrica/consulta-general']);
             } else {
               // Error General
-              this.mensajeValidacion = 'Errores detectados:';
+              this.mensajeValidacion = 'Alerta !:';
               this.mensajeValidacionInterno = this.datosGenerales.Error;
               // console.log(this.mensajeValidacion);
               // console.log(this.mensajeValidacionInterno);
               this.loading = false;
               this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+              setTimeout (() => {
+              }, 2500);
+              this.router.navigate(['/fabrica/consulta-general']);
             }
           }
         }, ( errorServicio ) => {
