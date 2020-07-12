@@ -160,9 +160,9 @@ export class ContentFabricaComponent implements OnInit {
       ingresosDependiente: new FormControl('0', Validators.required),
       ingresosIndependiente: new FormControl('0', Validators.required),
       ingresosDisponible: new FormControl({value: '0', disabled: true}, Validators.required),
-      tipoContacto: new FormControl(null),
-      telefonoContacto: new FormControl(null),
-      observacionesContacto: new FormControl(null),
+      tipoContacto: new FormControl(null, Validators.required),
+      telefonoContacto: new FormControl(null, Validators.required),
+      observacionesContacto: new FormControl(''),
       formularioPreimpreso: new FormControl(null),
       ventaTotal: new FormControl(null, Validators.required),
       producto: new FormControl(null, Validators.required)
