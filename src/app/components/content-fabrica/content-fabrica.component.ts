@@ -111,7 +111,7 @@ export class ContentFabricaComponent implements OnInit {
     this.tipoDocumentacionService.getTipoDoc()
         .subscribe( (resultado: any[] ) => {
           this.tipoDoc = resultado;
-          //console.log(this.tipoDoc);
+          // console.log(this.tipoDoc);
         });
   }
   getTipoContacto() {
