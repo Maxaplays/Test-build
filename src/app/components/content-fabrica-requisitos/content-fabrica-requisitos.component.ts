@@ -120,7 +120,6 @@ export class ContentFabricaRequisitosComponent implements OnInit {
       }
     }
     if (this.miDataInterior.length > 0) {
-      this.loading = true;
       this.archivoSeleccionado = <File> event.target.files[0];
       this.Archivos.push(this.archivoSeleccionado);
       this.loading = true;
@@ -129,6 +128,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
         .subscribe(
           (data: any) => {
             if (data.listaResultado.length > 0) {
+              this.loading = false;
               this.successMessage = 'Archivo cargado';
             }
             if (data.listaErrores.length > 0) {
@@ -136,6 +136,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
               for (const mensaje of data.listaErrores) {
                 mensajeError += mensaje + '\n';
               }
+              this.loading = false;
               this.errorMessage = mensajeError;
               this.modalService.open(contentE, {windowClass: 'custom-width-error-modal'});
             }
@@ -144,14 +145,14 @@ export class ContentFabricaRequisitosComponent implements OnInit {
               for (const mensaje of data.listaAdvertencias) {
                 mensajeAdvertencia += mensaje + '\n';
               }
+              this.loading = false;
               this.advertenceMessage = mensajeAdvertencia;
               this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
               if (mensajeAdvertencia.includes('Solicitud')) {
                 this.router.navigate(['/fabrica/consulta-general']);
               }
-}
+            }
             this.requisitios = this.getRequisitos();
-            this.loading = false;
           }
         );
       if (this.miDataInterior.length === this.requisitios.length) {
@@ -162,7 +163,6 @@ export class ContentFabricaRequisitosComponent implements OnInit {
           this.miDataInterior = [];
           this.subirArchivo();
           this.desmarcar = false;
-          this.loading = false;
           this.Archivos = [];
         }
       }
@@ -171,7 +171,6 @@ export class ContentFabricaRequisitosComponent implements OnInit {
       this.desmarcar = false;
       this.Archivos = [];
       this.router.navigate(['/fabrica/nueva-solicitud/requisitos']);
-      this.loading = false;
     }
   }
 
@@ -346,7 +345,6 @@ export class ContentFabricaRequisitosComponent implements OnInit {
         });
   }
   fileChange(event, contentE, contentA) {
-    this.loading = true;
     this.archivoSeleccionado = <File> event.target.files[0];
     this.Archivos.push(this.archivoSeleccionado);
     this.loading = true;
@@ -357,6 +355,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
         .subscribe(
           (data: any) => {
             if (data.listaResultado.length > 0) {
+              this.loading = false;
               this.successMessage = 'Archivo cargado';
             }
             if (data.listaErrores.length > 0) {
@@ -364,6 +363,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
               for (const mensaje of data.listaErrores) {
                 mensajeError += mensaje + '\n';
               }
+              this.loading = false;
               this.errorMessage = mensajeError;
               this.modalService.open(contentE, {windowClass: 'custom-width-error-modal'});
             }
@@ -372,15 +372,16 @@ export class ContentFabricaRequisitosComponent implements OnInit {
               for (const mensaje of data.listaAdvertencias) {
                 mensajeAdvertencia += mensaje + '\n';
               }
+              this.loading = false;
               this.advertenceMessage = mensajeAdvertencia;
               this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
             }
+            this.loading = false;
             // @ts-ignore
             this.documentosSubidos = this.getDocumentosCredito();
-            this.loading = false;
+
           }
         );
     }
-    this.loading = false;
   }
 }
