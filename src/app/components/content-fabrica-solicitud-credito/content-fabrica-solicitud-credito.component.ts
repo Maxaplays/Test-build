@@ -346,8 +346,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   crearFormularioConyuge() {
     this.FormularioDatosConyuge = new FormGroup({
       tipo_registro: new FormControl(null),
-      tipoDocumentacion: new FormControl(null),
-      cedula: new FormControl(null),
+      tipoDocumentacion: new FormControl(null, Validators.required),
+      cedula: new FormControl(null, Validators.required),
       apellidoConyuge: new FormControl(null, Validators.required),
       nombreConyuge: new FormControl(null, Validators.required),
       telefonoConyuge: new FormControl(null),
