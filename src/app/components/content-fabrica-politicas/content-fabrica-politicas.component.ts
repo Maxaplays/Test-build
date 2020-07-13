@@ -242,16 +242,16 @@ export class ContentFabricaPoliticasComponent implements OnInit {
   }
   fileChange(event, contentE, contentA) {
     this.archivoSeleccionado = <File> event.target.files[0];
-    this.loading = true;
     this.Archivos.push(this.archivoSeleccionado);
+    this.loading = true;
     if(this.Archivos.length > 0) {
       //console.log(fileList);
       this.documentosService.postFileImagen(this.Archivos, this.mensajeServicio.NumeroCredito,
         localStorage.getItem('usuario'))
         .subscribe(
           (data: any) => {
-            this.loading = true;
             if (data.listaResultado.length > 0) {
+              this.loading = false;
               this.successMessage = 'Archivo cargado';
             }
             if (data.listaErrores.length > 0) {
@@ -259,6 +259,7 @@ export class ContentFabricaPoliticasComponent implements OnInit {
               for (const mensaje of data.listaErrores) {
                 mensajeError += mensaje + '\n';
               }
+              this.loading = false;
               this.errorMessage = mensajeError;
               this.modalService.open(contentE, {windowClass: 'custom-width-error-modal'});
             }
@@ -267,15 +268,14 @@ export class ContentFabricaPoliticasComponent implements OnInit {
               for (const mensaje of data.listaAdvertencias) {
                 mensajeAdvertencia += mensaje + '\n';
               }
+              this.loading = false;
               this.advertenceMessage = mensajeAdvertencia;
               this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
             }
             // @ts-ignore
             this.documentosSubidos = this.getDocumentosCredito();
-            this.loading = false;
           }
         );
     }
-    this.loading = false;
   }
 }
