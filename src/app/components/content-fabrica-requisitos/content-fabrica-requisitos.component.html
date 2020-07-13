@@ -92,7 +92,6 @@
                 <thead>
                     <tr>
                         <th><input type="checkbox" (change)="marcarTodos($event)" [checked]=false></th>
-                        <th>Solicitar Excepción</th>
                         <th>Estado</th>
                         <th>Url</th>
                         <th>Política</th>
@@ -110,13 +109,13 @@
                         <th>Fecha Solicitud Excepción</th>
                         <th>Usuario Excepcionado</th>
                         <th>Fecha Excepcionado</th>
-                        <th>Id</th>
+                        <th>Solicitar Excepción</th>
+                        <th hidden>Id</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let requisito of requisitios | paginate: {itemsPerPage: 10, currentPage: paginaAcual}, let i = index">
                         <td><input class="form-check-input" type="checkbox" [checked]="marcarChecks" name="miDataInterior" (change)="$event.target.checked ? agregar(requisito) : quitar(requisito)"></td>
-                        <td><a *ngIf="SolicitarExcepcion" class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion, requisito)">Solicitar</a></td>
                         <td><span class="{{requisito.COLOR_UX}}"></span></td>
                         <td *ngIf="requisito.URL_DOC">
                             <a href="{{requisito.URL_DOC}}" target="_blank"><img src="assets/images/icon-url.svg" class="check-center"></a>
@@ -139,7 +138,8 @@
                         <td>{{requisito.FECH_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
                         <td>{{requisito.USR_VAL_EXC_VAL}}</td>
                         <td>{{requisito.FECH_VAL_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
-                        <td>{{requisito.ID_VAL}}</td>
+                        <td><a *ngIf="SolicitarExcepcion" class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion, requisito)">Solicitar</a></td>
+                        <td hidden>{{requisito.ID_VAL}}</td>
                     </tr>
                 </tbody>
             </table>
