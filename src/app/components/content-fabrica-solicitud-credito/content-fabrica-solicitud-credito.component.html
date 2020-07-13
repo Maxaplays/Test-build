@@ -632,6 +632,7 @@
 </div>
 
 <ng-template #verDocumentacion let-modal>
+  <app-loading *ngIf="loading"></app-loading>
     <div class="modal-header-mfc variation ">
         <div class="cols cols2 align-middle ">
             <div class="align-left ">
@@ -849,13 +850,13 @@
                     </fieldset>
                     <fieldset>
                         <label class="label">Tipo de Documento</label>
-                        <select formControlName="tipoDocumentacion" (change)="getTipoDoc()" class="form-control">
+                        <select formControlName="tipoDocumentacion" (change)="getTipoDoc()" class="form-control"  [class.is-invalid]="FormularioDatosConyuge.controls['tipoDocumentacion'].invalid && FormularioDatosConyuge.controls['tipoDocumentacion'].touched">
                                 <option *ngFor="let tipo of tipoDoc" [value]="tipo.COD_TDOC">{{tipo.NOM_TDOC}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">RUC / Cédula</label>
-                        <input type="text" placeholder="# Identificación" class="form-control" formControlName="cedula">
+                        <input type="text" placeholder="# Identificación" class="form-control" formControlName="cedula" [class.is-invalid]="FormularioDatosConyuge.controls['cedula'].invalid && FormularioDatosConyuge.controls['cedula'].touched">
                     </fieldset>
                     <fieldset>
                         <label class="label">Apellidos <b>*</b></label>

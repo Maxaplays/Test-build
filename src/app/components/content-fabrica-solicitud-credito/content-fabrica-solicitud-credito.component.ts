@@ -346,8 +346,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   crearFormularioConyuge() {
     this.FormularioDatosConyuge = new FormGroup({
       tipo_registro: new FormControl(null),
-      tipoDocumentacion: new FormControl(null),
-      cedula: new FormControl(null),
+      tipoDocumentacion: new FormControl(null, Validators.required),
+      cedula: new FormControl(null, Validators.required),
       apellidoConyuge: new FormControl(null, Validators.required),
       nombreConyuge: new FormControl(null, Validators.required),
       telefonoConyuge: new FormControl(null),
@@ -1429,16 +1429,16 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
   fileChange(event, contentE, contentA) {
     this.archivoSeleccionado = <File> event.target.files[0];
-    this.loading = true;
     this.Archivos.push(this.archivoSeleccionado);
+    this.loading = true;
     if(this.Archivos.length > 0) {
-      this.loading = true;
       //console.log(fileList);
       this.documentosService.postFileImagen(this.Archivos, this.mensajeServicio.NumeroCredito,
         localStorage.getItem('usuario'))
         .subscribe(
           (data: any) => {
             if (data.listaResultado.length > 0) {
+              this.loading = false;
               this.successMessage = 'Archivo cargado';
             }
             if (data.listaErrores.length > 0) {
@@ -1446,6 +1446,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               for (const mensaje of data.listaErrores) {
                 mensajeError += mensaje + '\n';
               }
+              this.loading = false;
               this.errorMessage = mensajeError;
               this.modalService.open(contentE, {windowClass: 'custom-width-error-modal'});
             }
@@ -1454,15 +1455,14 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               for (const mensaje of data.listaAdvertencias) {
                 mensajeAdvertencia += mensaje + '\n';
               }
+              this.loading = false;
               this.advertenceMessage = mensajeAdvertencia;
               this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
             }
             this.documentosSubidos = this.getDocumentosCredito();
-            this.loading = false;
           }
         );
     }
-    this.loading = false;
   }
 }
 

@@ -60,13 +60,17 @@
                 <div>
                     <fieldset>
                         <label class="label">Tipo de Contacto</label>
-                        <select formControlName="tipoContacto" tabindex="7" [class.is-invalid]="FormularioDatosBasicos.controls['tipoContacto'].invalid && FormularioDatosBasicos.controls['tipoContacto'].touched" class="form-control">
+                        <select formControlName="tipoContacto" tabindex="7">
                             <option *ngFor="let tipo of tipoContacto" [value]="tipo.COD_TDIS">{{tipo.NOM_TDIS}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Teléfono Contacto</label>
+<<<<<<< HEAD
                         <input formControlName="telefonoContacto" type="text" [class.is-invalid]="FormularioDatosBasicos.controls['telefonoContacto'].invalid && FormularioDatosBasicos.controls['telefonoContacto'].touched" class="form-control" placeholder="Escriba Teléfono" tabindex="8">
+=======
+                        <input formControlName="telefonoContacto" type="text" placeholder="Escriba Teléfono" tabindex="8">
+>>>>>>> 46e27446ab3382ccfe8cb8b000f4a71ea54dd7c2
                     </fieldset>
                     <fieldset>
                         <label class="label">Observaciones Contacto</label>

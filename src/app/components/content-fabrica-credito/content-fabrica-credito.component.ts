@@ -245,26 +245,22 @@ export class ContentFabricaCreditoComponent implements OnInit {
           // this.FormularioDatosBasicos.controls['aplicadoMontoReferencial'].setValue(data.lblventaMaxSugerida.toString().replace(',', '.'));
           this.listadoErrores = data.listaErrores;
           if (tipo === 'Validar') {
+            if (this.listadoErrores.length > 0) {
               this.errorMessage = 'Alerta !';
               this.loading = false;
               this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
-              setTimeout (() => {
-              }, 2500);
-              this.router.navigate(['/fabrica/consulta-general']);
             } else {
               // Sin errores seguir con siguiente paso
               this.loading = false;
               this.successMessage = 'Validación Correcta!';
               // this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
             }
+          }
           if (tipo === 'Continuar') {
             if (this.listadoErrores.length > 0) {
               this.loading = false;
               this.errorMessage = 'Alerta !:';
               this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
-              setTimeout (() => {
-              }, 2500);
-              this.router.navigate(['/fabrica/consulta-general']);
             } else {
               // Sin errores seguir con siguiente paso
               // console.log(data);
