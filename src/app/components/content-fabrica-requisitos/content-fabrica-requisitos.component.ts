@@ -36,6 +36,8 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   requisitios: any[] = [];
   excepciones: any[] = [];
   documentosSubidos: any[] = [];
+  listadoAdvertencia: string[];
+  listadoErrores: string[];
   comentarioExcepcion;
   desmarcar;
   btnSolicitarAnulacion = true;
@@ -133,18 +135,14 @@ export class ContentFabricaRequisitosComponent implements OnInit {
             }
             if (data.listaErrores.length > 0) {
               let mensajeError = '';
-              for (const mensaje of data.listaErrores) {
-                mensajeError += mensaje + '\n';
-              }
+              this.listadoErrores = data.listaErrores;
               this.loading = false;
               this.errorMessage = mensajeError;
               this.modalService.open(contentE, {windowClass: 'custom-width-error-modal'});
             }
             if (data.listaAdvertencias.length > 0) {
               let mensajeAdvertencia = '';
-              for (const mensaje of data.listaAdvertencias) {
-                mensajeAdvertencia += mensaje + '\n';
-              }
+              this.listadoAdvertencia = data.listaAdvertencias;
               this.loading = false;
               this.advertenceMessage = mensajeAdvertencia;
               this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
