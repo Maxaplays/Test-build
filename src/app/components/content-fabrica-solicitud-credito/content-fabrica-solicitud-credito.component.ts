@@ -1413,6 +1413,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
             // console.log('Si genera el cambio de estado:' + data.toString());
             this.advertenceMessage = data.toString();
             this.modalService.open(contentWarning, {windowClass: 'custom-width-modal'});
+            setTimeout (() => {
+            }, 3500);
+            this.router.navigate(['/fabrica/consulta-general']);
           } else {
             this.errorMessage = data.toString();
             this.modalService.open(content, {windowClass: 'custom-width-modal'});
