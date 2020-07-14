@@ -91,7 +91,6 @@
                 <thead>
                     <tr>
                         <th><input type="checkbox" (change)="marcarTodos($event)"></th>
-                        <th>Solicitar Excepción</th>
                         <th>Estado</th>
                         <th>Url</th>
                         <th>Política</th>
@@ -107,13 +106,13 @@
                         <th>Fecha Solicitud Excepción</th>
                         <th>Usuario Excepcionado</th>
                         <th>Fecha Excepcionado</th>
-                        <th>Id</th>
+                        <th>Solicitar Excepción</th>
+                        <th hidden>Id</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let control of controlCalidad | paginate: {itemsPerPage: 10, currentPage: paginaAcual}">
                         <td><input type="checkbox" [checked]="marcarChecks" name="miDataInterior" (change)="$event.target.checked ? agregar(control) : quitar(control)"></td>
-                        <td><a *ngIf="SolicitarExcepcion" class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion, control)">Solicitar</a></td>
                         <td><span class="{{control.COLOR_UX}}"></span></td>
                         <td *ngIf="control.URL_DOC">
                             <a href="{{control.URL_DOC}}" target="_blank"><img src="assets/images/icon-url.svg" class="check-center"></a>
@@ -134,7 +133,8 @@
                         <td>{{control.FECH_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
                         <td>{{control.USR_VAL_EXC_VAL}}</td>
                         <td>{{control.FECH_VAL_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
-                        <td>{{control.ID_VAL}}</td>
+                        <td><a *ngIf="SolicitarExcepcion" class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion, control)">Solicitar</a></td>
+                        <td hidden>{{control.ID_VAL}}</td>
                     </tr>
                 </tbody>
             </table>
