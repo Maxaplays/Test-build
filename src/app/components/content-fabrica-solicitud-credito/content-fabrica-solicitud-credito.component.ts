@@ -351,7 +351,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       apellidoConyuge: new FormControl(null, Validators.required),
       nombreConyuge: new FormControl(null, Validators.required),
       telefonoConyuge: new FormControl(null),
-      fechaNacimiento: new FormControl(null),
+      fechaNacimiento: new FormControl(null, Validators.required),
       genero: new FormControl(null),
       nacionalidad: new FormControl(null),
       profesion: new FormControl(null),
