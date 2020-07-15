@@ -146,7 +146,9 @@ export class ContentFabricaRequisitosComponent implements OnInit {
               this.loading = false;
               this.advertenceMessage = mensajeAdvertencia;
               this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
-              if (mensajeAdvertencia.includes('Solicitud')) {
+              if (mensajeAdvertencia[0] === 'S') {
+                setTimeout (() => {
+                }, 3500);
                 this.router.navigate(['/fabrica/consulta-general']);
               }
             }
@@ -317,7 +319,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
         }
       });
     setTimeout (() => {
-    }, 2500);
+    }, 3500);
     this.router.navigate(['/fabrica/consulta-general']);
   }
   solicitarAnalisis(content) {
@@ -333,6 +335,9 @@ export class ContentFabricaRequisitosComponent implements OnInit {
             this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
           }
           });
+    setTimeout (() => {
+    }, 3500);
+    this.router.navigate(['/fabrica/consulta-general']);
   }
   getDocumentosCredito() {
     this.documentosService.getDocumentosSubidos(this.mensajeServicio.NumeroCredito)

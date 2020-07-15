@@ -106,7 +106,7 @@
                     <fieldset>
                         <label class="label">Fecha Primer Pago</label>
                         <input formControlName="fechaPrimerPago" type="date" placeholder="dd/mm/aaaa" tabindex="4">
-                        <label class="label postinput">Fecha Minima:{{FechaPrimerPagoMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPrimerPagoMax | date: 'dd/MM/yyyy'}}</label>
+                        <label class="label postinput">Fecha Minima:{{addDays(FechaPrimerPagoMin,1) | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPrimerPagoMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
                     <fieldset>
                         <label class="label">Días Inicio Crédito Máximo</label>
