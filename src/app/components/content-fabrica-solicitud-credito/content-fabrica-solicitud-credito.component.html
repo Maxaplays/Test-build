@@ -849,13 +849,13 @@
                         <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Cliente" value="Cliente" disabled>
                     </fieldset>
                     <fieldset>
-                        <label class="label">Tipo de Documento</label>
+                        <label class="label">Tipo de Documento <b>*</b></label>
                         <select formControlName="tipoDocumentacion" (change)="getTipoDoc()" class="form-control"  [class.is-invalid]="FormularioDatosConyuge.controls['tipoDocumentacion'].invalid && FormularioDatosConyuge.controls['tipoDocumentacion'].touched">
                                 <option *ngFor="let tipo of tipoDoc" [value]="tipo.COD_TDOC">{{tipo.NOM_TDOC}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
-                        <label class="label">RUC / Cédula</label>
+                        <label class="label">RUC / Cédula <b>*</b></label>
                         <input type="text" placeholder="# Identificación" class="form-control" formControlName="cedula" [class.is-invalid]="FormularioDatosConyuge.controls['cedula'].invalid && FormularioDatosConyuge.controls['cedula'].touched">
                     </fieldset>
                     <fieldset>
@@ -873,7 +873,7 @@
                         <input formControlName="telefonoConyuge" class="form-control" type="text" placeholder="Teléfono">
                     </fieldset>
                     <fieldset>
-                        <label class="label">Fecha de Nacimiento</label>
+                        <label class="label">Fecha de Nacimiento <b>*</b></label>
                         <input formControlName="fechaNacimiento" [class.is-invalid]="FormularioDatosConyuge.controls['fechaNacimiento'].invalid && FormularioDatosConyuge.controls['fechaNacimiento'].touched" class="form-control" type="date" placeholder="Fecha de Nacimiento ">
                     </fieldset>
                     <fieldset>
