@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FabricaService } from '../../services/fabricaCredito/fabrica.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import {ExportService} from '../../services/exportar/export.service';
 
 @Component({
   selector: 'app-content-consulta-general',
@@ -16,7 +17,8 @@ export class ContentConsultaGeneralComponent implements OnInit {
   FormularioDatosBasicos: FormGroup; // formulario de react driven del HTML
   pageActual: number = 1;
   // bkm
-  constructor(private fabricaService: FabricaService) {
+  constructor(private fabricaService: FabricaService,
+              private exportService: ExportService) {
 
    }
 
@@ -68,5 +70,8 @@ export class ContentConsultaGeneralComponent implements OnInit {
     } else if (busqueda === '') {
       this.getCreditos();
     }
+  }
+  exportar() {
+    this.exportService.exportToExcel(this.creditos, 'Creditos');
   }
 }

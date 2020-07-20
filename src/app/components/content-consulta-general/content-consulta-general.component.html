@@ -32,8 +32,8 @@
                 <label class="label">Buscador General</label>
                 <input type="text" placeholder="Filtrar: Estado/Cédula/Nombre" #busqueda (input)="Buscar(busqueda.value, 'BUSCADOR')">
             </div>
-            <div id="table-scroll ">
-                <table class="width-filters ">
+              <div id="table-scroll">
+                <table class="width-filters display nowrap" id="tabla" >
                     <thead>
                         <tr>
                             <th>V</th>
@@ -104,8 +104,8 @@
                     </tbody>
                 </table>
                 <pagination-controls class="my-pagination align-content-center label" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="pageActual = $event"></pagination-controls>
-            </div>
-        </div>
+              </div>
+          </div>
     </form>
     <div class="footer-fixed-forms ">
         <div class="cols cols2 ">
@@ -119,7 +119,7 @@
                         <option>Seleccione un formato</option>
                     </select>
                 </fieldset-->
-                <button class="btn btn-solid-blue ">Exportar XLS</button>
+                <button class="btn btn-solid-blue" (click)="exportar()">Exportar XLS</button>
             </div>
         </div>
     </div>

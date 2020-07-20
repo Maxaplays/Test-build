@@ -51,10 +51,8 @@ import { LoadingComponent } from './components/loading/loading.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { DomseguroPipe } from './pipes/domseguro.pipe';
 import { CanActivateGuardGuard } from './guards/can-activate-guard.guard';
-
-
-
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ExportService} from './services/exportar/export.service';
 
 
 const routes: Routes = [
@@ -130,9 +128,10 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     NgxPaginationModule,
+    BrowserAnimationsModule
   ],
   exports: [],
-  providers: [],
+  providers: [ExportService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
