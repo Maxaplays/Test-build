@@ -53,7 +53,8 @@ import { DomseguroPipe } from './pipes/domseguro.pipe';
 import { CanActivateGuardGuard } from './guards/can-activate-guard.guard';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ExportService} from './services/exportar/export.service';
-
+import { ContentFabricaResumenComponent } from './components/content-fabrica-resumen/content-fabrica-resumen.component';
+import { FabricaStep8Component } from './components/fabrica-step8/fabrica-step8.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -68,6 +69,7 @@ const routes: Routes = [
   { path: 'fabrica/nueva-solicitud/politicas', component: FabricaStep5Component },
   { path: 'fabrica/nueva-solicitud/generacion', component: FabricaStep6Component },
   { path: 'fabrica/nueva-solicitud/control-de-calidad', component: FabricaStep7Component },
+  { path: 'fabrica/nueva-solicitud/resumen', component: FabricaStep8Component },
   // { path: 'analisis/verificaciones', component: VerificacionesComponent },
   // { path: 'analisis/excepciones', component: ExcepcionesComponent },
   // { path: 'analisis/control-de-calidad', component: ControlDeCalidadComponent },
@@ -116,6 +118,8 @@ const routes: Routes = [
     ModalHistorialComponent,
     LoadingComponent,
     DomseguroPipe,
+    FabricaStep8Component,
+    ContentFabricaResumenComponent
 
   ],
   imports: [

@@ -18,6 +18,9 @@ export class SituacionFinancieraService {
   public getIngresos(ID_CRE: string) {
     return this.getQuery( `Ingresos/${ID_CRE}`);
   }
+  public getResumen(ID_CRE: string) {
+    return this.getQuery( `Resumen/${ID_CRE}`);
+  }
   public getguardarComentarioIngresos(idReg: string, comentario: string, usuario: string) {
     const urlIngresos = `/guardarComentarioIngresos?idReg=${idReg}&comentario=${comentario}&usuario=${usuario}`;
     return this.getQuery(urlIngresos);
