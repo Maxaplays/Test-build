@@ -1,0 +1,350 @@
+<div class="content">
+
+  <div class="content-grid-list">
+    <ul class="grid-list grid-list-fix">
+      <li>
+        <h5>Solicitud #</h5>
+        <span>{{mensajeServicio.NumeroCredito}}</span>
+      </li>
+      <li>
+        <h5>Cédula</h5>
+        <span>{{mensajeServicio.Cedula}}</span>
+      </li>
+      <li>
+        <h5>Nombre</h5>
+        <span>{{mensajeServicio.NombreConsultado}}</span>
+      </li>
+      <li>
+        <h5>Estado<img src="assets/images/update.png" (click)="incializarCredito()" /></h5>
+        <span class="tag">{{mensajeServicio.Estado}}</span>
+      </li>
+      <li>
+        <h5>Sub-estado</h5>
+        <span>{{mensajeServicio.SubEstado}}</span>
+      </li>
+      <li>
+        <h5>Fecha Creación</h5>
+        <span>{{mensajeServicio.FechaCreacion}}</span>
+      </li>
+      <li>
+        <h5>Tipo de Crédito</h5>
+        <span>{{mensajeServicio.TipoCredito}}</span>
+      </li>
+    </ul>
+    <ul class="grid-list">
+      <li>
+        <h5>Perfil Aplicado</h5>
+        <span>{{mensajeServicio.PerfilAplicado}}</span>
+      </li>
+      <li>
+        <h5>Score</h5>
+        <span>{{mensajeServicio.ScoreDeudor}}</span>
+      </li>
+      <li>
+        <h5>Ingreso Validado</h5>
+        <span>{{mensajeServicio.IngresoValidado}}</span>
+      </li>
+      <li>
+        <h5>Asesor Asociado</h5>
+        <select>
+          <option>{{mensajeServicio.AsesorAsociado}}</option>
+        </select>
+      </li>
+      <li>
+        <h5>Valor Total Factura</h5>
+        <span>{{mensajeServicio.ValorTotal}}</span>
+      </li>
+      <li>
+        <h5>Valor de la Entrada</h5>
+        <span>{{mensajeServicio.Entrada}}</span>
+      </li>
+      <li>
+        <h5>Valor Crédito Solicitado</h5>
+        <span>{{mensajeServicio.Monto}}</span>
+      </li>
+    </ul>
+  </div>
+
+  <app-steps></app-steps>
+
+  <form class="steps-mobile">
+    <select id='selectSteps'>
+      <option value='datos-basicos'>Datos básicos</option>
+      <option value='credito'>Crédito</option>
+      <option value='solicitud-credito'>Solicitud Crédito</option>
+      <option value='requisitos'>Requisitos</option>
+      <option value='politicas'>Políticas</option>
+      <option value='generacion' selected>Generación</option>
+      <option value='control-calidad'>Control Calidad</option>
+      <option value='resumen'>Resumen</option>
+    </select>
+  </form>
+  <app-loading *ngIf="loading"></app-loading>
+  <div class="forms forms-relative">
+    <form class="forms forms-relative" autocomplete="off" [formGroup]="formaResumen" >
+      <div class="cols cols3">
+        <div>
+          <fieldset>
+
+            <div>
+              <fieldset>
+                <label class="label">Venta Proforma Total</label>
+                <input type="text" readonly placeholder="($)" formControlName="Venta_Proforma_Total">
+              </fieldset>
+              <fieldset>
+                <label class="label">PVP Servicio de Gestión de Crédito (con IVA)</label>
+                <input type="text" readonly placeholder="($)" formControlName="Servicio_Gestión_Crédito">
+              </fieldset>
+              <fieldset>
+                <label class="label">PVP Servicio de Gestión Documental (con IVA)</label>
+                <input type="text"readonly  placeholder="($)" formControlName="Servicio_Gestión_Documental">
+              </fieldset>
+              <fieldset>
+                <label class="label">Valor Total Factura</label>
+                <input type="text" readonly placeholder="($)" formControlName="Valor_Total_Factura">
+              </fieldset>
+            </div>
+          </fieldset>
+        </div>
+        <div>
+          <fieldset>
+            <label class="label">Entrada </label>
+            <input type="text"readonly  placeholder="" formControlName="Entrada">
+          </fieldset>
+          <fieldset>
+            <label class="label">Monto Crédito</label>
+            <input type="text" readonly placeholder="" formControlName="Monto_Crédito">
+          </fieldset>
+          <fieldset>
+            <label class="label">Plazo</label>
+            <input type="text" readonly placeholder="" formControlName="Plazo">
+          </fieldset>
+
+        </div>
+        <div>
+          <fieldset>
+            <label class="label">Cuota Mensual Estimada</label>
+            <input type="text"readonly  placeholder="($)" formControlName="Cuota_Mensual_Estimada">
+          </fieldset>
+          <fieldset>
+            <label class="label">Cuota Mensual Pagaré</label>
+            <input type="text" readonly placeholder="($)" formControlName="Cuota_Mensual_Pagaré">
+          </fieldset>
+          <fieldset>
+            <label class="label">Cuota Mensual con Seguro</label>
+            <input type="text" readonly placeholder="($)" formControlName="Cuota_Mensual_Seguro">
+          </fieldset>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+  <div class="footer-fixed-forms ">
+    <div class="cols cols2 ">
+      <div class="align-left ">
+        <button class="btn btn-border-blue"><img src="assets/images/icon-reloj.svg">Historial</button>
+        <!--button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial) "><img src="assets/images/icon-reloj.svg ">Historial</button-->
+        <button *ngIf="btnSolicitarAnulacion" class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
+        <button class="btn btn-border-blue " (click)="openLg(verDocumentacion)"><img src="assets/images/icon-folder.svg ">Documentación</button>
+      </div>
+      <div class="align-right ">
+        <button class="btn btn-border-blue " routerLink="/fabrica/consulta-general" ><img src="assets/images/icon-folder.svg ">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #verDocumentacion let-modal>
+  <app-loading *ngIf="loading"></app-loading>
+  <div class="modal-header-mfc variation ">
+    <div class="cols cols2 align-middle ">
+      <div class="align-left ">
+        <img width="20 " alt="MICRO FACTORY CAPITAL " src="./assets/images/icon-documentacion-modal.svg ">
+        <h4 class="modal-minititle-mfc ">Documentación</h4>
+      </div>
+      <div class="align-right ">
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Close click') ">
+          <span aria-hidden="true ">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body variation ">
+    <div class="forms forms-relative ">
+      <div class="false-inputfile ">
+      </div>
+      <div id="table-scroll ">
+        <table class="width-filters ">
+          <thead>
+          <tr>
+            <th>
+              <option>Nombre de documento</option>
+            </th>
+            <th>
+              <option>Fecha ingreso</option>
+            </th>
+            <th>
+              <option>Usuario Ingreso</option>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let documento of documentosSubidos">
+            <td>
+              <a href="{{documento.URL_DOC}}" target="_blank" class="link-doc "><img src="assets/images/icon-document-list.svg ">{{documento.NOM_DOC}}</a>
+            </td>
+            <td>{{documento.FCH_DOC}}</td>
+            <td>{{documento.USR_DOC}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer-mfc full variation ">
+    <div class="align-right ">
+      <a class="btn btn-border-blue simulate-inputFile">Subir archivo <input type="file" (change)="fileChange($event,mensajeModalError,mensajeAdvertencia)" placeholder="Upload file" accept=".pdf,.doc,.docx"></a>
+      <button class="btn btn-solid-blue " (click)="modal.close( 'Cancelar click') ">Cerrar</button>
+    </div>
+  </div>
+</ng-template>
+
+
+
+<ng-template #verHistorial let-modal>
+  <div class="modal-header-mfc variation ">
+    <div class="cols cols2 align-middle ">
+      <div class="align-left ">
+        <img width="20 " alt="MICRO FACTORY CAPITAL " src="./assets/images/icon-historial-modal.svg ">
+        <h4 class="modal-minititle-mfc ">Historial</h4>
+      </div>
+      <div class="align-right ">
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Close click') ">
+          <span aria-hidden="true ">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <app-modal-historial></app-modal-historial>
+  <div class="modal-footer-mfc full variation ">
+    <div class="cols cols2 ">
+      <div class="align-left ">
+        <button class="btn btn-border-blue " routerLink="/configuracion/respuestas " (click)="modal.close( 'Cancelar click') ">Generar respuesta</button>
+      </div>
+      <div class="align-right ">
+        <button class="btn btn-solid-blue " (click)="modal.close( 'Cancelar click') ">Guardar</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #docGenerado let-modal>
+  <div class="modal-header-mfc variation ">
+    <div class="cols cols2 align-middle ">
+      <div class="align-left ">
+        <img width="20 " alt="MICRO FACTORY CAPITAL " src="./assets/images/icon-documentacion-modal.svg ">
+        <h4 class="modal-minititle-mfc ">Documentación Generada</h4>
+      </div>
+      <div class="align-right ">
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Close click') ">
+          <span aria-hidden="true ">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body only-pdf ">
+    <div class="modal-with-viewer ">
+      <div>
+        <iframe [src]="urlArchivoGenerado | domseguro "></iframe>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer-mfc full variation ">
+    <div class="align-right ">
+      <button class="btn btn-border-gray " (click)="modal.close( 'Cancelar click') ">Cerrar</button>
+    </div>
+  </div>
+</ng-template>
+
+<ngb-alert *ngIf="successMessage" type="success" class="wbtn-success" (close)="successMessage = null"><img src="./assets/images/success.svg"><span>{{ successMessage }}</span></ngb-alert>
+
+<ng-template #mensajeModalError let-modal>
+  <div class="modal-error">
+    <div>
+      <div class="cols cols2 align-middle">
+        <div class="align-left">
+          <img src="./assets/images/warning.svg" width="42">
+          <p>{{errorMessage}}</p>
+          <ul>
+            <li *ngFor="let error of listadoErrores">
+              * {{ error }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="align-right">
+      <button class="btn btn-solid-white" (click)="modal.close('Cancelar click')">Aceptar</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #cancelarSolicitud let-modal>
+  <div class="modal-header-mfc variation">
+    <div class="cols cols2 align-middle">
+      <div class="align-left">
+        <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-folder.svg">
+        <h4 class="modal-minititle-mfc">Cancelar Solicitud</h4>
+      </div>
+      <div class="align-right">
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-body variation">
+    <div class="forms forms-relative" style="margin: 20px -8px 0;padding: 0;">
+      <fieldset>
+        <label class="label">Ingrese el motivo para cancelar la solicitud:</label>
+        <textarea #motivoCancelacion placeholder="Escriba el motivo" style="max-height: 100px;"></textarea>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="modal-footer-mfc full variation">
+    <div class="align-right">
+      <button class="btn btn-solid-blue" (click)="generarCancelacion(motivoCancelacion.value)">Cancelar Solicitud</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #mensajeAdvertencia let-modal>
+  <div class="modal-header-mfc variation modal-mensaje">
+    <div class="cols cols2 align-middle">
+      <div class="align-left">
+        <img width="32" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-mensaje-warning.svg">
+        <h4 class="modal-minititle-mfc">Importante</h4>
+      </div>
+      <div class="align-right">
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-body variation modal-mensaje">
+    <p>{{advertenceMessage}}</p>
+  </div>
+  <div class="modal-footer-mfc full variation">
+    <div class="cols cols2">
+
+      <div class="align-right">
+        <button class="btn btn-solid-green" (click)="modal.close('Cancelar click')">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
