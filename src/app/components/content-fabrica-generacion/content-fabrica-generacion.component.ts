@@ -118,22 +118,23 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     let string2 = this.FormularioDatosReportes.controls['fechaPrimerPago'].value.substring(0, 10) + ' 00:00:00';
     let FechaPagareCalculada: Date = new Date(string1);
     let FechaPrimerPagoCalculada: Date = new Date(string2);
-    if (FechaPagareCalculada >= this.FechaPagareMin && FechaPagareCalculada <= this.FechaPagareMax) {
-      // Fecha Correcta
-
-    } else {
-      // fecha Incorrecta
-      this.errorMessage = 'Fecha de pagaré fuera del rango permitido';
-      this.modalService.open(contentError, {windowClass: 'custom-width-error-modal'});
-      return;
-    }
-    if (FechaPrimerPagoCalculada >= this.FechaPrimerPagoMin && FechaPrimerPagoCalculada <= this.FechaPrimerPagoMax) {
-      // Fecha Correcta
-    } else {
-      // fecha Incorrecta
-      this.errorMessage = 'Fecha Primer pago fuera del rango permitido';
-      this.modalService.open(contentError, {windowClass: 'custom-width-error-modal'});
-      return;
+    if (!this.puedeCambiarFechas) {
+      if (FechaPagareCalculada >= this.FechaPagareMin && FechaPagareCalculada <= this.FechaPagareMax) {
+        // Fecha Correcta
+      } else {
+        // fecha Incorrecta
+        this.errorMessage = 'Fecha de pagaré fuera del rango permitido';
+        this.modalService.open(contentError, {windowClass: 'custom-width-error-modal'});
+        return;
+      }
+      if (FechaPrimerPagoCalculada >= this.FechaPrimerPagoMin && FechaPrimerPagoCalculada <= this.FechaPrimerPagoMax) {
+        // Fecha Correcta
+      } else {
+        // fecha Incorrecta
+        this.errorMessage = 'Fecha Primer pago fuera del rango permitido';
+        this.modalService.open(contentError, {windowClass: 'custom-width-error-modal'});
+        return;
+      }
     }
     this.loading = true;
     const variable = new GeneracionDocumentos();
@@ -213,7 +214,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     try {
       FCH_PAGARE_SOL = new Date(this.mensajeServicio.FCH_PAGARE_SOL);
       fechaPagareTexto = FCH_PAGARE_SOL.toISOString().substring(0, 10);
-      this.FechaPrimerPagoMin = new Date(this.addDays(FCH_PAGARE_SOL, Number(this.mensajeServicio.DiasInicioCredito)));
+      this.FechaPrimerPagoMin = new Date(this.addDays(FCH_PAGARE_SOL, +Number(this.mensajeServicio.DiasInicioCredito)));
       this.FechaPrimerPagoMax = new Date(this.addDays(FCH_PAGARE_SOL, +Number(this.mensajeServicio.DiasInicioMaximoCredito)-Number(this.mensajeServicio.DiasInicioCredito)));
     } catch {
     }
@@ -239,9 +240,13 @@ export class ContentFabricaGeneracionComponent implements OnInit {
 
   }
   addDays(date: Date, days: number): Date {
-    var dias = days;
-    date.setDate(date.getDate() + dias);
-    return date;
+    if (date !== undefined) {
+      var dias = days;
+      date.setDate(date.getDate() + dias);
+      return date;
+    } else {
+      return null;
+    }
   }
   openCustomWidthVariantCancelar(content) {
     this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
@@ -261,13 +266,18 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     this.router.navigate(['/fabrica/consulta-general']);
   }
   cambioFechaPagare(fechaPagare) {
+    if (fechaPagare !== undefined) {
       try {
-        let FechaPagareCalculada: Date = new Date(fechaPagare);
+        let FechaPagareCalculada: Date = new Date(fechaPagare.substring(0, 10) + ' 00:00:00');
         this.FechaPrimerPagoMin = new Date(this.addDays(FechaPagareCalculada,
-                                            Number(this.FormularioDatosReportes.controls['diasInicio'].value)));
-        this.FechaPrimerPagoMax = new Date(this.addDays(FechaPagareCalculada,
-                                            +Number(this.FormularioDatosReportes.controls['creditoMaximo'].value)-Number(this.FormularioDatosReportes.controls['diasInicio'].value)));
+                                            +Number(this.FormularioDatosReportes.controls['diasInicio'].value)));
+        let diferencia = +Number(this.FormularioDatosReportes.controls['creditoMaximo'].value)-Number(this.FormularioDatosReportes.controls['diasInicio'].value);                                            
+        console.log("FechaPrimerPagoMin:"+this.FechaPrimerPagoMin.toString());
+        console.log("Diferencia:"+diferencia.toString());
+        this.FechaPrimerPagoMax = new Date(this.addDays(FechaPagareCalculada, diferencia));
+        console.log("FechaPrimerPagoMax:"+this.FechaPrimerPagoMax.toString());
       } catch {}
+    }
   }
   incializarCredito() {
     this.fabricaService.getRetomarCredito(this.mensajeServicio.NumeroCredito,
