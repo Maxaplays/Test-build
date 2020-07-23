@@ -146,7 +146,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
               this.loading = false;
               this.advertenceMessage = mensajeAdvertencia;
               this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
-              if (mensajeAdvertencia[0] === 'S') {
+              if (this.listadoAdvertencia[0][0] === 'S') {
                 setTimeout (() => {
                 }, 3500);
                 this.router.navigate(['/fabrica/consulta-general']);
@@ -224,33 +224,42 @@ export class ContentFabricaRequisitosComponent implements OnInit {
                       this.ASPxActualizarSOL = false;
                       this.SolicitarExcepcion = false;
                     } else {
-                        if (lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Rechazada' ||
-                         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
-                          lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada' ||
-                          lblEstadoSolicitud === 'Consultada') {
-                            // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
-                            // ('Bloqueado 2' + lblEstadoSolicitud);
-                            this.ASPxActualizarSOL = false;
-                            this.btnSolicitarAnulacion = false;
-                            this.BtnEntregarCarpeta = false;
-                            this.btnSolicitarAnalisis = false;
-                            this.SubirArchivos = false;
-                            // ASPxUploadControl1.Visible = false;
-                            // ASPxUploadControl2.Visible = false;
-                            // ASPxUploadControl3.Visible = false;
-                            // btnGenerarReportesDinamicos.Visible = false;
-                            // btnRefrescar.Visible = false;
-                            // BtnGuardar.Visible = false;
+                      if (lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Rechazada' ||
+                        lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
+                        lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada' ||
+                        lblEstadoSolicitud === 'Consultada') {
+                        // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
+                        // ('Bloqueado 2' + lblEstadoSolicitud);
+                        this.ASPxActualizarSOL = false;
+                        this.btnSolicitarAnulacion = false;
+                        this.BtnEntregarCarpeta = false;
+                        this.btnSolicitarAnalisis = false;
+                        this.SubirArchivos = false;
+                        // ASPxUploadControl1.Visible = false;
+                        // ASPxUploadControl2.Visible = false;
+                        // ASPxUploadControl3.Visible = false;
+                        // btnGenerarReportesDinamicos.Visible = false;
+                        // btnRefrescar.Visible = false;
+                        // BtnGuardar.Visible = false;
+                      } else {
+                        if (lblEstadoSolicitud === 'Cancelada') {
+                          console.log('Bloqueado 3' + lblEstadoSolicitud);
+                          this.ASPxActualizarSOL = false;
+                          this.btnSolicitarAnulacion = false;
+                          this.BtnEntregarCarpeta = false;
+                          this.btnSolicitarAnalisis = false;
+                          this.SubirArchivos = false;
                         } else {
-                            if (lblEstadoSolicitud === 'Cancelada' ) {
-                              console.log('Bloqueado 3' + lblEstadoSolicitud);
-                              this.ASPxActualizarSOL = false;
-                              this.btnSolicitarAnulacion = false;
-                              this.BtnEntregarCarpeta = false;
-                              this.btnSolicitarAnalisis = false;
-                              this.SubirArchivos = false;
-                            }
+                          if (lblEstadoSolicitud === 'Autorizada') {
+                            // console.log('Bloqueado 6' + lblEstadoSolicitud);
+                            this.btnSolicitarAnulacion = false;
+                            this.BtnEntregarCarpeta = true;
+                            this.btnSolicitarAnalisis = false;
+                            this.ASPxActualizarSOL = false;
+                            this.SolicitarExcepcion = false;
+                          }
                         }
+                      }
                     }
                 } else {
                   // console.log('Bloqueado 5' + lblEstadoSolicitud);
@@ -295,6 +304,11 @@ export class ContentFabricaRequisitosComponent implements OnInit {
             }
             this.advertenceMessage = mensajeAdvertencia;
             this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+            if (mensajeAdvertencia[0] === 'S') {
+              setTimeout (() => {
+              }, 3500);
+              this.router.navigate(['/fabrica/consulta-general']);
+            }
           }
           this.comentarioExcepcion = '';
         }

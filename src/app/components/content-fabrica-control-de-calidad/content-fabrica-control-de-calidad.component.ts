@@ -148,7 +148,7 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
               this.advertenceMessage = mensajeAdvertencia;
               this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
               if (mensajeAdvertencia[0] === 'S') {
-                setTimeout (() => {
+                setTimeout(() => {
                 }, 3500);
                 this.router.navigate(['/fabrica/consulta-general']);
               }
@@ -229,6 +229,11 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
             }
             this.advertenceMessage = mensajeAdvertencia;
             this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+            if (mensajeAdvertencia[0] === 'S') {
+              setTimeout(() => {
+              }, 3500);
+              this.router.navigate(['/fabrica/consulta-general']);
+            }
           }
           this.comentarioExcepcion = '';
         }
@@ -307,14 +312,6 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
                               this.BtnEntregarCarpeta = false;
                               this.btnSolicitarAnalisis = false;
                               this.SubirArchivos = false;
-                            } else {
-                              if (lblEstadoSolicitud === 'Autorizada') {
-                                // console.log('Bloqueado 6' + lblEstadoSolicitud);
-                                this.btnSolicitarAnulacion = false;
-                                this.BtnEntregarCarpeta = true;
-                                this.btnSolicitarAnalisis = false;
-                                this.ASPxActualizarSOL = false;
-                              }
                             }
                         }
                     }
