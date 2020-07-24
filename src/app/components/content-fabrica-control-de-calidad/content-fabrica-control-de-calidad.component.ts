@@ -312,6 +312,15 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
                               this.BtnEntregarCarpeta = false;
                               this.btnSolicitarAnalisis = false;
                               this.SubirArchivos = false;
+                            }else {
+                              if (lblEstadoSolicitud === 'Retornada') {
+                                // console.log('Bloqueado 6' + lblEstadoSolicitud);
+                                this.btnSolicitarAnulacion = false;
+                                this.BtnEntregarCarpeta = true;
+                                this.btnSolicitarAnalisis = false;
+                                this.ASPxActualizarSOL = false;
+                                this.SolicitarExcepcion = false;
+                              }
                             }
                         }
                     }

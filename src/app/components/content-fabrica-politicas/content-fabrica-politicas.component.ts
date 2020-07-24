@@ -193,42 +193,51 @@ export class ContentFabricaPoliticasComponent implements OnInit {
                       this.ASPxActualizarSOL = false;
                       this.SolicitarExcepcion = false;
                     } else {
-                        if (lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Rechazada' ||
-                         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
-                          lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada' ||
-                          lblEstadoSolicitud === 'Consultada') {
-                            // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
-                            // ('Bloqueado 2' + lblEstadoSolicitud);
-                            this.ASPxActualizarSOL = false;
-                            this.btnSolicitarAnulacion = false;
-                            this.BtnEntregarCarpeta = false;
-                            this.btnSolicitarAnalisis = false;
-                            this.SubirArchivos = false;
-                            // ASPxUploadControl1.Visible = false;
-                            // ASPxUploadControl2.Visible = false;
-                            // ASPxUploadControl3.Visible = false;
-                            // btnGenerarReportesDinamicos.Visible = false;
-                            // btnRefrescar.Visible = false;
-                            // BtnGuardar.Visible = false;
+                      if (lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Rechazada' ||
+                        lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
+                        lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada' ||
+                        lblEstadoSolicitud === 'Consultada') {
+                        // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
+                        // ('Bloqueado 2' + lblEstadoSolicitud);
+                        this.ASPxActualizarSOL = false;
+                        this.btnSolicitarAnulacion = false;
+                        this.BtnEntregarCarpeta = false;
+                        this.btnSolicitarAnalisis = false;
+                        this.SubirArchivos = false;
+                        // ASPxUploadControl1.Visible = false;
+                        // ASPxUploadControl2.Visible = false;
+                        // ASPxUploadControl3.Visible = false;
+                        // btnGenerarReportesDinamicos.Visible = false;
+                        // btnRefrescar.Visible = false;
+                        // BtnGuardar.Visible = false;
+                      } else {
+                        if (lblEstadoSolicitud === 'Cancelada') {
+                          console.log('Bloqueado 3' + lblEstadoSolicitud);
+                          this.ASPxActualizarSOL = false;
+                          this.btnSolicitarAnulacion = false;
+                          this.BtnEntregarCarpeta = false;
+                          this.btnSolicitarAnalisis = false;
+                          this.SubirArchivos = false;
                         } else {
-                            if (lblEstadoSolicitud === 'Cancelada') {
-                              console.log('Bloqueado 3' + lblEstadoSolicitud);
-                              this.ASPxActualizarSOL = false;
+                          if (lblEstadoSolicitud === 'Autorizada') {
+                            // console.log('Bloqueado 6' + lblEstadoSolicitud);
+                            this.btnSolicitarAnulacion = false;
+                            this.BtnEntregarCarpeta = true;
+                            this.btnSolicitarAnalisis = false;
+                            this.ASPxActualizarSOL = false;
+                            this.SolicitarExcepcion = false;
+                          } else {
+                            if (lblEstadoSolicitud === 'Retornada') {
+                              // console.log('Bloqueado 6' + lblEstadoSolicitud);
                               this.btnSolicitarAnulacion = false;
-                              this.BtnEntregarCarpeta = false;
+                              this.BtnEntregarCarpeta = true;
                               this.btnSolicitarAnalisis = false;
-                              this.SubirArchivos = false;
-                            }else {
-                              if (lblEstadoSolicitud === 'Autorizada') {
-                                // console.log('Bloqueado 6' + lblEstadoSolicitud);
-                                this.btnSolicitarAnulacion = false;
-                                this.BtnEntregarCarpeta = true;
-                                this.btnSolicitarAnalisis = false;
-                                this.ASPxActualizarSOL = false;
-                                this.SolicitarExcepcion = false;
-                              }
+                              this.ASPxActualizarSOL = false;
+                              this.SolicitarExcepcion = false;
                             }
+                          }
                         }
+                      }
                     }
                 } else {
                   // console.log('Bloqueado 5' + lblEstadoSolicitud);
