@@ -1462,7 +1462,7 @@ pre code {
 }
 
 .table-dark {
-    color: #fff;
+    color: #ffffff;
     background-color: #343a40
 }
 
@@ -1482,7 +1482,7 @@ pre code {
 
 .table-dark.table-hover tbody tr:hover {
     color: #fff;
-    background-color: rgba(255, 255, 255, .075)
+    background-color: rgba(255, 255, 255, 0.07)
 }
 
 @media (max-width:575.98px) {

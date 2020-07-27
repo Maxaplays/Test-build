@@ -138,6 +138,11 @@ export class ContentFabricaPoliticasComponent implements OnInit {
             }
             this.advertenceMessage = mensajeAdvertencia;
             this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+            if (mensajeAdvertencia[0] === 'S') {
+              setTimeout (() => {
+              }, 3500);
+              this.router.navigate(['/fabrica/consulta-general']);
+            }
           }
           this.comentarioExcepcion = '';
         }
