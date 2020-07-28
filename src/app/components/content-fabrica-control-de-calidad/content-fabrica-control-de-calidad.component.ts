@@ -312,8 +312,8 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
                               this.BtnEntregarCarpeta = false;
                               this.btnSolicitarAnalisis = false;
                               this.SubirArchivos = false;
-                            }else {
-                              if (lblEstadoSolicitud === 'Retornada') {
+                            } else {
+                              if (lblEstadoSolicitud === 'Verificando') {
                                 // console.log('Bloqueado 6' + lblEstadoSolicitud);
                                 this.btnSolicitarAnulacion = false;
                                 this.BtnEntregarCarpeta = true;

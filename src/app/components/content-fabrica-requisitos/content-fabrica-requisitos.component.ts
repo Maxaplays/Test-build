@@ -265,6 +265,15 @@ export class ContentFabricaRequisitosComponent implements OnInit {
                               this.btnSolicitarAnalisis = false;
                               this.ASPxActualizarSOL = false;
                               this.SolicitarExcepcion = false;
+                            } else {
+                              if (lblEstadoSolicitud === 'Verificando') {
+                                // console.log('Bloqueado 6' + lblEstadoSolicitud);
+                                this.btnSolicitarAnulacion = false;
+                                this.BtnEntregarCarpeta = true;
+                                this.btnSolicitarAnalisis = false;
+                                this.ASPxActualizarSOL = false;
+                                this.SolicitarExcepcion = false;
+                              }
                             }
                           }
                         }
