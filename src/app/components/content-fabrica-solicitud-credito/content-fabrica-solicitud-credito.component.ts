@@ -84,7 +84,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   btnActualizarReferencias = true;
   grabarDatosIngresadosGrid = true;
   SubirArchivos = true;
-
+  Detalle_Dependiente: string;
+  Detalle_Independiente: string;
   // formas para ingreso y edición de datos - bkm
   formaDirecciones: FormGroup;
   formaTelefonos: FormGroup;
@@ -114,6 +115,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   tipoRegTel: any[] = ['CLIENTE', 'GARANTE'];
   situacionFinancieraIngresos: any[] = [];
   situacionFinancieraEgresos: any[] = [];
+  detalle_ingresos: any;
   situacionFinancieraTotalPatrimonio: any[] = [];
   situacionFinancieraMuebles: any[] = [];
   documentosSubidos: any[] = [];
@@ -188,6 +190,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                     this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
                     this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
                     this.acoplarPantalla(data.Estado);
+                    this.getDetalles();
                   });
   }
 
@@ -726,6 +729,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
           totalSumaBackend = Number(resultado.toString().replace(',', '.'));
           this.sumatoriaIngresos = totalSumaBackend;
           this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+
       });
     }
   }
@@ -738,6 +742,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         totalSumaBackend = Number(resultado.toString().replace(',', '.'));
         this.sumatoriaIngresos = totalSumaBackend;
         this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+        this.getDetalles();
      });
     }
   }
@@ -762,6 +767,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         totalSumaBackend = Number(resultado.toString().replace(',', '.'));
         this.sumatoriaEgresos = totalSumaBackend;
         this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+        this.getDetalles();
       });
     }
   }
@@ -1011,7 +1017,15 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         }
       });
   }
-
+  public getDetalles(): any {
+    this.situacionFinancieraService.getDetalle(this.mensajeServicio.NumeroCredito)
+      .pipe(map(data => data['DETALLE']))
+      .subscribe((data: any) => {
+        this.detalle_ingresos = data[0];
+        this.Detalle_Dependiente = this.detalle_ingresos.INGRESOS_DEPENDIENTE;
+        this.Detalle_Independiente = this.detalle_ingresos.INGRESOS_INDEPENDIENTE;
+      });
+  }
   public getSituacionFinancieraTotalPatrimonio(): any {
     this.situacionFinancieraService.getTotalPatrimonio(this.mensajeServicio.NumeroCredito)
       .pipe(map(data => data['PATRIMONIO']))
