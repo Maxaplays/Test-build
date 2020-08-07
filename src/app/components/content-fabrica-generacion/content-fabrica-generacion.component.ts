@@ -154,6 +154,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     variable.lblCuentasMupi = this.mensajeServicio.CuentasMupi;
     variable.usuario = localStorage.getItem('usuario');
     variable.ID_CLI = this.mensajeServicio.Cedula;
+    variable.UsaFirmaElectronica = this.mensajeServicio.UsaFirmaElectronica;
     // console.log(variable);
     this.generacionDocs.postGeneracionDocumentos(variable).subscribe(
       (data: any) => {
@@ -166,6 +167,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
           }
           this.urlArchivoGenerado = data.urlArchivoGenerado;
           this.loading = false;
+          this.getTipoReportes();
           this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
         } else {
           this.errorMessage = resultado.resultado;

@@ -55,8 +55,9 @@ export class GeneracionDocumentos {
     lblCuentasMupi: string;
     usuario: string;
     ID_CLI: string;
+    UsaFirmaElectronica: string;
 
-    constructor(){
+    constructor() {
       this.reportesImprimir = new Array<ReporteWebserviceUx>();
     }
 }

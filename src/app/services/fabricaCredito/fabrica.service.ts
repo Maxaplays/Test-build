@@ -191,4 +191,5 @@ export class DatosFabrica {
   public PARAMETRO_GESTION_CREDITO: string;
   public FEE_SERVICIO_DOCUMENTAL: string;
   public IVA: string;
+  public UsaFirmaElectronica: string;
 }
