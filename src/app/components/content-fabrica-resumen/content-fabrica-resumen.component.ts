@@ -131,7 +131,7 @@ export class ContentFabricaResumenComponent implements OnInit {
     this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
   }
   getTipoReportes() {
-    this.generacionDocs.getReportesDisponibles(this.mensajeServicio.NumeroCredito).subscribe(
+    this.generacionDocs.getReportesDisponibles(this.mensajeServicio.NumeroCredito, '', '').subscribe(
       (data: any) => {
         this.tipoReportes = data.CREDITO;
         // console.log(this.tipoReportes);

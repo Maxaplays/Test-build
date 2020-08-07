@@ -95,7 +95,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
   }
   getTipoReportes() {
-    this.generacionDocs.getReportesDisponibles(this.mensajeServicio.NumeroCredito).subscribe(
+    this.generacionDocs.getReportesDisponibles(this.mensajeServicio.NumeroCredito, this.mensajeServicio.idProducto, this.mensajeServicio.idSucursal).subscribe(
       (data: any) => {
         this.tipoReportes = data.CREDITO;
         // console.log(this.tipoReportes);
@@ -271,7 +271,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
         let FechaPagareCalculada: Date = new Date(fechaPagare.substring(0, 10) + ' 00:00:00');
         this.FechaPrimerPagoMin = new Date(this.addDays(FechaPagareCalculada,
                                             +Number(this.FormularioDatosReportes.controls['diasInicio'].value)));
-        let diferencia = +Number(this.FormularioDatosReportes.controls['creditoMaximo'].value)-Number(this.FormularioDatosReportes.controls['diasInicio'].value);                                            
+        let diferencia = +Number(this.FormularioDatosReportes.controls['creditoMaximo'].value)-Number(this.FormularioDatosReportes.controls['diasInicio'].value);
         console.log("FechaPrimerPagoMin:"+this.FechaPrimerPagoMin.toString());
         console.log("Diferencia:"+diferencia.toString());
         this.FechaPrimerPagoMax = new Date(this.addDays(FechaPagareCalculada, diferencia));

@@ -17,7 +17,7 @@ export class GeneraDocService {
   };
 
   constructor(private http: HttpClient) { }
-  
+
   private getQuery(query: string) {
     const url = environment.urlServiciosBackend + query;
     return this.http.get(url);
@@ -37,8 +37,8 @@ export class GeneraDocService {
       return of(result as T);
     };
   }
-  public getReportesDisponibles(idCredito: string ) {
-    return this.getQuery(`GeneracionDocumentos/generarReportesDisponibles?idCredito=${idCredito}`);
+  public getReportesDisponibles(idCredito: string, idProducto: string, idSucursal: string ) {
+    return this.getQuery(`GeneracionDocumentos/generarReportesDisponibles?idCredito=${idCredito}&idProducto=${idProducto}&idSucursal=${idSucursal}`);
   }
 }
 export class GeneracionDocumentos {
