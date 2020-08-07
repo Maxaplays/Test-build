@@ -90,13 +90,13 @@
                           <table width="100%">
                             <tr >
                               <td>Nombre</td>
-                              <td>Fecha Envío</td>
-                              <td>Estado</td>
+                              <td *ngIf="firmaElectronica">Fecha Envío</td>
+                              <td *ngIf="firmaElectronica">Estado</td>
                             </tr>
                             <tr *ngFor="let item of tipoReportes">
                               <td><input type="checkbox" [checked]="item.selected" [value]="item.nombreReporte" (change)="item.selected = !item.selected" [disabled]="item.activo"><label for="solicitud">{{item.nombreArchivo}}</label></td>
-                              <td>{{item.FechaEnvio | date: 'dd/MM/yyyy'}}</td>
-                              <td>{{item.Estado}}</td>
+                              <td *ngIf="firmaElectronica">{{item.FechaEnvio | date: 'dd/MM/yyyy'}}</td>
+                              <td *ngIf="firmaElectronica">{{item.Estado}}</td>
                             </tr>
                           </table>
                         </div>

@@ -44,6 +44,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   btnSolicitarAnulacion = true;
   SubirArchivos = true;
   generarDocumentacion = true;
+  firmaElectronica = false;
   puedeCambiarFechas: boolean = false;
   Archivos: File[] = [];
   archivoSeleccionado: File = null;
@@ -58,9 +59,11 @@ export class ContentFabricaGeneracionComponent implements OnInit {
                 this.fabricaService.currentMessage.subscribe(
                   data => {
                     this.mensajeServicio = data;
+                    this.firmaElectronica = Boolean(this.mensajeServicio.UsaFirmaElectronica);
+                    console.log(this.mensajeServicio);
+                    console.log(this.firmaElectronica);
                     this.acoplarPantalla(this.mensajeServicio.Estado);
                     this.getTipoReportes();
-                    console.log(this.mensajeServicio);
                   });
   }
 
