@@ -112,7 +112,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let control of controlCalidad | paginate: {itemsPerPage: 10, currentPage: paginaAcual}">
-                        <td><input type="checkbox" [checked]="marcarChecks" name="miDataInterior" (change)="$event.target.checked ? agregar(control) : quitar(control)"></td>
+                        <td><input type="checkbox" [checked]="marcarChecks" name="miDataInterior" (change)="$event.target.checked ? agregar(control) : quitar(control)" [disabled]="control.firma_electronica"></td>
                         <td><span class="{{control.COLOR_UX}}"></span></td>
                         <td *ngIf="control.URL_DOC">
                             <a href="{{control.URL_DOC}}" target="_blank"><img src="assets/images/icon-url.svg" class="check-center"></a>
