@@ -184,7 +184,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
           console.log(data);
           this.loading = false;
           this.getTipoReportes();
-          this.getEstadoGenerarDocumentacion();
+          this.estadoGeneracion = resultado.GenerarDocumentos;
           this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
         } else {
           this.errorMessage = resultado.resultado;
