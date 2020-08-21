@@ -40,6 +40,10 @@ export class GeneraDocService {
   public getReportesDisponibles(idCredito: string, idProducto: string, idSucursal: string ) {
     return this.getQuery(`GeneracionDocumentos/generarReportesDisponibles?idCredito=${idCredito}&idProducto=${idProducto}&idSucursal=${idSucursal}`);
   }
+
+  public getEstadoGenerarDocumentacion(idCredito: string) {
+    return this.getQuery(`GeneracionDocumentos/estadoGenerarDocumentacion?idCredito=${idCredito}`);
+  }
 }
 export class GeneracionDocumentos {
     ID_CRE: string;

@@ -48,6 +48,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   puedeCambiarFechas: boolean = false;
   Archivos: File[] = [];
   archivoSeleccionado: File = null;
+  estadoGeneracion: boolean = false;
   // bkm
   minDate: Date;
   maxDate: Date;
@@ -60,10 +61,9 @@ export class ContentFabricaGeneracionComponent implements OnInit {
                   data => {
                     this.mensajeServicio = data;
                     this.firmaElectronica = Boolean(this.mensajeServicio.UsaFirmaElectronica);
-                    console.log(this.mensajeServicio);
-                    console.log(this.firmaElectronica);
                     this.acoplarPantalla(this.mensajeServicio.Estado);
                     this.getTipoReportes();
+                    this.getEstadoGenerarDocumentacion();
                   });
   }
 
@@ -107,6 +107,18 @@ export class ContentFabricaGeneracionComponent implements OnInit {
       }
     );
   }
+
+  getEstadoGenerarDocumentacion() {
+    this.generacionDocs.getEstadoGenerarDocumentacion(this.mensajeServicio.NumeroCredito).subscribe(
+      (data: any) => {
+        this.estadoGeneracion = data;
+        // console.log(this.tipoReportes);
+      }, ( errorServicio ) => {
+        // console.log('Error');
+      }
+    );
+  }
+
   getEntidadFinanciera() {
     this.documentosService.getEntidadFinanciera()
       .pipe(map (data => data["ENTI_FINA"]))
@@ -169,8 +181,10 @@ export class ContentFabricaGeneracionComponent implements OnInit {
             this.FormularioDatosReportes.controls['numeroCuenta'].setValue(resultado.NumeroCuentaBancaria);
           }
           this.urlArchivoGenerado = data.urlArchivoGenerado;
+          console.log(data);
           this.loading = false;
           this.getTipoReportes();
+          this.getEstadoGenerarDocumentacion();
           this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
         } else {
           this.errorMessage = resultado.resultado;
