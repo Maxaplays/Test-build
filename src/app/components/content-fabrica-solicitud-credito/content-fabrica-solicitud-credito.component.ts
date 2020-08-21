@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, Input} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {Direccion, DireccionesService} from '../../services/direcciones/direcciones.service';
 import {TelefonosService} from '../../services/telefonos/telefonos.service';
@@ -31,6 +31,7 @@ import { DocumentosService } from 'src/app/services/documentos.service';
 export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   // @ts-ignore
+  
   @ViewChild('fileInput') fileInput;
   closeResult: string;
   private _error = new Subject<string>();
@@ -93,7 +94,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   FormularioDatosCliente: FormGroup;x
   formaSituacionFinanciera: FormGroup;
   FormularioDatosConyuge: FormGroup;
-
+  @Input() idCre: string;
 
   // variables para presentacion - bkm
   tipoDir: any[] = [];
@@ -146,56 +147,57 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               private clienteService: ClienteService,
               private datosComplService: DatosComplementariosService,
               private documentosService: DocumentosService,
-              private router: Router,) {
-                this.crearFormularioCliente();
-                this.crearFormularioDirecciones();
-                this.crearFormularioTelefonos();
-                this.crearFormularioSituacionFinanciera();
-                this.crearFormularioConyuge();
-                this.crearFormularioReferencia();
-                this.tipoDoc = this.getTipoDoc();
-                this.getGeneros();
-                this.getNacionalidades();
-                this.getParentescos();
-                this.getEstadoCivil();
-                this.getProfesiones();
-                this.tipoDir = this.getTipoDir();
-                this.provincias = this.getProvincia();
-                this.cantones = this.getCanton();
-                this.barrios = this.getBarrio();
-                this.tipoTel = this.getTipoTel();
-                this.activatedRoute.queryParams.subscribe(params => {
-                  this.idCredito = params['idCre'];
-                  if (typeof this.idCredito !== 'undefined') {
-                      this.fabricaService.getRetomarCredito(this.idCredito,
-                        localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
-                          (data: DatosFabrica) => {
-                            // console.log(data);
-                            this.fabricaService.changeMessage(data);
-                            // console.log('Acoplar Pantalla: ' + data.Estado);
-                            // this.acoplarPantalla(data.Estado);
-                          });
-                      }
-                  });
-                this.fabricaService.currentMessage.subscribe(
-                    data => {
-                    this.mensajeServicio = data;
-                    this.getCliente();
-                    this.getDatosComplementarios();
-                    this.direcciones = this.getDirecciones();
-                    this.telefonos = this.getTelefonos();
-                    this.conyuges = this.getListaConyuges();
-                    this.referencias = this.getListaReferencias();
-                    this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
-                    this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
-                    this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
-                    this.acoplarPantalla(data.Estado);
-                    this.getDetalles();
-                  });
+              private router: Router) {
   }
 
   ngOnInit() {
+    this.crearFormularioCliente();
+    this.crearFormularioDirecciones();
+    this.crearFormularioTelefonos();
+    this.crearFormularioSituacionFinanciera();
+    this.crearFormularioConyuge();
+    this.crearFormularioReferencia();
+    this.tipoDoc = this.getTipoDoc();
+    this.getGeneros();
+    this.getNacionalidades();
+    this.getParentescos();
+    this.getEstadoCivil();
+    this.getProfesiones();
+    this.tipoDir = this.getTipoDir();
+    this.provincias = this.getProvincia();
+    this.cantones = this.getCanton();
+    this.barrios = this.getBarrio();
+    this.tipoTel = this.getTipoTel();
 
+    if (this.idCre !== undefined && this.idCre !== '') {
+      this.idCredito = this.idCre;
+      console.log('Solicitud de credito:' + this.idCredito);
+      if (typeof this.idCredito !== 'undefined') {
+            this.fabricaService.getRetomarCredito(this.idCredito,
+              localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+                (data: DatosFabrica) => {
+                  // console.log(data);
+                  this.fabricaService.changeMessage(data);
+                  // console.log('Acoplar Pantalla: ' + data.Estado);
+                  // this.acoplarPantalla(data.Estado);
+                });
+      }
+    }
+    this.fabricaService.currentMessage.subscribe(
+        data => {
+        this.mensajeServicio = data;
+        this.getCliente();
+        this.getDatosComplementarios();
+        this.direcciones = this.getDirecciones();
+        this.telefonos = this.getTelefonos();
+        this.conyuges = this.getListaConyuges();
+        this.referencias = this.getListaReferencias();
+        this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
+        this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
+        this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
+        this.acoplarPantalla(data.Estado);
+        this.getDetalles();
+      });
   }
   incializarCredito() {
     this.loading = true;

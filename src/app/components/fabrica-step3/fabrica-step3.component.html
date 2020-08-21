@@ -1,5 +1,6 @@
 <app-menutop></app-menutop>
 <section id="father-table">
     <app-sidebar></app-sidebar>
-    <app-content-fabrica-solicitud-credito class="style-content"></app-content-fabrica-solicitud-credito>
+    <app-content-fabrica-solicitud-credito *ngIf="idCre!==''" [idCre]="idCre" class="style-content">
+    </app-content-fabrica-solicitud-credito>
 </section>

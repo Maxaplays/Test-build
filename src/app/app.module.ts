@@ -73,7 +73,8 @@ const routes: Routes = [
   // { path: 'analisis/verificaciones', component: VerificacionesComponent },
   // { path: 'analisis/excepciones', component: ExcepcionesComponent },
   // { path: 'analisis/control-de-calidad', component: ControlDeCalidadComponent },
-  { path: 'fabrica/consulta-general', component: ConsultaGeneralComponent }
+  { path: 'fabrica/consulta-general', component: ConsultaGeneralComponent },
+  { path: 'fabrica/nueva-solicitud/solicitud-credito/:idCre', component: FabricaStep3Component }
 ];
 
 @NgModule({
