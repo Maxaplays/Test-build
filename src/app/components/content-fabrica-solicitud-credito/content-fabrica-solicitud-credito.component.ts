@@ -280,58 +280,61 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   guardarCliente(content) {
     if (this.FormularioDatosCliente.valid) {
-    this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
-    this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
-    this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
-    this.getDatosComplementarios();
-    let datosCliente: Cliente = new Cliente();
-    let resultado: string;
-    datosCliente.ID_CLI = this.mensajeServicio.Cedula;
-    datosCliente.COD_GEN = this.FormularioDatosCliente.value.genero;
-    datosCliente.COD_ECIV = this.FormularioDatosCliente.value.estadoCivil;
-    datosCliente.COD_PRO = this.FormularioDatosCliente.value.profesionCliente;
-    datosCliente.COD_TDOC = this.FormularioDatosCliente.value.tipoDocumentacion;
-    datosCliente.COD_NAC = this.FormularioDatosCliente.value.nacionalidad;
-    datosCliente.APE_CLI = this.FormularioDatosCliente.value.apellidoCliente;
-    datosCliente.NOM_CLI = this.FormularioDatosCliente.value.nombreCliente;
-    try{
-      console.log('Estado Civil: ' + this.FormularioDatosCliente.value.estadoCivil);
-      console.log('Fecha de Nacimiento: ' + this.FormularioDatosCliente.value.fechaNacimiento);
-      let fechaNacimiento: Date = new Date(this.FormularioDatosCliente.value.fechaNacimiento);
-      console.log("fecha de nacimiento convertida: " + fechaNacimiento.toISOString().substring(0, 10));
-      datosCliente.FECH_NAC_CLI = fechaNacimiento.toISOString().substring(0, 10);
-    } catch { }
-    datosCliente.CARGAS_CLI = this.FormularioDatosCliente.value.cargasFamiliares;
-    datosCliente.EMP_CLI = this.FormularioDatosCliente.value.razonSocialTrabajo;
-    datosCliente.RUC_EMP_CLI = this.FormularioDatosCliente.value.rucTrabajo;
-    datosCliente.EMAIL_CLI = this.FormularioDatosCliente.value.emailCliente;
-    datosCliente.EstadoOperacion = '';
-    datosCliente.INGRESOS_DEPENDIENTE = '0';
-    datosCliente.INGRESOS_INDEPENDIENTE = '0';
-    datosCliente.usuario = localStorage.getItem('usuario');
+      this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
+      this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
+      this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
+      this.getDatosComplementarios();
+      let datosCliente: Cliente = new Cliente();
+      let resultado: string;
+      datosCliente.ID_CLI = this.mensajeServicio.Cedula;
+      datosCliente.COD_GEN = this.FormularioDatosCliente.value.genero;
+      datosCliente.COD_ECIV = this.FormularioDatosCliente.value.estadoCivil;
+      datosCliente.COD_PRO = this.FormularioDatosCliente.value.profesionCliente;
+      datosCliente.COD_TDOC = this.FormularioDatosCliente.value.tipoDocumentacion;
+      datosCliente.COD_NAC = this.FormularioDatosCliente.value.nacionalidad;
+      datosCliente.APE_CLI = this.FormularioDatosCliente.value.apellidoCliente;
+      datosCliente.NOM_CLI = this.FormularioDatosCliente.value.nombreCliente;
+      try {
+        console.log('Estado Civil: ' + this.FormularioDatosCliente.value.estadoCivil);
+        console.log('Fecha de Nacimiento: ' + this.FormularioDatosCliente.value.fechaNacimiento);
+        let fechaNacimiento: Date = new Date(this.FormularioDatosCliente.value.fechaNacimiento);
+        console.log("fecha de nacimiento convertida: " + fechaNacimiento.toISOString().substring(0, 10));
+        datosCliente.FECH_NAC_CLI = fechaNacimiento.toISOString().substring(0, 10);
+      } catch {
+      }
+      datosCliente.CARGAS_CLI = this.FormularioDatosCliente.value.cargasFamiliares;
+      datosCliente.EMP_CLI = this.FormularioDatosCliente.value.razonSocialTrabajo;
+      datosCliente.RUC_EMP_CLI = this.FormularioDatosCliente.value.rucTrabajo;
+      datosCliente.EMAIL_CLI = this.FormularioDatosCliente.value.emailCliente;
+      datosCliente.EstadoOperacion = '';
+      datosCliente.INGRESOS_DEPENDIENTE = '0';
+      datosCliente.INGRESOS_INDEPENDIENTE = '0';
+      datosCliente.usuario = localStorage.getItem('usuario');
 
-    this.clienteService.postCliente(datosCliente).subscribe(
-      (data: any) => {
-        resultado = data;
-        if(resultado === 'Cliente ingresado exitosamente!'){
-          this.successMessage = 'Guardado Exitosamente!';
-        } else {
-          // Error
-          this.errorMessage = data;
-          this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
-        }
-      });
-    } else {
-      this.errorMessage = 'Datos de cliente incorrectos, favor revise';
-      this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
-      return Object.values(this.FormularioDatosCliente.controls).forEach(control => {
-        if (control instanceof FormGroup) {
-          // tslint:disable-next-line:no-shadowed-variable
-          Object.values(control.controls). forEach( control => control.markAllAsTouched());
-        } else {
-          control.markAllAsTouched();
-        }
-      });
+      if (this.mensajeServicio.NombreConsultado === datosCliente.APE_CLI.trim() + ' ' + datosCliente.NOM_CLI.trim()) {
+        this.clienteService.postCliente(datosCliente).subscribe(
+          (data: any) => {
+            resultado = data;
+            if (resultado === 'Cliente ingresado exitosamente!') {
+              this.successMessage = 'Guardado Exitosamente!';
+            } else {
+              // Error
+              this.errorMessage = data;
+              this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+            }
+          });
+      } else {
+        this.errorMessage = 'Datos de cliente incorrectos, favor revise';
+        this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+        return Object.values(this.FormularioDatosCliente.controls).forEach(control => {
+          if (control instanceof FormGroup) {
+            // tslint:disable-next-line:no-shadowed-variable
+            Object.values(control.controls).forEach(control => control.markAllAsTouched());
+          } else {
+            control.markAllAsTouched();
+          }
+        });
+      }
     }
   }
 
