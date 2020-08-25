@@ -185,7 +185,13 @@ export class ContentFabricaGeneracionComponent implements OnInit {
           this.loading = false;
           this.getTipoReportes();
           this.estadoGeneracion = resultado.GenerarDocumentos;
-          this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+          if (resultado.GenerarDocumentos === false) {
+            this.errorMessage = 'Error en el envío de los documentos';
+            this.loading = false;
+            this.modalService.open(contentError, {windowClass: 'custom-width-error-modal'});
+          } else {
+            this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+          }
         } else {
           this.errorMessage = resultado.resultado;
           this.loading = false;
