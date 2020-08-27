@@ -55,6 +55,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ExportService} from './services/exportar/export.service';
 import { ContentFabricaResumenComponent } from './components/content-fabrica-resumen/content-fabrica-resumen.component';
 import { FabricaStep8Component } from './components/fabrica-step8/fabrica-step8.component';
+import { BuilderComponent } from './components/builder/builder.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -74,7 +75,8 @@ const routes: Routes = [
   // { path: 'analisis/excepciones', component: ExcepcionesComponent },
   // { path: 'analisis/control-de-calidad', component: ControlDeCalidadComponent },
   { path: 'fabrica/consulta-general', component: ConsultaGeneralComponent },
-  { path: 'fabrica/nueva-solicitud/solicitud-credito/:idCre', component: FabricaStep3Component }
+  { path: 'fabrica/nueva-solicitud/solicitud-credito/:idCre', component: FabricaStep3Component },
+  { path: 'builder', component: BuilderComponent }
 ];
 
 @NgModule({
@@ -120,7 +122,8 @@ const routes: Routes = [
     LoadingComponent,
     DomseguroPipe,
     FabricaStep8Component,
-    ContentFabricaResumenComponent
+    ContentFabricaResumenComponent,
+    BuilderComponent
 
   ],
   imports: [

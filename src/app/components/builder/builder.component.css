@@ -1,0 +1,57 @@
+#builder {
+  background: #f0f0f0;
+  padding: 80px 0;
+}
+h1, h3 {
+  font-size: 42px;
+  color: #287FA2;
+  font-weight: 300;
+  margin-bottom: 15px;
+}
+h3 {
+  font-size: 30px;
+  color: #999999;
+  padding-top: 20px;
+  border-top: 2px solid #e2e2e2;
+  margin-top: 15px;
+}
+h3.sin-borde {
+  border: none;
+}
+h4 {
+  color: #7d7d7d;
+  margin: 12px 0;
+}
+p.p {
+  margin-bottom: 25px;
+  line-height: 1.5;
+  color: #7d7d7d;
+  font-size: 16px;
+}
+.alert-success.wbtn-success {
+  position: relative;
+}
+.forms.forms-relative {
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+.btn {
+  margin: 8px 8px 8px 0;
+}
+.modal-error {
+  max-width: 380px;
+  margin-top: 20px;
+  border-radius: 8px;
+}
+#selectSteps {
+  display: none;
+}
+@media screen and (max-width: 767px){
+  #selectSteps {
+    display: block;
+  }
+  .content-breadcrumb {
+    display: none;
+  }
+}

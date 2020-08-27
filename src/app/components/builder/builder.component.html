@@ -1,0 +1,235 @@
+<section id="builder">
+  <div class="container">
+    <h1>Librería Componentes MFC</h1>
+
+    <!-- Tipografía -->
+
+    <h3>Tipografía</h3>
+
+    <h2 class="standard-title">Título de Prueba</h2>
+
+    <p class="p">Nulla tincidunt viverra arcu ac fringilla. Quisque porttitor, libero non pretium pulvinar, augue purus accumsan lorem, quis placerat elit tellus non felis. Quisque sed tellus cursus, dictum dui sed, rutrum turpis. Curabitur sed lobortis enim, id fringilla metus. Nullam dapibus fermentum justo, non consequat nibh tincidunt eu. Integer lectus ipsum, consectetur id justo ac, consequat sagittis velit. Vestibulum eu elementum sapien, at dictum tortor. Morbi vel urna vel orci faucibus commodo. Proin pharetra sodales ligula, at porttitor arcu accumsan id. In varius nisl suscipit augue dictum pulvinar. Vivamus euismod ante sed rutrum maximus. Curabitur et diam tellus. Quisque lobortis quam vel tortor ullamcorper, in scelerisque quam tristique.</p>
+
+    <h4>Texto en listados</h4>
+    <ul class="grid-list grid-list-fix">
+      <li>
+        <h5>Fecha Creación</h5>
+        <span>17/08/2020 13:09:10</span>
+      </li>
+    </ul>
+
+    <h4>Etiquetas en listados 1</h4>
+    <ul class="grid-list grid-list-fix">
+      <li>
+        <h5>Estado</h5>
+        <span class="tag">Consultada</span>
+      </li>
+    </ul>
+
+    <h4>Etiquetas en listados 2</h4>
+    <ul class="grid-list grid-list-fix">
+      <li>
+        <h5>Sub-estado</h5>
+        <span class="tag tag-blue">Pre-Aprobado</span>
+      </li>
+    </ul>
+
+    <!-- Cards -->
+
+    <h3>Cards</h3>
+
+    <div class="dashboard-items">
+      <div class="item">
+          <a routerLink="#"></a>
+          <h2>Nueva Solicitud</h2>
+          <p>Genere nuevas solicitudes de crédito</p>
+          <img src="assets/images/item1.svg" />
+      </div>
+    </div>
+
+    <!-- Campos de formulario -->
+
+    <h3>Campos de formulario</h3>
+
+    <form class="forms forms-relative">
+      <div class="cols cols3">
+        <div>
+          <fieldset>
+            <label class="label">Select</label>
+            <select tabindex="1">
+              <option value="">Valor 1</option>
+              <option value="">Valor 2</option>
+            </select>
+          </fieldset>
+          <fieldset>
+            <label class="label">Campo de texto</label>
+            <input placeholder="Campo de texto" tabindex="2" type="text">
+          </fieldset>
+          <fieldset>
+            <label class="label">Campo obligatorio <b>*</b></label>
+            <input placeholder="Campo obligatorio" tabindex="3" type="number">
+          </fieldset>
+          <fieldset>
+            <label class="label">Textarea</label>
+            <textarea placeholder="Textarea" tabindex="4"></textarea>
+          </fieldset>
+        </div>
+      </div>
+    </form>
+
+    <!-- Mensajes -->
+
+    <h3>Mensajes</h3>
+
+    <ngb-alert type="success" class="wbtn-success" (close)="successMessage = null"><img src="./assets/images/success.svg"><span>Alerta de resultado satisfactorio</span></ngb-alert>
+
+    <div class="modal-error">
+      <img src="./assets/images/warning.svg" width="42">
+      <p>Texto del mensaje</p>
+      <div class="align-right">
+          <button class="btn btn-solid-white" (click)="modal.close('Cancelar click')">Aceptar</button>
+      </div>
+    </div>
+
+    <!-- Tabla -->
+
+    <h3>Tabla</h3>
+
+    <table class="width-filters">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Cédula</th>
+          <th>Nombre</th>
+          <th>Venta Total</th>
+          <th>Valor Crédito</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020-08-21</td>
+          <td>1718362443</td>
+          <td>Micro Factory Capital</td>
+          <td class="align-right ">$</td>
+          <td class="align-right ">$</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Navegación -->
+
+    <h3>Navegación</h3>
+
+    <div class="content-breadcrumb">
+      <ul class="breadcrumb">
+        <li routerlinkactive="active" ng-reflect-router-link-active="active" class="active">
+          <b>1</b><a id="datos-basicos" href="/fabrica/nueva-solicitud" class="active">Datos básicos</a>
+        </li>
+        <li>
+          <b>2</b><a id="credito" href="/fabrica/nueva-solicitud/credito">Crédito</a>
+        </li>
+        <li>
+          <b>3</b><a id="solicitud-credito" href="/fabrica/nueva-solicitud/solicitud-credito">Solicitud Crédito</a>
+        </li>
+        <li>
+          <b>4</b><a id="requisitos" href="/fabrica/nueva-solicitud/requisitos">Requisitos</a>
+        </li>
+        <li>
+          <b>5</b><a id="politicas" href="/fabrica/nueva-solicitud/politicas">Políticas</a>
+        </li>
+        <li>
+          <b>6</b><a id="generacion" href="/fabrica/nueva-solicitud/generacion">Generación</a>
+        </li>
+        <li>
+          <b>7</b><a id="control-calidad" href="/fabrica/nueva-solicitud/control-de-calidad">Control Calidad</a>
+        </li>
+        <li>
+          <b>8</b><a id="resumen" href="/fabrica/nueva-solicitud/resumen">Resumen</a>
+        </li>
+      </ul>
+    </div>
+
+    <select id="selectSteps">
+      <option selected value="datos-basicos">Datos básicos</option>
+      <option value="credito">Crédito</option>
+      <option value="solicitud-credito">Solicitud Crédito</option>
+      <option value="requisitos">Requisitos</option>
+      <option value="politicas">Políticas</option>
+      <option value="generacion">Generación</option>
+      <option value="control-calidad">Control Calidad</option>
+      <option value="resumen">Resumen</option>
+    </select>
+
+    <!-- Botones -->
+
+    <h3>Botones</h3>
+
+    <button class="btn btn-border-blue"><img src="assets/images/icon-reloj.svg">Con Ícono</button>
+    <button class="btn btn-border-blue">Borde Azul</button>
+    <button class="btn btn-border-gray">Borde Gris</button>
+    <button class="btn btn-solid-green">Sólido Verde</button>
+    <button class="btn btn-solid-blue">Sólido Azul</button>
+    <button class="btn btn-solid-gray">Sólido Gris</button>
+    <button class="btn btn-solid-yellow">Sólido Amarillo</button>
+    <button class="btn btn-solid-red">Sólido Rojo</button>
+    <button class="btn btn-solid-white">Sólido Blanco</button>
+
+    <!-- Columnas -->
+
+    <h3>Columnas</h3>
+
+    <h3 class="sin-borde">2 Columnas</h3>
+    <div class="cols cols2">
+      <div>
+        <form class="forms forms-relative">
+          <fieldset>
+            <label class="label">Select</label>
+            <select tabindex="1">
+              <option value="">Valor 1</option>
+              <option value="">Valor 2</option>
+            </select>
+          </fieldset>
+        </form>
+      </div>
+      <div>
+        <form class="forms forms-relative">
+          <fieldset>
+            <label class="label">Campo de texto</label>
+            <input placeholder="Campo de texto" tabindex="2" type="text">
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <h3 class="sin-borde">3 Columnas</h3>
+    <div class="cols cols3">
+      <div>
+        <form class="forms forms-relative">
+          <fieldset>
+            <label class="label">Campo de texto</label>
+            <input placeholder="Campo de texto" tabindex="2" type="text">
+          </fieldset>
+        </form>
+      </div>
+      <div>
+        <form class="forms forms-relative">
+          <fieldset>
+            <label class="label">Select</label>
+            <select tabindex="1">
+              <option value="">Valor 1</option>
+              <option value="">Valor 2</option>
+            </select>
+          </fieldset>
+        </form>
+      </div>
+      <div>
+        <form class="forms forms-relative">
+          <fieldset>
+            <label class="label">Campo de texto</label>
+            <input placeholder="Campo de texto" tabindex="2" type="text">
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

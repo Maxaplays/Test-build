@@ -17,7 +17,7 @@ header > nav {
     float: right;
     cursor: pointer;
     font-size: 0;
-    margin: 13px 0;
+    margin: 10px 0;
     position: relative;
 }
 .avatar img {
