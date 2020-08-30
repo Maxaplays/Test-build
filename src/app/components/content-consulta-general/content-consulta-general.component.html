@@ -40,6 +40,7 @@
                             <th>A</th>
                             <th>C</th>
                             <th>E</th>
+                            <th>R</th>
                             <th>Estado</th>
                             <th>Sucursal</th>
                             <th>Solicitud</th>
@@ -68,6 +69,9 @@
                             <td>
                                 <a [routerLink]="['/analisis/excepciones/', credito.ID_CRE]"><span *ngIf="credito.Excepcion==='~/images/novalidado.png'" class="light yellow"></span></a>
                             </td>
+                            <td>
+                                <a [routerLink]="['/fabrica/nueva-solicitud/credito/', credito.ID_CRE]"><span class="{{credito.RetomarConsulta}}"></span></a>
+                            </td>
                             <td>{{credito.NOM_ECRE}}</td>
                             <td>{{credito.NOM_SUC}}</td>
                             <td><a [routerLink]="['/fabrica/nueva-solicitud/solicitud-credito', credito.ID_CRE]">{{credito.ID_CRE}}</a></td>
@@ -86,8 +90,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td *ngIf="creditos">Total de Registros: {{creditos.length}}</td>
                             <td></td>
+                            <td *ngIf="creditos">Total de Registros: {{creditos.length}}</td>
                             <td>
                                 <a href="# "></a>
                             </td>

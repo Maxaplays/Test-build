@@ -76,6 +76,7 @@ const routes: Routes = [
   // { path: 'analisis/control-de-calidad', component: ControlDeCalidadComponent },
   { path: 'fabrica/consulta-general', component: ConsultaGeneralComponent },
   { path: 'fabrica/nueva-solicitud/solicitud-credito/:idCre', component: FabricaStep3Component },
+  { path: 'fabrica/nueva-solicitud/credito/:idCre', component: FabricaStep2Component },
   { path: 'builder', component: BuilderComponent }
 ];
 

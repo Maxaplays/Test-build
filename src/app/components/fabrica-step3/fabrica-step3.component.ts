@@ -16,7 +16,7 @@ export class FabricaStep3Component implements OnInit {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.idCre = params['idCre']; // (+) converts string 'id' to a number
-      console.log('Credito Steps:' + this.idCre);
+      // console.log('Credito Steps:' + this.idCre);
       // In a real app: dispatch action to load the details here.
    });
   }

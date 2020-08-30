@@ -19,6 +19,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
   private _error = new Subject<string>();
   private _success = new Subject<string>();
   // bkm
+  @Input() idCre: string;
   mensajeServicio: DatosFabrica;
   FormularioDatosBasicos: FormGroup; // formulario de react driven del HTML
   mensajeValidacion: string;
@@ -31,6 +32,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
   wsProducto: string;
   gestionCreditoSinIva: string = '';
   gestionDocumentalSinIva: string = '';
+  idCredito: string;
   // bkm
 
   constructor(private modalService: NgbModal,
@@ -41,24 +43,36 @@ export class ContentFabricaCreditoComponent implements OnInit {
 
   ngOnInit() {
     this.initForm(); // inicializar la forma de la pantalla de ReactDriven
+    if (this.idCre !== undefined && this.idCre !== '') {
+      this.idCredito = this.idCre;
+      console.log('Solicitud de credito:' + this.idCredito);
+      if (typeof this.idCredito !== 'undefined') {
+            this.fabricaService.getRetomarCredito(this.idCredito,
+              localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+                (data: DatosFabrica) => {
+                  console.log(data);
+                  this.fabricaService.changeMessage(data);
+                  this.mensajeServicio = data;
+                  this.InicilizarValores();
+                  this.FormularioDatosBasicos.controls['wsPerfilSugerido'].setValue(this.mensajeServicio.codigo_perfil_sugerido.replace(',', '.'));
+                  this.FormularioDatosBasicos.controls['wsVentaMaxima'].setValue(this.mensajeServicio.Venta_maxima_sugerido.replace(',', '.'));
+                  this.FormularioDatosBasicos.controls['wsEntradaSugerida'].setValue(this.mensajeServicio.Entrada_minimo_sugerido.replace(',', '.'));
+                  this.FormularioDatosBasicos.controls['wsPorcentajeEntrada'].setValue(this.mensajeServicio.porcentaje_entrada_minimo_sugerido.replace(',', '.'));
+                  this.FormularioDatosBasicos.controls['wsCreditoSugerido'].setValue(this.mensajeServicio.Monto_financiar_sugerido.replace(',', '.'));
+                  this.FormularioDatosBasicos.controls['wsCapacidadPagoMax'].setValue(this.mensajeServicio.Capacidad_Pago_sugerido.replace(',', '.'));
+                  this.ValidarFormularioDatosBasicos(null, 'Inicial');
+                  // console.log('Acoplar Pantalla: ' + data.Estado);
+                  // this.acoplarPantalla(data.Estado);
+                });
+      }
+    } else {
     this.fabricaService.currentMessage.subscribe(
       data => {
         this.mensajeServicio = data;
         this.InicilizarValores();
         console.log(data);
       });
-      setTimeout(() => this.staticAlertClosed = true, 20000);
-
-    this._error.subscribe((message) => this.errorMessage = message);
-    this._error.pipe(
-      debounceTime(5000)
-    ).subscribe(() => this.errorMessage = null);
-
-    this._success.subscribe((message) => this.successMessage = message);
-    this._success.pipe(
-      debounceTime(50000)
-    ).subscribe(() => this.successMessage = null);
-
+    }
   }
 
   openCustomWidthVariant(content) {
@@ -219,13 +233,14 @@ export class ContentFabricaCreditoComponent implements OnInit {
       valoresSimulador.MontoAprobado = this.FormularioDatosBasicos.controls['wsVentaMaxima'].value;
       valoresSimulador.usuario = localStorage.getItem("usuario");
       valoresSimulador.ruc = this.mensajeServicio.Cedula;
-      valoresSimulador.entradaAplicada = this.FormularioDatosBasicos.controls['entrada'].value;;
+      valoresSimulador.entradaAplicada = this.FormularioDatosBasicos.controls['entrada'].value;
       valoresSimulador.capacidadPagoSugerida = Number(this.mensajeServicio.CapacidadPagoSugerida.toString().replace(',', '.'));
       valoresSimulador.EstadoCivil = '';
       valoresSimulador.IngresoValidado = this.mensajeServicio.IngresoValidado;
       valoresSimulador.BaseUrl = '';
       valoresSimulador.nombreConsultado = this.mensajeServicio.NombreConsultado;
       valoresSimulador.fechaNacimiento = this.mensajeServicio.FechaNacimiento;
+      valoresSimulador.entradaSugerida = this.FormularioDatosBasicos.controls['wsEntradaSugerida'].value;
 
       this.fabricaService.getcalcularValoresSimulador(valoresSimulador).subscribe(
         (data: any) => {
@@ -244,6 +259,9 @@ export class ContentFabricaCreditoComponent implements OnInit {
           this.FormularioDatosBasicos.controls['aplicadoCuotaMensual'].setValue(cuotaMensual.toFixed(2).toString().replace(',', '.'));
           // this.FormularioDatosBasicos.controls['aplicadoMontoReferencial'].setValue(data.lblventaMaxSugerida.toString().replace(',', '.'));
           this.listadoErrores = data.listaErrores;
+          if (tipo === 'Inicial') {
+              this.loading = false;
+          }
           if (tipo === 'Validar') {
             if (this.listadoErrores.length > 0) {
               this.errorMessage = 'Alerta !';
@@ -276,7 +294,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
           }
           // this.router.navigate(['/fabrica/nueva-solicitud/credito']);
         }, ( errorServicio ) => {
-          // console.log('Error');
+          // this.modalService.dismissAll();
         }
       );
     } else {

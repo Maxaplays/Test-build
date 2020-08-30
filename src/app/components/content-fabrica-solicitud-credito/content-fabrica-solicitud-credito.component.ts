@@ -91,7 +91,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   formaDirecciones: FormGroup;
   formaTelefonos: FormGroup;
   FormularioDatosReferencia: FormGroup;
-  FormularioDatosCliente: FormGroup;x
+  FormularioDatosCliente: FormGroup;
   formaSituacionFinanciera: FormGroup;
   FormularioDatosConyuge: FormGroup;
   @Input() idCre: string;

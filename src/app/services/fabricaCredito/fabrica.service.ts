@@ -88,7 +88,7 @@ export class EnvioFabricaServiceBi {
   IdSucursal: string;
   Usuario: string;
 }
-export class ValoresSimulador{
+export class ValoresSimulador {
   idCredito: string;
   seMonto: number;
   lblPerfilCliente: string;
@@ -119,6 +119,7 @@ export class ValoresSimulador{
   resultado: string;
   gestionCredito: string;
   servicioDocumental: string;
+  entradaSugerida: string;
 }
 export class DatosFabrica {
   public CapacidadPagoSugerida: string;
@@ -192,4 +193,10 @@ export class DatosFabrica {
   public FEE_SERVICIO_DOCUMENTAL: string;
   public IVA: string;
   public UsaFirmaElectronica: string;
+  public codigo_perfil_sugerido: string;
+  public Venta_maxima_sugerido: string;
+  public Entrada_minimo_sugerido: string;
+  public porcentaje_entrada_minimo_sugerido: string;
+  public Monto_financiar_sugerido: string;
+  public Capacidad_Pago_sugerido: string;
 }
