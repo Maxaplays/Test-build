@@ -32,6 +32,8 @@ export class ContentFabricaCreditoComponent implements OnInit {
   wsProducto: string;
   gestionCreditoSinIva: string = '';
   gestionDocumentalSinIva: string = '';
+  gestionCreditoYGestionDocumentalSinIva: string = '';
+  gestionCreditoYGestionDocumentalConIva: string = '';
   idCredito: string;
   // bkm
 
@@ -112,7 +114,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
       // console.log('IVA:' + IVA.toString());
       const FEE_SERVICIO_DOCUMENTAL: number = (Number(this.mensajeServicio.FEE_SERVICIO_DOCUMENTAL.replace(',', '.')) * IVA);
       // console.log('FEE_SERVICIO_DOCUMENTAL:' + FEE_SERVICIO_DOCUMENTAL.toString());
-      this.FormularioDatosBasicos.controls['servicioDocumental'].setValue(FEE_SERVICIO_DOCUMENTAL.toFixed(2).toString().replace(',', '.'));
+      // this.FormularioDatosBasicos.controls['servicioDocumental'].setValue(FEE_SERVICIO_DOCUMENTAL.toFixed(2).toString().replace(',', '.'));
     } catch (error) {
 
     }
@@ -144,8 +146,11 @@ export class ContentFabricaCreditoComponent implements OnInit {
     let diferencia : number = CreditoSinAdiciones + gestionCredito + FEE_SERVICIO_DOCUMENTAL;
     let valorTotalFactura: number = +Total + +gestionCredito + +FEE_SERVICIO_DOCUMENTAL;
     let porcentajeEntrada: number = (entrada / Total) * 100;
+    this.gestionCreditoYGestionDocumentalSinIva =  ((Number(this.gestionDocumentalSinIva) + Number(this.gestionCreditoSinIva))).toFixed(2).toString();
+    this.gestionCreditoYGestionDocumentalConIva =  (Number(this.gestionCreditoYGestionDocumentalSinIva) * (IVA + 1)).toFixed(2).toString();
+    this.FormularioDatosBasicos.controls['gestionCreditoYDocumentalConIva'].setValue(this.gestionCreditoYGestionDocumentalConIva);
     this.FormularioDatosBasicos.controls['montoCredito'].setValue(diferencia.toFixed(2));
-    this.FormularioDatosBasicos.controls['gestionCredito'].setValue(gestionCredito.toFixed(2));
+    // this.FormularioDatosBasicos.controls['gestionCredito'].setValue(gestionCredito.toFixed(2));
     this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(porcentajeEntrada.toFixed(2));
     this.FormularioDatosBasicos.controls['valorTotalFactura'].setValue(valorTotalFactura.toFixed(2));
     let cuotaMensual = this.calcularCuotaFija(diferencia, plazos, tasa, entrada);
@@ -199,12 +204,13 @@ export class ContentFabricaCreditoComponent implements OnInit {
       ventaTotal: new FormControl(null, Validators.required),
       porcentajeEntrada: new FormControl({ value: '0', disabled: true}, Validators.required),
       entrada: new FormControl(null, Validators.required),
-      gestionCredito: new FormControl({ value: '0', disabled: true}, Validators.required),
-      servicioDocumental: new FormControl({ value: '0', disabled: true}, Validators.required),
+      // gestionCredito: new FormControl({ value: '0', disabled: true}, Validators.required),
+      // servicioDocumental: new FormControl({ value: '0', disabled: true}, Validators.required),
       montoCredito: new FormControl({ value: '0', disabled: true}, Validators.required),
       plazo: new FormControl(null, Validators.required),
       cuotaMensualFija: new FormControl({ value: '0', disabled: true}, Validators.required),
-      valorTotalFactura: new FormControl({ value: '0', disabled: true}, Validators.required)
+      valorTotalFactura: new FormControl({ value: '0', disabled: true}, Validators.required),
+      gestionCreditoYDocumentalConIva: new FormControl({ value: '0', disabled: true}, Validators.required)
     });
   }
   ValidarFormularioDatosBasicos(content: any, tipo: string) {
@@ -241,6 +247,8 @@ export class ContentFabricaCreditoComponent implements OnInit {
       valoresSimulador.nombreConsultado = this.mensajeServicio.NombreConsultado;
       valoresSimulador.fechaNacimiento = this.mensajeServicio.FechaNacimiento;
       valoresSimulador.entradaSugerida = this.FormularioDatosBasicos.controls['wsEntradaSugerida'].value;
+      valoresSimulador.gestionCredito = this.gestionCreditoSinIva;
+      valoresSimulador.servicioDocumental = this.gestionDocumentalSinIva;
 
       this.fabricaService.getcalcularValoresSimulador(valoresSimulador).subscribe(
         (data: any) => {
