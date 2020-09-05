@@ -57,6 +57,7 @@ export class Referencia {
   empresa: string;
   direc_emp: string;
   observa: string;
+  observa_ref: string;
   email: string;
   cliente: string;
   ID_REF: string;

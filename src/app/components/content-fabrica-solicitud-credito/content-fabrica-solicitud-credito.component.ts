@@ -31,7 +31,7 @@ import { DocumentosService } from 'src/app/services/documentos.service';
 export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   // @ts-ignore
-  
+
   @ViewChild('fileInput') fileInput;
   closeResult: string;
   private _error = new Subject<string>();
@@ -416,7 +416,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       telefono_trab: new FormControl(null, [Validators.minLength(9), Validators.maxLength(10)]),
       empresa: new FormControl(null),
       direc_emp: new FormControl(null),
-      observa: new FormControl(null),
+      observa_ref: new FormControl(null),
       email: new FormControl(null),
      });
   }
@@ -434,7 +434,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       telefono_trab: referencia.telefono_trab,
       empresa: referencia.empresa,
       direc_emp: referencia.direc_emp,
-      observa: referencia.observa,
+      observa_ref: referencia.observa_ref,
       email: referencia.email,
     });
   }
@@ -453,11 +453,11 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       datosReferencia.telefono_trab = this.FormularioDatosReferencia.value.telefono_trab;
       datosReferencia.empresa = this.FormularioDatosReferencia.value.empresa;
       datosReferencia.direc_emp = this.FormularioDatosReferencia.value.direc_emp;
-      datosReferencia.observa = this.FormularioDatosReferencia.value.observa;
+      datosReferencia.observa_ref = this.FormularioDatosReferencia.value.observa_ref;
       datosReferencia.email = this.FormularioDatosReferencia.value.email;
       datosReferencia.cliente = this.mensajeServicio.Cedula;
       datosReferencia.ID_REF = this.referenciaID_REFeditable;
-       // console.log(datosReferencia);
+      //console.log(datosReferencia);
       this.referenciasServices.postReferencias(datosReferencia, this.crearReferencia).subscribe(
         (data: any) => {
           let resultado = data;
