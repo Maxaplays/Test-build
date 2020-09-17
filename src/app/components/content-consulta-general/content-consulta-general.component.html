@@ -56,6 +56,29 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="tr-filters">
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>
+                            <div class="component-filter"><input type="text" #estado (input)="Buscar(estado.value, 'NOM_ECRE')"><span class="btn-filter"></span></div>
+                          </td>
+                          <td>
+                            <div class="component-filter"><input type="text" #sucursal (input)="Buscar(sucursal.value, 'NOM_SUC')"><span class="btn-filter"></span></div>
+                          </td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
                         <tr *ngFor="let credito of creditos | paginate: {itemsPerPage: 10, currentPage: pageActual}">
                             <td>
                                 <a [routerLink]="['/fabrica/nueva-solicitud/solicitud-credito/', credito.ID_CRE]"><span class="{{credito.VENDEDOR_COLORUX_ECRE}}"></span></a>
