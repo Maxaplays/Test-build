@@ -60,14 +60,19 @@ export class GeneracionDocumentos {
     usuario: string;
     ID_CLI: string;
     UsaFirmaElectronica: string;
-    GenerarDocumentos: boolean;
+    GenerarDocumentos: Devolucion;
 
     constructor() {
       this.reportesImprimir = new Array<ReporteWebserviceUx>();
     }
 }
-export class ReporteWebserviceUx
-{
+
+export class Devolucion {
+  Respuesta: string;
+  Mensaje: string;
+}
+
+export class ReporteWebserviceUx {
     nombreArchivo: string;
     nombreReporte: string;
     selected: boolean;

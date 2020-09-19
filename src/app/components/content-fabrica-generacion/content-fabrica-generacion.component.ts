@@ -185,8 +185,8 @@ export class ContentFabricaGeneracionComponent implements OnInit {
           this.loading = false;
           this.getTipoReportes();
           this.estadoGeneracion = resultado.GenerarDocumentos;
-          if (resultado.GenerarDocumentos === false) {
-            this.errorMessage = 'Error en el envío de los documentos';
+          if (resultado.GenerarDocumentos.Respuesta.toLowerCase() !== 'ok') {
+            this.errorMessage = resultado.GenerarDocumentos.Mensaje;
             this.loading = false;
             this.getEstadoGenerarDocumentacion();
             this.modalService.open(contentError, {windowClass: 'custom-width-error-modal'});
