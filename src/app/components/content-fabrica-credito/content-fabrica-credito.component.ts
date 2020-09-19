@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, TemplateRef, ViewChild, Inject, LOCALE_ID  } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, ViewChild, Inject, LOCALE_ID, ElementRef  } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FabricaService, DatosFabrica } from 'src/app/services/fabricaCredito/fabrica.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -35,6 +35,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
   gestionCreditoYGestionDocumentalSinIva: string = '';
   gestionCreditoYGestionDocumentalConIva: string = '';
   idCredito: string;
+  @ViewChild('mensajeModalError', null) public mydiv: ElementRef;
   // bkm
 
   constructor(private modalService: NgbModal,
@@ -55,14 +56,14 @@ export class ContentFabricaCreditoComponent implements OnInit {
                   console.log(data);
                   this.fabricaService.changeMessage(data);
                   this.mensajeServicio = data;
-                  this.InicilizarValores();
+                  this.InicilizarValoresRecargarConsulta();
                   this.FormularioDatosBasicos.controls['wsPerfilSugerido'].setValue(this.mensajeServicio.codigo_perfil_sugerido.replace(',', '.'));
                   this.FormularioDatosBasicos.controls['wsVentaMaxima'].setValue(this.mensajeServicio.Venta_maxima_sugerido.replace(',', '.'));
                   this.FormularioDatosBasicos.controls['wsEntradaSugerida'].setValue(this.mensajeServicio.Entrada_minimo_sugerido.replace(',', '.'));
                   this.FormularioDatosBasicos.controls['wsPorcentajeEntrada'].setValue(this.mensajeServicio.porcentaje_entrada_minimo_sugerido.replace(',', '.'));
                   this.FormularioDatosBasicos.controls['wsCreditoSugerido'].setValue(this.mensajeServicio.Monto_financiar_sugerido.replace(',', '.'));
                   this.FormularioDatosBasicos.controls['wsCapacidadPagoMax'].setValue(this.mensajeServicio.Capacidad_Pago_sugerido.replace(',', '.'));
-                  this.ValidarFormularioDatosBasicos(null, 'Inicial');
+                  this.ValidarFormularioDatosBasicos(this.mydiv, 'Inicial');
                   // console.log('Acoplar Pantalla: ' + data.Estado);
                   // this.acoplarPantalla(data.Estado);
                 });
@@ -90,6 +91,55 @@ export class ContentFabricaCreditoComponent implements OnInit {
     this.fabricaService.changeMessage(new DatosFabrica());
   }
   // bkm
+  InicilizarValoresRecargarConsulta() {
+    console.log(this.mensajeServicio);
+    this.FormularioDatosBasicos.controls['aplicadoPerfil'].setValue(this.mensajeServicio.PerfilAplicado.replace(',', '.'));
+    this.FormularioDatosBasicos.controls['aplicadoMontoVenta'].setValue(this.mensajeServicio.ValorTotal.replace(',', '.'));
+    this.FormularioDatosBasicos.controls['aplicadoEntrada'].setValue(this.mensajeServicio.EntradaAplicada.replace(',', '.'));
+    try {
+      let ventaTotalCargado: number = Number.parseFloat(this.mensajeServicio.ValorTotal.replace(',', '.'));
+      let entradaCargado: number = Number.parseFloat(this.mensajeServicio.EntradaAplicada.replace(',', '.'));
+      let valorAfinanciarCargado: number = ventaTotalCargado - entradaCargado;
+      this.FormularioDatosBasicos.controls['aplicadoVentaTotal'].setValue(valorAfinanciarCargado.toString().replace(',', '.'));
+      this.FormularioDatosBasicos.controls['aplicadoPorcentajeEntrada'].setValue((entradaCargado / ventaTotalCargado).toFixed(2).replace(',', '.'));
+    } catch (error) {
+      this.FormularioDatosBasicos.controls['aplicadoVentaTotal'].setValue("0");
+      this.FormularioDatosBasicos.controls['aplicadoPorcentajeEntrada'].setValue("0");
+    }
+    // this.FormularioDatosBasicos.controls['aplicadoMontoReferencial'].setValue(this.mensajeServicio.MontoSugerido.replace(',', '.'));
+    this.tasaActual = Number.parseFloat(this.mensajeServicio.Tasa.replace(',', '.'));
+    this.FormularioDatosBasicos.controls['wsPerfilSugerido'].setValue(this.mensajeServicio.Perfil.replace(',', '.'));
+    this.FormularioDatosBasicos.controls['wsPorcentajeEntrada'].setValue(this.mensajeServicio.PorcentajeEntradaSugerida.replace(',', '.'));
+
+    try {
+      let wsCreditoSugerido: number = Number.parseFloat(this.mensajeServicio.MontoSugerido.replace(',', '.'));
+      let wsPorcengajeEntradaSugerida: number = Number.parseFloat(this.mensajeServicio.PorcentajeEntradaSugerida.replace(',', '.'));
+      let wsVentaTotal: number = wsCreditoSugerido / (1 - (wsPorcengajeEntradaSugerida / 100));
+      this.FormularioDatosBasicos.controls['wsVentaMaxima'].setValue(wsVentaTotal.toFixed(2).toString().replace(',', '.'));
+      let wsEntrada: number = wsVentaTotal * (wsPorcengajeEntradaSugerida / 100);
+      this.FormularioDatosBasicos.controls['wsEntradaSugerida'].setValue(wsEntrada.toFixed(2).toString().replace(',', '.'));
+
+      const IVA: number = (Number(this.mensajeServicio.IVA.replace(',', '.')) / 100) + 1;
+      // console.log('IVA:' + IVA.toString());
+      const FEE_SERVICIO_DOCUMENTAL: number = (Number(this.mensajeServicio.FEE_SERVICIO_DOCUMENTAL.replace(',', '.')) * IVA);
+      // console.log('FEE_SERVICIO_DOCUMENTAL:' + FEE_SERVICIO_DOCUMENTAL.toString());
+      // this.FormularioDatosBasicos.controls['servicioDocumental'].setValue(FEE_SERVICIO_DOCUMENTAL.toFixed(2).toString().replace(',', '.'));
+    } catch (error) {
+
+    }
+    this.FormularioDatosBasicos.controls['wsCreditoSugerido'].setValue(this.mensajeServicio.MontoSugerido.replace(',', '.'));
+    this.wsProducto = this.mensajeServicio.idProducto;
+    this.FormularioDatosBasicos.controls['wsCapacidadPagoMax'].setValue(this.mensajeServicio.CapacidadPagoSugerida.replace(',', '.'));
+    // this.FormularioDatosBasicos.controls['ventaSolicitada'].setValue(this.mensajeServicio.ValorTotal.replace(',', '.'));
+    this.FormularioDatosBasicos.controls['ventaTotal'].setValue(this.mensajeServicio.ValorTotal.replace(',', '.'));
+    this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(this.mensajeServicio.PorcentajeEntradaSugerida.replace(',', '.'));
+    this.FormularioDatosBasicos.controls['entrada'].setValue(this.mensajeServicio.Entrada.replace(',', '.'));
+    this.FormularioDatosBasicos.controls['montoCredito'].setValue(this.mensajeServicio.Monto.replace(',', '.'));
+    this.FormularioDatosBasicos.controls['plazo'].setValue(this.mensajeServicio.Plazo.replace(',', '.'));
+    this.FormularioDatosBasicos.controls['cuotaMensualFija'].setValue(this.mensajeServicio.CuotaFija.replace(',', '.'));
+    this.FormularioDatosBasicos.controls['aplicadoCuotaMensual'].setValue(this.mensajeServicio.CuotaFija.toString().replace(',', '.'));
+    this.onIngresosChange();
+  }
   InicilizarValores() {
     console.log(this.mensajeServicio);
     this.FormularioDatosBasicos.controls['aplicadoPerfil'].setValue(this.mensajeServicio.PerfilAplicado.replace(',', '.'));
@@ -224,7 +274,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
       valoresSimulador.seMonto = this.FormularioDatosBasicos.controls['montoCredito'].value;
       valoresSimulador.lblPerfilCliente = this.FormularioDatosBasicos.controls['wsPerfilSugerido'].value;
       valoresSimulador.cmbProducto = this.wsProducto;
-      valoresSimulador.lblSucursal = localStorage.getItem('codigoSucursal');
+      // valoresSimulador.lblSucursal = localStorage.getItem('codigoSucursal');
       valoresSimulador.seVentaTotalAplicada = this.FormularioDatosBasicos.controls['ventaTotal'].value;
       valoresSimulador.seMontoSugerido = this.FormularioDatosBasicos.controls['wsCreditoSugerido'].value;
       valoresSimulador.seEntrada = this.FormularioDatosBasicos.controls['entrada'].value;
@@ -267,10 +317,10 @@ export class ContentFabricaCreditoComponent implements OnInit {
           this.FormularioDatosBasicos.controls['aplicadoCuotaMensual'].setValue(cuotaMensual.toFixed(2).toString().replace(',', '.'));
           // this.FormularioDatosBasicos.controls['aplicadoMontoReferencial'].setValue(data.lblventaMaxSugerida.toString().replace(',', '.'));
           this.listadoErrores = data.listaErrores;
-          if (tipo === 'Inicial') {
-              this.loading = false;
-          }
-          if (tipo === 'Validar') {
+          // if (tipo === 'Inicial') {
+          //     this.loading = false;
+          // }
+          if (tipo === 'Validar' || tipo === 'Inicial') {
             if (this.listadoErrores.length > 0) {
               this.errorMessage = 'Alerta !';
               this.loading = false;
