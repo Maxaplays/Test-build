@@ -41,13 +41,18 @@
                             <th>C</th>
                             <th>E</th>
                             <th>R</th>
-                            <th>Estado</th>
-                            <th>Sucursal</th>
+                            <th><div>Estado</div><hr>
+                              <div class="component-filter"><input type="text" #estado (input)="Buscar(estado.value, 'NOM_ECRE')" placeholder="Estado"><span class="btn-filter"></span></div>
+                            </th>
+                            <th>Sucursal<hr>
+                              <div class="component-filter"><input type="text" #sucursal (input)="Buscar(sucursal.value, 'NOM_SUC')" placeholder="Sucursal"><span class="btn-filter"></span></div>
+                            </th>
                             <th>Solicitud</th>
                             <th>Fecha Creación</th>
                             <th>Cédula</th>
-                            <th>Apellidos</th>
-                            <th>Nombres</th>
+                            <th>Apellidos y Nombres</th>
+                            <th>Producto<hr>
+                              <div class="component-filter"><input type="text" #producto (input)="Buscar(producto.value, 'NOM_PROD')" placeholder="Producto"><span class="btn-filter"></span></div></th>
                             <th>#Formulario</th>
                             <th>Venta Total</th>
                             <th>Valor Crédito</th>
@@ -56,29 +61,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="tr-filters">
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td>
-                            <div class="component-filter"><input type="text" #estado (input)="Buscar(estado.value, 'NOM_ECRE')"><span class="btn-filter"></span></div>
-                          </td>
-                          <td>
-                            <div class="component-filter"><input type="text" #sucursal (input)="Buscar(sucursal.value, 'NOM_SUC')"><span class="btn-filter"></span></div>
-                          </td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
+
                         <tr *ngFor="let credito of creditos | paginate: {itemsPerPage: 10, currentPage: pageActual}">
                             <td>
                                 <a [routerLink]="['/fabrica/nueva-solicitud/solicitud-credito/', credito.ID_CRE]"><span class="{{credito.VENDEDOR_COLORUX_ECRE}}"></span></a>
@@ -101,7 +84,7 @@
                             <td>{{credito.FECH_CREA_CRE | date: 'yyyy-MM-dd'}}</td>
                             <td>{{credito.ID_CLI}}</td>
                             <td>{{credito.APE_CLI}}</td>
-                            <td>{{credito.NOM_CLI}}</td>
+                            <td>{{credito.NOM_PROD}}</td>
                             <td>{{credito.NUM_OPE_CRE}}</td>
                             <td class="align-right ">${{credito.VENTA_TOTAL_CRE}}</td>
                             <td class="align-right ">${{credito.VALOR_DESEM_CRE}}</td>
