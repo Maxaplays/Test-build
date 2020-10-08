@@ -188,10 +188,12 @@ export class ContentFabricaGeneracionComponent implements OnInit {
           if (resultado.GenerarDocumentos.Respuesta.toLowerCase() !== 'ok') {
             this.errorMessage = resultado.GenerarDocumentos.Mensaje;
             this.loading = false;
+            this.estadoGeneracion = true;
             this.getEstadoGenerarDocumentacion();
             this.modalService.open(contentError, {windowClass: 'custom-width-error-modal'});
           } else {
             this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+            this.estadoGeneracion = false;
           }
         } else {
           this.errorMessage = resultado.resultado;
