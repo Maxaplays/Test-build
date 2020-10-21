@@ -186,7 +186,12 @@ export class ContentFabricaGeneracionComponent implements OnInit {
           this.getTipoReportes();
           this.estadoGeneracion = resultado.GenerarDocumentos;
           if (resultado.GenerarDocumentos.Respuesta.toLowerCase() !== 'ok') {
-            this.errorMessage = resultado.GenerarDocumentos.Mensaje;
+            if (resultado.GenerarDocumentos.Mensaje !== 'Solicitud enviada fuera de horario de procesamiento') {
+              this.router.navigate(['/fabrica/consulta-general']);
+              this.errorMessage = 'Existen problemas de conexión, por favor inténtelo más tarde';
+            } else {
+              this.errorMessage = resultado.GenerarDocumentos.Mensaje;
+            }
             this.loading = false;
             this.estadoGeneracion = true;
             this.getEstadoGenerarDocumentacion();
