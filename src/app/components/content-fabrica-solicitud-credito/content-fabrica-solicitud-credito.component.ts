@@ -645,54 +645,65 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                       this.grabarDatosIngresadosGrid = false;
                       this.SubirArchivos = false;
                     } else {
-                        if (lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Rechazada' ||
-                         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
-                          lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada' ||
-                          lblEstadoSolicitud === 'Consultada') {
-                            // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
-                            // ('Bloqueado 2' + lblEstadoSolicitud);
-                            this.btnSolicitarAnulacion = false;
-                            this.BtnEntregarCarpeta = false;
-                            //this.ASPxButton1 = false;
-                            this.ASPxActualizarSOL = false;
-                            this.btnTelefonos = false;
-                            this.btnActualizarDirecciones = false;
-                            this.btnConyuge = false;
-                            this.btnActualizarReferencias = false;
-                            this.grabarDatosIngresadosGrid = false;
-                            this.SubirArchivos = false;
-                            this.btnSolicitarAnalisis = false;
-                            // ASPxUploadControl1.Visible = false;
-                            // ASPxUploadControl2.Visible = false;
-                            // ASPxUploadControl3.Visible = false;
-                            // btnGenerarReportesDinamicos.Visible = false;
-                            // btnRefrescar.Visible = false;
-                            // BtnGuardar.Visible = false;
-                            this.btnSolicitarAnalisis = false;
-                            this.btnMedioAprobacion = false;
+                        if (lblEstadoSolicitud === 'Ingresando') {
+                          // console.log('Bloqueado 1' + lblEstadoSolicitud);
+                          this.btnSolicitarAnulacion = true;
+                          this.BtnEntregarCarpeta = true;
+                          this.btnSolicitarAnalisis = true;
+                          this.btnMedioAprobacion = true;
+                          this.grabarDatosIngresadosGrid = true;
+                          this.SubirArchivos = true;
+                          this.ASPxActualizarSOL = true;
                         } else {
-                            if (lblEstadoSolicitud === 'Cancelada' ) {
-                              // console.log('Bloqueado 3' + lblEstadoSolicitud);
-                              this.ASPxActualizarSOL = false;
+                          if (lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Rechazada' ||
+                           lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
+                            lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada' ||
+                            lblEstadoSolicitud === 'Consultada') {
+                              // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
+                              // ('Bloqueado 2' + lblEstadoSolicitud);
                               this.btnSolicitarAnulacion = false;
                               this.BtnEntregarCarpeta = false;
-                              this.btnSolicitarAnalisis = false;
-                              this.btnMedioAprobacion = false;
+                              //this.ASPxButton1 = false;
+                              this.ASPxActualizarSOL = false;
                               this.btnTelefonos = false;
                               this.btnActualizarDirecciones = false;
                               this.btnConyuge = false;
                               this.btnActualizarReferencias = false;
                               this.grabarDatosIngresadosGrid = false;
                               this.SubirArchivos = false;
-                            } else {
-                              // console.log('Bloqueado 4' + lblEstadoSolicitud);
-                              // this.btnSolicitarAnulacion = true;
-                              // this.BtnEntregarCarpeta = false;
-                              // this.btnSolicitarAnalisis = false;
-                              // this.grabarDatosIngresadosGrid = false;
-                              // this.SubirArchivos = false;
-                            }
-                        }
+                              this.btnSolicitarAnalisis = false;
+                              // ASPxUploadControl1.Visible = false;
+                              // ASPxUploadControl2.Visible = false;
+                              // ASPxUploadControl3.Visible = false;
+                              // btnGenerarReportesDinamicos.Visible = false;
+                              // btnRefrescar.Visible = false;
+                              // BtnGuardar.Visible = false;
+                              this.btnSolicitarAnalisis = false;
+                              this.btnMedioAprobacion = false;
+                          } else {
+                              if (lblEstadoSolicitud === 'Cancelada' ) {
+                                // console.log('Bloqueado 3' + lblEstadoSolicitud);
+                                this.ASPxActualizarSOL = false;
+                                this.btnSolicitarAnulacion = false;
+                                this.BtnEntregarCarpeta = false;
+                                this.btnSolicitarAnalisis = false;
+                                this.btnMedioAprobacion = false;
+                                this.btnTelefonos = false;
+                                this.btnActualizarDirecciones = false;
+                                this.btnConyuge = false;
+                                this.btnActualizarReferencias = false;
+                                this.grabarDatosIngresadosGrid = false;
+                                this.SubirArchivos = false;
+                              } else {
+                                // console.log('Bloqueado 4' + lblEstadoSolicitud);
+                                // this.btnSolicitarAnulacion = true;
+                                // this.BtnEntregarCarpeta = false;
+                                // this.btnSolicitarAnalisis = false;
+                                // this.grabarDatosIngresadosGrid = false;
+                                // this.SubirArchivos = false;
+                              }
+                          }
+                      }
                     }
                 } else {
                   // console.log('Bloqueado 5' + lblEstadoSolicitud);
