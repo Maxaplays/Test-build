@@ -39,4 +39,7 @@ export class DocumentosService {
     }
     return this.http.post<File>(url, formData);
   }
+  public entregarCarpeta(idCredito: string, clave: string, persona: string) {
+    return this.getQuery(`entregarCarpeta/${idCredito}/${clave}/${persona}/${ localStorage.getItem('usuario')}`);
+  }
 }

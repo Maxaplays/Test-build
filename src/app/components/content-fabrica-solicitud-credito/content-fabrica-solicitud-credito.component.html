@@ -624,6 +624,7 @@
                 <!--button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</--button-->
                 <button *ngIf="btnSolicitarAnulacion" class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
                 <button class="btn btn-border-blue btn-cancel" (click)="openLgDocumentacion(verDocumentacion)"><img src="assets/images/icon-folder.svg">Documentación</button>
+                <button *ngIf="BtnEntregarCarpeta" class="btn btn-border-blue btn-cancel" (click)="openLgEntregarCarpeta(entregarCarpeta)"><img src="assets/images/icon-folder.svg">Entregar Carpeta</button>
             </div>
             <div class="align-right">
                 <button *ngIf="btnSolicitarAnalisis" class="btn btn-solid-green" (click)="solicitarAnalisis(mensajeModalError,mensajeAdvertencia)">Solicitar análisis</button>
@@ -781,6 +782,40 @@
         </form>
     </div>
 
+</ng-template>
+
+<ng-template #entregarCarpeta let-modal>
+  <div class="modal-header-mfc variation">
+    <div class="cols cols2 align-middle">
+      <div class="align-left">
+        <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-folder.svg">
+        <h4 class="modal-minititle-mfc">Entrega de Carpeta</h4>
+      </div>
+      <div class="align-right">
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body variation">
+    <form class="forms forms-relative" autocomplete="off" [formGroup]="formaEntregarCarpeta">
+      <fieldset>
+        <label class="label">Ingrese el número de autorización de entrega: <b>*</b></label>
+        <input type="text" placeholder="Número de Autorización" formControlName="NumeroAutorizacion" class="form-control">
+      </fieldset>
+      <fieldset>
+        <label class="label">Persona que recibe: <b>*</b></label>
+        <input type="text" placeholder="Persona que recibe" formControlName="PersonaRecibe" class="form-control">
+      </fieldset>
+      <div class="modal-footer-mfc full variation">
+        <div class="align-right">
+          <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
+          <button type="button" (click)="entregarCarpetaEnviar(mensajeAdvertencia, mensajeModalError)" [class.btn-solid-green]="formaEntregarCarpeta.valid" [className]="formaEntregarCarpeta.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'">Entregar Carpeta</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </ng-template>
 
 <ng-template #agregarEditarTelefono let-modal>

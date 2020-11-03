@@ -75,7 +75,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   conyugeID_CONeditable: string = '';
   tabActual;
   btnSolicitarAnulacion = true;
-  BtnEntregarCarpeta = true;
+  BtnEntregarCarpeta = false;
   btnSolicitarAnalisis = true;
   btnMedioAprobacion = true;
   ASPxActualizarSOL = true;
@@ -90,6 +90,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   // formas para ingreso y edición de datos - bkm
   formaDirecciones: FormGroup;
   formaTelefonos: FormGroup;
+  formaEntregarCarpeta: FormGroup;
   FormularioDatosReferencia: FormGroup;
   FormularioDatosCliente: FormGroup;
   formaSituacionFinanciera: FormGroup;
@@ -153,6 +154,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   ngOnInit() {
     this.crearFormularioCliente();
     this.crearFormularioDirecciones();
+    this.crearFormularioEntregarCarpeta();
     this.crearFormularioTelefonos();
     this.crearFormularioSituacionFinanciera();
     this.crearFormularioConyuge();
@@ -503,6 +505,11 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
     this.modalService.open(content);
   }
+
+  openLgEntregarCarpeta(content) {
+    this.modalService.open(content);
+  }
+
   openLgDocumentacion(content) {
     this.getDocumentosCredito();
     this.modalService.open(content);
@@ -648,7 +655,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                         if (lblEstadoSolicitud === 'Ingresando') {
                           // console.log('Bloqueado 1' + lblEstadoSolicitud);
                           this.btnSolicitarAnulacion = true;
-                          this.BtnEntregarCarpeta = true;
+                          this.BtnEntregarCarpeta = false;
                           this.btnSolicitarAnalisis = true;
                           this.btnMedioAprobacion = true;
                           this.grabarDatosIngresadosGrid = true;
@@ -708,7 +715,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
                 } else {
                   // console.log('Bloqueado 5' + lblEstadoSolicitud);
                   this.btnSolicitarAnulacion = false;
-                  this.BtnEntregarCarpeta = true;
+                  this.BtnEntregarCarpeta = false;
                   this.btnSolicitarAnalisis = false;
                   this.btnMedioAprobacion = false;
                   this.grabarDatosIngresadosGrid = false;
@@ -1309,6 +1316,13 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.formaDirecciones.value.Barrio = direccion.COD_BAR.toUpperCase();
   }
 
+  crearFormularioEntregarCarpeta() {
+    this.formaEntregarCarpeta = this.fb.group( {
+      NumeroAutorizacion: ['', Validators.required],
+      PersonaRecibe: ['', Validators.required],
+    });
+  }
+
   cargarFormularioTelefonos(telefono: any) {
     this.formaTelefonos.reset({
       TipoRegistroTelefono: telefono.TIPO.toUpperCase(),
@@ -1363,6 +1377,35 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
           }
         }
       );
+    }
+  }
+
+  entregarCarpetaEnviar(contentA, contentE) {
+    if (this.formaEntregarCarpeta.invalid) {
+      return Object.values(this.formaEntregarCarpeta.controls).forEach(control => {
+        if (control instanceof FormGroup) {
+          // tslint:disable-next-line:no-shadowed-variable
+          Object.values(control.controls). forEach( control => control.markAllAsTouched());
+        } else {
+          control.markAllAsTouched();
+        }
+      });
+    } else {
+      this.documentosService.entregarCarpeta(this.mensajeServicio.NumeroCredito,
+        this.formaEntregarCarpeta.value.NumeroAutorizacion, this.formaEntregarCarpeta.value.PersonaRecibe
+        ).subscribe(
+        (data: any) => {
+          console.log(data);
+          if (data !== 'true') {
+            this.modalService.dismissAll();
+            this.router.navigate(['/fabrica/consulta-general']);
+            this.advertenceMessage = `Solicitud ${this.mensajeServicio.NumeroCredito} en estado: Entregada`;
+            this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+          } else {
+            this.errorMessage = 'El código ingresado no es correcto, intente nuevamente';
+            this.modalService.open(contentE, {windowClass: 'custom-width-error-modal'});
+          }
+      });
     }
   }
 
