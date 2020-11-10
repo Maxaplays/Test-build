@@ -1397,7 +1397,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         ).subscribe(
         (data: any) => {
           console.log(data);
-          if (data !== 'true') {
+          if (data === true ) {
             this.modalService.dismissAll();
             this.router.navigate(['/fabrica/consulta-general']);
             this.advertenceMessage = `Solicitud ${this.mensajeServicio.NumeroCredito} en estado: Entregada`;
