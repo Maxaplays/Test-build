@@ -312,6 +312,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       datosCliente.INGRESOS_DEPENDIENTE = '0';
       datosCliente.INGRESOS_INDEPENDIENTE = '0';
       datosCliente.usuario = localStorage.getItem('usuario');
+      datosCliente.credito = this.mensajeServicio.NumeroCredito;
 
       if (this.mensajeServicio.NombreConsultado === datosCliente.APE_CLI.trim() + ' ' + datosCliente.NOM_CLI.trim()) {
         this.clienteService.postCliente(datosCliente).subscribe(

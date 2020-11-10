@@ -57,4 +57,5 @@ export class Cliente {
         INGRESOS_DEPENDIENTE: string;
         INGRESOS_INDEPENDIENTE: string;
         usuario: string;
+        credito: string;
 }
