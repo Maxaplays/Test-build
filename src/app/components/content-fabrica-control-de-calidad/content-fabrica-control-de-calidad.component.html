@@ -106,6 +106,7 @@
                         <th>Fecha Solicitud Excepción</th>
                         <th>Usuario Excepcionado</th>
                         <th>Fecha Excepcionado</th>
+                        <th>Observaciones Excepción</th>
                         <th>Solicitar Excepción</th>
                         <th hidden>Id</th>
                     </tr>
@@ -133,6 +134,7 @@
                         <td>{{control.FECH_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
                         <td>{{control.USR_VAL_EXC_VAL}}</td>
                         <td>{{control.FECH_VAL_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
+                        <td>{{control.OBSER_VAL_EXC_VAL}}</td>
                         <td><a *ngIf="SolicitarExcepcion" class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion, control)">Solicitar</a></td>
                         <td hidden>{{control.ID_VAL}}</td>
                     </tr>
