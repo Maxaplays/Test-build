@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
 import {DocumentosVisualizacionService, Excepcion} from '../../services/documentos/documentos-visualizacion.service';
@@ -47,6 +47,8 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   ASPxActualizarSOL = true;
   SolicitarExcepcion = true;
   loading: boolean;
+  @Input() idCre: string;
+  idCredito: string;
   // bkm
 
   constructor(private modalService: NgbModal,
@@ -59,13 +61,29 @@ export class ContentFabricaRequisitosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fabricaService.currentMessage.subscribe(
-      data => {
-        this.mensajeServicio = data;
-        this.acoplarPantalla(this.mensajeServicio.Estado);
-        this.requisitios = this.getRequisitos();
-        // console.log(data);
-      });
+    if (this.idCre !== undefined && this.idCre !== '') {
+      this.idCredito = this.idCre;
+      console.log('Solicitud de credito:' + this.idCredito);
+      if(this.idCredito!== 'undefined' && this.idCredito!== 'undefined' && this.idCredito!== '') {
+      if (typeof this.idCredito !== 'undefined' && this.mensajeServicio=== undefined) {
+            this.fabricaService.getRetomarCredito(this.idCredito,
+              localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+                (data: DatosFabrica) => {
+                  // console.log(data);
+                  this.fabricaService.changeMessage(data);
+                  // console.log('Acoplar Pantalla: ' + data.Estado);
+                  // this.acoplarPantalla(data.Estado);
+                });
+      }
+      this.fabricaService.currentMessage.subscribe(
+        data => {
+          this.mensajeServicio = data;
+          this.acoplarPantalla(this.mensajeServicio.Estado);
+          this.requisitios = this.getRequisitos();
+          // console.log(data);
+        });
+      }
+    }
   }
 
   openLg(content) {

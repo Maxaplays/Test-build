@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { DocumentosService } from '../../services/documentos.service';
 import {map} from 'rxjs/operators';
@@ -49,6 +49,8 @@ export class ContentFabricaResumenComponent implements OnInit {
   Archivos: File[] = [];
   archivoSeleccionado: File = null;
   formaResumen: FormGroup;
+  @Input() idCre: string;
+  idCredito: string;
   // bkm
   minDate: Date;
   maxDate: Date;
@@ -60,20 +62,39 @@ export class ContentFabricaResumenComponent implements OnInit {
               private generacionDocs: GeneraDocService,
               private situacionFinancieraService: SituacionFinancieraService,
               private router: Router) {
-    this.fabricaService.currentMessage.subscribe(
-      data => {
-        this.mensajeServicio = data;
-        this.acoplarPantalla(this.mensajeServicio.Estado);
-        this.getTipoReportes();
-        this.crearFormularioResumen();
-        this.getResumenes();
-        console.log(this.mensajeServicio);
-      });
-  }
+                
+          }
 
   ngOnInit() {
     this.initForm();
+    if (this.idCre !== undefined && this.idCre !== '') {
+      this.idCredito = this.idCre;
+      console.log('Solicitud de credito:' + this.idCredito);
+      if(this.idCredito!== 'undefined' && this.idCredito!== 'undefined' && this.idCredito!== '') {
+      if (typeof this.idCredito !== 'undefined' && this.mensajeServicio=== undefined) {
+            this.fabricaService.getRetomarCredito(this.idCredito,
+              localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+                (data: DatosFabrica) => {
+                  // console.log(data);
+                  this.fabricaService.changeMessage(data);
+                  // console.log('Acoplar Pantalla: ' + data.Estado);
+                  // this.acoplarPantalla(data.Estado);
+                });
+      }
+      this.fabricaService.currentMessage.subscribe(
+        data => {
+          this.mensajeServicio = data;
+          this.acoplarPantalla(this.mensajeServicio.Estado);
+          this.getTipoReportes();
+          this.crearFormularioResumen();
+          this.getResumenes();
+          
+          console.log(this.mensajeServicio);
+        });
+      }
+    
   }
+}
   private initForm() {
     this.FormularioDatosReportes = new FormGroup({
       fechaPagare: new FormControl(null, Validators.required),

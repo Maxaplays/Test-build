@@ -9521,9 +9521,9 @@ body {
 }
 
 .label.postinput {
-  padding-top: 8px;
-  color: #287fa2;
-  font-size: 12px;
+    padding-top: 8px;
+    color: #287fa2;
+    font-size: 12px;
 }
 
 .label b {
@@ -9563,7 +9563,7 @@ body {
 
 .forms select {
     cursor: pointer;
-    background: url(/assets/images/arrow-select.svg) no-repeat calc(100% - 8px) 11px;
+    background: url(~/assets/images/arrow-select.svg) no-repeat calc(100% - 8px) 11px;
     background-color: #fff;
 }
 
@@ -9603,7 +9603,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: rgba(0, 0, 0, 0);
     opacity: 1;
     display: block;
-    background: url(/assets/images/icon-calendar.svg) no-repeat right center;
+    background: url(~/assets/images/icon-calendar.svg) no-repeat right center;
     width: 22px;
     height: 24px;
     border-width: thin;
@@ -9786,7 +9786,7 @@ app-sidebar {
 
 app-content-dashboard {
     display: block;
-    background: url(/assets/images/bg-intern.jpg) no-repeat right center;
+    background: url(~/assets/images/bg-intern.jpg) no-repeat right center;
     background-size: cover;
     /*padding: 30px;*/
     width: calc(100% - 295px);
@@ -9916,7 +9916,7 @@ input[type="checkbox"]+label {
     display: block;
     width: 100%;
     cursor: pointer;
-    background: url(/assets/images/arrow-select.svg) no-repeat calc(100% - 7px) 4px;
+    background: url(~/assets/images/arrow-select.svg) no-repeat calc(100% - 7px) 4px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -10268,7 +10268,7 @@ b {
 }
 
 .forms select.filter-for-table {
-    background: url(/assets/images/arrow-select-filter.svg) no-repeat center right;
+    background: url(~/assets/images/arrow-select-filter.svg) no-repeat center right;
     width: auto;
     height: auto;
     padding: 0 24px 0 0;
@@ -10556,7 +10556,7 @@ select.select-tag {
     border-radius: 5px;
     margin-top: 0;
     min-height: auto;
-    background: url(/assets/images/arrow-white-select.svg) no-repeat calc(100% - 5px) center;
+    background: url(~/assets/images/arrow-white-select.svg) no-repeat calc(100% - 5px) center;
     background-color: #287fa2;
     height: 22px!important;
     text-transform: uppercase;
@@ -10919,12 +10919,12 @@ fieldset.forms.forms-relative select {
     cursor: pointer;
     height: 36px;
     transition: all .3s ease;
-    background: url(/assets/images/min.svg) no-repeat center center;
+    background: url(~/assets/images/min.svg) no-repeat center center;
     width: 36px;
 }
 
 .min-app-sidebar #min-max-sidebar {
-    background: url(/assets/images/max.svg) no-repeat center center;
+    background: url(~/assets/images/max.svg) no-repeat center center;
 }
 
 .steps-mobile,
@@ -10981,85 +10981,98 @@ app-content-dashboard>.content {
     padding: 20px 28px 0;
 }
 
+
 /* inicio cards */
+
 .dashboard-items {
-  font-size: 0;
-  margin: 0 -12px;
+    font-size: 0;
+    margin: 0 -12px;
 }
+
 .dashboard-items .item {
-  font-size: 16px;
-  display: inline-block;
-  vertical-align: top;
-  background: #fff;
-  width: calc(33.33% - 16px);
-  padding: 20px;
-  margin: 8px;
-  box-shadow: 0 3px 6px rgba(0,0,0,.16);
-  border-radius: 10px;
-  position: relative;
+    font-size: 16px;
+    display: inline-block;
+    vertical-align: top;
+    background: #fff;
+    width: calc(33.33% - 16px);
+    padding: 20px;
+    margin: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+    border-radius: 10px;
+    position: relative;
 }
+
 .dashboard-items .item h2 {
-  font-size: 36px;
-  font-weight: 300;
-  color: #287FA2;
-  line-height: 42px;
-  max-width: 200px;
-  padding-bottom: 10px;
+    font-size: 36px;
+    font-weight: 300;
+    color: #287FA2;
+    line-height: 42px;
+    max-width: 200px;
+    padding-bottom: 10px;
 }
+
 .dashboard-items .item p {
-  font-size: 14px;
-  color: #D0D0D0;
-  letter-spacing: -0.4px;
-  margin-bottom: 20px;
-  font-weight: 300;
+    font-size: 14px;
+    color: #D0D0D0;
+    letter-spacing: -0.4px;
+    margin-bottom: 20px;
+    font-weight: 300;
 }
+
 .dashboard-items .item img {
-  height: 40px;
+    height: 40px;
 }
+
 .dashboard-items .item .number {
-  color: #6ab321;
-  font-size: 40px;
-  font-weight: 300;
-  padding-top: 0;
-  display: block;
+    color: #6ab321;
+    font-size: 40px;
+    font-weight: 300;
+    padding-top: 0;
+    display: block;
 }
+
 .dashboard-items .item a {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
 }
+
 @media screen and (max-width: 1200px) {
-  .dashboard-items .item {
-      width: calc(50% - 24px);
-  }
+    .dashboard-items .item {
+        width: calc(50% - 24px);
+    }
 }
+
 @media screen and (max-width: 960px) {
-  .dashboard-items .item {
-      width: calc(100% - 24px);
-  }
+    .dashboard-items .item {
+        width: calc(100% - 24px);
+    }
 }
+
 @media screen and (max-width: 767px) {
-  .dashboard-items {
-      margin: 0 -12px;
-  }
-  .dashboard-items .item h2 {
-      max-width: none;
-      font-size: 30px;
-      line-height: 34px;
-  }
-  .dashboard-items .item p {
-      margin-bottom: 40px;
-  }
-  .dashboard-items .item img {
-      height: 50px;
-  }
-  .dashboard-items .item .number {
-      font-size: 50px;
-  }
+    .dashboard-items {
+        margin: 0 -12px;
+    }
+    .dashboard-items .item h2 {
+        max-width: none;
+        font-size: 30px;
+        line-height: 34px;
+    }
+    .dashboard-items .item p {
+        margin-bottom: 40px;
+    }
+    .dashboard-items .item img {
+        height: 50px;
+    }
+    .dashboard-items .item .number {
+        font-size: 50px;
+    }
 }
+
+
 /* fin cards */
 
 
@@ -11247,7 +11260,7 @@ app-content-dashboard>.content {
         height: 40px;
         padding: 0 15px;
         border-radius: 40px;
-        background: url(/assets/images/arrow-white-select.svg) no-repeat calc(100% - 15px) center;
+        background: url(~/assets/images/arrow-white-select.svg) no-repeat calc(100% - 15px) center;
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
@@ -11263,7 +11276,7 @@ app-content-dashboard>.content {
         height: 40px;
         padding: 0 15px;
         border-radius: 40px;
-        background: url(/assets/images/arrow-select.svg) no-repeat calc(100% - 15px) center;
+        background: url(~/assets/images/arrow-select.svg) no-repeat calc(100% - 15px) center;
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;

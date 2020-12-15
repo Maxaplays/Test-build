@@ -12,7 +12,7 @@
 }
 
 .label-separator.has-childs {
-    background: url(/assets/images/arrow-down.svg) no-repeat calc(100% - 15px) center;
+    background: url(~/assets/images/arrow-down.svg) no-repeat calc(100% - 15px) center;
     background-color: #285e80;
     height: 47px;
 }
@@ -24,7 +24,8 @@
     transition: all .3s ease;
     opacity: .4;
 }
-.label-separator > span {
+
+.label-separator>span {
     vertical-align: middle;
     display: inline-block;
     position: relative;
@@ -40,18 +41,18 @@
     opacity: 1;
 }
 
-.label-separator:hover > span,
-.label-separator.active > span {
+.label-separator:hover>span,
+.label-separator.active>span {
     color: #fff;
 }
 
-.label-separator.active > span {
+.label-separator.active>span {
     font-weight: 700;
 }
 
 .add-link {
     position: relative;
-    background-image: url(/assets/images/icon-add.svg);
+    background-image: url(~/assets/images/icon-add.svg);
     background-repeat: no-repeat;
     background-position: 70px center;
     background-color: #6AB321;
@@ -71,12 +72,13 @@
 .add-link::after {
     content: '';
     position: absolute;
-    background: url(/assets/images/icon-arrow.svg) no-repeat center center;
+    background: url(~/assets/images/icon-arrow.svg) no-repeat center center;
     width: 30px;
     height: 30px;
     right: 7px;
     top: 14px;
 }
+
 .footer-sidebar {
     position: absolute;
     color: rgba(126, 182, 205, .5);
@@ -105,7 +107,7 @@
 .submenu.active,
 .submenu:hover {
     opacity: 1;
-    background: url(/assets/images/active-arrow.svg) no-repeat calc(100% - 15px) center;
+    background: url(~/assets/images/active-arrow.svg) no-repeat calc(100% - 15px) center;
     background-color: #6AB321;
 }
 
@@ -120,7 +122,8 @@
     margin-right: 15px;
 }
 
-.content-submenu-fabrica, .content-submenu-config {
+.content-submenu-fabrica,
+.content-submenu-config {
     height: 47px;
     overflow: hidden;
     transition: all .3s ease;
@@ -141,33 +144,34 @@
     color: #fff;
 }
 
-.min-sidebar .label-separator > span,
+.min-sidebar .label-separator>span,
 .min-sidebar .footer-sidebar {
     display: none!important;
 }
 
-.min-sidebar .submenu, .min-sidebar .label-separator {
-	padding: 0 20px!important;
+.min-sidebar .submenu,
+.min-sidebar .label-separator {
+    padding: 0 20px!important;
     font-size: 0!important;
 }
 
 .min-sidebar .label-separator {
-	line-height: 50px;
-	height: 50px;
+    line-height: 50px;
+    height: 50px;
 }
 
-.min-sidebar .submenu.active, .min-sidebar .submenu:hover {
-	background: #6AB321!important;
+.min-sidebar .submenu.active,
+.min-sidebar .submenu:hover {
+    background: #6AB321!important;
 }
 
 .min-sidebar .label-separator.has-childs {
-	background: #285e80!important;
+    background: #285e80!important;
 }
 
-.min-sidebar .label-separator img, 
+.min-sidebar .label-separator img,
 .min-sidebar .submenu img {
     display: inline-block!important;
     margin: 0!important;
     top: 0!important;
 }
-

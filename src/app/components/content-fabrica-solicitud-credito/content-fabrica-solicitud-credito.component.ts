@@ -1541,5 +1541,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         );
     }
   }
+  cambiarPestania(opcion: string) {
+    console.log('Cambio opcion:'+opcion);
+  }
 }
 

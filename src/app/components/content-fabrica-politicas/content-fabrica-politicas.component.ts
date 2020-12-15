@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FabricaService, DatosFabrica } from 'src/app/services/fabricaCredito/fabrica.service';
 import {DocumentosVisualizacionService, Excepcion} from '../../services/documentos/documentos-visualizacion.service';
@@ -40,6 +40,8 @@ export class ContentFabricaPoliticasComponent implements OnInit {
   comentarioExcepcion;
   politicasExepcion: any;
   loading: boolean;
+  @Input() idCre: string;
+  idCredito: string;
   // bkm
   constructor(private modalService: NgbModal,
               private fabricaService: FabricaService,
@@ -49,6 +51,20 @@ export class ContentFabricaPoliticasComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.idCre !== undefined && this.idCre !== '') {
+      this.idCredito = this.idCre;
+      console.log('Solicitud de credito:' + this.idCredito);
+      if(this.idCredito!== 'undefined' && this.idCredito!== 'undefined' && this.idCredito!== '') {
+      if (typeof this.idCredito !== 'undefined' && this.mensajeServicio=== undefined) {
+            this.fabricaService.getRetomarCredito(this.idCredito,
+              localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
+                (data: DatosFabrica) => {
+                  // console.log(data);
+                  this.fabricaService.changeMessage(data);
+                  // console.log('Acoplar Pantalla: ' + data.Estado);
+                  // this.acoplarPantalla(data.Estado);
+                });
+      }
     this.fabricaService.currentMessage.subscribe(
       data => {
         this.mensajeServicio = data;
@@ -56,6 +72,8 @@ export class ContentFabricaPoliticasComponent implements OnInit {
         this.politicas = this.getPoliticas();
         // console.log(data);
       });
+    }
+  }
   }
   incializarCredito() {
     this.fabricaService.getRetomarCredito(this.mensajeServicio.NumeroCredito,

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
+import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
+import { Excepcion } from '../../services/documentos/documentos-visualizacion.service';
 
 @Component({
   selector: 'app-steps',
@@ -16,14 +17,20 @@ export class StepsComponent implements OnInit {
     generacion: boolean = false;
     controlcalidad: boolean = false;
     resumen: boolean = false;
+    mensajeServicio: DatosFabrica;
 
   constructor(private fabricaService: FabricaService) { }
 
   ngOnInit() {
     this.fabricaService.currentMessage.subscribe(
       data => {
-        // console.log('Saludos desde el pasos component del estado ' + data.Estado);
-        this.acoplarPantalla(data.Estado);
+        try {
+          this.mensajeServicio= data;
+          this.acoplarPantalla(data.Estado);
+        }catch(Excepcion) {
+          this.mensajeServicio= new DatosFabrica();
+          this.mensajeServicio.NumeroCredito='';
+        }
       });
   }
 acoplarPantalla(lblEstadoSolicitud: string) {
@@ -39,10 +46,12 @@ acoplarPantalla(lblEstadoSolicitud: string) {
         lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
         lblEstadoSolicitud === 'Autorización Caducada' || lblEstadoSolicitud === 'Consultada' ||
-        lblEstadoSolicitud === 'Devuelta') {
+        lblEstadoSolicitud === 'Devuelta' || lblEstadoSolicitud === 'Verificando') {
           this.datosbasicos = true;
           this.credito = true;
                     if (lblEstadoSolicitud === 'Aprobada') {
+                      this.datosbasicos = true;
+                      this.credito = true;
                       // console.log('Bloqueado 1' + lblEstadoSolicitud);  
                       // btnSolicitarAnulacion.Visible = false;
                         // BtnEntregarCarpeta.Visible = true;
