@@ -173,7 +173,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
     if (this.idCre !== undefined && this.idCre !== '') {
       this.idCredito = this.idCre;
-      console.log('Solicitud de credito:' + this.idCredito);
+      // console.log('Solicitud de credito:' + this.idCredito);
       if (typeof this.idCredito !== 'undefined') {
             this.fabricaService.getRetomarCredito(this.idCredito,
               localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
@@ -206,8 +206,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.fabricaService.getRetomarCredito(this.idCredito,
     localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
               (data: DatosFabrica) => {
-                console.log(data);
-                console.log('Acoplar Pantalla estado:' + data.Estado);
+                // console.log(data);
+                // console.log('Acoplar Pantalla estado:' + data.Estado);
                 this.fabricaService.changeMessage(data);
                 this.acoplarPantalla(data.Estado);
                 this.getCliente();
@@ -297,10 +297,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       datosCliente.APE_CLI = this.FormularioDatosCliente.value.apellidoCliente;
       datosCliente.NOM_CLI = this.FormularioDatosCliente.value.nombreCliente;
       try {
-        console.log('Estado Civil: ' + this.FormularioDatosCliente.value.estadoCivil);
-        console.log('Fecha de Nacimiento: ' + this.FormularioDatosCliente.value.fechaNacimiento);
+        // console.log('Estado Civil: ' + this.FormularioDatosCliente.value.estadoCivil);
+        // console.log('Fecha de Nacimiento: ' + this.FormularioDatosCliente.value.fechaNacimiento);
         let fechaNacimiento: Date = new Date(this.FormularioDatosCliente.value.fechaNacimiento);
-        console.log("fecha de nacimiento convertida: " + fechaNacimiento.toISOString().substring(0, 10));
+        // console.log("fecha de nacimiento convertida: " + fechaNacimiento.toISOString().substring(0, 10));
         datosCliente.FECH_NAC_CLI = fechaNacimiento.toISOString().substring(0, 10);
       } catch {
       }
@@ -1042,13 +1042,15 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
   }
   public getDetalles(): any {
-    this.situacionFinancieraService.getDetalle(this.mensajeServicio.NumeroCredito)
-      .pipe(map(data => data['DETALLE']))
-      .subscribe((data: any) => {
-        this.detalle_ingresos = data[0];
-        this.Detalle_Dependiente = this.detalle_ingresos.INGRESOS_DEPENDIENTE;
-        this.Detalle_Independiente = this.detalle_ingresos.INGRESOS_INDEPENDIENTE;
-      });
+    if (this.mensajeServicio.NumeroCredito!==undefined && this.mensajeServicio.NumeroCredito!=='') {
+      this.situacionFinancieraService.getDetalle(this.mensajeServicio.NumeroCredito)
+        .pipe(map(data => data['DETALLE']))
+        .subscribe((data: any) => {
+          this.detalle_ingresos = data[0];
+          this.Detalle_Dependiente = this.detalle_ingresos.INGRESOS_DEPENDIENTE;
+          this.Detalle_Independiente = this.detalle_ingresos.INGRESOS_INDEPENDIENTE;
+        });
+    }
   }
   public getSituacionFinancieraTotalPatrimonio(): any {
     this.situacionFinancieraService.getTotalPatrimonio(this.mensajeServicio.NumeroCredito)
@@ -1149,7 +1151,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .pipe(map(data => data["LISTAREF"]))
       .subscribe((data: any) => {
         this.referencias = data;
-        console.log(data);
+        // console.log(data);
       });
   }
 
@@ -1396,7 +1398,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.formaEntregarCarpeta.value.NumeroAutorizacion, this.formaEntregarCarpeta.value.PersonaRecibe
         ).subscribe(
         (data: any) => {
-          console.log(data);
+          // console.log(data);
           if (data === true ) {
             this.modalService.dismissAll();
             this.router.navigate(['/fabrica/consulta-general']);
@@ -1542,7 +1544,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
   }
   cambiarPestania(opcion: string) {
-    console.log('Cambio opcion:'+opcion);
+    // console.log('Cambio opcion:'+opcion);
   }
 }
 

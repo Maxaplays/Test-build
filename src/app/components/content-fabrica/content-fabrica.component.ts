@@ -125,7 +125,7 @@ export class ContentFabricaComponent implements OnInit {
     );
   }
   getProducto() {
-    console.log(localStorage.getItem('codigoSucursal'));
+    // console.log(localStorage.getItem('codigoSucursal'));
     this.productosService.getProductos(localStorage.getItem('codigoSucursal')).subscribe(
       (data: any) => {
         this.productos = data.PRODUCTO;

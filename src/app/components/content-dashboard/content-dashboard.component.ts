@@ -23,7 +23,7 @@ export class ContentDashboardComponent implements OnInit {
     // console.log(localStorage.getItem('codigoSucursal'));
     this.fabricaService.getConsultaDashboard(localStorage.getItem('usuario')).pipe(map(data => data["CREDITO"])).subscribe(
       (data: any[]) => {
-        console.log(data);
+        // console.log(data);
         this.ingresando = data[0].Ingresando;
         this.revision = data[0].Revision;
         this.finalizadas = data[0].Finalizadas;

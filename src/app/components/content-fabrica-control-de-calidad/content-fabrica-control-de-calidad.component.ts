@@ -58,7 +58,7 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
   ngOnInit() {
     if (this.idCre !== undefined && this.idCre !== '') {
       this.idCredito = this.idCre;
-      console.log('Solicitud de credito:' + this.idCredito);
+      // console.log('Solicitud de credito:' + this.idCredito);
       if(this.idCredito!== 'undefined' && this.idCredito!== 'undefined' && this.idCredito!== '') {
       if (typeof this.idCredito !== 'undefined' && this.mensajeServicio=== undefined) {
             this.fabricaService.getRetomarCredito(this.idCredito,
@@ -294,7 +294,7 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
     lblEstadoSolicitud === 'Autorización Caducada' || lblEstadoSolicitud === 'Consultada' ||
     lblEstadoSolicitud === 'Ingresando' || lblEstadoSolicitud === 'Verificando' || lblEstadoSolicitud === 'Devuelta' ||
     lblEstadoSolicitud === 'Re-verificación' || lblEstadoSolicitud === 'Guardada') {
-          console.log('Bloqueado 0' + lblEstadoSolicitud);
+          // console.log('Bloqueado 0' + lblEstadoSolicitud);
           // pageControlCliente.TabPages[7].Enabled = true;
           if (lblEstadoSolicitud === 'Aprobada') {
                       // console.log('Bloqueado 1' + lblEstadoSolicitud);
@@ -352,7 +352,7 @@ export class ContentFabricaControlDeCalidadComponent implements OnInit {
                         }
                     }
                 } else {
-                  console.log('Bloqueado 5' + lblEstadoSolicitud);
+                  // console.log('Bloqueado 5' + lblEstadoSolicitud);
                   this.btnSolicitarAnulacion = false;
                   this.SubirArchivos = false;
                   this.BtnEntregarCarpeta = true;

@@ -28,7 +28,7 @@ export class SidebarLoginComponent implements OnInit {
         // this.tipos = data;
         // console.log(parametro);
         // this.username = data.username;
-        console.log(data);
+        // console.log(data);
         if (data.error ===  null) {
           // si esta logueado
           localStorage.setItem('usuario', data.username);//nombre de usuario
@@ -45,7 +45,7 @@ export class SidebarLoginComponent implements OnInit {
         }
         // this.nombre = data;
       }, ( errorServicio ) => {
-        console.log('Error');
+        // console.log('Error');
       }
     );
   }

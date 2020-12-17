@@ -22,7 +22,7 @@ export class DocumentosVisualizacionService {
   private getQuery(query: string) {
     const urlDocumentos = 'DocumentosVisualizacion/';
     const url = environment.urlServiciosBackend + urlDocumentos +  query;
-    console.log('TipoDirService: ' + url);
+    // console.log('TipoDirService: ' + url);
     return this.http.get(url);
   }
 
@@ -53,7 +53,7 @@ export class DocumentosVisualizacionService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
-      console.log(`${operation} failed: ${error.message}`);
+      // console.log(`${operation} failed: ${error.message}`);
 
       return of(result as T);
     };

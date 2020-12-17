@@ -25,7 +25,7 @@ export class FabricaService {
 
   private getQuery(query: string) {
     const url = environment.urlServiciosBackend + query;
-    console.log(url);
+    // console.log(url);
     return this.http.get(url);
   }
   public getEnvioFabricaServiceBi(datosParaEnviar: EnvioFabricaServiceBi) {
@@ -50,7 +50,7 @@ export class FabricaService {
     return this.http.get(url);
   }
   public getcalcularValoresSimulador(valoresSimulador: ValoresSimulador) {
-    console.log(valoresSimulador);
+    // console.log(valoresSimulador);
     const url = environment.urlServiciosBackend + `FabricaCredito/calcularValoresSimulador`;
     return this.http.post<ValoresSimulador>(url, valoresSimulador, this.httpOptions)
       .pipe(
@@ -63,7 +63,7 @@ export class FabricaService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
-      console.log(`${operation} failed: ${error.message}`);
+      // console.log(`${operation} failed: ${error.message}`);
 
       return of(result as T);
     };

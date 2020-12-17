@@ -66,7 +66,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     this.initForm();
     if (this.idCre !== undefined && this.idCre !== '') {
       this.idCredito = this.idCre;
-      console.log('Solicitud de credito:' + this.idCredito);
+      // console.log('Solicitud de credito:' + this.idCredito);
       if(this.idCredito!== 'undefined' && this.idCredito!== 'undefined' && this.idCredito!== '') {
       if (typeof this.idCredito !== 'undefined' && this.mensajeServicio=== undefined) {
             this.fabricaService.getRetomarCredito(this.idCredito,
@@ -200,7 +200,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
             this.FormularioDatosReportes.controls['numeroCuenta'].setValue(resultado.NumeroCuentaBancaria);
           }
           this.urlArchivoGenerado = data.urlArchivoGenerado;
-          console.log(data);
+          // console.log(data);
           this.loading = false;
           this.getTipoReportes();
           this.estadoGeneracion = resultado.GenerarDocumentos;
@@ -252,7 +252,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     try {
       if (this.mensajeServicio.FECHA_INICIO_CREDITO_REAL_CRE !== '' && this.mensajeServicio.FCH_PAGARE_SOL !== '') {
          this.puedeCambiarFechas = true;
-         console.log('Cambio a no editable ' + this.puedeCambiarFechas);
+         // console.log('Cambio a no editable ' + this.puedeCambiarFechas);
       } else {
        // console.log('Si se puede editar ' + this.puedeCambiarFechas);
       }
@@ -274,7 +274,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
       FECHA_INICIO_CREDITO_REAL_CRE = new Date(this.mensajeServicio.FECHA_INICIO_CREDITO_REAL_CRE);
       fechaInicioCreditoTexto = FECHA_INICIO_CREDITO_REAL_CRE.toISOString().substring(0, 10);
    } catch {}
-   console.log('Iniciarliza formulario con ' + fechaPagareTexto +' ' + fechaInicioCreditoTexto);
+   // console.log('Iniciarliza formulario con ' + fechaPagareTexto +' ' + fechaInicioCreditoTexto);
     this.FormularioDatosReportes = new FormGroup({
       fechaPagare: new FormControl({value: fechaPagareTexto,
                                     disabled: this.puedeCambiarFechas}, Validators.required),
@@ -324,10 +324,10 @@ export class ContentFabricaGeneracionComponent implements OnInit {
         this.FechaPrimerPagoMin = new Date(this.addDays(FechaPagareCalculada,
                                             +Number(this.FormularioDatosReportes.controls['diasInicio'].value)));
         let diferencia = +Number(this.FormularioDatosReportes.controls['creditoMaximo'].value)-Number(this.FormularioDatosReportes.controls['diasInicio'].value);
-        console.log("FechaPrimerPagoMin:"+this.FechaPrimerPagoMin.toString());
-        console.log("Diferencia:"+diferencia.toString());
+        // console.log("FechaPrimerPagoMin:"+this.FechaPrimerPagoMin.toString());
+        // console.log("Diferencia:"+diferencia.toString());
         this.FechaPrimerPagoMax = new Date(this.addDays(FechaPagareCalculada, diferencia));
-        console.log("FechaPrimerPagoMax:"+this.FechaPrimerPagoMax.toString());
+        // console.log("FechaPrimerPagoMax:"+this.FechaPrimerPagoMax.toString());
       } catch {}
     }
   }

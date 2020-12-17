@@ -53,7 +53,7 @@ export class ContentFabricaPoliticasComponent implements OnInit {
   ngOnInit() {
     if (this.idCre !== undefined && this.idCre !== '') {
       this.idCredito = this.idCre;
-      console.log('Solicitud de credito:' + this.idCredito);
+      // console.log('Solicitud de credito:' + this.idCredito);
       if(this.idCredito!== 'undefined' && this.idCredito!== 'undefined' && this.idCredito!== '') {
       if (typeof this.idCredito !== 'undefined' && this.mensajeServicio=== undefined) {
             this.fabricaService.getRetomarCredito(this.idCredito,
@@ -235,7 +235,7 @@ export class ContentFabricaPoliticasComponent implements OnInit {
                         // BtnGuardar.Visible = false;
                       } else {
                         if (lblEstadoSolicitud === 'Cancelada') {
-                          console.log('Bloqueado 3' + lblEstadoSolicitud);
+                          // console.log('Bloqueado 3' + lblEstadoSolicitud);
                           this.ASPxActualizarSOL = false;
                           this.btnSolicitarAnulacion = false;
                           this.BtnEntregarCarpeta = false;

@@ -48,12 +48,12 @@ export class ContentFabricaCreditoComponent implements OnInit {
     this.initForm(); // inicializar la forma de la pantalla de ReactDriven
     if (this.idCre !== undefined && this.idCre !== '') {
       this.idCredito = this.idCre;
-      console.log('Solicitud de credito:' + this.idCredito);
+      // console.log('Solicitud de credito:' + this.idCredito);
       if (typeof this.idCredito !== 'undefined') {
             this.fabricaService.getRetomarCredito(this.idCredito,
               localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
                 (data: DatosFabrica) => {
-                  console.log(data);
+                  // console.log(data);
                   this.fabricaService.changeMessage(data);
                   this.mensajeServicio = data;
                   this.InicilizarValoresRecargarConsulta();
@@ -73,7 +73,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
       data => {
         this.mensajeServicio = data;
         this.InicilizarValores();
-        console.log(data);
+        // console.log(data);
       });
     }
   }
@@ -92,7 +92,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
   }
   // bkm
   InicilizarValoresRecargarConsulta() {
-    console.log(this.mensajeServicio);
+    // console.log(this.mensajeServicio);
     this.FormularioDatosBasicos.controls['aplicadoPerfil'].setValue(this.mensajeServicio.PerfilAplicado.replace(',', '.'));
     this.FormularioDatosBasicos.controls['aplicadoMontoVenta'].setValue(this.mensajeServicio.ValorTotal.replace(',', '.'));
     this.FormularioDatosBasicos.controls['aplicadoEntrada'].setValue(this.mensajeServicio.EntradaAplicada.replace(',', '.'));
@@ -141,7 +141,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
     this.onIngresosChange();
   }
   InicilizarValores() {
-    console.log(this.mensajeServicio);
+    // console.log(this.mensajeServicio);
     this.FormularioDatosBasicos.controls['aplicadoPerfil'].setValue(this.mensajeServicio.PerfilAplicado.replace(',', '.'));
     this.FormularioDatosBasicos.controls['aplicadoMontoVenta'].setValue(this.mensajeServicio.ValorTotal.replace(',', '.'));
     this.FormularioDatosBasicos.controls['aplicadoVentaTotal'].setValue(this.mensajeServicio.Monto.replace(',', '.'));

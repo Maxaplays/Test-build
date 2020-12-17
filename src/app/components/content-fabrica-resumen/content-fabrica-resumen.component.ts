@@ -69,7 +69,7 @@ export class ContentFabricaResumenComponent implements OnInit {
     this.initForm();
     if (this.idCre !== undefined && this.idCre !== '') {
       this.idCredito = this.idCre;
-      console.log('Solicitud de credito:' + this.idCredito);
+      // console.log('Solicitud de credito:' + this.idCredito);
       if(this.idCredito!== 'undefined' && this.idCredito!== 'undefined' && this.idCredito!== '') {
       if (typeof this.idCredito !== 'undefined' && this.mensajeServicio=== undefined) {
             this.fabricaService.getRetomarCredito(this.idCredito,
@@ -89,7 +89,7 @@ export class ContentFabricaResumenComponent implements OnInit {
           this.crearFormularioResumen();
           this.getResumenes();
           
-          console.log(this.mensajeServicio);
+          // console.log(this.mensajeServicio);
         });
       }
     
@@ -112,7 +112,7 @@ export class ContentFabricaResumenComponent implements OnInit {
       .subscribe((data: any) => {
         this.resumenes = data[0];
         this.cargarFormularioResumen();
-        console.log(this.resumenes);
+        // console.log(this.resumenes);
       });
   }
   cargarFormularioResumen() {
@@ -256,7 +256,7 @@ export class ContentFabricaResumenComponent implements OnInit {
     try {
       if (this.mensajeServicio.FECHA_INICIO_CREDITO_REAL_CRE !== '' && this.mensajeServicio.FCH_PAGARE_SOL !== '') {
         this.puedeCambiarFechas = true;
-        console.log('Cambio a no editable ' + this.puedeCambiarFechas);
+        // console.log('Cambio a no editable ' + this.puedeCambiarFechas);
       } else {
         // console.log('Si se puede editar ' + this.puedeCambiarFechas);
       }
@@ -278,7 +278,7 @@ export class ContentFabricaResumenComponent implements OnInit {
       FECHA_INICIO_CREDITO_REAL_CRE = new Date(this.mensajeServicio.FECHA_INICIO_CREDITO_REAL_CRE);
       fechaInicioCreditoTexto = FECHA_INICIO_CREDITO_REAL_CRE.toISOString().substring(0, 10);
     } catch {}
-    console.log('Iniciarliza formulario con ' + fechaPagareTexto +' ' + fechaInicioCreditoTexto);
+    // console.log('Iniciarliza formulario con ' + fechaPagareTexto +' ' + fechaInicioCreditoTexto);
     this.FormularioDatosReportes = new FormGroup({
       fechaPagare: new FormControl({value: fechaPagareTexto,
         disabled: this.puedeCambiarFechas}, Validators.required),
