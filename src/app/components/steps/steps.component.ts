@@ -35,6 +35,26 @@ export class StepsComponent implements OnInit {
   }
 acoplarPantalla(lblEstadoSolicitud: string) {
     // console.log('Bloqueo de controles de ' + lblEstadoSolicitud);
+    if (lblEstadoSolicitud === '') {
+      this.datosbasicos = false;
+      this.credito = true;
+      this.solicitudcredito = true;
+      this.requisitos = true;
+      this.politicas = true;
+      this.generacion = true;
+      this.controlcalidad = true;
+      this.resumen= true;
+    }
+    if (lblEstadoSolicitud === 'Consultada') {
+      this.datosbasicos = true;
+      this.credito = false;
+      this.solicitudcredito = true;
+      this.requisitos = true;
+      this.politicas = true;
+      this.generacion = true;
+      this.controlcalidad = true;
+      this.resumen= true;
+    }
     if (lblEstadoSolicitud === 'Ingresando' || lblEstadoSolicitud === 'Retornada') {
           this.datosbasicos = true;
           this.credito = true;
@@ -45,7 +65,7 @@ acoplarPantalla(lblEstadoSolicitud: string) {
         lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Caducada' ||
         lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
         lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
-        lblEstadoSolicitud === 'Autorización Caducada' || lblEstadoSolicitud === 'Consultada' ||
+        lblEstadoSolicitud === 'Autorización Caducada'  ||
         lblEstadoSolicitud === 'Devuelta' || lblEstadoSolicitud === 'Verificando') {
           this.datosbasicos = true;
           this.credito = true;

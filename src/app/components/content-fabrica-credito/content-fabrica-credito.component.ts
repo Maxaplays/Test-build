@@ -347,7 +347,7 @@ export class ContentFabricaCreditoComponent implements OnInit {
               this.mensajeServicio.Monto = data.montoCreditoReal;
               this.fabricaService.changeMessage(this.mensajeServicio);
               this.loading = false;
-              this.router.navigate(['/fabrica/nueva-solicitud/solicitud-credito']);
+              this.router.navigate(['/fabrica/nueva-solicitud/solicitud-credito/' + this.mensajeServicio.NumeroCredito]);
             }
           }
           // this.router.navigate(['/fabrica/nueva-solicitud/credito']);
