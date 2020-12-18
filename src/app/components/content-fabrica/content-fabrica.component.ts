@@ -201,7 +201,7 @@ export class ContentFabricaComponent implements OnInit {
           // console.log('Padre:');
           if (this.datosGenerales.Error === 'Solicitud creada exitosamente') {
             this.loading = false;
-            this.router.navigate(['/fabrica/nueva-solicitud/credito']);
+            this.router.navigate(['/fabrica/nueva-solicitud/credito/'+this.mensajeServicio.NumeroCredito]);
           } else {
             if (this.datosGenerales.Error === 'El cliente ya tiene una solicitud previa:') {
               // Credito de cliente duplicado

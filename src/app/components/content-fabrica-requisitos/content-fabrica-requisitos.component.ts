@@ -188,7 +188,7 @@ export class ContentFabricaRequisitosComponent implements OnInit {
       this.subirArchivo();
       this.desmarcar = false;
       this.Archivos = [];
-      this.router.navigate(['/fabrica/nueva-solicitud/requisitos']);
+      this.router.navigate(['/fabrica/nueva-solicitud/requisitos/' + this.mensajeServicio.NumeroCredito]);
     }
   }
 
