@@ -460,21 +460,28 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       datosReferencia.email = this.FormularioDatosReferencia.value.email;
       datosReferencia.cliente = this.mensajeServicio.Cedula;
       datosReferencia.ID_REF = this.referenciaID_REFeditable;
-      //console.log(datosReferencia);
-      this.referenciasServices.postReferencias(datosReferencia, this.crearReferencia).subscribe(
-        (data: any) => {
-          let resultado = data;
-          // console.log(data);
-          if(resultado.resultado === 'Referencia ingresada'){
-            this.modalService.dismissAll();
-            this.successMessage = 'Referencia Guardado Exitosamente!';
-            this.getListaReferencias();
-          } else {
-            // Error
-            this.errorMessage = data.error;
-            this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
-          }
-        });
+
+      if ((this.FormularioDatosReferencia.value.telefono_dom.value !== '' && this.FormularioDatosReferencia.value.telefono_dom.length !== 9) ||
+        (this.FormularioDatosReferencia.value.telefono_trab.value !== '' && his.FormularioDatosReferencia.value.telefono_trab.length !== 9) ||
+        (this.FormularioDatosReferencia.value.celular.value !== '' && this.FormularioDatosReferencia.value.celular.length !==10)) {
+          this.errorMessage = 'Los teléfonos deben ter 9 dígitos y los celulares 10 dígitos';
+          this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+      } else {
+        this.referenciasServices.postReferencias(datosReferencia, this.crearReferencia).subscribe(
+          (data: any) => {
+            let resultado = data;
+            // console.log(data);
+            if (resultado.resultado === 'Referencia ingresada') {
+              this.modalService.dismissAll();
+              this.successMessage = 'Referencia Guardado Exitosamente!';
+              this.getListaReferencias();
+            } else {
+              // Error
+              this.errorMessage = data.error;
+              this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+            }
+          });
+      }
       } else {
         this.errorMessage = 'Datos de referencia incorrectos, favor revise';
         this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
@@ -1108,20 +1115,25 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     datosConyuge.ESTADO_CON = this.FormularioDatosConyuge.value.rucTrabajo;
     datosConyuge.usuario = localStorage.getItem('usuario');
 
-    this.conyugesServices.postConyuge(datosConyuge).subscribe(
-      (data: any) => {
-        resultado = data;
-        // console.log(resultado);
-        if (resultado === 'Conyuge actualizado exitosamente!'){
-          this.successMessage = 'Conyuge actualizado exitosamente!';
-          this.getListaConyuges();
-          this.modalService.dismissAll();
-        } else {
-          // Error
-          this.errorMessage = data;
-          this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
-        }
-      });
+    if (this.FormularioDatosConyuge.value.telefonoConyuge.value !== '' && this.FormularioDatosConyuge.value.telefonoConyuge.length !== 10 ) {
+      this.errorMessage = 'El número debe tener 10 dígitos';
+      this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+    } else {
+        this.conyugesServices.postConyuge(datosConyuge).subscribe(
+        (data: any) => {
+          resultado = data;
+          // console.log(resultado);
+          if (resultado === 'Conyuge actualizado exitosamente!') {
+            this.successMessage = 'Conyuge actualizado exitosamente!';
+            this.getListaConyuges();
+            this.modalService.dismissAll();
+          } else {
+            // Error
+            this.errorMessage = data;
+            this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+          }
+        });
+    }
     } else {
       this.errorMessage = 'Datos de conyuge incorrectos, favor revise';
       this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
@@ -1427,24 +1439,32 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       if (this.formaTelefonos.value.ExtensionTelefono !== '') {
         extension = this.formaTelefonos.value.ExtensionTelefono;
       }
-      this.telefonoService.postTelefono(this.formaTelefonos.value.TipoTelefono,
-                                        this.mensajeServicio.Cedula,
-                             this.formaTelefonos.value.NumeroTelefono.toString(),
-                                        extension, this.codigoTelefono, this.crearTelefono, localStorage.getItem('usuario')).subscribe(
-        (data: any) => {
-          if (data.error !== null) {
-            // console.log(data.error);
-            this.advertenceMessage = 'Teléfono duplicado';
-            this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
-          } else {
-            this.modalService.dismissAll();
-            this.telefonos = this.getTelefonos();
-            this.successMessage = 'Información guardada!';
+      if (this.formaTelefonos.value.TipoTelefono === 'FIJO' && this.formaTelefonos.value.NumeroTelefono.length !== 9) {
+        this.advertenceMessage = 'El número debe tener 9 dígitos';
+        this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+      } else if (this.formaTelefonos.value.TipoTelefono === 'MOVIL' && this.formaTelefonos.value.NumeroTelefono.length !== 10) {
+        this.advertenceMessage = 'El número debe tener 10 dígitos';
+        this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+      } else {
+        this.telefonoService.postTelefono(this.formaTelefonos.value.TipoTelefono,
+          this.mensajeServicio.Cedula,
+          this.formaTelefonos.value.NumeroTelefono.toString(),
+          extension, this.codigoTelefono, this.crearTelefono, localStorage.getItem('usuario')).subscribe(
+          (data: any) => {
+            if (data.error !== null) {
+              // console.log(data.error);
+              this.advertenceMessage = 'Teléfono duplicado';
+              this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+            } else {
+              this.modalService.dismissAll();
+              this.telefonos = this.getTelefonos();
+              this.successMessage = 'Información guardada!';
+            }
+          }, (errorServicio) => {
+            // console.log('Error');
           }
-        }, (errorServicio) => {
-          // console.log('Error');
-        }
-      );
+        );
+      }
     }
   }
   onDatosComplementariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
