@@ -462,7 +462,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       datosReferencia.ID_REF = this.referenciaID_REFeditable;
 
       if ((this.FormularioDatosReferencia.value.telefono_dom.value !== '' && this.FormularioDatosReferencia.value.telefono_dom.length !== 9) ||
-        (this.FormularioDatosReferencia.value.telefono_trab.value !== '' && his.FormularioDatosReferencia.value.telefono_trab.length !== 9) ||
+        (this.FormularioDatosReferencia.value.telefono_trab.value !== '' && this.FormularioDatosReferencia.value.telefono_trab.length !== 9) ||
         (this.FormularioDatosReferencia.value.celular.value !== '' && this.FormularioDatosReferencia.value.celular.length !==10)) {
           this.errorMessage = 'Los teléfonos deben ter 9 dígitos y los celulares 10 dígitos';
           this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
