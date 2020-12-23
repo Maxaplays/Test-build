@@ -461,27 +461,20 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       datosReferencia.cliente = this.mensajeServicio.Cedula;
       datosReferencia.ID_REF = this.referenciaID_REFeditable;
 
-      if ((this.FormularioDatosReferencia.value.telefono_dom.value !== '' && this.FormularioDatosReferencia.value.telefono_dom.length !== 9) ||
-        (this.FormularioDatosReferencia.value.telefono_trab.value !== '' && his.FormularioDatosReferencia.value.telefono_trab.length !== 9) ||
-        (this.FormularioDatosReferencia.value.celular.value !== '' && this.FormularioDatosReferencia.value.celular.length !==10)) {
-          this.errorMessage = 'Los teléfonos deben ter 9 dígitos y los celulares 10 dígitos';
-          this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
-      } else {
-        this.referenciasServices.postReferencias(datosReferencia, this.crearReferencia).subscribe(
-          (data: any) => {
-            let resultado = data;
-            // console.log(data);
-            if (resultado.resultado === 'Referencia ingresada') {
-              this.modalService.dismissAll();
-              this.successMessage = 'Referencia Guardado Exitosamente!';
-              this.getListaReferencias();
-            } else {
-              // Error
-              this.errorMessage = data.error;
-              this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
-            }
-          });
-      }
+      this.referenciasServices.postReferencias(datosReferencia, this.crearReferencia).subscribe(
+        (data: any) => {
+          let resultado = data;
+          // console.log(data);
+          if (resultado.resultado === 'Referencia ingresada') {
+            this.modalService.dismissAll();
+            this.successMessage = 'Referencia Guardado Exitosamente!';
+            this.getListaReferencias();
+          } else {
+            // Error
+            this.errorMessage = data.error;
+            this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+          }
+        });
       } else {
         this.errorMessage = 'Datos de referencia incorrectos, favor revise';
         this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
