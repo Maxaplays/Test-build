@@ -461,6 +461,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       datosReferencia.cliente = this.mensajeServicio.Cedula;
       datosReferencia.ID_REF = this.referenciaID_REFeditable;
 
+
       this.referenciasServices.postReferencias(datosReferencia, this.crearReferencia).subscribe(
         (data: any) => {
           let resultado = data;
