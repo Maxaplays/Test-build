@@ -1109,11 +1109,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     datosConyuge.ESTADO_CON = this.FormularioDatosConyuge.value.rucTrabajo;
     datosConyuge.usuario = localStorage.getItem('usuario');
 
-    if (this.FormularioDatosConyuge.value.telefonoConyuge.value !== '' && this.FormularioDatosConyuge.value.telefonoConyuge.length !== 10 ) {
-      this.errorMessage = 'El número debe tener 10 dígitos';
-      this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
-    } else {
-        this.conyugesServices.postConyuge(datosConyuge).subscribe(
+    this.conyugesServices.postConyuge(datosConyuge).subscribe(
         (data: any) => {
           resultado = data;
           // console.log(resultado);
@@ -1127,7 +1123,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
             this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
           }
         });
-    }
     } else {
       this.errorMessage = 'Datos de conyuge incorrectos, favor revise';
       this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
