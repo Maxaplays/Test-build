@@ -361,7 +361,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       cedula: new FormControl(null, Validators.required),
       apellidoConyuge: new FormControl(null, Validators.required),
       nombreConyuge: new FormControl(null, Validators.required),
-      telefonoConyuge: new FormControl(null),
+      telefonoConyuge: new FormControl(null, Validators.pattern('^[0-9]*$')),
       fechaNacimiento: new FormControl(null, Validators.required),
       genero: new FormControl(null),
       nacionalidad: new FormControl(null),
@@ -414,9 +414,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       apellido: new FormControl(null, Validators.required),
       nombre: new FormControl(null, Validators.required),
       direccion: new FormControl(null),
-      telefono_dom: new FormControl(null, [Validators.minLength(9), Validators.maxLength(10)]),
-      celular: new FormControl(null, [Validators.required, Validators.minLength(9), Validators.maxLength(10)]),
-      telefono_trab: new FormControl(null, [Validators.minLength(9), Validators.maxLength(10)]),
+      telefono_dom: new FormControl(null, [Validators.minLength(9), Validators.maxLength(9), Validators.pattern('^[0-9]*$')]),
+      celular: new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]*$')]),
+      telefono_trab: new FormControl(null, [Validators.minLength(9), Validators.maxLength(9), Validators.pattern('^[0-9]*$')]),
       empresa: new FormControl(null),
       direc_emp: new FormControl(null),
       observa_ref: new FormControl(null),
@@ -1092,37 +1092,41 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     datosConyuge.COD_TDOC = this.FormularioDatosConyuge.value.tipoDocumentacion;
     datosConyuge.APE_CON = this.FormularioDatosConyuge.value.apellidoConyuge;
     datosConyuge.NOM_CON = this.FormularioDatosConyuge.value.nombreConyuge;
-    datosConyuge.telefono = this.FormularioDatosConyuge.value.telefonoConyuge;
+    datosConyuge.telefono = this.FormularioDatosConyuge.value.telefonoConyuge.trim();
     datosConyuge.COD_NAC = this.FormularioDatosConyuge.value.nacionalidad;
     datosConyuge.COD_PRO = this.FormularioDatosConyuge.value.profesion;
-    if (this.FormularioDatosConyuge.value.fechaNacimiento !== null) {
-      try {
-      // console.log("Fecha ingresada:" + this.FormularioDatosConyuge.value.fechaNacimiento);
-      let fechaNacimiento: Date = new Date(this.FormularioDatosConyuge.value.fechaNacimiento);
-      datosConyuge.FECH_NAC_CON = fechaNacimiento.toISOString().substring(0, 10);
-      } catch { }
-    } else {
-      datosConyuge.FECH_NAC_CON = '';
-    }
     datosConyuge.OBSERVACIONES_CON = this.FormularioDatosConyuge.value.observaciones;
     datosConyuge.DIR_TRAB_CON = this.FormularioDatosConyuge.value.direccion;
     datosConyuge.ESTADO_CON = this.FormularioDatosConyuge.value.rucTrabajo;
     datosConyuge.usuario = localStorage.getItem('usuario');
-
-    this.conyugesServices.postConyuge(datosConyuge).subscribe(
-        (data: any) => {
-          resultado = data;
-          // console.log(resultado);
-          if (resultado === 'Conyuge actualizado exitosamente!') {
-            this.successMessage = 'Conyuge actualizado exitosamente!';
-            this.getListaConyuges();
-            this.modalService.dismissAll();
-          } else {
-            // Error
-            this.errorMessage = data;
-            this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
-          }
-        });
+    if (this.FormularioDatosConyuge.value.fechaNacimiento !== null) {
+        try {
+          // console.log("Fecha ingresada:" + this.FormularioDatosConyuge.value.fechaNacimiento);
+          let fechaNacimiento: Date = new Date(this.FormularioDatosConyuge.value.fechaNacimiento);
+          datosConyuge.FECH_NAC_CON = fechaNacimiento.toISOString().substring(0, 10);
+        } catch { }
+      } else {
+        datosConyuge.FECH_NAC_CON = '';
+    }
+    if (datosConyuge.telefono !== '' && datosConyuge.telefono.length !== 10) {
+      this.errorMessage = 'El Teléfono Móvil debe tener 10 dígitos';
+      this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+    } else {
+        this.conyugesServices.postConyuge(datosConyuge).subscribe(
+          (data: any) => {
+            resultado = data;
+            // console.log(resultado);
+            if (resultado === 'Conyuge actualizado exitosamente!') {
+              this.successMessage = 'Conyuge actualizado exitosamente!';
+              this.getListaConyuges();
+              this.modalService.dismissAll();
+            } else {
+              // Error
+              this.errorMessage = data;
+              this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+            }
+          });
+      }
     } else {
       this.errorMessage = 'Datos de conyuge incorrectos, favor revise';
       this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
@@ -1428,6 +1432,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       if (this.formaTelefonos.value.ExtensionTelefono !== '') {
         extension = this.formaTelefonos.value.ExtensionTelefono;
       }
+      this.formaTelefonos.value.NumeroTelefono = this.formaTelefonos.value.NumeroTelefono.toString().trim();
       if (this.formaTelefonos.value.TipoTelefono === 'FIJO' && this.formaTelefonos.value.NumeroTelefono.length !== 9) {
         this.advertenceMessage = 'El número debe tener 9 dígitos';
         this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
