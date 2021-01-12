@@ -87,25 +87,25 @@
                     <fieldset>
                         <label class="label">Seleccione los items que desea imprimir</label>
                         <div class="imit-input">
-                          <table width="100%">
-                            <tr >
-                              <td>Nombre</td>
-                              <td *ngIf="firmaElectronica">Fecha Envío</td>
-                              <td *ngIf="firmaElectronica">Estado</td>
-                            </tr>
-                            <tr *ngFor="let item of tipoReportes">
-                              <td><input type="checkbox" [checked]="item.selected" [value]="item.nombreReporte" (change)="item.selected = !item.selected" [disabled]="item.activo"><label for="solicitud">{{item.nombreArchivo}}</label></td>
-                              <td *ngIf="firmaElectronica">{{item.FechaEnvio | date: 'dd/MM/yyyy'}}</td>
-                              <td *ngIf="firmaElectronica">{{item.Estado}}</td>
-                            </tr>
-                          </table>
+                            <table width="100%">
+                                <tr>
+                                    <td>Nombre</td>
+                                    <td *ngIf="firmaElectronica">Fecha Envío</td>
+                                    <td *ngIf="firmaElectronica">Estado</td>
+                                </tr>
+                                <tr *ngFor="let item of tipoReportes">
+                                    <td><input type="checkbox" [checked]="item.selected" [value]="item.nombreReporte" (change)="item.selected = !item.selected" [disabled]="item.activo"><label for="solicitud">{{item.nombreArchivo}}</label></td>
+                                    <td *ngIf="firmaElectronica">{{item.FechaEnvio | date: 'dd/MM/yyyy'}}</td>
+                                    <td *ngIf="firmaElectronica">{{item.Estado}}</td>
+                                </tr>
+                            </table>
                         </div>
                     </fieldset>
                 </div>
                 <div>
                     <fieldset>
                         <label class="label">Fecha Pagaré</label>
-                        <input formControlName="fechaPagare" type="date" placeholder="dd/mm/aaaa" (keyup)="cambioFechaPagare($event.target.value)">
+                        <input formControlName="fechaPagare" placeholder="dd/mm/aaaa" (keyup)="cambioFechaPagare($event.target.value)">
                         <label class="label postinput">Fecha Minima:{{FechaPagareMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPagareMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
                     <fieldset>
@@ -114,7 +114,7 @@
                     </fieldset>
                     <fieldset>
                         <label class="label">Fecha Primer Pago</label>
-                        <input formControlName="fechaPrimerPago" type="date" placeholder="dd/mm/aaaa" tabindex="4">
+                        <input formControlName="fechaPrimerPago" placeholder="dd/mm/aaaa" tabindex="4">
                         <label class="label postinput">Fecha Minima:{{FechaPrimerPagoMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPrimerPagoMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
                     <fieldset>
