@@ -147,9 +147,11 @@ export class ContentFabricaGeneracionComponent implements OnInit {
       });
   }
 
-  generarDocumentos(content, contentError) {
-    let string1 = this.FormularioDatosReportes.controls['fechaPagare'].value.substring(0, 10) + ' 00:00:00';
-    let string2 = this.FormularioDatosReportes.controls['fechaPrimerPago'].value.substring(0, 10) + ' 00:00:00';
+  generarDocumentos(content, contentError,fechaPagare,fechaPrimerPago) {
+    let SplitfechaPagare = fechaPagare.split("/");
+    let SplitfechaPrimerPago = fechaPrimerPago.split("/");
+    let string1 = SplitfechaPagare[1]+"/"+SplitfechaPagare[0]+"/"+SplitfechaPagare[2] + ' 00:00:00';
+    let string2 = SplitfechaPrimerPago[1]+"/"+SplitfechaPrimerPago[0]+"/"+SplitfechaPrimerPago[2] + ' 00:00:00';
     let FechaPagareCalculada: Date = new Date(string1);
     let FechaPrimerPagoCalculada: Date = new Date(string2);
     if (!this.puedeCambiarFechas) {
@@ -180,8 +182,8 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     });
     variable.reportesImprimir = arregloReportesEnviar;
     variable.ID_CRE = this.mensajeServicio.NumeroCredito;
-    variable.fechaPagare = this.FormularioDatosReportes.controls['fechaPagare'].value;
-    variable.fechaPrimerPago =  this.FormularioDatosReportes.controls['fechaPrimerPago'].value;
+    variable.fechaPagare = fechaPagare;
+    variable.fechaPrimerPago =  fechaPrimerPago;
     variable.entidadFinanciera = this.FormularioDatosReportes.controls['entidadFinanciera'].value;
     variable.TipoDeCuenta = this.FormularioDatosReportes.controls['tipoCuenta'].value;
     variable.NumeroCuentaBancaria = this.FormularioDatosReportes.controls['numeroCuenta'].value;
@@ -318,9 +320,20 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     this.router.navigate(['/fabrica/consulta-general']);
   }
   cambioFechaPagare(fechaPagare) {
-    if (fechaPagare !== undefined) {
+    let FechaPagareCalculada: Date;
+    if(fechaPagare.toString().indexOf('GMT')>=0){
+      FechaPagareCalculada = fechaPagare;
+    } else {
+      if(fechaPagare.length >= 8) {
+      FechaPagareCalculada = new Date(fechaPagare + ' 00:00:00');
+      }else{
+        return;
+      }
+    }
       try {
-        let FechaPagareCalculada: Date = new Date(fechaPagare.substring(0, 10) + ' 00:00:00');
+        // let FechaPagareCalculada: Date = new Date(fechaPagare.substring(0, 10) + ' 00:00:00');
+        // let FechaPagareCalculada: Date = fechaPagare;
+        // alert(FechaPagareCalculada);
         this.FechaPrimerPagoMin = new Date(this.addDays(FechaPagareCalculada,
                                             +Number(this.FormularioDatosReportes.controls['diasInicio'].value)));
         let diferencia = +Number(this.FormularioDatosReportes.controls['creditoMaximo'].value)-Number(this.FormularioDatosReportes.controls['diasInicio'].value);
@@ -329,7 +342,6 @@ export class ContentFabricaGeneracionComponent implements OnInit {
         this.FechaPrimerPagoMax = new Date(this.addDays(FechaPagareCalculada, diferencia));
         // console.log("FechaPrimerPagoMax:"+this.FechaPrimerPagoMax.toString());
       } catch {}
-    }
   }
   incializarCredito() {
     this.fabricaService.getRetomarCredito(this.mensajeServicio.NumeroCredito,

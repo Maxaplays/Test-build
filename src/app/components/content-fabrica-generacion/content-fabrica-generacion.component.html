@@ -105,8 +105,12 @@
                 <div>
                     <fieldset>
                         <label class="label">Fecha Pagaré</label>
-                        <input formControlName="fechaPagare" placeholder="dd/mm/aaaa" (keyup)="cambioFechaPagare($event.target.value)">
-                        <label class="label postinput">Fecha Minima:{{FechaPagareMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPagareMax | date: 'dd/MM/yyyy'}}</label>
+                        <input formControlName="fechaPagare" #fechaPagare matInput [min]="FechaPagareMin" [max]="FechaPagareMax" [matDatepicker]="minmaxvalidation2" placeholder="dd/MM/yyyy" (dateChange)="cambioFechaPagare($event.value)" (keyup)="cambioFechaPagare($event.target.value)"
+                            onchange="cambioFechaPagare($event.target.value)">
+                        <mat-datepicker-toggle matSuffix [for]="minmaxvalidation2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-datepicker #minmaxvalidation2></mat-datepicker>
+                        <label class="label postinput">Fecha Minima: {{FechaPagareMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPagareMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
                     <fieldset>
                         <label class="label">Días Inicio Crédito</label>
@@ -114,7 +118,10 @@
                     </fieldset>
                     <fieldset>
                         <label class="label">Fecha Primer Pago</label>
-                        <input formControlName="fechaPrimerPago" placeholder="dd/mm/aaaa" tabindex="4">
+                        <input formControlName="fechaPrimerPago" #fechaPrimerPago matInput [min]="FechaPrimerPagoMin" [max]="FechaPrimerPagoMax" [matDatepicker]="minmaxvalidation" placeholder="dd/MM/yyyy" tabindex="4">
+                        <mat-datepicker-toggle matSuffix [for]="minmaxvalidation">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #minmaxvalidation></mat-datepicker>
                         <label class="label postinput">Fecha Minima:{{FechaPrimerPagoMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPrimerPagoMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
                     <fieldset>
@@ -143,7 +150,7 @@
             </div>
         </form>
         <div class="align-right " style="padding-top: 40px; ">
-            <button *ngIf="generarDocumentacion" class="btn btn-solid-blue " (click)="generarDocumentos(docGenerado,mensajeModalError)" [disabled]="!this.estadoGeneracion">Generar Documentación Seleccionada</button>
+            <button *ngIf="generarDocumentacion" class="btn btn-solid-blue " (click)="generarDocumentos(docGenerado,mensajeModalError,fechaPagare.value,fechaPrimerPago.value)" [disabled]="!this.estadoGeneracion">Generar Documentación Seleccionada</button>
         </div>
     </div>
 

@@ -46,7 +46,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProductoService } from './services/producto/producto.service';
 import { TipoContactoService } from './services/tipoContacto/tipo-contacto.service';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import { LoadingComponent } from './components/loading/loading.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { DomseguroPipe } from './pipes/domseguro.pipe';
@@ -145,7 +145,8 @@ const routes: Routes = [
     BrowserAnimationsModule
   ],
   exports: [],
-  providers: [ExportService],
+  providers: [ExportService,
+    {provide: MAT_DATE_LOCALE, useValue: 'es-EC'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
