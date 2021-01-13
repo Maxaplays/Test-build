@@ -383,7 +383,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       cedula: conyuge.CED_CON,
       apellidoConyuge: conyuge.APE_CON,
       nombreConyuge: conyuge.NOM_CON,
-      telefonoConyuge: '',
+      telefonoConyuge: conyuge.telefono,
       fechaNacimiento: fechaNacimientostring,
       genero: conyuge.COD_GEN,
       nacionalidad: conyuge.COD_NAC,
