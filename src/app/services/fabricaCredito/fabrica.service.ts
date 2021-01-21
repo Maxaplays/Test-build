@@ -33,6 +33,11 @@ export class FabricaService {
     &Producto=${datosParaEnviar.Producto}&IdSucursal=${datosParaEnviar.IdSucursal}&Usuario=${datosParaEnviar.Usuario}&TipoTelefo=${datosParaEnviar.tipoTelefono}&Telefono=${datosParaEnviar.valorTelefono}&Observacion=${datosParaEnviar.observacionesTelefono}`;
     return this.http.get(url);
   }
+  public getEnvioFabricaServiceBiMin(datosParaEnviar: EnvioFabricaServiceBi) {
+    const url = environment.urlServiciosBackend + `FabricaCredito/ConsultaGeneralGuiasMin?Identificacion=${datosParaEnviar.cedula}&TipoDocumentacion=${datosParaEnviar.tipoDocumento}&IngresoDependiente=${datosParaEnviar.IngresoDependiente}&Producto=${datosParaEnviar.Producto}
+    &IdSucursal=${datosParaEnviar.IdSucursal}&Usuario=${datosParaEnviar.Usuario}&Telefono=${datosParaEnviar.valorTelefono}&numeroFormulario=${datosParaEnviar.numeroFormulario}`;
+    return this.http.get(url);
+  }
   public getRetomarCredito(idCredito: string, usuario: string) {
     const url = environment.urlServiciosBackend + `FabricaCredito/RetomarCredito?Usuario=${usuario}&idCredito=${idCredito}`;
     return this.http.get(url);
@@ -87,6 +92,7 @@ export class EnvioFabricaServiceBi {
   observacionesTelefono: string;
   IdSucursal: string;
   Usuario: string;
+  numeroFormulario: string;
 }
 export class ValoresSimulador {
   idCredito: string;

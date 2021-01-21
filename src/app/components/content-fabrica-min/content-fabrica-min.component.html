@@ -1,0 +1,437 @@
+<div class="content">
+
+    <app-steps></app-steps>
+
+    <form class="steps-mobile">
+        <select id='selectSteps'>
+            <option value='datos-basicos' selected>Datos básicos</option>
+            <option value='credito'>Crédito</option>
+            <option value='solicitud-credito'>Solicitud Crédito</option>
+            <option value='requisitos'>Requisitos</option>
+            <option value='politicas'>Políticas</option>
+            <option value='generacion'>Generación</option>
+            <option value='control-calidad'>Control Calidad</option>
+            <option value='resumen'>Resumen</option>
+        </select>
+    </form>
+    <app-loading *ngIf="loading"></app-loading>
+    <div>
+        <form class="forms forms-relative" [formGroup]="FormularioDatosBasicos">
+            <div class="cols cols3">
+                <div>
+                    <!-- <fieldset>
+                        <label class="label">Tipo de Documentación</label>
+                        <select formControlName="tipoDocumentacion" [class.is-invalid]="FormularioDatosBasicos.controls['tipoDocumentacion'].invalid" class="form-control" tabindex="1">
+                            <option *ngFor="let tipo of tipoDoc" [value]="tipo.COD_TDOC">{{tipo.NOM_TDOC}}</option>
+                        </select>
+                    </fieldset> -->
+                    <fieldset>
+                        <label class="label"># Identificación <b>*</b></label>
+                        <input formControlName="cedula" [class.is-invalid]="FormularioDatosBasicos.controls['cedula'].invalid && FormularioDatosBasicos.controls['cedula'].touched" class="form-control" type="text" placeholder="Escriba Número de identificación" tabindex="1">
+                    </fieldset>
+                    <label class="label">Ingresos Mensuales</label>
+                    <input formControlName="ingresosDependiente" [class.is-invalid]="FormularioDatosBasicos.controls['ingresosDependiente'].invalid && FormularioDatosBasicos.controls['ingresosDependiente'].touched" class="form-control" type="number" placeholder="Escriba Ingresos Mensuales"
+                        tabindex="2">
+                    <fieldset>
+                        <label class="label">Teléfono Contacto</label>
+                        <input formControlName="telefonoContacto" type="text" [class.is-invalid]="FormularioDatosBasicos.controls['telefonoContacto'].invalid && FormularioDatosBasicos.controls['telefonoContacto'].touched" class="form-control" placeholder="Escriba Teléfono" tabindex="3">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label"># Formulario Preimpreso</label>
+                        <input formControlName="formularioPreimpreso" type="text" placeholder="Escriba # Formulario Preimpreso" tabindex="4">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Producto Crédito <b>*</b></label>
+                        <select formControlName="producto" [class.is-invalid]="FormularioDatosBasicos.controls['producto'].invalid && FormularioDatosBasicos.controls['producto'].touched" class="form-control" tabindex="5">
+                            <option *ngFor="let prod of productos" [value]="prod.ID_PROD">{{prod.NOM_PROD}}</option>
+                        </select>
+                    </fieldset>
+                    <!-- <fieldset>
+                        <label class="label">Estado Civil</label>
+                        <select formControlName="estadoCivil" tabindex="3">
+                            <option *ngFor="let estado of estadoCivil" [value]="estado.COD_ECIV">{{estado.NOM_ECIV}}</option>
+                        </select>
+                    </fieldset> -->
+                    <!-- <fieldset>
+                        <label class="label">Fecha de Nacimiento / Inicio Actividades</label>
+                        <input formControlName="fechaNacimiento" type="date" placeholder="dd/mm/aaaa" tabindex="4" >
+                    </fieldset> -->
+                </div>
+                <div>
+                    <!-- <fieldset>
+                        <label class="label">Ingresos Mensuales como Dependiente</label>
+                        <input formControlName="ingresosDependiente" (input)="onIngresosChange()" [class.is-invalid]="FormularioDatosBasicos.controls['ingresosDependiente'].invalid && FormularioDatosBasicos.controls['ingresosDependiente'].touched" class="form-control" type="number"
+                            placeholder="Escriba Ingresos Mensuales" tabindex="5">
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Ingresos Mensuales como Independiente</label>
+                        <input formControlName="ingresosIndependiente" (input)="onIngresosChange()" [class.is-invalid]="FormularioDatosBasicos.controls['ingresosIndependiente'].invalid && FormularioDatosBasicos.controls['ingresosIndependiente'].touched" class="form-control"
+                            type="number" placeholder="Escriba Ingresos Mensuales" tabindex="6">
+                    </fieldset> -->
+                    <!-- <fieldset>
+                        <label class="label">Ingresos Mensuales</label>
+                        <input formControlName="ingresosDisponible" type="number" placeholder="Ingreso Disponible">
+                    </fieldset> -->
+                </div>
+
+                <div>
+                    <!-- <fieldset>
+                        <label class="label">Tipo de Contacto</label>
+                        <select formControlName="tipoContacto" tabindex="7">
+                            <option *ngFor="let tipo of tipoContacto" [value]="tipo.COD_TDIS">{{tipo.NOM_TDIS}}</option>
+                        </select>
+                    </fieldset>
+
+                    <fieldset>
+                        <label class="label">Observaciones Contacto</label>
+                        <input formControlName="observacionesContacto" type="text" placeholder="Escriba Observaciones Contacto" tabindex="9">
+                    </fieldset>
+
+                    <fieldset>
+                        <label class="label">Venta Total <b>*</b></label>
+                        <input formControlName="ventaTotal" [class.is-invalid]="FormularioDatosBasicos.controls['ventaTotal'].invalid && FormularioDatosBasicos.controls['ventaTotal'].touched" class="form-control" type="number" placeholder="Escriba un Monto de Venta Total" tabindex="11">
+                    </fieldset> -->
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="footer-fixed-forms">
+        <div class="cols cols2">
+            <div class="align-left">
+                <button class="btn btn-border-blue"><img src="assets/images/icon-reloj.svg">Historial</button>
+                <!--button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button-->
+                <!--button class="btn btn-border-blue btn-cancel" (click)="showSuccessMessage()">Cancelar</button-->
+            </div>
+            <div class="align-right">
+                <!--button class="btn btn-border-gray" (click)="open(datosAdicionales)">Datos Adicionales</button-->
+                <!--button class="btn btn-border-gray" (click)="openErrorWidth(mensajeModalError)">Borrar</button-->
+                <!-- <button class="btn btn-solid-green" tabindex="13" (click)="openCustomWidthVariant(mensajeAdvertencia)">Validar</button> -->
+                <button [class.btn-solid-green]="FormularioDatosBasicos.valid" [className]="FormularioDatosBasicos.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'" tabindex="6" (click)="ValidarFormularioDatosBasicos(verResultado)">Validar</button>
+                <!--button class="btn btn-solid-gray" (click)="open(content)" >Continuar</button-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header-mfc">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="103" alt="MICRO FACTORY CAPITAL" src="./assets/images/logo.svg">
+                <h4 class="modal-title-mfc" id="modal-basic-title">Cotizador de Crédito Automotriz</h4>
+            </div>
+            <div class="align-right">
+                <button class="btn btn-solid-green" (click)="changeErrorMessage()">Calcular</button>
+            </div>
+        </div>
+        <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = null"><img src="./assets/images/warning.svg">{{ errorMessage }}</ngb-alert>
+    </div>
+    <div class="modal-body">
+        <img src="assets/images/excel-view.svg">
+    </div>
+    <div class="modal-footer-mfc">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <div class="span-list">
+                    <span>Fecha: <span>30 de Marzo, 2019</span></span>
+                    <span>Sucursal: <span>Demo</span></span>
+                    <span>Asesor: <span>Miguel Zabala</span></span>
+                </div>
+            </div>
+            <div class="align-right">
+                <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Regresar</button>
+                <button class="btn btn-solid-green">Guardar</button>
+                <button class="btn btn-solid-gray" (click)="modal.close('Cancelar click')" (click)="openLg(respuestas)">Continuar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #verResultado let-modal>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-historial-modal.svg">
+                <h4 class="modal-minititle-mfc">{{mensajeValidacion}}</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body variation">
+        <div class="forms forms-relative" style="padding-bottom: 30px;">
+            <div class="cols cols4">
+                <div>
+                    <label class="label">{{mensajeValidacionInterno}}</label>
+                    <!-- <ul class="grid-list full-grid-list">
+                        <li>
+                            <span class="tag"></span>
+                        </li>
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+            <!-- <div class="align-left">
+                <button class="btn btn-border-blue" routerLink="/configuracion/respuestas" (click)="modal.close('Cancelar click')">Generar respuesta</button>
+            </div> -->
+            <div class="align-right">
+                <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #respuestas let-modal>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-minimail.svg">
+                <h4 class="modal-minititle-mfc">Respuestas</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body variation">
+        <form class="forms forms-relative">
+            <fieldset>
+                <label class="label">Respuesta</label>
+                <select>
+                        <option>Aprobado</option>
+                        <option>Pre-aprobado</option>
+                        <option>No viable</option>
+                    </select>
+            </fieldset>
+            <fieldset>
+                <label class="label">Plantilla</label>
+                <select>
+                        <option>Seleccione una plantilla</option>
+                    </select>
+            </fieldset>
+            <fieldset>
+                <label class="label">Enviar a</label>
+                <input type="email" placeholder="Escriba las direcciones de correo">
+            </fieldset>
+            <fieldset>
+                <input type="checkbox" id="cliente">
+                <label for="cliente" class="margin-right">Cliente</label>
+                <input type="checkbox" id="supervisor">
+                <label for="supervisor" class="margin-right">Supervisor</label>
+                <input type="checkbox" id="asesor">
+                <label for="asesor" class="margin-right">Asesor</label>
+            </fieldset>
+            <fieldset>
+                <label class="label">Titulo</label>
+                <input type="text" placeholder="Escriba un título para el correo">
+            </fieldset>
+            <fieldset>
+                <label class="label">Mensaje</label>
+                <textarea placeholder="Escriba un mensaje"></textarea>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+            <div class="align-left"></div>
+            <div class="align-right">
+                <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')" (click)="open(content)">Regresar</button>
+                <button class="btn btn-solid-gray">Enviar respuesta</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #datosAdicionales let-modal>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-garante-modal.svg">
+                <h4 class="modal-minititle-mfc">Datos Adicionales</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body variation">
+        <form class="forms forms-relative">
+            <div class="table-flat equal-width">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descripción</th>
+                            <th>Valor</th>
+                            <th>Comentario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-column="Descripción">Actividades Laborales</td>
+                            <td data-column="Valor">
+                                <select>
+                            <option>Seleccione...</option>
+                        </select>
+                            </td>
+                            <td data-column="Comentario">
+                                <input type="text" placeholder="-">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-column="Descripción">Antigüedad Laboral</td>
+                            <td data-column="Valor">
+                                <select>
+                            <option>Seleccione...</option>
+                        </select>
+                            </td>
+                            <td data-column="Comentario">
+                                <input type="text" placeholder="-">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-column="Descripción">Finalidad del Bien</td>
+                            <td data-column="Valor">
+                                <select>
+                            <option>Seleccione...</option>
+                        </select>
+                            </td>
+                            <td data-column="Comentario">
+                                <input type="text" placeholder="-">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-column="Descripción">Lugar de Residencia</td>
+                            <td data-column="Valor">
+                                <select>
+                            <option>Seleccione...</option>
+                        </select>
+                            </td>
+                            <td data-column="Comentario">
+                                <input type="text" placeholder="-">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-column="Descripción">Nivel de Educación</td>
+                            <td data-column="Valor">
+                                <select>
+                            <option>Seleccione...</option>
+                        </select>
+                            </td>
+                            <td data-column="Comentario">
+                                <input type="text" placeholder="-">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-column="Descripción">Tipo de vivienda</td>
+                            <td data-column="Valor">
+                                <select>
+                            <option>Seleccione...</option>
+                        </select>
+                            </td>
+                            <td data-column="Comentario">
+                                <input type="text" placeholder="-">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+            <div class="align-left"></div>
+            <div class="align-right">
+                <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Regresar</button>
+                <button class="btn btn-solid-gray">Guardar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #verHistorial let-modal>
+    <div class="modal-header-mfc variation">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-historial-modal.svg">
+                <h4 class="modal-minititle-mfc">Historial</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <app-modal-historial></app-modal-historial>
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+            <div class="align-left">
+                <button class="btn btn-border-blue" routerLink="/configuracion/respuestas" (click)="modal.close('Cancelar click')">Generar respuesta</button>
+            </div>
+            <div class="align-right">
+                <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Guardar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #mensajeAdvertencia let-modal>
+    <div class="modal-header-mfc variation modal-mensaje">
+        <div class="cols cols2 align-middle">
+            <div class="align-left">
+                <img width="32" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-mensaje-warning.svg">
+                <h4 class="modal-minititle-mfc">Importante</h4>
+            </div>
+            <div class="align-right">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body variation modal-mensaje">
+        <p>Perfil no disponible para otorgar crédito.</p>
+    </div>
+
+    <div class="modal-footer-mfc full variation">
+        <div class="cols cols2">
+            <div class="align-left">
+                <fieldset>
+                    <input id="respuestaCorreo" type="checkbox">
+                    <label for="respuestaCorreo">Enviar respuesta por correo</label>
+                </fieldset>
+            </div>
+            <div class="align-right">
+                <button class="btn btn-solid-green" (click)="modal.close('Cancelar click')">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ngb-alert *ngIf="successMessage" type="success" class="wbtn-success" (close)="successMessage = null"><img src="./assets/images/success.svg"><span>{{ successMessage }}</span></ngb-alert>
+
+<ng-template #mensajeModalError let-modal>
+    <div class="modal-error">
+        <img src="./assets/images/warning.svg" width="42">
+        <p>{{mensajeValidacion}}</p>
+        <p>{{mensajeValidacionInterno}} <a routerLink="{{linkIdCreditoPrevioIngresado}}" routerLinkActive="active">Ingrese Aqui...</a></p>
+        <div class="align-right">
+            <button class="btn btn-solid-white" (click)="modal.close('Cancelar click')" a routerLink="/fabrica/consulta-general">Aceptar</button>
+        </div>
+    </div>
+</ng-template>

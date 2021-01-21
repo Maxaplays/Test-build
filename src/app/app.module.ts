@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -41,21 +41,28 @@ import { ControlDeCalidadComponent } from './components/control-de-calidad/contr
 import { ContentControlDeCalidadComponent } from './components/content-control-de-calidad/content-control-de-calidad.component';
 import { StepsComponent } from './components/steps/steps.component';
 import { ModalHistorialComponent } from './components/modal-historial/modal-historial.component';
-import { HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductoService } from './services/producto/producto.service';
 import { TipoContactoService } from './services/tipoContacto/tipo-contacto.service';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import { LoadingComponent } from './components/loading/loading.component';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { DomseguroPipe } from './pipes/domseguro.pipe';
 import { CanActivateGuardGuard } from './guards/can-activate-guard.guard';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ExportService} from './services/exportar/export.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ExportService } from './services/exportar/export.service';
 import { ContentFabricaResumenComponent } from './components/content-fabrica-resumen/content-fabrica-resumen.component';
 import { FabricaStep8Component } from './components/fabrica-step8/fabrica-step8.component';
 import { BuilderComponent } from './components/builder/builder.component';
+import { ContentFabricaCreditoMinComponent } from './components/content-fabrica-credito-min/content-fabrica-credito-min.component';
+import { FabricaStep2minComponent } from './components/fabrica-step2min/fabrica-step2min.component';
+import { ContentFabricaMinComponent } from './components/content-fabrica-min/content-fabrica-min.component';
+import { FabricaMinComponent } from './components/fabrica-min/fabrica-min.component';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSlideToggleModule, GestureConfig } from '@angular/material';
+import 'hammerjs';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -82,6 +89,9 @@ const routes: Routes = [
   { path: 'fabrica/consulta-general', component: ConsultaGeneralComponent },
   { path: 'fabrica/nueva-solicitud/solicitud-credito/:idCre', component: FabricaStep3Component },
   { path: 'fabrica/nueva-solicitud/credito/:idCre', component: FabricaStep2Component },
+  { path: 'fabrica/nueva-solicitud/creditoMin', component: FabricaStep2minComponent },
+  { path: 'fabrica/nueva-solicitud/creditoMin/:idCre', component: FabricaStep2minComponent },
+  { path: 'fabrica/nueva-solicitud-Min', component: FabricaMinComponent },
   { path: 'builder', component: BuilderComponent }
 ];
 
@@ -129,8 +139,11 @@ const routes: Routes = [
     DomseguroPipe,
     FabricaStep8Component,
     ContentFabricaResumenComponent,
-    BuilderComponent
-
+    BuilderComponent,
+    ContentFabricaCreditoMinComponent,
+    FabricaStep2minComponent,
+    ContentFabricaMinComponent,
+    FabricaMinComponent
   ],
   imports: [
     NgbModule,
@@ -139,14 +152,17 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgxPaginationModule,
-    BrowserAnimationsModule
+    MatSliderModule,
+    MatSlideToggleModule,
+    NgxPaginationModule
   ],
   exports: [],
   providers: [ExportService,
-    {provide: MAT_DATE_LOCALE, useValue: 'es-EC'}],
+    {provide: MAT_DATE_LOCALE, useValue: 'es-EC'},
+    {provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
