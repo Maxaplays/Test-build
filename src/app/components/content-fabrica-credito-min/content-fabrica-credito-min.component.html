@@ -86,17 +86,38 @@
                 <div>
                     <!-- <h6>PERFIL APLICADO</h6> -->
                     <fieldset>
-                        <label class="label"><strong>Capacidad de Pago del Cliente</strong></label>
+                        <h6>Capacidad de Pago del Cliente</h6>
                         <input formControlName="wsCapacidadPagoMax" type="number" placeholder="Capacidad Pago Máxima">
                     </fieldset>
                     <fieldset>
-                        <label class="label">Monto Máximo de Crédito</label>
+                        <h6>Monto Máximo de Crédito</h6>
                         <input formControlName="wsCreditoSugerido" type="number" placeholder="Crédito Sugerido">
                     </fieldset>
                     <fieldset>
-                        <label class="label"><strong>SIMULADOR DE VENTA:</strong></label>
-                        <mat-slider thumbLabel [displayWith]="formatLabel" min="1" max="50000" step="1" value="1.5" tickInterval="3000" (input)="onSliderChange($event)"></mat-slider>
-                        <label class="label postinput">Entrada Mínima 0%</label>
+                        <div align="center">
+                            <h6>SIMULADOR DE VENTA:</h6>
+                        </div>
+                        <div class="cols cols3">
+                            <div>
+                                <mat-slider thumbLabel [displayWith]="formatLabel" [min]='sliderMinimo' [max]='sliderMaximo' step="1" [value]='sliderValor' tickInterval="auto" (input)="onSliderChange($event)"></mat-slider>
+                            </div>
+                            <div align="right">
+
+                            </div>
+                            <div align="center">
+                                <label class="label leftInput">Entrada Mínima</label>
+                                <label class="label boldInput">$ {{entradaMinimaAplicada}}</label>
+                            </div>
+                        </div>
+                        <div class="cols cols3">
+                            <div align="left">
+                                <label class="label postinput">$ {{sliderMinimo}}</label>
+                            </div>
+                            <div align="right">
+                                <label class="label postinput">$ {{sliderMaximo}}</label>
+                            </div>
+                        </div>
+                        <!-- <label class="label postinput">Entrada Mínima {{entradaMinimaAplicadaPorcentaje}}%</label> -->
                     </fieldset>
                     <fieldset>
                         <label class="label">Venta de productos ($)</label>
@@ -105,12 +126,12 @@
                     <fieldset>
                         <label class="label">Entrada ($)</label>
                         <input formControlName="entrada" (input)="calcularTodosValores()" type="number" placeholder="Entrada" tabindex="2">
-                        <label class="label postinput">% de Entrada sobre productos: 0%</label>
+                        <!-- <label class="label postinput">% de Entrada sobre productos:</label> -->
                     </fieldset>
                     <fieldset>
                         <label class="label">Servicio de Gestión de Crédito (con IVA) ($)</label>
                         <input formControlName="gestionCreditoYDocumentalConIva" type="number" placeholder="Gestión credito">
-                        <label class="label postinput">Servicio de Gestión de Crédito sin Iva: ${{gestionCreditoYGestionDocumentalSinIva}}</label>
+                        <div align="right"><label class="label postinput">Servicio de Gestión de Crédito sin Iva: ${{gestionCreditoYGestionDocumentalSinIva}}</label></div>
                     </fieldset>
                     <fieldset>
                         <label class="label">Valor Total Factura ($)</label>
@@ -125,7 +146,7 @@
                         <input formControlName="plazo" (input)="calcularTodosValores()" type="number" placeholder="Plazo" tabindex="3">
                     </fieldset>
                     <fieldset>
-                        <label class="label"><strong>Cuota Mensual ($)</strong></label>
+                        <h6>Cuota Mensual ($)</h6>
                         <input formControlName="cuotaMensualFija" type="number" placeholder="Cuota Mensual Fija">
                     </fieldset>
                     <!-- <fieldset>

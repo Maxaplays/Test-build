@@ -205,4 +205,8 @@ export class DatosFabrica {
   public porcentaje_entrada_minimo_sugerido: string;
   public Monto_financiar_sugerido: string;
   public Capacidad_Pago_sugerido: string;
+  public RangosEntradasMaximos: string;
+  public ventaMaximaLimiteMatriz: string;
+  public CreditoMaximoLimiteMatriz: string;
+  public entradaLimiteMatriz: string;
 }

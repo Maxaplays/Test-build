@@ -9526,6 +9526,22 @@ body {
     font-size: 12px;
 }
 
+.label.boldInput {
+    padding-top: 14px;
+    color: #000000;
+    font-size: 14px;
+}
+
+.label.leftInput {
+    padding-top: 8px;
+    color: #6AB321;
+    font-size: 14px;
+    float: right;
+    clear: right;
+    width: 10em;
+    margin-right: 1em;
+}
+
 .label b {
     color: red;
 }
@@ -11336,5 +11352,13 @@ app-content-dashboard>.content {
         padding-top: 15px;
     }
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
