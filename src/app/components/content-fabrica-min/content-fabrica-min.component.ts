@@ -104,6 +104,10 @@ export class ContentFabricaMinComponent implements OnInit {
     this.productosService.getProductos(localStorage.getItem('codigoSucursal')).subscribe(
       (data: any) => {
         this.productos = data.PRODUCTO;
+        try {
+          this.FormularioDatosBasicos.controls['producto'].setValue(data.PRODUCTO[0].ID_PROD);
+        } catch (error) {
+        }
         // console.log(this.productos);
       }, ( errorServicio ) => {
         // console.log('Error');
