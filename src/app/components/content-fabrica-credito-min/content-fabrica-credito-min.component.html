@@ -86,68 +86,62 @@
                 <div>
                     <!-- <h6>PERFIL APLICADO</h6> -->
                     <fieldset>
-                        <h6>Capacidad de Pago del Cliente</h6>
-                        <input formControlName="wsCapacidadPagoMax" type="number" placeholder="Capacidad Pago Máxima">
+                        <!-- <h6>Capacidad de Pago del Cliente ($)</h6> -->
+                        <div class="capacidad1"></div><input formControlName="wsCapacidadPagoMax" class='valoresNumericos' type="number" placeholder="Capacidad Pago Máxima">
                     </fieldset>
                     <fieldset>
-                        <h6>Monto Máximo de Crédito</h6>
-                        <input formControlName="wsCreditoSugerido" type="number" placeholder="Crédito Sugerido">
+                        <!-- <h6>Monto Máximo de Crédito</h6> -->
+                        <div class="monto1"></div><input formControlName="wsCreditoSugerido" class='valoresNumericos' type="number" placeholder="Crédito Sugerido">
                     </fieldset>
                     <fieldset>
                         <div align="center">
                             <h6>SIMULADOR DE VENTA:</h6>
                         </div>
-                        <div class="cols cols3">
-                            <div>
-                                <mat-slider thumbLabel [displayWith]="formatLabel" [min]='sliderMinimo' [max]='sliderMaximo' step="1" [value]='sliderValor' tickInterval="auto" (input)="onSliderChange($event)"></mat-slider>
-                            </div>
-                            <div align="right">
-
-                            </div>
-                            <div align="center">
-                                <label class="label leftInput">Entrada Mínima</label>
-                                <label class="label boldInput">$ {{entradaMinimaAplicada}}</label>
-                            </div>
-                        </div>
-                        <div class="cols cols3">
-                            <div align="left">
-                                <label class="label postinput">$ {{sliderMinimo}}</label>
-                            </div>
-                            <div align="right">
-                                <label class="label postinput">$ {{sliderMaximo}}</label>
+                        <div class="container">
+                            <div class="mat-slider-custom">
+                                <div class="container-mat-slider">
+                                    <mat-slider thumbLabel [displayWith]="formatLabel" [min]='sliderMinimo' [max]='sliderMaximo' step="1" [value]='sliderValor' tickInterval="auto" (input)="onSliderChange($event)"></mat-slider>
+                                    <div class="mat-slider-labels">
+                                        <label>${{sliderMinimo}}</label>
+                                        <label>${{sliderMaximo}}</label>
+                                    </div>
+                                </div>
+                                <label class="label leftInput">Entrada Mínima ${{entradaMinimaAplicada}}</label>
                             </div>
                         </div>
                         <!-- <label class="label postinput">Entrada Mínima {{entradaMinimaAplicadaPorcentaje}}%</label> -->
                     </fieldset>
                     <fieldset>
-                        <label class="label">Venta de productos ($)</label>
-                        <input formControlName="ventaTotal" (input)="calcularTodosValores()" type="number" placeholder="Venta Total" tabindex="1">
+                        <!-- <label class="label">Venta de productos ($)</label> -->
+                        <div class="venta1"></div><input formControlName="ventaTotal" class='valoresNumericos' (input)="calcularTodosValores()" type="number" placeholder="Venta Total" tabindex="1">
                     </fieldset>
                     <fieldset>
-                        <label class="label">Entrada ($)</label>
-                        <input formControlName="entrada" (input)="calcularTodosValores()" type="number" placeholder="Entrada" tabindex="2">
+                        <!-- <label class="label">Entrada ($)</label> -->
+                        <div class="entrada1"></div><input formControlName="entrada" class='valoresNumericos' (input)="calcularTodosValores()" type="number" placeholder="Entrada" tabindex="2">
                         <!-- <label class="label postinput">% de Entrada sobre productos:</label> -->
                     </fieldset>
                     <fieldset>
-                        <label class="label">Servicio de Gestión de Crédito (con IVA) ($)</label>
-                        <input formControlName="gestionCreditoYDocumentalConIva" type="number" placeholder="Gestión credito">
+                        <!-- <label class="label">Servicio de Gestión de Crédito (con IVA) ($)</label> -->
+                        <div class="gestion1"></div><input formControlName="gestionCreditoYDocumentalConIva" class='valoresNumericos' type="number" placeholder="Gestión credito">
                         <div align="right"><label class="label postinput">Servicio de Gestión de Crédito sin Iva: ${{gestionCreditoYGestionDocumentalSinIva}}</label></div>
                     </fieldset>
                     <fieldset>
-                        <label class="label">Valor Total Factura ($)</label>
-                        <input formControlName="valorTotalFactura" type="number" placeholder="Valor Total Factura">
+                        <!-- <label class="label">Valor Total Factura ($)</label> -->
+                        <div class="total1"></div><input formControlName="valorTotalFactura" class='valoresNumericos' type="number" placeholder="Valor Total Factura">
                     </fieldset>
                     <fieldset>
-                        <label class="label">Monto Crédito ($)</label>
-                        <input formControlName="montoCredito" type="number" placeholder="Monto Crédito">
+                        <!-- <label class="label">Monto Crédito ($)</label> -->
+                        <div class="credito1"></div><input formControlName="montoCredito" class='valoresNumericos' type="number" placeholder="Monto Crédito">
+                        <div align="right"><label class="label postinputRed">{{mensajeMontoSuperior}}</label></div>
                     </fieldset>
                     <fieldset>
-                        <label class="label">Plazo</label>
-                        <input formControlName="plazo" (input)="calcularTodosValores()" type="number" placeholder="Plazo" tabindex="3">
+                        <!-- <label class="label">Plazo</label> -->
+                        <div class="plazo1"></div><input formControlName="plazo" (input)="calcularTodosValores()" class='valoresNumericos' type="number" placeholder="Plazo" tabindex="3">
                     </fieldset>
                     <fieldset>
-                        <h6>Cuota Mensual ($)</h6>
-                        <input formControlName="cuotaMensualFija" type="number" placeholder="Cuota Mensual Fija">
+                        <!-- <h6>Cuota Mensual ($)</h6> -->
+                        <div class="cuota1"></div><input formControlName="cuotaMensualFija" class='valoresNumericos' type="number" placeholder="Cuota Mensual Fija">
+                        <div align="right"><label class="label postinputRed">{{mensajeCuotaMensualSuperior}}</label></div>
                     </fieldset>
                     <!-- <fieldset>
                         <label class="label">Código de Perfil</label>

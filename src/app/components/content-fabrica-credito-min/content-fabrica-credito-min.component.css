@@ -1,3 +1,96 @@
-mat-slider {
-    width: 330px;
+/*mat-slider {
+    width: 250px;
+}*/
+
+.valoresNumericos {
+    text-align: right;
+    /* red */
+    /* green */
+}
+
+.capacidad1,
+.monto1 {
+    position: absolute;
+    padding-top: 12px;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    /* font-family: 'Roboto', sans-serif; */
+}
+
+.venta1,
+.entrada1,
+.gestion1,
+.total1,
+.credito1,
+.plazo1,
+.cuota1 {
+    position: absolute;
+    padding-top: 12px;
+    padding-left: 10px;
+    font-size: 12px;
+    /* font-family: 'Roboto', sans-serif; */
+}
+
+.capacidad1::before {
+    content: 'Capacidad de Pago del Cliente ($)';
+}
+
+.venta1::before {
+    content: 'Venta de productos ($)';
+}
+
+.monto1::before {
+    content: 'Monto Máximo de Crédito ($)';
+}
+
+.entrada1::before {
+    content: 'Entrada ($)';
+}
+
+.gestion1::before {
+    content: 'Servicio de Gestión de Crédito (con IVA) ($)';
+}
+
+.total1::before {
+    content: 'Valor Total Factura ($)';
+}
+
+.credito1::before {
+    content: 'Monto Crédito ($)';
+}
+
+.plazo1::before {
+    content: 'Plazo';
+}
+
+.cuota1::before {
+    content: 'Cuota Mensual ($)';
+}
+
+.mat-slider-custom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-slider-custom .container-mat-slider,
+.mat-slider-custom mat-slider {
+    width: 100%;
+    padding: 0;
+}
+
+.mat-slider-custom .label {
+    text-align: center;
+    width: 200px;
+    margin: 0;
+    float: none;
+    padding: 0 8px;
+}
+
+.mat-slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #285e80;
 }

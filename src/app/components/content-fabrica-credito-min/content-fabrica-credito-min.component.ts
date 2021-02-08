@@ -46,7 +46,17 @@ export class ContentFabricaCreditoMinComponent implements OnInit {
   CreditoMaximoLimiteMatriz: number=0;
   entradaLimiteMatriz: number=0;
   rangosSlider: RangosSlider[];
+  mensajeMontoSuperior: string;
+  mensajeCuotaMensualSuperior: string;
+  indexRecalculo: number = 0;
+  indexRecalculoEntrada: number = 0;
+  indexRecalculoEntradaSecuencial: number = 0;
+  indexRecalculoCredito: number = 0;
+
   @ViewChild('mensajeModalError', null) public mydiv: ElementRef;
+  indexRecalculoGestionCreditoSinIva: string;
+  indexRecalculoGestionCreditoYGestionDocumentalSinIva: string;
+  indexRecalculovalorTotalFactura: number;
   // bkm
 
   constructor(private modalService: NgbModal,
@@ -218,17 +228,30 @@ export class ContentFabricaCreditoMinComponent implements OnInit {
     let CuotaMensual: number = 0;
     let gestionCreditoYGestionDocumentalSinIva:number = 0;
     let gestionCreditoYGestionDocumentalConIva:number = 0;
-    
+    let indexRecalculogestionCreditoYGestionDocumentalSinIva:number = 0;
+    let indexRecalculogestionCreditoYGestionDocumentalConIva:number = 0;
+    let capacidadPagoMaxima: number = 0;
+    let creditoMaxima: number = 0;
+    try {
+      capacidadPagoMaxima = Number(this.FormularioDatosBasicos.controls['wsCapacidadPagoMax'].value.replace(',', '.'));
+    } catch (error) {
+
+    }
+    try {
+      creditoMaxima = Number(this.FormularioDatosBasicos.controls['wsCreditoSugerido'].value.replace(',', '.'));
+    } catch (error)
+    { }
     try {
       ventaProductos = this.FormularioDatosBasicos.controls['ventaTotal'].value;
-    } catch (error) { ventaProductos=0;}
+      this.sliderValor = ventaProductos;
+    } catch (error) { ventaProductos = 0;}
     try {
       tasa = Number.parseFloat(this.mensajeServicio.Tasa.replace(',', '.'));
-    } catch (error) { tasa=0;}
+    } catch (error) { tasa = 0;}
     try {
       entrada = this.FormularioDatosBasicos.controls['entrada'].value;
-      
-    } catch (error) { entrada=0;}
+
+    } catch (error) { entrada = 0;}
     try {
       porcentajeEntrada = entrada / ventaProductos;
     } catch(error) { porcentajeEntrada =0;}
@@ -239,6 +262,7 @@ export class ContentFabricaCreditoMinComponent implements OnInit {
 
     const PARAMETRO_GESTION_CREDITO: number = Number(this.mensajeServicio.PARAMETRO_GESTION_CREDITO.replace(',', '.'));
     this.gestionCreditoSinIva = (PARAMETRO_GESTION_CREDITO * (ventaProductos - entrada)).toFixed(2);
+    this.indexRecalculoGestionCreditoSinIva = (PARAMETRO_GESTION_CREDITO * (ventaProductos - this.indexRecalculoEntrada)).toFixed(2); // recalculo
     if (Number(this.gestionCreditoSinIva) <= 0) {
       this.gestionCreditoSinIva = '0';
     }
@@ -247,13 +271,17 @@ export class ContentFabricaCreditoMinComponent implements OnInit {
       this.gestionDocumentalSinIva = '0';
     }
     let gestionCredito: number = (PARAMETRO_GESTION_CREDITO * (ventaProductos - entrada)) * (IVA + 1);
+    let indexRecalculogestionCredito: number = (PARAMETRO_GESTION_CREDITO * (ventaProductos - this.indexRecalculoEntrada)) * (IVA + 1); // recalculo
     const FEE_SERVICIO_DOCUMENTAL: number = (Number(this.mensajeServicio.FEE_SERVICIO_DOCUMENTAL.replace(',', '.')) * (IVA + 1));
     this.gestionCreditoYGestionDocumentalSinIva =  ((Number(this.gestionDocumentalSinIva) + Number(this.gestionCreditoSinIva))).toFixed(2).toString();
+    this.indexRecalculoGestionCreditoYGestionDocumentalSinIva =  ((Number(this.gestionDocumentalSinIva) + Number(this.indexRecalculoGestionCreditoSinIva))).toFixed(2).toString(); // recalculo
     this.gestionCreditoYGestionDocumentalConIva =  (Number(this.gestionCreditoYGestionDocumentalSinIva) * (IVA + 1)).toFixed(2).toString();
     this.FormularioDatosBasicos.controls['gestionCreditoYDocumentalConIva'].setValue(this.gestionCreditoYGestionDocumentalConIva);
 
     try { gestionCreditoYGestionDocumentalSinIva =
       (Number(this.gestionDocumentalSinIva) + Number(this.gestionCreditoSinIva));
+      indexRecalculogestionCreditoYGestionDocumentalSinIva =
+      (Number(this.gestionDocumentalSinIva) + Number(this.indexRecalculoGestionCreditoSinIva)); // recalculo
       if (gestionCreditoYGestionDocumentalSinIva <= 0) {
         gestionCreditoYGestionDocumentalSinIva = 0;
       }
@@ -261,18 +289,22 @@ export class ContentFabricaCreditoMinComponent implements OnInit {
     try { 
       gestionCreditoYGestionDocumentalConIva =
       (Number(this.gestionCreditoYGestionDocumentalSinIva) * (IVA + 1));
+      indexRecalculogestionCreditoYGestionDocumentalConIva =
+      (Number(this.indexRecalculoGestionCreditoYGestionDocumentalSinIva) * (IVA + 1)); // recalculo
       if (gestionCreditoYGestionDocumentalConIva <= 0) {
         gestionCreditoYGestionDocumentalConIva = 0;
       }
     } catch (error) { this.gestionCreditoYGestionDocumentalConIva = "0";}
     try {
       montoDeCredito = ventaProductos - entrada + gestionCreditoYGestionDocumentalConIva;
+      this.indexRecalculoCredito = ventaProductos - this.indexRecalculoEntrada + indexRecalculogestionCreditoYGestionDocumentalConIva;
       if (montoDeCredito <= 0) {
         montoDeCredito = 0;
       }
     } catch (error) { montoDeCredito = 0; }
     try {
       valorTotalFactura = +ventaProductos + gestionCreditoYGestionDocumentalConIva;
+      this.indexRecalculovalorTotalFactura = +ventaProductos + indexRecalculogestionCreditoYGestionDocumentalConIva;
     } catch (error) { valorTotalFactura = 0; }
     try {
       CuotaMensual = this.calcularCuotaFija(montoDeCredito, plazo, tasa, entrada);
@@ -284,12 +316,32 @@ export class ContentFabricaCreditoMinComponent implements OnInit {
     this.FormularioDatosBasicos.controls['valorTotalFactura'].setValue(valorTotalFactura.toFixed(2));
     this.FormularioDatosBasicos.controls['montoCredito'].setValue(montoDeCredito.toFixed(2));
     this.FormularioDatosBasicos.controls['cuotaMensualFija'].setValue(CuotaMensual.toFixed(2));
+    if (Number(montoDeCredito.toFixed(2)) > Number(creditoMaxima.toFixed(2))) {
+      this.mensajeMontoSuperior = 'Monto de crédito supera el máximo permitido';
+    } else {
+      this.mensajeMontoSuperior = '';
+    }
+    if (Number(CuotaMensual.toFixed(2)) > Number(capacidadPagoMaxima.toFixed(2))) {
+      this.mensajeCuotaMensualSuperior = 'Cuota supera capacidad de pago';
+    } else {
+      this.mensajeCuotaMensualSuperior = '';
+    }
     // this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(porcentajeEntrada.toFixed(2).toString());
     let b = 0;
     for (b = 0; b < this.rangosSlider.length; b++) {
       if (montoDeCredito >= this.rangosSlider[b].montoMinimo && ventaProductos <= this.rangosSlider[b].montoMaximo) {
         this.entradaMinimaAplicadaPorcentaje = this.rangosSlider[b].entrada;
-        this.entradaMinimaAplicada = (valorTotalFactura * (this.entradaMinimaAplicadaPorcentaje / 100)).toFixed(2).toString();
+        this.entradaMinimaAplicada = (this.indexRecalculovalorTotalFactura * (this.entradaMinimaAplicadaPorcentaje / 100)).toFixed(2).toString();
+        if (Math.abs((Number(this.entradaMinimaAplicada) - this.indexRecalculoEntrada)) <= 0.01) {
+          // console.log('Recalculo terminado en interacciones #: ' + this.indexRecalculo);
+          this.indexRecalculo = 0;
+        } else {
+          this.indexRecalculoEntrada = Number(this.entradaMinimaAplicada);
+          this.indexRecalculo++;
+          this.calcularTodosValores();
+        }
+        // this.indexRecalculoEntrada = Number(this.entradaMinimaAplicada);
+        // this.indexRecalculoEntradaSecuencial = this.indexRecalculoEntrada;
       }
     }
     if (montoDeCredito > this.rangosSlider[this.rangosSlider.length - 1].montoMaximo) {
@@ -297,6 +349,8 @@ export class ContentFabricaCreditoMinComponent implements OnInit {
         this.entradaMinimaAplicada = ((this.entradaMinimaAplicadaPorcentaje / 100) * (this.rangosSlider[this.rangosSlider.length - 1].montoMaximo / (1 - (this.entradaMinimaAplicadaPorcentaje / 100)))).toFixed(2).toString();
         this.entradaMinimaAplicada = (Number(this.entradaMinimaAplicada) + (ventaProductos - this.ventaMaximaLimiteMatriz)).toFixed(2).toString();
     }
+    // Calculo de variables para ajuste de entrada minima recalculada con iteracciones
+    
   }
   private initForm() {
     this.FormularioDatosBasicos = new FormGroup({
