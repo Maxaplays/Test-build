@@ -329,7 +329,7 @@ export class ContentFabricaCreditoMinComponent implements OnInit {
     // this.FormularioDatosBasicos.controls['porcentajeEntrada'].setValue(porcentajeEntrada.toFixed(2).toString());
     let b = 0;
     for (b = 0; b < this.rangosSlider.length; b++) {
-      if (montoDeCredito >= this.rangosSlider[b].montoMinimo && ventaProductos <= this.rangosSlider[b].montoMaximo) {
+      if (montoDeCredito >= this.rangosSlider[b].montoMinimo && montoDeCredito <= this.rangosSlider[b].montoMaximo) {
         this.entradaMinimaAplicadaPorcentaje = this.rangosSlider[b].entrada;
         this.entradaMinimaAplicada = (this.indexRecalculovalorTotalFactura * (this.entradaMinimaAplicadaPorcentaje / 100)).toFixed(2).toString();
         if (Math.abs((Number(this.entradaMinimaAplicada) - this.indexRecalculoEntrada)) <= 0.01) {
