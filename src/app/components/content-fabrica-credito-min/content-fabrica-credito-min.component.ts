@@ -117,9 +117,15 @@ export class ContentFabricaCreditoMinComponent implements OnInit {
       // console.log(this.mensajeServicio);
       try {
         this.FormularioDatosBasicos.controls['wsCapacidadPagoMax'].setValue(this.mensajeServicio.CapacidadPagoSugerida.replace(',', '.'));
+        let ventaTotal = 0;
+        if (Number(this.mensajeServicio.CapacidadPagoSugerida.replace(',', '.')) <= 0) {
+          ventaTotal = 0;
+          this.FormularioDatosBasicos.controls['ventaTotal'].setValue('0');
+        } else {
+          ventaTotal = Number(this.mensajeServicio.ValorTotal.replace(',', '.'));
+          this.FormularioDatosBasicos.controls['ventaTotal'].setValue(this.mensajeServicio.ValorTotal.replace(',', '.'));
+        }
         this.FormularioDatosBasicos.controls['wsCreditoSugerido'].setValue(this.mensajeServicio.MontoSugerido.replace(',', '.'));
-        let ventaTotal = Number(this.mensajeServicio.ValorTotal.replace(',', '.'));
-        this.FormularioDatosBasicos.controls['ventaTotal'].setValue(this.mensajeServicio.ValorTotal.replace(',', '.'));
         this.FormularioDatosBasicos.controls['entrada'].setValue(this.mensajeServicio.Entrada.replace(',', '.'));
         this.FormularioDatosBasicos.controls['plazo'].setValue(this.mensajeServicio.Plazo.replace(',', '.'));
         try { this.ventaMaximaLimiteMatriz = Number(this.mensajeServicio.ventaMaximaLimiteMatriz.replace(',', '.')); } catch (error) { }
@@ -232,6 +238,7 @@ export class ContentFabricaCreditoMinComponent implements OnInit {
     let indexRecalculogestionCreditoYGestionDocumentalConIva:number = 0;
     let capacidadPagoMaxima: number = 0;
     let creditoMaxima: number = 0;
+    this.entradaMinimaAplicada = '0';
     try {
       capacidadPagoMaxima = Number(this.FormularioDatosBasicos.controls['wsCapacidadPagoMax'].value.replace(',', '.'));
     } catch (error) {
@@ -404,7 +411,11 @@ export class ContentFabricaCreditoMinComponent implements OnInit {
       valoresSimulador.seEntrada = this.FormularioDatosBasicos.controls['entrada'].value;
       valoresSimulador.seValorTotal = this.FormularioDatosBasicos.controls['ventaTotal'].value;
       valoresSimulador.sePlazo = this.FormularioDatosBasicos.controls['plazo'].value;
-      valoresSimulador.seTasa = this.tasaActual;
+      try {
+        valoresSimulador.seTasa = Number(this.mensajeServicio.Tasa.toString().replace(',', '.'));
+      } catch (error) {
+        valoresSimulador.seTasa = 0;
+      }
       valoresSimulador.lblPlazoSugerido = this.FormularioDatosBasicos.controls['plazo'].value;
       valoresSimulador.relacionLaboral = '';
       valoresSimulador.seCuotaFija = this.FormularioDatosBasicos.controls['cuotaMensualFija'].value;
@@ -420,7 +431,11 @@ export class ContentFabricaCreditoMinComponent implements OnInit {
       valoresSimulador.BaseUrl = '';
       valoresSimulador.nombreConsultado = this.mensajeServicio.NombreConsultado;
       valoresSimulador.fechaNacimiento = this.mensajeServicio.FechaNacimiento;
-      valoresSimulador.entradaSugerida = "0";// this.FormularioDatosBasicos.controls['wsEntradaSugerida'].value;
+      try {
+        valoresSimulador.entradaSugerida = this.entradaMinimaAplicada.toString(); // this.FormularioDatosBasicos.controls['wsEntradaSugerida'].value;
+      } catch (error) {
+        valoresSimulador.entradaSugerida = '0';
+      }
       valoresSimulador.gestionCredito = this.gestionCreditoSinIva;
       valoresSimulador.servicioDocumental = this.gestionDocumentalSinIva;
 

@@ -105,6 +105,24 @@
                 <div>
                     <fieldset>
                         <label class="label">Fecha Pagaré</label>
+                        <input formControlName="fechaPagare" type="date" #fechaPagare placeholder="dd/MM/yyyy" (dateChange)="cambioFechaPagare($event.value)" (keyup)="cambioFechaPagare($event.target.value)" onchange="cambioFechaPagare($event.target.value)">
+                        <label class="label postinput">Fecha Minima: {{FechaPagareMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPagareMax | date: 'dd/MM/yyyy'}}</label>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Días Inicio Crédito</label>
+                        <input formControlName="diasInicio" type="text" value="15" disabled>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Fecha Primer Pago</label>
+                        <input formControlName="fechaPrimerPago" type="date" #fechaPrimerPago placeholder="dd/MM/yyyy" tabindex="4">
+                        <label class="label postinput">Fecha Minima:{{FechaPrimerPagoMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPrimerPagoMax | date: 'dd/MM/yyyy'}}</label>
+                    </fieldset>
+                    <fieldset>
+                        <label class="label">Días Inicio Crédito Máximo</label>
+                        <input formControlName="creditoMaximo" type="text" type="text" value="60" disabled>
+                    </fieldset>
+                    <!-- <fieldset>
+                        <label class="label">Fecha Pagaré</label>
                         <input formControlName="fechaPagare" #fechaPagare matInput [min]="FechaPagareMin" [max]="FechaPagareMax" [matDatepicker]="minmaxvalidation2" placeholder="dd/MM/yyyy" (dateChange)="cambioFechaPagare($event.value)" (keyup)="cambioFechaPagare($event.target.value)"
                             onchange="cambioFechaPagare($event.target.value)">
                         <mat-datepicker-toggle matSuffix [for]="minmaxvalidation2"></mat-datepicker-toggle>
@@ -127,7 +145,7 @@
                     <fieldset>
                         <label class="label">Días Inicio Crédito Máximo</label>
                         <input formControlName="creditoMaximo" type="text" type="text" value="60" disabled>
-                    </fieldset>
+                    </fieldset> -->
                 </div>
                 <div>
                     <fieldset>
@@ -150,7 +168,8 @@
             </div>
         </form>
         <div class="align-right " style="padding-top: 40px; ">
-            <button *ngIf="generarDocumentacion" class="btn btn-solid-blue " (click)="generarDocumentos(docGenerado,mensajeModalError,fechaPagare.value,fechaPrimerPago.value)" [disabled]="!this.estadoGeneracion">Generar Documentación Seleccionada</button>
+            <!-- <button *ngIf="generarDocumentacion" class="btn btn-solid-blue " (click)="generarDocumentos(docGenerado,mensajeModalError,fechaPagare.value,fechaPrimerPago.value)" [disabled]="!this.estadoGeneracion">Generar Documentación Seleccionada</button> -->
+            <button *ngIf="generarDocumentacion" class="btn btn-solid-blue " (click)="generarDocumentos(docGenerado,mensajeModalError)" [disabled]="!this.estadoGeneracion">Generar Documentación Seleccionada</button>
         </div>
     </div>
 

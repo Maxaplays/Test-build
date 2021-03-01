@@ -147,11 +147,55 @@ export class ContentFabricaGeneracionComponent implements OnInit {
       });
   }
 
-  generarDocumentos(content, contentError,fechaPagare,fechaPrimerPago) {
-    let SplitfechaPagare = fechaPagare.split("/");
-    let SplitfechaPrimerPago = fechaPrimerPago.split("/");
-    let string1 = SplitfechaPagare[1]+"/"+SplitfechaPagare[0]+"/"+SplitfechaPagare[2] + ' 00:00:00';
-    let string2 = SplitfechaPrimerPago[1]+"/"+SplitfechaPrimerPago[0]+"/"+SplitfechaPrimerPago[2] + ' 00:00:00';
+  // generarDocumentos(content, contentError,fechaPagare,fechaPrimerPago) {
+    
+  generarDocumentos(content, contentError) {
+    // let SplitfechaPagare = fechaPagare.split("/");
+    // let SplitfechaPrimerPago = fechaPrimerPago.split("/");
+    // let string1 = SplitfechaPagare[1]+"/"+SplitfechaPagare[0]+"/"+SplitfechaPagare[2] + ' 00:00:00';
+    // let string2 = SplitfechaPrimerPago[1]+"/"+SplitfechaPrimerPago[0]+"/"+SplitfechaPrimerPago[2] + ' 00:00:00';
+    // let FechaPagareCalculada: Date = new Date(string1);
+    // let FechaPrimerPagoCalculada: Date = new Date(string2);
+    // if (!this.puedeCambiarFechas) {
+    //   if (FechaPagareCalculada >= this.FechaPagareMin && FechaPagareCalculada <= this.FechaPagareMax) {
+    //     // Fecha Correcta
+    //   } else {
+    //     // fecha Incorrecta
+    //     this.errorMessage = 'Fecha de pagaré fuera del rango permitido';
+    //     this.modalService.open(contentError, {windowClass: 'custom-width-error-modal'});
+    //     return;
+    //   }
+    //   if (FechaPrimerPagoCalculada >= this.FechaPrimerPagoMin && FechaPrimerPagoCalculada <= this.FechaPrimerPagoMax) {
+    //     // Fecha Correcta
+    //   } else {
+    //     // fecha Incorrecta
+    //     this.errorMessage = 'Fecha Primer pago fuera del rango permitido';
+    //     this.modalService.open(contentError, {windowClass: 'custom-width-error-modal'});
+    //     return;
+    //   }
+    // }
+    // this.loading = true;
+    // const variable = new GeneracionDocumentos();
+    // const arregloReportesEnviar = new Array<ReporteWebserviceUx>();
+    // this.tipoReportes.forEach(element => {
+    //   if (element.selected) {
+    //     arregloReportesEnviar.push(element);
+    //   }
+    // });
+    // variable.reportesImprimir = arregloReportesEnviar;
+    // variable.ID_CRE = this.mensajeServicio.NumeroCredito;
+    // variable.fechaPagare = fechaPagare;
+    // variable.fechaPrimerPago =  fechaPrimerPago;
+    // variable.entidadFinanciera = this.FormularioDatosReportes.controls['entidadFinanciera'].value;
+    // variable.TipoDeCuenta = this.FormularioDatosReportes.controls['tipoCuenta'].value;
+    // variable.NumeroCuentaBancaria = this.FormularioDatosReportes.controls['numeroCuenta'].value;
+    // variable.lblCuentasMupi = this.mensajeServicio.CuentasMupi;
+    // variable.usuario = localStorage.getItem('usuario');
+    // variable.ID_CLI = this.mensajeServicio.Cedula;
+    // variable.UsaFirmaElectronica = this.mensajeServicio.UsaFirmaElectronica;
+    // // console.log(variable);
+    let string1 = this.FormularioDatosReportes.controls['fechaPagare'].value.substring(0, 10) + ' 00:00:00';
+    let string2 = this.FormularioDatosReportes.controls['fechaPrimerPago'].value.substring(0, 10) + ' 00:00:00';
     let FechaPagareCalculada: Date = new Date(string1);
     let FechaPrimerPagoCalculada: Date = new Date(string2);
     if (!this.puedeCambiarFechas) {
@@ -182,8 +226,8 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     });
     variable.reportesImprimir = arregloReportesEnviar;
     variable.ID_CRE = this.mensajeServicio.NumeroCredito;
-    variable.fechaPagare = fechaPagare;
-    variable.fechaPrimerPago =  fechaPrimerPago;
+    variable.fechaPagare = this.FormularioDatosReportes.controls['fechaPagare'].value;
+    variable.fechaPrimerPago =  this.FormularioDatosReportes.controls['fechaPrimerPago'].value;
     variable.entidadFinanciera = this.FormularioDatosReportes.controls['entidadFinanciera'].value;
     variable.TipoDeCuenta = this.FormularioDatosReportes.controls['tipoCuenta'].value;
     variable.NumeroCuentaBancaria = this.FormularioDatosReportes.controls['numeroCuenta'].value;
@@ -192,6 +236,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     variable.ID_CLI = this.mensajeServicio.Cedula;
     variable.UsaFirmaElectronica = this.mensajeServicio.UsaFirmaElectronica;
     // console.log(variable);
+    
     this.generacionDocs.postGeneracionDocumentos(variable).subscribe(
       (data: any) => {
         let resultado = data;
