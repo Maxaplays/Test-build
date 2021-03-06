@@ -1,0 +1,13 @@
+.dateSelector{
+    display: flex;
+    margin-top: 5px;
+}
+.dateSelector input{
+    text-align: center;
+}
+.calendarTop{
+    display: flex;
+}
+.calendarTop label{
+    margin-top: 12px;
+}
