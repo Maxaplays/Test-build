@@ -302,8 +302,9 @@ export class ContentFabricaCreditoMinComponent implements OnInit {
         gestionCreditoYGestionDocumentalConIva = 0;
       }
     } catch (error) { this.gestionCreditoYGestionDocumentalConIva = "0";}
-    try {
+    try {      
       montoDeCredito = ventaProductos - entrada + gestionCreditoYGestionDocumentalConIva;
+      montoDeCredito=Number(montoDeCredito.toFixed(2));
       this.indexRecalculoCredito = ventaProductos - this.indexRecalculoEntrada + indexRecalculogestionCreditoYGestionDocumentalConIva;
       if (montoDeCredito <= 0) {
         montoDeCredito = 0;
@@ -323,7 +324,7 @@ export class ContentFabricaCreditoMinComponent implements OnInit {
     this.FormularioDatosBasicos.controls['valorTotalFactura'].setValue(valorTotalFactura.toFixed(2));
     this.FormularioDatosBasicos.controls['montoCredito'].setValue(montoDeCredito.toFixed(2));
     this.FormularioDatosBasicos.controls['cuotaMensualFija'].setValue(CuotaMensual.toFixed(2));
-    if (Number(montoDeCredito.toFixed(2)) > Number(creditoMaxima.toFixed(2))) {
+    if (montoDeCredito > Number(creditoMaxima.toFixed(2))) {
       this.mensajeMontoSuperior = 'Monto de crédito supera el máximo permitido';
     } else {
       this.mensajeMontoSuperior = '';

@@ -435,7 +435,6 @@ export class ContentFabricaGeneracionComponent implements OnInit {
       this.yearIngresado2 = fecha.getFullYear().toString();
 
     }
-
   }
   convertirFecha(ref) {
     let fechaCon = new Date();
