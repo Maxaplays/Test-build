@@ -59,7 +59,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
               private fabricaService: FabricaService,
               private generacionDocs: GeneraDocService,
               private router:Router) {
-                
+
   }
 
   ngOnInit() {
@@ -148,7 +148,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   }
 
   // generarDocumentos(content, contentError,fechaPagare,fechaPrimerPago) {
-    
+
   generarDocumentos(content, contentError) {
     // let SplitfechaPagare = fechaPagare.split("/");
     // let SplitfechaPrimerPago = fechaPrimerPago.split("/");
@@ -236,7 +236,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     variable.ID_CLI = this.mensajeServicio.Cedula;
     variable.UsaFirmaElectronica = this.mensajeServicio.UsaFirmaElectronica;
     // console.log(variable);
-    
+
     this.generacionDocs.postGeneracionDocumentos(variable).subscribe(
       (data: any) => {
         let resultado = data;
@@ -252,12 +252,8 @@ export class ContentFabricaGeneracionComponent implements OnInit {
           this.getTipoReportes();
           this.estadoGeneracion = resultado.GenerarDocumentos;
           if (resultado.GenerarDocumentos.Respuesta.toLowerCase() !== 'ok') {
-            if (resultado.GenerarDocumentos.Mensaje !== 'Solicitud enviada fuera de horario de procesamiento') {
-              this.router.navigate(['/fabrica/consulta-general']);
-              this.errorMessage = 'Existen problemas de conexión, por favor inténtelo más tarde';
-            } else {
-              this.errorMessage = resultado.GenerarDocumentos.Mensaje;
-            }
+            this.router.navigate(['/fabrica/consulta-general']);
+            this.errorMessage = resultado.GenerarDocumentos.Respuesta;
             this.loading = false;
             this.estadoGeneracion = true;
             this.getEstadoGenerarDocumentacion();
