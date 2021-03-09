@@ -130,9 +130,9 @@
                         <input style="width: 0px; height: 0px; border: 0;" formControlName="fechaPagare" #fechaPagare matInput [min]="FechaPagareMin" [max]="FechaPagareMax" [matDatepicker]="minmaxvalidation2" placeholder="dd/MM/yyyy" (dateChange)="cambioFechaPagare($event)" [value]="FechaCambio">
                         </div>
                         <div class="dateSelector">
-                            <input type="text" style="margin-right: 10px;"  placeholder="dd" (keyup)="automaticTab($event,'dia',1)" (focus)="limpiarCampo($event)" (focusout)="autocompletarCampo($event,'dia',1)"[value]="diaIngresado">
-                            <input type="text" style="margin-right: 10px;" (focus)="limpiarCampo($event)" placeholder="mm" (keyup)="automaticTab($event,'mes',1)" (focusout)="autocompletarCampo($event,'mes',1)"[value]="mesIngresado">
-                            <input type="text" placeholder="yyyy" (focus)="limpiarCampo($event)" (keyup)="automaticTab($event,null,1)" (focusout)="autocompletarCampo($event,null,1)" [value]="yearIngresado">
+                            <input [disabled]= "ingresado" type="text" style="margin-right: 10px;"  placeholder="dd" (keyup)="automaticTab($event,'dia',1)" (focus)="limpiarCampo($event)" (focusout)="autocompletarCampo($event,'dia',1)"[value]="diaIngresado">
+                            <input  [disabled]= "ingresado"  type="text" style="margin-right: 10px;" (focus)="limpiarCampo($event)" placeholder="mm" (keyup)="automaticTab($event,'mes',1)" (focusout)="autocompletarCampo($event,'mes',1)"[value]="mesIngresado">
+                            <input  [disabled]= "ingresado"  type="text" placeholder="yyyy" (focus)="limpiarCampo($event)" (keyup)="automaticTab($event,null,1)" (focusout)="autocompletarCampo($event,null,1)" [value]="yearIngresado">
                         </div>
                         <label class="label postinput">Fecha Minima: {{FechaPagareMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPagareMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
@@ -151,9 +151,9 @@
                         </div>
                         
                         <div class="dateSelector">
-                            <input type="text" style="margin-right: 10px;"  placeholder="dd" (keyup)="automaticTab($event,'dia',2)" (focus)="limpiarCampo($event)" (focusout)="autocompletarCampo($event,'dia',2)"[value]="diaIngresado2">
-                            <input type="text" style="margin-right: 10px;" (focus)="limpiarCampo($event)" placeholder="mm" (keyup)="automaticTab($event,'mes',2)" (focusout)="autocompletarCampo($event,'mes',2)"[value]="mesIngresado2">
-                            <input type="text" placeholder="yyyy" (focus)="limpiarCampo($event)" (keyup)="automaticTab($event,null,2)" (focusout)="autocompletarCampo($event,null,2)" [value]="yearIngresado2">
+                            <input  [disabled]= "ingresado"  type="text" style="margin-right: 10px;"  placeholder="dd" (keyup)="automaticTab($event,'dia',2)" (focus)="limpiarCampo($event)" (focusout)="autocompletarCampo($event,'dia',2)"[value]="diaIngresado2">
+                            <input  [disabled]= "ingresado"  type="text" style="margin-right: 10px;" (focus)="limpiarCampo($event)" placeholder="mm" (keyup)="automaticTab($event,'mes',2)" (focusout)="autocompletarCampo($event,'mes',2)"[value]="mesIngresado2">
+                            <input  [disabled]= "ingresado"  type="text" placeholder="yyyy" (focus)="limpiarCampo($event)" (keyup)="automaticTab($event,null,2)" (focusout)="autocompletarCampo($event,null,2)" [value]="yearIngresado2">
                         </div>                        
                         <label class="label postinput">Fecha Minima:{{FechaPrimerPagoMin | date: 'dd/MM/yyyy'}} - Fecha maxima:{{FechaPrimerPagoMax | date: 'dd/MM/yyyy'}}</label>
                     </fieldset>
