@@ -305,6 +305,7 @@ export class ContentFabricaCreditoMinComponent implements OnInit {
     try {      
       montoDeCredito = ventaProductos - entrada + gestionCreditoYGestionDocumentalConIva;
       montoDeCredito=Number(montoDeCredito.toFixed(2));
+      
       this.indexRecalculoCredito = ventaProductos - this.indexRecalculoEntrada + indexRecalculogestionCreditoYGestionDocumentalConIva;
       if (montoDeCredito <= 0) {
         montoDeCredito = 0;
