@@ -63,7 +63,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
   FechaActual: Date;
   FechaCambio: String;
   
-  primerIngreso:boolean= false;
+  ingresado:boolean= false;
 
   diaIngresado2: String = "";
   mesIngresado2: String = "";
@@ -331,13 +331,21 @@ export class ContentFabricaGeneracionComponent implements OnInit {
       fechaPagareTexto = FCH_PAGARE_SOL.toISOString().substring(0, 10);
       this.FechaPrimerPagoMin = new Date(this.addDays(FCH_PAGARE_SOL, +Number(this.mensajeServicio.DiasInicioCredito)));
       this.FechaPrimerPagoMax = new Date(this.addDays(FCH_PAGARE_SOL, +Number(this.mensajeServicio.DiasInicioMaximoCredito) - Number(this.mensajeServicio.DiasInicioCredito)));
+      this.insertarFecha(FCH_PAGARE_SOL,1);
+      this.ingresado=true;
     } catch {
+      this.ingresado=false;
     }
     try {
       FECHA_INICIO_CREDITO_REAL_CRE = new Date(this.mensajeServicio.FECHA_INICIO_CREDITO_REAL_CRE);
       fechaInicioCreditoTexto = FECHA_INICIO_CREDITO_REAL_CRE.toISOString().substring(0, 10);
-    } catch { }
-    // console.log('Iniciarliza formulario con ' + fechaPagareTexto +' ' + fechaInicioCreditoTexto);
+      this.insertarFecha(FECHA_INICIO_CREDITO_REAL_CRE,2);
+      this.ingresado=true;
+      
+    } catch { 
+      this.ingresado=false;
+    }
+    // console.log('Iniciarliza formulario con ' + fechaPagareTexto +' ' + fechaInicioCreditoTexto);        
     this.FormularioDatosReportes = new FormGroup({
       fechaPagare: new FormControl({
         value: fechaPagareTexto,
@@ -597,9 +605,6 @@ export class ContentFabricaGeneracionComponent implements OnInit {
         }
         if (!aux) {
           if (largo == 4) {
-            if(this.diaIngresado!=null&&this.mesIngresado!=null){
-              this.primerIngreso=true
-            }
             this.yearIngresado = (event.target.value);
             element = event.srcElement.parentNode.nextSibling;
             let aux = element.parentNode;
