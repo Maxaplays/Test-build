@@ -211,7 +211,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     //let string1 = this.FormularioDatosReportes.controls['fechaPagare'].value.toString().substring(0, 10) + ' 00:00:00';
     let string2 = this.mesIngresado2 + "/" + this.diaIngresado2 + "/" + this.yearIngresado2 + ' 00:00:00';
     let FechaPagareCalculada: Date = new Date(string1);
-    let FechaPrimerPagoCalculada: Date = new Date(string2);
+    let FechaPrimerPagoCalculada: Date = new Date(string2);    
     if (!this.puedeCambiarFechas) {
       if (FechaPagareCalculada >= this.FechaPagareMin && FechaPagareCalculada <= this.FechaPagareMax) {
         // Fecha Correcta
@@ -221,7 +221,9 @@ export class ContentFabricaGeneracionComponent implements OnInit {
         this.modalService.open(contentError, { windowClass: 'custom-width-error-modal' });
         return;
       }
-      if (FechaPrimerPagoCalculada >= this.FechaPrimerPagoMin && FechaPrimerPagoCalculada <= this.FechaPrimerPagoMax) {
+      let aux:Date =this.FechaPrimerPagoMin;
+      aux.setHours(0,0,0,0)
+      if (FechaPrimerPagoCalculada.getTime() >= aux.getTime() && FechaPrimerPagoCalculada <= this.FechaPrimerPagoMax) {
         // Fecha Correcta
       } else {
         // fecha Incorrecta
@@ -240,8 +242,8 @@ export class ContentFabricaGeneracionComponent implements OnInit {
     });
     variable.reportesImprimir = arregloReportesEnviar;
     variable.ID_CRE = this.mensajeServicio.NumeroCredito;
-    variable.fechaPagare = this.FormularioDatosReportes.controls['fechaPagare'].value;
-    variable.fechaPrimerPago = this.FormularioDatosReportes.controls['fechaPrimerPago'].value;
+    variable.fechaPagare =  this.diaIngresado +"/" + this.mesIngresado + "/" + this.yearIngresado;
+    variable.fechaPrimerPago =  this.diaIngresado2 + "/" +this.mesIngresado2 + "/" + this.yearIngresado2;
     variable.entidadFinanciera = this.FormularioDatosReportes.controls['entidadFinanciera'].value;
     variable.TipoDeCuenta = this.FormularioDatosReportes.controls['tipoCuenta'].value;
     variable.NumeroCuentaBancaria = this.FormularioDatosReportes.controls['numeroCuenta'].value;
