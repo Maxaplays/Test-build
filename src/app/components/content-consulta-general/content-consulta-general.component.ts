@@ -53,6 +53,7 @@ export class ContentConsultaGeneralComponent implements OnInit {
     this.fabricaService.getConsultaGeneral(localStorage.getItem('usuario'), fechaDesde, fechaHasta).subscribe((data: any) => {
       this.creditos = data.GENERO;
       this.cantidadCreditos = this.creditos.length;
+      this.loading = false;
       // console.log(this.creditos);
 
     }, ( errorServicio ) => {
