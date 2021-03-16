@@ -9,27 +9,22 @@
             </fieldset>
             <fieldset>
                 <label class="label">Nombre</label>
-                <input type="text" placeholder="Escriba un nombre" value="{{usuario}}">
+                <input type="text" placeholder="Escriba un nombre" value="{{usuario}}" readonly>
             </fieldset>
             <fieldset>
                 <label class="label">Teléfono</label>
-                <input type="tel" placeholder="Escriba un teléfono">
+                <input type="tel" placeholder="Escriba un teléfono" readonly>
             </fieldset>
             <fieldset>
                 <label class="label">Email</label>
-                <input type="email" placeholder="Escriba un email" value="{{emailUsuario}}">
+                <input type="email" placeholder="Escriba un email" value="{{emailUsuario}}" readonly>
             </fieldset>
-            <fieldset>
-                <label class="label">Nueva contraseña</label>
-                <input type="password" placeholder="Escriba una nueva contraseña">
-            </fieldset>
-            <fieldset>
-                <label class="label">Repetir Nueva contraseña</label>
-                <input type="password" placeholder="Escriba nuevamente la contraseña">
-            </fieldset>
-            <div class="btns-account">
+            <!--<div class="btns-account">
                 <button class="btn btn-border-gray">Cancelar</button>
                 <button class="btn btn-solid-green">Guardar</button>
-            </div>
+            </div>-->
         </form>
+        <div style="text-align:center">
+            <button class="btn btn-primary" (click)="openDialog()">Cambiar Contraseña</button>
+        </div>
 </div>
