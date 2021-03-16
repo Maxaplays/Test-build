@@ -330,7 +330,7 @@ export class ContentFabricaGeneracionComponent implements OnInit {
       FCH_PAGARE_SOL = new Date(this.mensajeServicio.FCH_PAGARE_SOL);
       fechaPagareTexto = FCH_PAGARE_SOL.toISOString().substring(0, 10);
       this.FechaPrimerPagoMin = new Date(this.addDays(FCH_PAGARE_SOL, +Number(this.mensajeServicio.DiasInicioCredito)));
-      this.FechaPrimerPagoMax = new Date(this.addDays(FCH_PAGARE_SOL, +Number(this.mensajeServicio.DiasInicioMaximoCredito) - Number(this.mensajeServicio.DiasInicioCredito)));
+      this.FechaPrimerPagoMax = new Date(this.addDays(this.FechaPrimerPagoMin, +Number(this.mensajeServicio.DiasInicioMaximoCredito) - Number(this.mensajeServicio.DiasInicioCredito)));
       this.insertarFecha(FCH_PAGARE_SOL,1);
       this.ingresado=true;
     } catch {
