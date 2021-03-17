@@ -61,8 +61,9 @@ import { FabricaStep2minComponent } from './components/fabrica-step2min/fabrica-
 import { ContentFabricaMinComponent } from './components/content-fabrica-min/content-fabrica-min.component';
 import { FabricaMinComponent } from './components/fabrica-min/fabrica-min.component';
 import { MatSliderModule } from '@angular/material/slider';
-import { MatSlideToggleModule, GestureConfig } from '@angular/material';
+import { MatSlideToggleModule, GestureConfig, MatDialogModule, MatSnackBarModule } from '@angular/material';
 import 'hammerjs';
+import { MyDialogComponent } from './components/editar-cuenta/my-dialog/my-dialog.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -143,7 +144,8 @@ const routes: Routes = [
     ContentFabricaCreditoMinComponent,
     FabricaStep2minComponent,
     ContentFabricaMinComponent,
-    FabricaMinComponent
+    FabricaMinComponent,
+    MyDialogComponent
   ],
   imports: [
     NgbModule,
@@ -157,8 +159,11 @@ const routes: Routes = [
     MatNativeDateModule,
     MatSliderModule,
     MatSlideToggleModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatDialogModule,
+    MatSnackBarModule
   ],
+  entryComponents:[MyDialogComponent],
   exports: [],
   providers: [ExportService,
     {provide: MAT_DATE_LOCALE, useValue: 'es-EC'},

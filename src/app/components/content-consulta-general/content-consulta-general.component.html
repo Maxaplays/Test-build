@@ -32,6 +32,7 @@
                 <label class="label">Buscador General</label>
                 <input type="text" placeholder="Filtrar: Estado/Cédula/Nombre" #busqueda (input)="Buscar(busqueda.value, 'BUSCADOR')">
             </div>
+            <app-loading *ngIf="loading"></app-loading>
             <div id="table-scroll">
                 <table class="width-filters display nowrap" id="tabla">
                     <thead>
