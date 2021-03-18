@@ -234,6 +234,7 @@
                     <table>
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Tipo de Registro</th>
                                 <th>Tipo de Teléfono</th>
                                 <th>Número de Teléfono</th>
@@ -246,6 +247,9 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let telefono of telefonos | paginate: {itemsPerPage: 10, currentPage: paginaActual}">
+                                <td data-column="#" >
+                                    <span class="{{telefono.VALIDADO_DIS}}" ></span>
+                                </td>
                                 <td data-column="Tipo de Registro">{{telefono.TIPO}}</td>
                                 <td data-column="Tipo de Teléfono">{{telefono.NOM_TDIS}}</td>
                                 <td data-column="Número de Teléfono">{{telefono.VALOR_DIS}}</td>

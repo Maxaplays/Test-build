@@ -743,6 +743,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .subscribe((data: any) => {
         this.telefonos = data;
       });
+      
   }
   // SITUACION FINANCIERA DDLT
   onDatosIngresosChange(newValue, ID_CREDITO_INGRESOS: string) {
