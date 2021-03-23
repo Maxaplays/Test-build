@@ -1,0 +1,8 @@
+.historial {
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    max-height: 370px;
+    margin: 0!important;
+    overflow-x: hidden;
+}

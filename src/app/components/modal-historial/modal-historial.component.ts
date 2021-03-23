@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Historial, HistorialService} from '../../services/historial/historial.service';
-import {map} from 'rxjs/operators';
-import {DatosFabrica, FabricaService} from '../../services/fabricaCredito/fabrica.service';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Historial, HistorialService } from '../../services/historial/historial.service';
+import { map } from 'rxjs/operators';
+import { DatosFabrica, FabricaService } from '../../services/fabricaCredito/fabrica.service';
 
 @Component({
   selector: 'app-modal-historial',
@@ -18,9 +18,11 @@ export class ModalHistorialComponent implements OnInit {
   diasSubEstado: number;
   comentario;
   historial: any[] = [];
+  aux = [];
+  cont;
 
-  constructor( private historialService: HistorialService,
-               private fabricaService: FabricaService ) { }
+  constructor(private historialService: HistorialService,
+    private fabricaService: FabricaService) { }
 
   ngOnInit() {
     this.fabricaService.currentMessage.subscribe(
@@ -43,11 +45,45 @@ export class ModalHistorialComponent implements OnInit {
       });
   }
 
+  @HostListener("scroll", ['$event'])
+  public cargarDatos(event) {
+    let pos = event.srcElement.scrollTop;
+    let max = event.srcElement.scrollHeight-event.srcElement.offsetHeight;
+    if (pos == max) {
+      this.agregarDatos();
+    }
+
+  }
+  public agregarDatos(){
+    if(this.cont!=this.historial.length-1){
+      if((this.cont+5)<this.historial.length-1){
+        this.historial.slice(this.cont, this.cont+5).forEach(element => {
+          this.aux.push(element)
+        });
+        this.cont=this.cont+5
+      }else{
+        this.historial.slice(this.cont, this.historial.length).forEach(element => {
+          this.aux.push(element)
+        });
+        this.cont=this.historial.length-1;
+      }
+    }
+    
+    
+    
+  }
   public getHistorial(): any {
     this.historialService.getHistorial(this.idCredito)
       .pipe(map(data => data['HISTORIAL']))
       .subscribe((data: any) => {
         this.historial = data;
+        if ((this.historial.length - 1) > 5) {
+          this.cont=5;
+          this.aux = this.historial.slice(0, 5);
+        } else {
+          this.aux = this.historial;
+          this.cont=this.historial.length-1;
+        }
       });
   }
 
