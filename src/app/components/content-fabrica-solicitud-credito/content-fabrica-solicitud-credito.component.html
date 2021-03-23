@@ -234,6 +234,7 @@
                     <table>
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Tipo de Registro</th>
                                 <th>Tipo de Teléfono</th>
                                 <th>Número de Teléfono</th>
@@ -246,6 +247,9 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let telefono of telefonos | paginate: {itemsPerPage: 10, currentPage: paginaActual}">
+                                <td data-column="#" >
+                                    <span class="{{telefono.VALIDADO_DIS_SEM}}" ></span>
+                                </td>
                                 <td data-column="Tipo de Registro">{{telefono.TIPO}}</td>
                                 <td data-column="Tipo de Teléfono">{{telefono.NOM_TDIS}}</td>
                                 <td data-column="Número de Teléfono">{{telefono.VALOR_DIS}}</td>
@@ -319,6 +323,7 @@
                     <table>
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Tipo de Registro</th>
                                 <th>Cédula</th>
                                 <th>Parentesco</th>
@@ -335,6 +340,9 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let referencia of referencias | paginate: {itemsPerPage: 10, currentPage: paginaActual}">
+                                <td data-column="#" >
+                                    <span class="{{referencia.VALIDADO_REF_SEM}}" ></span>
+                                </td>
                                 <td data-column="Tipo de Registro">{{referencia.tipo_registro}}</td>
                                 <td data-column="Cédula">{{referencia.cedula}}</td>
                                 <td data-column="Parentesco">{{referencia.parentesco}}</td>

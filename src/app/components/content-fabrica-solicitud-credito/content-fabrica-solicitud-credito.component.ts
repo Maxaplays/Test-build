@@ -743,6 +743,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .subscribe((data: any) => {
         this.telefonos = data;
       });
+      
   }
   // SITUACION FINANCIERA DDLT
   onDatosIngresosChange(newValue, ID_CREDITO_INGRESOS: string) {
@@ -1156,7 +1157,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .pipe(map(data => data["LISTAREF"]))
       .subscribe((data: any) => {
         this.referencias = data;
-        // console.log(data);
       });
   }
 

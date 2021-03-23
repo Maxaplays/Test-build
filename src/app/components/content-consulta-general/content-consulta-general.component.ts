@@ -11,6 +11,7 @@ import {ExportService} from '../../services/exportar/export.service';
 export class ContentConsultaGeneralComponent implements OnInit {
   // bkm
   creditos: any[];
+  creditosExportar: any[] = [];
   cantidadCreditos: number;
   searchText: string;
   loading: boolean;
@@ -52,6 +53,7 @@ export class ContentConsultaGeneralComponent implements OnInit {
 
     this.fabricaService.getConsultaGeneral(localStorage.getItem('usuario'), fechaDesde, fechaHasta).subscribe((data: any) => {
       this.creditos = data.GENERO;
+
       this.cantidadCreditos = this.creditos.length;
       this.loading = false;
       // console.log(this.creditos);
@@ -73,6 +75,14 @@ export class ContentConsultaGeneralComponent implements OnInit {
     }
   }
   exportar() {
-    this.exportService.exportToExcel(this.creditos, 'Creditos');
+    var camposdelete = ['VENDEDOR_COLORUX_ECRE', 'ANALISTA_COLORUX_ECRE', 'CALIDAD_COLORUX_ECRE', 'Excepcion', 'SIMULADOR_ECRE', 'nombre_plantilla', 'BUSCADOR', 'RetomarConsulta']
+
+    this.creditos.forEach(element => {
+      camposdelete.forEach(remp => {
+        delete element[remp]
+      });
+      this.creditosExportar.push(element)
+    });
+    this.exportService.exportToExcel(this.creditosExportar, 'Creditos');
   }
 }
