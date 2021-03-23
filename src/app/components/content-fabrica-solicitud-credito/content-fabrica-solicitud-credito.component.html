@@ -620,8 +620,7 @@
     <div class="footer-fixed-forms">
         <div class="cols cols2">
             <div class="align-left">
-                <button class="btn btn-border-blue"><img src="assets/images/icon-reloj.svg">Historial</button>
-                <!--button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</--button-->
+                <button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</button>
                 <button *ngIf="btnSolicitarAnulacion" class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
                 <button class="btn btn-border-blue btn-cancel" (click)="openLgDocumentacion(verDocumentacion)"><img src="assets/images/icon-folder.svg">Documentación</button>
                 <button *ngIf="BtnEntregarCarpeta" class="btn btn-border-blue btn-cancel" (click)="openLgEntregarCarpeta(entregarCarpeta)"><img src="assets/images/icon-folder.svg">Entregar Carpeta</button>
@@ -1175,16 +1174,6 @@
         </div>
     </div>
     <app-modal-historial></app-modal-historial>
-    <div class="modal-footer-mfc full variation">
-        <div class="cols cols2">
-            <div class="align-left">
-                <button class="btn btn-border-blue" routerLink="/configuracion/respuestas" (click)="modal.close('Cancelar click')">Generar respuesta</button>
-            </div>
-            <div class="align-right">
-                <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Guardar</button>
-            </div>
-        </div>
-    </div>
 </ng-template>
 
 <ng-template #mensajeGrabado let-modal>
