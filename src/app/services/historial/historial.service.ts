@@ -27,8 +27,8 @@ export class HistorialService {
     return this.http.get(url);
   }
 
-  public getHistorial(ID_CRE: string) {
-    return this.getQuery(`${ID_CRE}`);
+  public getHistorial(ID_CRE: string,ID_HIST: string) {
+    return this.getQuery(`${ID_CRE}/${ID_HIST}`);
   }
 
   public getEstadoSubEstado(ID_CRE: string) {

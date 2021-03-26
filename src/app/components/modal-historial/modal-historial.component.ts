@@ -18,8 +18,7 @@ export class ModalHistorialComponent implements OnInit {
   diasSubEstado: number;
   comentario;
   historial: any[] = [];
-  aux = [];
-  cont;
+  aux:boolean = true;
 
   constructor(private historialService: HistorialService,
     private fabricaService: FabricaService) { }
@@ -52,37 +51,29 @@ export class ModalHistorialComponent implements OnInit {
     if (pos == max) {
       this.agregarDatos();
     }
-
   }
   public agregarDatos(){
-    if(this.cont!=this.historial.length-1){
-      if((this.cont+5)<this.historial.length-1){
-        this.historial.slice(this.cont, this.cont+5).forEach(element => {
-          this.aux.push(element)
+    if(this.aux){
+      this.historialService.getHistorial(this.idCredito,this.historial[this.historial.length-1]["ID_HIST"])
+      .pipe(map(data => data['HISTORIAL']))
+      .subscribe((data: any) => {
+        data.forEach(element => {
+          this.historial.push(element)          
         });
-        this.cont=this.cont+5
-      }else{
-        this.historial.slice(this.cont, this.historial.length).forEach(element => {
-          this.aux.push(element)
-        });
-        this.cont=this.historial.length-1;
-      }
+        if(data.length<5){
+          this.aux=false
+        }
+      });
     }
-    
-    
-    
+       
   }
-  public getHistorial(): any {
-    this.historialService.getHistorial(this.idCredito)
+  public getHistorial(): any {    
+    this.historialService.getHistorial(this.idCredito,"x")
       .pipe(map(data => data['HISTORIAL']))
       .subscribe((data: any) => {
         this.historial = data;
-        if ((this.historial.length - 1) > 5) {
-          this.cont=5;
-          this.aux = this.historial.slice(0, 5);
-        } else {
-          this.aux = this.historial;
-          this.cont=this.historial.length-1;
+        if(data.length<5){
+          this.aux=false
         }
       });
   }
@@ -96,6 +87,7 @@ export class ModalHistorialComponent implements OnInit {
 
       this.historialService.postComentario(comentario).subscribe(
         (data: any) => {
+          this.aux=true;
           this.getHistorial();
           this.comentario = '';
         });
