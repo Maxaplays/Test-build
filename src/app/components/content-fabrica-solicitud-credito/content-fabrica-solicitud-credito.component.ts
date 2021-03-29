@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild, Input} from '@angular/core';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {Direccion, DireccionesService} from '../../services/direcciones/direcciones.service';
-import {TelefonosService} from '../../services/telefonos/telefonos.service';
-import {debounceTime, map} from 'rxjs/operators';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Direccion, DireccionesService } from '../../services/direcciones/direcciones.service';
+import { TelefonosService } from '../../services/telefonos/telefonos.service';
+import { debounceTime, map } from 'rxjs/operators';
 import { DatosFabrica, FabricaService } from 'src/app/services/fabricaCredito/fabrica.service';
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { TipoDocumentacionService } from '../../services/tipo-documentacion.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SituacionFinancieraService } from '../../services/situacionFinanciera/situacion-financiera.service';
@@ -131,24 +131,24 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   // bkm
   // tslint:disable-next-line:max-line-length
   constructor(private modalService: NgbModal,
-              private direccionesService: DireccionesService,
-              private telefonoService: TelefonosService,
-              private fabricaService: FabricaService,
-              private tipoDocumentacionService: TipoDocumentacionService,
-              private conyugesServices: ConyugesService,
-              private referenciasServices: ReferenciasService,
-              private fb: FormBuilder,
-              private activatedRoute: ActivatedRoute,
-              private situacionFinancieraService: SituacionFinancieraService,
-              private generoService: GeneroService,
-              private parentescoServices: ParentescoService,
-              private nacionalidadesService: NacionalidadesService,
-              private estadoCivilService: EstadoCivilService,
-              private profesionService: ProfesionService,
-              private clienteService: ClienteService,
-              private datosComplService: DatosComplementariosService,
-              private documentosService: DocumentosService,
-              private router: Router) {
+    private direccionesService: DireccionesService,
+    private telefonoService: TelefonosService,
+    private fabricaService: FabricaService,
+    private tipoDocumentacionService: TipoDocumentacionService,
+    private conyugesServices: ConyugesService,
+    private referenciasServices: ReferenciasService,
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private situacionFinancieraService: SituacionFinancieraService,
+    private generoService: GeneroService,
+    private parentescoServices: ParentescoService,
+    private nacionalidadesService: NacionalidadesService,
+    private estadoCivilService: EstadoCivilService,
+    private profesionService: ProfesionService,
+    private clienteService: ClienteService,
+    private datosComplService: DatosComplementariosService,
+    private documentosService: DocumentosService,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -175,18 +175,18 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       this.idCredito = this.idCre;
       // console.log('Solicitud de credito:' + this.idCredito);
       if (typeof this.idCredito !== 'undefined') {
-            this.fabricaService.getRetomarCredito(this.idCredito,
-              localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
-                (data: DatosFabrica) => {
-                  // console.log(data);
-                  this.fabricaService.changeMessage(data);
-                  // console.log('Acoplar Pantalla: ' + data.Estado);
-                  // this.acoplarPantalla(data.Estado);
-                });
+        this.fabricaService.getRetomarCredito(this.idCredito,
+          localStorage.getItem('usuario')).pipe(map(data => data['Table1'][0])).subscribe(
+            (data: DatosFabrica) => {
+              // console.log(data);
+              this.fabricaService.changeMessage(data);
+              // console.log('Acoplar Pantalla: ' + data.Estado);
+              // this.acoplarPantalla(data.Estado);
+            });
       }
     }
     this.fabricaService.currentMessage.subscribe(
-        data => {
+      data => {
         this.mensajeServicio = data;
         this.getCliente();
         this.getDatosComplementarios();
@@ -204,34 +204,34 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   incializarCredito() {
     this.loading = true;
     this.fabricaService.getRetomarCredito(this.idCredito,
-    localStorage.getItem('usuario')).pipe(map (data => data['Table1'][0])).subscribe(
-              (data: DatosFabrica) => {
-                // console.log(data);
-                // console.log('Acoplar Pantalla estado:' + data.Estado);
-                this.fabricaService.changeMessage(data);
-                this.acoplarPantalla(data.Estado);
-                this.getCliente();
-                this.getDatosComplementarios();
-                this.direcciones = this.getDirecciones();
-                this.telefonos = this.getTelefonos();
-                this.conyuges = this.getListaConyuges();
-                this.referencias = this.getListaReferencias();
-                this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
-                this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
-                this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
-                this.loading = false;
-              });
+      localStorage.getItem('usuario')).pipe(map(data => data['Table1'][0])).subscribe(
+        (data: DatosFabrica) => {
+          // console.log(data);
+          // console.log('Acoplar Pantalla estado:' + data.Estado);
+          this.fabricaService.changeMessage(data);
+          this.acoplarPantalla(data.Estado);
+          this.getCliente();
+          this.getDatosComplementarios();
+          this.direcciones = this.getDirecciones();
+          this.telefonos = this.getTelefonos();
+          this.conyuges = this.getListaConyuges();
+          this.referencias = this.getListaReferencias();
+          this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
+          this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
+          this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
+          this.loading = false;
+        });
   }
   onDatosComplementariosComentariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
     if (this.grabarDatosIngresadosGrid) {
-    this.datosComplService.getguardarComentario(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
-        .subscribe( (resultado: any[] ) => {
-            if (resultado.toString() === 'Actualizado!') {
-              // this.successMessage = resultado.toString();
-              // this.getDatosComplementarios();
-            }
+      this.datosComplService.getguardarComentario(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
+        .subscribe((resultado: any[]) => {
+          if (resultado.toString() === 'Actualizado!') {
+            // this.successMessage = resultado.toString();
+            // this.getDatosComplementarios();
+          }
         });
-      }
+    }
   }
   crearFormularioCliente() {
     this.FormularioDatosCliente = new FormGroup({
@@ -256,27 +256,27 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   getCliente() {
     if (this.mensajeServicio.Cedula !== '' && this.mensajeServicio.Cedula !== undefined) {
       this.clienteService.getClienteCedula(this.mensajeServicio.Cedula)
-      .pipe(map(data => data['CLIENTE']))
-      .subscribe((data: any) => {
-        let datosCliente: Cliente;
-        datosCliente = data[0];
-        // console.log(data[0]);
-        this.FormularioDatosCliente.controls['genero'].setValue(datosCliente.COD_GEN);
-        this.FormularioDatosCliente.controls['estadoCivil'].setValue(datosCliente.COD_ECIV);
-        this.FormularioDatosCliente.controls['profesionCliente'].setValue(datosCliente.COD_PRO);
-        this.FormularioDatosCliente.controls['tipoDocumentacion'].setValue(datosCliente.COD_TDOC);
-        this.FormularioDatosCliente.controls['nacionalidad'].setValue(datosCliente.COD_NAC);
-        this.FormularioDatosCliente.controls['apellidoCliente'].setValue(datosCliente.APE_CLI);
-        this.FormularioDatosCliente.controls['nombreCliente'].setValue(datosCliente.NOM_CLI);
-        try {
-        let fechaNacimiento: Date = new Date(datosCliente.FECH_NAC_CLI);
-        this.FormularioDatosCliente.controls['fechaNacimiento'].setValue(fechaNacimiento.toISOString().substring(0, 10));
-        } catch {}
-        this.FormularioDatosCliente.controls['cargasFamiliares'].setValue(datosCliente.CARGAS_CLI);
-        this.FormularioDatosCliente.controls['razonSocialTrabajo'].setValue(datosCliente.EMP_CLI);
-        this.FormularioDatosCliente.controls['rucTrabajo'].setValue(datosCliente.RUC_EMP_CLI);
-        this.FormularioDatosCliente.controls['emailCliente'].setValue(datosCliente.EMAIL_CLI);
-      });
+        .pipe(map(data => data['CLIENTE']))
+        .subscribe((data: any) => {
+          let datosCliente: Cliente;
+          datosCliente = data[0];
+          // console.log(data[0]);
+          this.FormularioDatosCliente.controls['genero'].setValue(datosCliente.COD_GEN);
+          this.FormularioDatosCliente.controls['estadoCivil'].setValue(datosCliente.COD_ECIV);
+          this.FormularioDatosCliente.controls['profesionCliente'].setValue(datosCliente.COD_PRO);
+          this.FormularioDatosCliente.controls['tipoDocumentacion'].setValue(datosCliente.COD_TDOC);
+          this.FormularioDatosCliente.controls['nacionalidad'].setValue(datosCliente.COD_NAC);
+          this.FormularioDatosCliente.controls['apellidoCliente'].setValue(datosCliente.APE_CLI);
+          this.FormularioDatosCliente.controls['nombreCliente'].setValue(datosCliente.NOM_CLI);
+          try {
+            let fechaNacimiento: Date = new Date(datosCliente.FECH_NAC_CLI);
+            this.FormularioDatosCliente.controls['fechaNacimiento'].setValue(fechaNacimiento.toISOString().substring(0, 10));
+          } catch { }
+          this.FormularioDatosCliente.controls['cargasFamiliares'].setValue(datosCliente.CARGAS_CLI);
+          this.FormularioDatosCliente.controls['razonSocialTrabajo'].setValue(datosCliente.EMP_CLI);
+          this.FormularioDatosCliente.controls['rucTrabajo'].setValue(datosCliente.RUC_EMP_CLI);
+          this.FormularioDatosCliente.controls['emailCliente'].setValue(datosCliente.EMAIL_CLI);
+        });
     }
   }
 
@@ -323,12 +323,12 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
             } else {
               // Error
               this.errorMessage = data;
-              this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+              this.modalService.open(content, { windowClass: 'custom-width-error-modal' });
             }
           });
       } else {
         this.errorMessage = 'Datos de cliente incorrectos, favor revise';
-        this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+        this.modalService.open(content, { windowClass: 'custom-width-error-modal' });
         return Object.values(this.FormularioDatosCliente.controls).forEach(control => {
           if (control instanceof FormGroup) {
             // tslint:disable-next-line:no-shadowed-variable
@@ -351,7 +351,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       this.conyugeID_CONeditable = conyuge.ID_CON;
       // console.log('dato:' + this.conyugeID_CONeditable);
     }
-    this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+    this.modalService.open(content, { windowClass: 'custom-width-variant-modal' });
   }
 
   crearFormularioConyuge() {
@@ -375,8 +375,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     try {
       let fechaNacimiento: Date = new Date(conyuge.FECH_NAC_CON);
       fechaNacimientostring = fechaNacimiento.toISOString().substring(0, 10);
-      } catch {
-      }
+    } catch {
+    }
     this.FormularioDatosConyuge.reset({
       tipo_registro: 'CLIENTE',
       tipoDocumentacion: conyuge.COD_TDOC,
@@ -403,7 +403,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       this.referenciaID_REFeditable = referencia.ID_REF;
       // console.log('dato:' + this.referenciaID_REFeditable);
     }
-    this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+    this.modalService.open(content, { windowClass: 'custom-width-variant-modal' });
   }
 
   crearFormularioReferencia() {
@@ -421,7 +421,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       direc_emp: new FormControl(null),
       observa_ref: new FormControl(null),
       email: new FormControl(null),
-     });
+    });
   }
 
   cargarFormularioReferencia(referencia: any) {
@@ -441,7 +441,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       email: referencia.email,
     });
   }
-    // cedula, apellido, nombre, direccion, telefono_dom, celular, telefono_trab, empresa, direc_emp, observa
+  // cedula, apellido, nombre, direccion, telefono_dom, celular, telefono_trab, empresa, direc_emp, observa
   guardarReferencia(content) {
     // console.log('Inicia Proceso');
     if (this.FormularioDatosReferencia.valid) {
@@ -473,28 +473,28 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
           } else {
             // Error
             this.errorMessage = data.error;
-            this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+            this.modalService.open(content, { windowClass: 'custom-width-error-modal' });
           }
         });
-      } else {
-        this.errorMessage = 'Datos de referencia incorrectos, favor revise';
-        this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
-        return Object.values(this.FormularioDatosReferencia.controls).forEach(control => {
-          if (control instanceof FormGroup) {
-            // tslint:disable-next-line:no-shadowed-variable
-            Object.values(control.controls). forEach( control => control.markAllAsTouched());
-          } else {
-            control.markAllAsTouched();
-          }
-        });
-      }
+    } else {
+      this.errorMessage = 'Datos de referencia incorrectos, favor revise';
+      this.modalService.open(content, { windowClass: 'custom-width-error-modal' });
+      return Object.values(this.FormularioDatosReferencia.controls).forEach(control => {
+        if (control instanceof FormGroup) {
+          // tslint:disable-next-line:no-shadowed-variable
+          Object.values(control.controls).forEach(control => control.markAllAsTouched());
+        } else {
+          control.markAllAsTouched();
+        }
+      });
+    }
   }
 
   public getTipoDoc(): any {
     this.tipoDocumentacionService.getTipoDoc()
-        .subscribe( (resultado: any[] ) => {
-          this.tipoDoc = resultado;
-        });
+      .subscribe((resultado: any[]) => {
+        this.tipoDoc = resultado;
+      });
   }
 
   openLg(content, direccion: any) {
@@ -518,7 +518,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
   openCustomWidth(content, telefono: any) {
     // bkm - inicializar formas
-    if ( telefono === undefined || telefono === '') {
+    if (telefono === undefined || telefono === '') {
       this.crearTelefono = true;
       this.codigoTelefono = 0;
       this.crearFormularioTelefonos();
@@ -526,26 +526,26 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       this.crearTelefono = false;
       this.cargarFormularioTelefonos(telefono);
     }
-    this.modalService.open(content, {windowClass: 'custom-width-modal'});
+    this.modalService.open(content, { windowClass: 'custom-width-modal' });
   }
   getDatosComplementarios(): any {
     this.datosComplService.getDatosComplementarios(this.mensajeServicio.NumeroCredito)
-    .subscribe(
-      (data: any) => {
-        this.datosComplemetarios = data;
-        // console.log(this.estadoCivil);
-      }, ( errorServicio ) => {
-        // console.log('Error');
-      }
-    );
+      .subscribe(
+        (data: any) => {
+          this.datosComplemetarios = data;
+          // console.log(this.estadoCivil);
+        }, (errorServicio) => {
+          // console.log('Error');
+        }
+      );
   }
   openCustomWidthVariant(content) {
-    this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+    this.modalService.open(content, { windowClass: 'custom-width-variant-modal' });
   }
 
   getTipoDir(): any {
     this.direccionesService.getTipoDir()
-      .pipe(map (data => data['TIPODIR']))
+      .pipe(map(data => data['TIPODIR']))
       .subscribe((data: any) => {
         this.tipoDir = data;
       });
@@ -553,14 +553,14 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   public getProvincia(): any {
     this.direccionesService.getProvincia()
-      .pipe(map (data => data['PROVINCIA']))
+      .pipe(map(data => data['PROVINCIA']))
       .subscribe((data: any) => {
         this.provincias = data;
       });
   }
   getGeneros() {
     this.generoService.getGeneros()
-      .pipe(map (data => data['GENERO']))
+      .pipe(map(data => data['GENERO']))
       .subscribe((data: any) => {
         this.generos = data;
       });
@@ -568,15 +568,15 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   getParentescos() {
     this.parentescoServices.getParentescos()
-    .pipe(map (data => data['PARENTESCO']))
-    .subscribe((data: any) => {
-      this.parentescos = data;
-    });
+      .pipe(map(data => data['PARENTESCO']))
+      .subscribe((data: any) => {
+        this.parentescos = data;
+      });
   }
 
   getNacionalidades() {
     this.nacionalidadesService.getNacionalidades()
-      .pipe(map (data => data['NACIONALIDAD']))
+      .pipe(map(data => data['NACIONALIDAD']))
       .subscribe((data: any) => {
         this.nacionalidades = data;
       });
@@ -586,7 +586,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       (data: any) => {
         this.estadoCivil = data.ESTADO_CIVIL;
         // console.log(this.estadoCivil);
-      }, ( errorServicio ) => {
+      }, (errorServicio) => {
         // console.log('Error');
       }
     );
@@ -596,7 +596,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       (data: any) => {
         this.profesiones = data.PROFESION;
         // console.log(this.estadoCivil);
-      }, ( errorServicio ) => {
+      }, (errorServicio) => {
         // console.log('Error');
       }
     );
@@ -636,98 +636,98 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       return;
     }
     if (lblEstadoSolicitud === 'Documental' || lblEstadoSolicitud === 'Cancelada' ||
-        lblEstadoSolicitud === 'Aprobada' || lblEstadoSolicitud === 'Autorizada' ||
-        lblEstadoSolicitud === 'Re-Documental' || lblEstadoSolicitud === 'RechazadaCC' ||
-        lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Caducada' ||
-        lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
-        lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
-        lblEstadoSolicitud === 'Autorización Caducada' || lblEstadoSolicitud === 'Consultada' ||
-        lblEstadoSolicitud === 'Ingresando' || lblEstadoSolicitud === 'Verificando' || lblEstadoSolicitud === 'Devuelta' ||
-        lblEstadoSolicitud === 'Re-verificación' || lblEstadoSolicitud === 'Guardada') {
-                    // pageControlCliente.TabPages[7].Enabled = true;
-                    if (lblEstadoSolicitud === 'Aprobada') {
-                      // console.log('Bloqueado 1' + lblEstadoSolicitud);
-                      this.btnSolicitarAnulacion = false;
-                      this.BtnEntregarCarpeta = true;
-                      this.btnSolicitarAnalisis = false;
-                      this.btnMedioAprobacion = false;
-                      this.grabarDatosIngresadosGrid = false;
-                      this.SubirArchivos = false;
-                    } else {
-                        if (lblEstadoSolicitud === 'Ingresando') {
-                          // console.log('Bloqueado 1' + lblEstadoSolicitud);
-                          this.btnSolicitarAnulacion = true;
-                          this.BtnEntregarCarpeta = false;
-                          this.btnSolicitarAnalisis = true;
-                          this.btnMedioAprobacion = true;
-                          this.grabarDatosIngresadosGrid = true;
-                          this.SubirArchivos = true;
-                          this.ASPxActualizarSOL = true;
-                        } else {
-                          if (lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Rechazada' ||
-                           lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
-                            lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada' ||
-                            lblEstadoSolicitud === 'Consultada') {
-                              // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
-                              // ('Bloqueado 2' + lblEstadoSolicitud);
-                              this.btnSolicitarAnulacion = false;
-                              this.BtnEntregarCarpeta = false;
-                              //this.ASPxButton1 = false;
-                              this.ASPxActualizarSOL = false;
-                              this.btnTelefonos = false;
-                              this.btnActualizarDirecciones = false;
-                              this.btnConyuge = false;
-                              this.btnActualizarReferencias = false;
-                              this.grabarDatosIngresadosGrid = false;
-                              this.SubirArchivos = false;
-                              this.btnSolicitarAnalisis = false;
-                              // ASPxUploadControl1.Visible = false;
-                              // ASPxUploadControl2.Visible = false;
-                              // ASPxUploadControl3.Visible = false;
-                              // btnGenerarReportesDinamicos.Visible = false;
-                              // btnRefrescar.Visible = false;
-                              // BtnGuardar.Visible = false;
-                              this.btnSolicitarAnalisis = false;
-                              this.btnMedioAprobacion = false;
-                          } else {
-                              if (lblEstadoSolicitud === 'Cancelada' ) {
-                                // console.log('Bloqueado 3' + lblEstadoSolicitud);
-                                this.ASPxActualizarSOL = false;
-                                this.btnSolicitarAnulacion = false;
-                                this.BtnEntregarCarpeta = false;
-                                this.btnSolicitarAnalisis = false;
-                                this.btnMedioAprobacion = false;
-                                this.btnTelefonos = false;
-                                this.btnActualizarDirecciones = false;
-                                this.btnConyuge = false;
-                                this.btnActualizarReferencias = false;
-                                this.grabarDatosIngresadosGrid = false;
-                                this.SubirArchivos = false;
-                              } else {
-                                // console.log('Bloqueado 4' + lblEstadoSolicitud);
-                                // this.btnSolicitarAnulacion = true;
-                                // this.BtnEntregarCarpeta = false;
-                                // this.btnSolicitarAnalisis = false;
-                                // this.grabarDatosIngresadosGrid = false;
-                                // this.SubirArchivos = false;
-                              }
-                          }
-                      }
-                    }
-                } else {
-                  // console.log('Bloqueado 5' + lblEstadoSolicitud);
-                  this.btnSolicitarAnulacion = false;
-                  this.BtnEntregarCarpeta = false;
-                  this.btnSolicitarAnalisis = false;
-                  this.btnMedioAprobacion = false;
-                  this.grabarDatosIngresadosGrid = false;
-                  this.SubirArchivos = false;
-                  this.ASPxActualizarSOL = false;
-                  this.btnTelefonos = false;
-                  this.btnActualizarDirecciones = false;
-                  this.btnConyuge = false;
-                  this.btnActualizarReferencias = false;
-                }
+      lblEstadoSolicitud === 'Aprobada' || lblEstadoSolicitud === 'Autorizada' ||
+      lblEstadoSolicitud === 'Re-Documental' || lblEstadoSolicitud === 'RechazadaCC' ||
+      lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Caducada' ||
+      lblEstadoSolicitud === 'Perfil No Aprobado' || lblEstadoSolicitud === 'Retornada' ||
+      lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'Rechazada' ||
+      lblEstadoSolicitud === 'Autorización Caducada' || lblEstadoSolicitud === 'Consultada' ||
+      lblEstadoSolicitud === 'Ingresando' || lblEstadoSolicitud === 'Verificando' || lblEstadoSolicitud === 'Devuelta' ||
+      lblEstadoSolicitud === 'Re-verificación' || lblEstadoSolicitud === 'Guardada') {
+      // pageControlCliente.TabPages[7].Enabled = true;
+      if (lblEstadoSolicitud === 'Aprobada') {
+        // console.log('Bloqueado 1' + lblEstadoSolicitud);
+        this.btnSolicitarAnulacion = false;
+        this.BtnEntregarCarpeta = true;
+        this.btnSolicitarAnalisis = false;
+        this.btnMedioAprobacion = false;
+        this.grabarDatosIngresadosGrid = false;
+        this.SubirArchivos = false;
+      } else {
+        if (lblEstadoSolicitud === 'Ingresando') {
+          // console.log('Bloqueado 1' + lblEstadoSolicitud);
+          this.btnSolicitarAnulacion = true;
+          this.BtnEntregarCarpeta = false;
+          this.btnSolicitarAnalisis = true;
+          this.btnMedioAprobacion = true;
+          this.grabarDatosIngresadosGrid = true;
+          this.SubirArchivos = true;
+          this.ASPxActualizarSOL = true;
+        } else {
+          if (lblEstadoSolicitud === 'Entregada' || lblEstadoSolicitud === 'Rechazada' ||
+            lblEstadoSolicitud === 'RechazadaA' || lblEstadoSolicitud === 'RechazadaCC' ||
+            lblEstadoSolicitud === 'Caducada' || lblEstadoSolicitud === 'Autorización Caducada' ||
+            lblEstadoSolicitud === 'Consultada') {
+            // this.pestaniasIngreso.controls['selectTabs'].setValue('Políticas');
+            // ('Bloqueado 2' + lblEstadoSolicitud);
+            this.btnSolicitarAnulacion = false;
+            this.BtnEntregarCarpeta = false;
+            //this.ASPxButton1 = false;
+            this.ASPxActualizarSOL = false;
+            this.btnTelefonos = false;
+            this.btnActualizarDirecciones = false;
+            this.btnConyuge = false;
+            this.btnActualizarReferencias = false;
+            this.grabarDatosIngresadosGrid = false;
+            this.SubirArchivos = false;
+            this.btnSolicitarAnalisis = false;
+            // ASPxUploadControl1.Visible = false;
+            // ASPxUploadControl2.Visible = false;
+            // ASPxUploadControl3.Visible = false;
+            // btnGenerarReportesDinamicos.Visible = false;
+            // btnRefrescar.Visible = false;
+            // BtnGuardar.Visible = false;
+            this.btnSolicitarAnalisis = false;
+            this.btnMedioAprobacion = false;
+          } else {
+            if (lblEstadoSolicitud === 'Cancelada') {
+              // console.log('Bloqueado 3' + lblEstadoSolicitud);
+              this.ASPxActualizarSOL = false;
+              this.btnSolicitarAnulacion = false;
+              this.BtnEntregarCarpeta = false;
+              this.btnSolicitarAnalisis = false;
+              this.btnMedioAprobacion = false;
+              this.btnTelefonos = false;
+              this.btnActualizarDirecciones = false;
+              this.btnConyuge = false;
+              this.btnActualizarReferencias = false;
+              this.grabarDatosIngresadosGrid = false;
+              this.SubirArchivos = false;
+            } else {
+              // console.log('Bloqueado 4' + lblEstadoSolicitud);
+              // this.btnSolicitarAnulacion = true;
+              // this.BtnEntregarCarpeta = false;
+              // this.btnSolicitarAnalisis = false;
+              // this.grabarDatosIngresadosGrid = false;
+              // this.SubirArchivos = false;
+            }
+          }
+        }
+      }
+    } else {
+      // console.log('Bloqueado 5' + lblEstadoSolicitud);
+      this.btnSolicitarAnulacion = false;
+      this.BtnEntregarCarpeta = false;
+      this.btnSolicitarAnalisis = false;
+      this.btnMedioAprobacion = false;
+      this.grabarDatosIngresadosGrid = false;
+      this.SubirArchivos = false;
+      this.ASPxActualizarSOL = false;
+      this.btnTelefonos = false;
+      this.btnActualizarDirecciones = false;
+      this.btnConyuge = false;
+      this.btnActualizarReferencias = false;
+    }
   }
   public getTipoTel(): any {
     this.telefonoService.getTipoTelefonos()
@@ -743,61 +743,61 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .subscribe((data: any) => {
         this.telefonos = data;
       });
-      
+
   }
   // SITUACION FINANCIERA DDLT
   onDatosIngresosChange(newValue, ID_CREDITO_INGRESOS: string) {
     if (this.grabarDatosIngresadosGrid) {
-    this.situacionFinancieraService.getguardarComentarioIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
+      this.situacionFinancieraService.getguardarComentarioIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
+        .subscribe((resultado: any) => {
           // console.logconsole.log(resultado);
           let totalSumaBackend: number;
           totalSumaBackend = Number(resultado.toString().replace(',', '.'));
           this.sumatoriaIngresos = totalSumaBackend;
           this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
 
-      });
+        });
     }
   }
   onDatosIngresosValorChange(newValue, ID_CREDITO_INGRESOS: string) {
     if (this.grabarDatosIngresadosGrid) {
-    this.situacionFinancieraService.getguardarValorIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
-     .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-        let totalSumaBackend: number;
-        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
-        this.sumatoriaIngresos = totalSumaBackend;
-        this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
-        this.getDetalles();
-     });
+      this.situacionFinancieraService.getguardarValorIngresos(ID_CREDITO_INGRESOS, newValue, localStorage.getItem('usuario'))
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+          let totalSumaBackend: number;
+          totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+          this.sumatoriaIngresos = totalSumaBackend;
+          this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+          this.getDetalles();
+        });
     }
   }
   onDatosEgresosChange(newValue, ID_CREDITO_EGRESOS: string) {
     if (this.grabarDatosIngresadosGrid) {
-    this.situacionFinancieraService.getguardarComentarioEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-        let totalSumaBackend: number;
-        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
-        this.sumatoriaEgresos = totalSumaBackend;
-        this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
-      });
+      this.situacionFinancieraService.getguardarComentarioEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+          let totalSumaBackend: number;
+          totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+          this.sumatoriaEgresos = totalSumaBackend;
+          this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+        });
     }
   }
   onDatosEgresosValorChange(newValue, ID_CREDITO_EGRESOS: string) {
     if (this.grabarDatosIngresadosGrid) {
-    this.situacionFinancieraService.getguardarValorEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-        let totalSumaBackend: number;
-        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
-        this.sumatoriaEgresos = totalSumaBackend;
-        this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
-        this.getDetalles();
-      });
+      this.situacionFinancieraService.getguardarValorEgresos(ID_CREDITO_EGRESOS, newValue, localStorage.getItem('usuario'))
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+          let totalSumaBackend: number;
+          totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+          this.sumatoriaEgresos = totalSumaBackend;
+          this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
+          this.getDetalles();
+        });
     }
   }
-// Activos y Pasivos
+  // Activos y Pasivos
   onDatosMueblesValorChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       // console.log(newValue);
@@ -806,205 +806,205 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.TMueble = 0;
       }
       let NumeroCredito: string;
-      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      NumeroCredito = this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarValorMuebles(NumeroCredito, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-        let totalSumaBackend: number;
-        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
-        this.TotalActivos = totalSumaBackend;
-        this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
-      });
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+          let totalSumaBackend: number;
+          totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+          this.TotalActivos = totalSumaBackend;
+          this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
+        });
     }
   }
 
   onDatosMueblesComentarioChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
-      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      NumeroCredito = this.mensajeServicio.NumeroCredito;
       // console.log( 'Este mensaje es de comentario: ' + newValue);
       this.situacionFinancieraService.getguardarComentarioMuebles(NumeroCredito, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-      });
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+        });
     }
   }
 
   onDatosPropiedadesValorChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
-      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      NumeroCredito = this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarValorPropiedades(NumeroCredito, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-        let totalSumaBackend: number;
-        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
-        this.TotalActivos = totalSumaBackend;
-        this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
-      });
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+          let totalSumaBackend: number;
+          totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+          this.TotalActivos = totalSumaBackend;
+          this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
+        });
     }
   }
 
   onDatosPropiedadesComentarioChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
-      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      NumeroCredito = this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarComentarioPropiedades(NumeroCredito, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-      });
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+        });
     }
   }
 
   onDatosVehiculosValorChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
-      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      NumeroCredito = this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarValorVehiculos(NumeroCredito, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-        let totalSumaBackend: number;
-        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
-        this.TotalActivos = totalSumaBackend;
-        this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
-      });
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+          let totalSumaBackend: number;
+          totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+          this.TotalActivos = totalSumaBackend;
+          this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
+        });
     }
   }
 
   onDatosVehiculosComentarioChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
-      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      NumeroCredito = this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarComentarioVehiculos(NumeroCredito, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-      });
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+        });
     }
   }
 
   onDatosInversionesValorChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
-      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      NumeroCredito = this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarValorInversiones(NumeroCredito, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-        let totalSumaBackend: number;
-        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
-        this.TotalActivos = totalSumaBackend;
-        this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
-      });
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+          let totalSumaBackend: number;
+          totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+          this.TotalActivos = totalSumaBackend;
+          this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
+        });
     }
   }
 
   onDatosInversionesComentarioChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
-      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      NumeroCredito = this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarComentarioInversiones(NumeroCredito, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-      });
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+        });
     }
   }
 
   onDatosAccionesValorChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
-      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      NumeroCredito = this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarValorAcciones(NumeroCredito, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-        let totalSumaBackend: number;
-        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
-        this.TotalActivos = totalSumaBackend;
-        this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
-      });
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+          let totalSumaBackend: number;
+          totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+          this.TotalActivos = totalSumaBackend;
+          this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
+        });
     }
   }
 
   onDatosAccionesComentarioChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
-      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      NumeroCredito = this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarComentarioAcciones(NumeroCredito, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-      });
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+        });
     }
   }
 
   onDatosDeudasValorChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
-      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      NumeroCredito = this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarValorDeudas(NumeroCredito, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-        let totalSumaBackend: number;
-        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
-        this.TotalPasivos = totalSumaBackend;
-        this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
-      });
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+          let totalSumaBackend: number;
+          totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+          this.TotalPasivos = totalSumaBackend;
+          this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
+        });
     }
   }
 
   onDatosDeudasComentarioChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
-      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      NumeroCredito = this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarComentarioDeudas(NumeroCredito, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-      });
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+        });
     }
   }
 
   onDatosTarjetasValorChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
-      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      NumeroCredito = this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarValorTarjetas(NumeroCredito, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-        let totalSumaBackend: number;
-        totalSumaBackend = Number(resultado.toString().replace(',', '.'));
-        this.TotalPasivos = totalSumaBackend;
-        this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
-      });
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+          let totalSumaBackend: number;
+          totalSumaBackend = Number(resultado.toString().replace(',', '.'));
+          this.TotalPasivos = totalSumaBackend;
+          this.TotalPatrimonio = this.TotalActivos - this.TotalPasivos;
+        });
     }
   }
 
   onDatosTarjetasComentarioChange(newValue) {
     if (this.grabarDatosIngresadosGrid) {
       let NumeroCredito: string;
-      NumeroCredito =  this.mensajeServicio.NumeroCredito;
+      NumeroCredito = this.mensajeServicio.NumeroCredito;
       this.situacionFinancieraService.getguardarComentarioTarjetas(NumeroCredito, newValue, localStorage.getItem('usuario'))
-      .subscribe( (resultado: any ) => {
-        // console.log(resultado);
-      });
+        .subscribe((resultado: any) => {
+          // console.log(resultado);
+        });
     }
   }
 
   getConyuge() {
     this.conyugesServices.getConyugeCedula(this.mensajeServicio.Cedula)
-    .pipe(map(data => data['CONYUGE']))
-    .subscribe((data: any) => {
-      let datosConyuge: Conyuge;
-      datosConyuge = data[0];
-      // console.log(datosConyuge);
-      this.FormularioDatosConyuge.controls['cedula'].setValue(datosConyuge.CED_CON);
-      this.FormularioDatosConyuge.controls['genero'].setValue(datosConyuge.COD_GEN);
-      this.FormularioDatosConyuge.controls['tipoDocumentacion'].setValue(datosConyuge.COD_TDOC);
-      this.FormularioDatosConyuge.controls['apellidoConyuge'].setValue(datosConyuge.APE_CON);
-      this.FormularioDatosConyuge.controls['nombreConyuge'].setValue(datosConyuge.NOM_CON);
-      try{
-      let fechaNacimiento: Date = new Date(datosConyuge.FECH_NAC_CON);
-      this.FormularioDatosConyuge.controls['fechaNacimiento'].setValue(fechaNacimiento.toISOString().substring(0, 10));
-      } catch {}
-      this.FormularioDatosConyuge.controls['observaciones'].setValue(datosConyuge.OBSERVACIONES_CON);
-      this.FormularioDatosConyuge.controls['direccion'].setValue(datosConyuge.DIR_TRAB_CON);
-    });
+      .pipe(map(data => data['CONYUGE']))
+      .subscribe((data: any) => {
+        let datosConyuge: Conyuge;
+        datosConyuge = data[0];
+        // console.log(datosConyuge);
+        this.FormularioDatosConyuge.controls['cedula'].setValue(datosConyuge.CED_CON);
+        this.FormularioDatosConyuge.controls['genero'].setValue(datosConyuge.COD_GEN);
+        this.FormularioDatosConyuge.controls['tipoDocumentacion'].setValue(datosConyuge.COD_TDOC);
+        this.FormularioDatosConyuge.controls['apellidoConyuge'].setValue(datosConyuge.APE_CON);
+        this.FormularioDatosConyuge.controls['nombreConyuge'].setValue(datosConyuge.NOM_CON);
+        try {
+          let fechaNacimiento: Date = new Date(datosConyuge.FECH_NAC_CON);
+          this.FormularioDatosConyuge.controls['fechaNacimiento'].setValue(fechaNacimiento.toISOString().substring(0, 10));
+        } catch { }
+        this.FormularioDatosConyuge.controls['observaciones'].setValue(datosConyuge.OBSERVACIONES_CON);
+        this.FormularioDatosConyuge.controls['direccion'].setValue(datosConyuge.DIR_TRAB_CON);
+      });
   }
 
   public getDirecciones(): any {
@@ -1021,7 +1021,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .subscribe((data: any) => {
         this.situacionFinancieraIngresos = data;
         this.sumatoriaIngresos = 0;
-        for ( var x in data){
+        for (var x in data) {
           if (data[x].VALOR_CREDITO_INGRESOS != null) {
             this.sumatoriaIngresos = this.sumatoriaIngresos + data[x].VALOR_CREDITO_INGRESOS;
             this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
@@ -1035,7 +1035,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       .subscribe((data: any) => {
         this.situacionFinancieraEgresos = data;
         this.sumatoriaEgresos = 0;
-        for ( var x in data){
+        for (var x in data) {
           if (data[x].VALOR_CREDITO_EGRESOS != null) {
             this.sumatoriaEgresos = this.sumatoriaEgresos + data[x].VALOR_CREDITO_EGRESOS;
             this.sumatoriaTotal = this.sumatoriaIngresos - this.sumatoriaEgresos;
@@ -1044,7 +1044,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       });
   }
   public getDetalles(): any {
-    if (this.mensajeServicio.NumeroCredito!==undefined && this.mensajeServicio.NumeroCredito!=='') {
+    if (this.mensajeServicio.NumeroCredito !== undefined && this.mensajeServicio.NumeroCredito !== '') {
       this.situacionFinancieraService.getDetalle(this.mensajeServicio.NumeroCredito)
         .pipe(map(data => data['DETALLE']))
         .subscribe((data: any) => {
@@ -1084,57 +1084,70 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   guardarConyuge(content) {
     if (this.FormularioDatosConyuge.valid) {
-
-    let datosConyuge: Conyuge = new Conyuge();
-    let resultado: string;
-    datosConyuge.ID_CLI = this.mensajeServicio.Cedula;
-    datosConyuge.COD_GEN = this.FormularioDatosConyuge.value.genero;
-    datosConyuge.CED_CON = this.FormularioDatosConyuge.value.cedula;
-    datosConyuge.COD_TDOC = this.FormularioDatosConyuge.value.tipoDocumentacion;
-    datosConyuge.APE_CON = this.FormularioDatosConyuge.value.apellidoConyuge;
-    datosConyuge.NOM_CON = this.FormularioDatosConyuge.value.nombreConyuge;
-    datosConyuge.telefono = this.FormularioDatosConyuge.value.telefonoConyuge.trim();
-    datosConyuge.COD_NAC = this.FormularioDatosConyuge.value.nacionalidad;
-    datosConyuge.COD_PRO = this.FormularioDatosConyuge.value.profesion;
-    datosConyuge.OBSERVACIONES_CON = this.FormularioDatosConyuge.value.observaciones;
-    datosConyuge.DIR_TRAB_CON = this.FormularioDatosConyuge.value.direccion;
-    datosConyuge.ESTADO_CON = this.FormularioDatosConyuge.value.rucTrabajo;
-    datosConyuge.usuario = localStorage.getItem('usuario');
-    if (this.FormularioDatosConyuge.value.fechaNacimiento !== null) {
-        try {
-          // console.log("Fecha ingresada:" + this.FormularioDatosConyuge.value.fechaNacimiento);
-          let fechaNacimiento: Date = new Date(this.FormularioDatosConyuge.value.fechaNacimiento);
-          datosConyuge.FECH_NAC_CON = fechaNacimiento.toISOString().substring(0, 10);
-        } catch { }
+      if (this.FormularioDatosConyuge.value.cedula != this.mensajeServicio.Cedula) {
+        let datosConyuge: Conyuge = new Conyuge();
+        let resultado: string;
+        datosConyuge.ID_CLI = this.mensajeServicio.Cedula;
+        datosConyuge.COD_GEN = this.FormularioDatosConyuge.value.genero;
+        datosConyuge.CED_CON = this.FormularioDatosConyuge.value.cedula;
+        datosConyuge.COD_TDOC = this.FormularioDatosConyuge.value.tipoDocumentacion;
+        datosConyuge.APE_CON = this.FormularioDatosConyuge.value.apellidoConyuge;
+        datosConyuge.NOM_CON = this.FormularioDatosConyuge.value.nombreConyuge;
+        datosConyuge.telefono = this.FormularioDatosConyuge.value.telefonoConyuge.trim();
+        datosConyuge.COD_NAC = this.FormularioDatosConyuge.value.nacionalidad;
+        datosConyuge.COD_PRO = this.FormularioDatosConyuge.value.profesion;
+        datosConyuge.OBSERVACIONES_CON = this.FormularioDatosConyuge.value.observaciones;
+        datosConyuge.DIR_TRAB_CON = this.FormularioDatosConyuge.value.direccion;
+        datosConyuge.ESTADO_CON = this.FormularioDatosConyuge.value.rucTrabajo;
+        datosConyuge.usuario = localStorage.getItem('usuario');
+        if (this.FormularioDatosConyuge.value.fechaNacimiento !== null) {
+          try {
+            // console.log("Fecha ingresada:" + this.FormularioDatosConyuge.value.fechaNacimiento);
+            let fechaNacimiento: Date = new Date(this.FormularioDatosConyuge.value.fechaNacimiento);
+            datosConyuge.FECH_NAC_CON = fechaNacimiento.toISOString().substring(0, 10);
+          } catch { }
+        } else {
+          datosConyuge.FECH_NAC_CON = '';
+        }
+        if (datosConyuge.telefono !== '' && datosConyuge.telefono.length !== 10) {
+          this.errorMessage = 'El Teléfono Móvil debe tener 10 dígitos';
+          this.modalService.open(content, { windowClass: 'custom-width-error-modal' });
+        } else {
+          this.conyugesServices.postConyuge(datosConyuge).subscribe(
+            (data: any) => {
+              resultado = data;
+              // console.log(resultado);
+              if (resultado === 'Conyuge actualizado exitosamente!') {
+                this.successMessage = 'Conyuge actualizado exitosamente!';
+                this.getListaConyuges();
+                this.modalService.dismissAll();
+              } else {
+                // Error
+                this.errorMessage = data;
+                this.modalService.open(content, { windowClass: 'custom-width-error-modal' });
+              }
+            });
+        }
       } else {
-        datosConyuge.FECH_NAC_CON = '';
-    }
-    if (datosConyuge.telefono !== '' && datosConyuge.telefono.length !== 10) {
-      this.errorMessage = 'El Teléfono Móvil debe tener 10 dígitos';
-      this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
-    } else {
-        this.conyugesServices.postConyuge(datosConyuge).subscribe(
-          (data: any) => {
-            resultado = data;
-            // console.log(resultado);
-            if (resultado === 'Conyuge actualizado exitosamente!') {
-              this.successMessage = 'Conyuge actualizado exitosamente!';
-              this.getListaConyuges();
-              this.modalService.dismissAll();
-            } else {
-              // Error
-              this.errorMessage = data;
-              this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
-            }
-          });
-      }
-    } else {
-      this.errorMessage = 'Datos de conyuge incorrectos, favor revise';
-      this.modalService.open(content, {windowClass: 'custom-width-error-modal'});
+        this.errorMessage = 'El cónyuge no puede ser el titular del crédito';
+      this.modalService.open(content, { windowClass: 'custom-width-error-modal' });
       return Object.values(this.FormularioDatosConyuge.controls).forEach(control => {
         if (control instanceof FormGroup) {
           // tslint:disable-next-line:no-shadowed-variable
-          Object.values(control.controls). forEach( control => control.markAllAsTouched());
+          Object.values(control.controls).forEach(control => control.markAllAsTouched());
+        } else {
+          control.markAllAsTouched();
+        }
+      });
+
+      }
+    } else {
+      this.errorMessage = 'Datos de conyuge incorrectos, favor revise';
+      this.modalService.open(content, { windowClass: 'custom-width-error-modal' });
+      return Object.values(this.FormularioDatosConyuge.controls).forEach(control => {
+        if (control instanceof FormGroup) {
+          // tslint:disable-next-line:no-shadowed-variable
+          Object.values(control.controls).forEach(control => control.markAllAsTouched());
         } else {
           control.markAllAsTouched();
         }
@@ -1256,10 +1269,10 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
 
   crearFormularioSituacionFinanciera() {
-    this.formaSituacionFinanciera = this.fb.group( {
+    this.formaSituacionFinanciera = this.fb.group({
       valorArriendos: ['0', [Validators.minLength(6)]],
       comentarioArriendos: [''],
-      valorHonorarios: ['0',[Validators.minLength(6), Validators.pattern('^[0-9]*$')]],
+      valorHonorarios: ['0', [Validators.minLength(6), Validators.pattern('^[0-9]*$')]],
       comentarioHonorarios: [''],
       valorOtrosIngresos1: ['0'],
       comentarioOtrosIngresos1: [''],
@@ -1294,7 +1307,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
 
   cargarFormularioSituacionFinanciera(situacionFinancieraIngresos: any) {
-    this.formaSituacionFinanciera.reset( {
+    this.formaSituacionFinanciera.reset({
       valorArriendos: situacionFinancieraIngresos[0].VALOR_CREDITO_INGRESOS,
       comentarioArriendos: situacionFinancieraIngresos[0].COMENTARIO_CREDITO_INGRESOS
     });
@@ -1325,7 +1338,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
 
   crearFormularioEntregarCarpeta() {
-    this.formaEntregarCarpeta = this.fb.group( {
+    this.formaEntregarCarpeta = this.fb.group({
       NumeroAutorizacion: ['', Validators.required],
       PersonaRecibe: ['', Validators.required],
     });
@@ -1355,7 +1368,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       return Object.values(this.formaDirecciones.controls).forEach(control => {
         if (control instanceof FormGroup) {
           // tslint:disable-next-line:no-shadowed-variable
-          Object.values(control.controls). forEach( control => control.markAllAsTouched());
+          Object.values(control.controls).forEach(control => control.markAllAsTouched());
         } else {
           control.markAllAsTouched();
         }
@@ -1393,7 +1406,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       return Object.values(this.formaEntregarCarpeta.controls).forEach(control => {
         if (control instanceof FormGroup) {
           // tslint:disable-next-line:no-shadowed-variable
-          Object.values(control.controls). forEach( control => control.markAllAsTouched());
+          Object.values(control.controls).forEach(control => control.markAllAsTouched());
         } else {
           control.markAllAsTouched();
         }
@@ -1401,19 +1414,19 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     } else {
       this.documentosService.entregarCarpeta(this.mensajeServicio.NumeroCredito,
         this.formaEntregarCarpeta.value.NumeroAutorizacion, this.formaEntregarCarpeta.value.PersonaRecibe
-        ).subscribe(
+      ).subscribe(
         (data: any) => {
           // console.log(data);
-          if (data === true ) {
+          if (data === true) {
             this.modalService.dismissAll();
             this.router.navigate(['/fabrica/consulta-general']);
             this.advertenceMessage = `Solicitud ${this.mensajeServicio.NumeroCredito} en estado: Entregada`;
-            this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+            this.modalService.open(contentA, { windowClass: 'custom-width-error-modal' });
           } else {
             this.errorMessage = 'El código ingresado no es correcto, intente nuevamente';
-            this.modalService.open(contentE, {windowClass: 'custom-width-error-modal'});
+            this.modalService.open(contentE, { windowClass: 'custom-width-error-modal' });
           }
-      });
+        });
     }
   }
 
@@ -1422,7 +1435,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       return Object.values(this.formaTelefonos.controls).forEach(control => {
         if (control instanceof FormGroup) {
           // tslint:disable-next-line:no-shadowed-variable
-          Object.values(control.controls). forEach( control => control.markAllAsTouched());
+          Object.values(control.controls).forEach(control => control.markAllAsTouched());
         } else {
           control.markAllAsTouched();
         }
@@ -1435,96 +1448,96 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       this.formaTelefonos.value.NumeroTelefono = this.formaTelefonos.value.NumeroTelefono.toString().trim();
       if (this.formaTelefonos.value.TipoTelefono === 'FIJO' && this.formaTelefonos.value.NumeroTelefono.length !== 9) {
         this.advertenceMessage = 'El número debe tener 9 dígitos';
-        this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+        this.modalService.open(contentA, { windowClass: 'custom-width-error-modal' });
       } else if (this.formaTelefonos.value.TipoTelefono === 'MOVIL' && this.formaTelefonos.value.NumeroTelefono.length !== 10) {
         this.advertenceMessage = 'El número debe tener 10 dígitos';
-        this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+        this.modalService.open(contentA, { windowClass: 'custom-width-error-modal' });
       } else {
         this.telefonoService.postTelefono(this.formaTelefonos.value.TipoTelefono,
           this.mensajeServicio.Cedula,
           this.formaTelefonos.value.NumeroTelefono.toString(),
           extension, this.codigoTelefono, this.crearTelefono, localStorage.getItem('usuario')).subscribe(
-          (data: any) => {
-            if (data.error !== null) {
-              // console.log(data.error);
-              this.advertenceMessage = 'Teléfono duplicado';
-              this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
-            } else {
-              this.modalService.dismissAll();
-              this.telefonos = this.getTelefonos();
-              this.successMessage = 'Información guardada!';
+            (data: any) => {
+              if (data.error !== null) {
+                // console.log(data.error);
+                this.advertenceMessage = 'Teléfono duplicado';
+                this.modalService.open(contentA, { windowClass: 'custom-width-error-modal' });
+              } else {
+                this.modalService.dismissAll();
+                this.telefonos = this.getTelefonos();
+                this.successMessage = 'Información guardada!';
+              }
+            }, (errorServicio) => {
+              // console.log('Error');
             }
-          }, (errorServicio) => {
-            // console.log('Error');
-          }
-        );
+          );
       }
     }
   }
   onDatosComplementariosChange(newValue, ID_CREDITO_COMPLEMENTARIOS: string) {
     if (this.grabarDatosIngresadosGrid) {
-    this.datosComplService.getguardarValor(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
-        .subscribe( (resultado: any[] ) => {
+      this.datosComplService.getguardarValor(ID_CREDITO_COMPLEMENTARIOS, newValue, localStorage.getItem('usuario'))
+        .subscribe((resultado: any[]) => {
           if (resultado.toString() === 'Actualizado!') {
             // this.getDatosComplementarios();
             // this.successMessage = resultado.toString();
           }
         });
-      }
+    }
   }
   nuevoConyuge(content) {
-      this.crearFormularioConyuge();
-      this.conyugeID_CONeditable = '';
-      this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+    this.crearFormularioConyuge();
+    this.conyugeID_CONeditable = '';
+    this.modalService.open(content, { windowClass: 'custom-width-variant-modal' });
   }
   openCustomWidthVariantCancelar(content) {
-    this.modalService.open(content, {windowClass: 'custom-width-variant-modal'});
+    this.modalService.open(content, { windowClass: 'custom-width-variant-modal' });
   }
   generarCancelacion(motivo: string) {
     this.modalService.dismissAll();
     this.fabricaService.getCancelarSolicitud(this.mensajeServicio.NumeroCredito,
-                                            localStorage.getItem('usuario'), motivo).subscribe(
-      data => {
-        if (data.toString() === 'Solicitud Cancelada exitosamente!') {
-          this.mensajeServicio.Estado = 'Cancelada';
-          this.successMessage = data.toString();
-        }
-      });
-    setTimeout (() => {
+      localStorage.getItem('usuario'), motivo).subscribe(
+        data => {
+          if (data.toString() === 'Solicitud Cancelada exitosamente!') {
+            this.mensajeServicio.Estado = 'Cancelada';
+            this.successMessage = data.toString();
+          }
+        });
+    setTimeout(() => {
     }, 2500);
     this.router.navigate(['/fabrica/consulta-general']);
   }
   solicitarAnalisis(content, contentWarning) {
     this.fabricaService.getSolicitarAnalisis(this.mensajeServicio.NumeroCredito,
-                                            localStorage.getItem('usuario')).subscribe(
+      localStorage.getItem('usuario')).subscribe(
         data => {
           var resultado: number = data.toString().indexOf('Solicitud en estado: ');
           if (resultado >= 0) {
             // console.log('Si genera el cambio de estado:' + data.toString());
             this.advertenceMessage = data.toString();
-            this.modalService.open(contentWarning, {windowClass: 'custom-width-modal'});
-            setTimeout (() => {
+            this.modalService.open(contentWarning, { windowClass: 'custom-width-modal' });
+            setTimeout(() => {
             }, 3500);
             this.router.navigate(['/fabrica/consulta-general']);
           } else {
             this.errorMessage = data.toString();
-            this.modalService.open(content, {windowClass: 'custom-width-modal'});
+            this.modalService.open(content, { windowClass: 'custom-width-modal' });
           }
-          });
+        });
   }
   getDocumentosCredito(): any {
     this.documentosService.getDocumentosSubidos(this.mensajeServicio.NumeroCredito)
-        .pipe(map (data => data["DOCUMENTOS"]))
-        .subscribe((data: any) => {
-          this.documentosSubidos = data;
-          // console.log(this.documentosSubidos);
-        });
+      .pipe(map(data => data["DOCUMENTOS"]))
+      .subscribe((data: any) => {
+        this.documentosSubidos = data;
+        // console.log(this.documentosSubidos);
+      });
   }
   fileChange(event, contentE, contentA) {
-    this.archivoSeleccionado = <File> event.target.files[0];
+    this.archivoSeleccionado = <File>event.target.files[0];
     this.Archivos.push(this.archivoSeleccionado);
     this.loading = true;
-    if(this.Archivos.length > 0) {
+    if (this.Archivos.length > 0) {
       //console.log(fileList);
       this.documentosService.postFileImagen(this.Archivos, this.mensajeServicio.NumeroCredito,
         localStorage.getItem('usuario'))
@@ -1541,7 +1554,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               }
               this.loading = false;
               this.errorMessage = mensajeError;
-              this.modalService.open(contentE, {windowClass: 'custom-width-error-modal'});
+              this.modalService.open(contentE, { windowClass: 'custom-width-error-modal' });
             }
             if (data.listaAdvertencias.length > 0) {
               let mensajeAdvertencia = '';
@@ -1550,7 +1563,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               }
               this.loading = false;
               this.advertenceMessage = mensajeAdvertencia;
-              this.modalService.open(contentA, {windowClass: 'custom-width-error-modal'});
+              this.modalService.open(contentA, { windowClass: 'custom-width-error-modal' });
             }
             this.documentosSubidos = this.getDocumentosCredito();
           }
