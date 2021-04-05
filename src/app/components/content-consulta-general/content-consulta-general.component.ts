@@ -10,6 +10,7 @@ import {ExportService} from '../../services/exportar/export.service';
 })
 export class ContentConsultaGeneralComponent implements OnInit {
   // bkm
+  checked = false;
   creditos: any[];
   creditosExportar: any[] = [];
   cantidadCreditos: number;
@@ -17,6 +18,7 @@ export class ContentConsultaGeneralComponent implements OnInit {
   loading: boolean;
   FormularioDatosBasicos: FormGroup; // formulario de react driven del HTML
   pageActual: number = 1;
+  
   // bkm
   constructor(private fabricaService: FabricaService,
               private exportService: ExportService) {
@@ -32,12 +34,15 @@ export class ContentConsultaGeneralComponent implements OnInit {
     let hasta = fechaHasta.toISOString().substring(0, 10);
     this.FormularioDatosBasicos.controls['fechaDesde'].setValue(desde);
     this.FormularioDatosBasicos.controls['fechaHasta'].setValue(hasta);
+    this.FormularioDatosBasicos.controls['filtro'].setValue(this.checked);
+    
     this.getCreditos();
   }
   private initForm() {
     this.FormularioDatosBasicos = new FormGroup({
       fechaDesde: new FormControl(null, Validators.required),
-      fechaHasta: new FormControl(null, [Validators.required])
+      fechaHasta: new FormControl(null, Validators.required),
+      filtro: new FormControl(null)
     });
   }
   addDays(date: Date, days: number): Date {
@@ -50,8 +55,10 @@ export class ContentConsultaGeneralComponent implements OnInit {
     this.loading = true;
     let fechaDesde: string = this.FormularioDatosBasicos.controls['fechaDesde'].value;
     let fechaHasta: string = this.FormularioDatosBasicos.controls['fechaHasta'].value;
+    let filtro: string = this.FormularioDatosBasicos.controls['filtro'].value;
 
-    this.fabricaService.getConsultaGeneral(localStorage.getItem('usuario'), fechaDesde, fechaHasta).subscribe((data: any) => {
+    console.log(filtro);
+    this.fabricaService.getConsultaGeneral(localStorage.getItem('usuario'), fechaDesde, fechaHasta, filtro).subscribe((data: any) => {
       this.creditos = data.GENERO;
 
       this.cantidadCreditos = this.creditos.length;
