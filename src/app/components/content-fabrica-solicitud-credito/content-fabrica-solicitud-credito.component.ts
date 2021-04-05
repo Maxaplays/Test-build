@@ -358,13 +358,13 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.FormularioDatosConyuge = new FormGroup({
       tipo_registro: new FormControl(null),
       tipoDocumentacion: new FormControl(null, Validators.required),
-      cedula: new FormControl(null, Validators.required),
+      cedula: new FormControl(null,[Validators.required, Validators.minLength(10)]),
       apellidoConyuge: new FormControl(null, Validators.required),
       nombreConyuge: new FormControl(null, Validators.required),
       telefonoConyuge: new FormControl(null, Validators.pattern('^[0-9]*$')),
       fechaNacimiento: new FormControl(null, Validators.required),
-      genero: new FormControl(null),
-      nacionalidad: new FormControl(null),
+      genero: new FormControl(null, Validators.required),
+      nacionalidad: new FormControl(null,Validators.required),
       profesion: new FormControl(null),
       direccion: new FormControl(null),
       observaciones: new FormControl(null)

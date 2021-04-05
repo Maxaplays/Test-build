@@ -922,13 +922,13 @@
                         <input formControlName="fechaNacimiento" [class.is-invalid]="FormularioDatosConyuge.controls['fechaNacimiento'].invalid && FormularioDatosConyuge.controls['fechaNacimiento'].touched" class="form-control" type="date" placeholder="Fecha de Nacimiento ">
                     </fieldset>
                     <fieldset>
-                        <label class="label">Género</label>
+                        <label class="label">Género <b>*</b></label>
                         <select formControlName="genero" class="form-control" (change)="getGeneros()" class="form-control">
                             <option *ngFor="let genero of generos" [value]="genero.COD_GEN">{{genero.NOM_GEN}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
-                        <label class="label">Nacionalidad</label>
+                        <label class="label">Nacionalidad <b>*</b></label>
                         <select formControlName="nacionalidad" class="form-control" (change)="getNacionalidades()" class="form-control">
                             <option *ngFor="let nacion of nacionalidades" [value]="nacion.COD_NAC">{{nacion.NOM_NAC}}</option>
                         </select>
