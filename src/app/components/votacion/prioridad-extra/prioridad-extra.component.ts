@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { TarjetasTrelloService } from 'src/app/services/tarjetasTrello/tarjetas-trello.service';
 
 @Component({
   selector: 'app-prioridad-extra',
@@ -9,21 +10,20 @@ import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 export class PrioridadExtraComponent implements OnInit {
   closeResult = '';
   private infos: Array<Object> = [
-    {id: 1, name:'Superman'},
-    {id: 2, name:'Batman'},
-    {id: 5, name:'BatGirl'},
-    {id: 3, name:'Robin'},
-    {id: 4, name:'Flash'}
+    
 ];
 
-  constructor(private modalService: NgbModal) { 
+  constructor(private modalService: NgbModal, private tarjetaService: TarjetasTrelloService) { 
 
     
   }
 
   ngOnInit() {
-
-
+    this.tarjetaService.login()
+    this.infos =this.tarjetaService.tarjetaServicio
+  }
+  ngOnDestroy(){
+    this.infos=[];
   }
 
   open(content) {
