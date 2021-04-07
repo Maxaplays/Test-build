@@ -2,7 +2,7 @@
   background: yellowgreen;
 }
 .example-section {
-
+  font-size: 0;
   margin: 12px 0;
 }
 
@@ -10,10 +10,24 @@
   margin: 0 12px;
   font-size: 14px;
   color: #6E6E6E;
-  padding-bottom: 5px;
 }
 
 ul {
   list-style-type: none;
-  margin-top: 4px;
+  margin-top: 10px;
+}
+
+.filtro {
+  margin-bottom: 20px;
+}
+
+.filtro label {
+  display: inline-block;
+  vertical-align: left;
+  padding-left: 15px;
+  width: auto;
+}
+
+.filtro input {
+  max-width: none!important;
 }
