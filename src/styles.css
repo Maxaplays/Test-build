@@ -10960,14 +10960,15 @@ app-content-dashboard>.content {
 
 .buscador-general {
     font-size: 0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     max-width: 440px;
     margin-left: auto;
+    margin-top: -45px;
 }
 
 .buscador-general label {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: left;
     padding-right: 15px;
     width: 130px;
 }
