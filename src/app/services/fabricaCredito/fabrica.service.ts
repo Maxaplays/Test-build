@@ -46,8 +46,8 @@ export class FabricaService {
     const url = environment.urlServiciosBackend + `FabricaCredito/ConsultaDashboard?usuario=${usuario}`;
     return this.http.get(url);
   }
-  public getConsultaGeneral(usuario: string, desde: string, hasta: string) {
-    const url = environment.urlServiciosBackend + `FabricaCredito/ConsultaGeneralGuias?usuario=${usuario}&fechaDesde=${desde}&fechaHasta=${hasta}`;
+  public getConsultaGeneral(usuario: string, desde: string, hasta: string, filtro: string) {
+    const url = environment.urlServiciosBackend + `FabricaCredito/ConsultaGeneralGuias?usuario=${usuario}&fechaDesde=${desde}&fechaHasta=${hasta}&filtro=${filtro}`;
     return this.http.get(url);
   }
   public getCancelarSolicitud(idCredito: string, usuario: string, motivoAnulacion: string) {

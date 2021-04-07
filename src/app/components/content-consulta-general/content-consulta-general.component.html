@@ -15,6 +15,12 @@
                         <input formControlName="fechaHasta" class="form-control" type="date">
                     </fieldset>
                 </div>
+                <div>
+                    <fieldset>
+                        <label class="label">Mostrar (Cancelada,Rechazada,Caducada)</label>
+                        <input formControlName="filtro" [(ngModel)]="checked" class="form-control" type="checkbox">
+                    </fieldset>
+                </div>
 
                 <div>
                     <fieldset>
