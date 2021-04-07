@@ -1,0 +1,66 @@
+<app-menutop></app-menutop>
+<section id="father-table">
+    <app-sidebar></app-sidebar>
+    <div class = "style-content">
+            <style>
+            h5:hover{
+                cursor:grab;
+            }
+        </style>
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div *ngFor="let item of infos; let i = index">
+                    
+                        <div class="col my-4" style="width: 20rem;">
+                                <div class="card" >
+                                <div class="card-body">
+                                    <h5 class="card-title cursor-pointer" (click)="open(content)" >{{item.name}}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                                </div>
+                        </div>
+
+
+                        <ng-template #content let-modal>
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modal-basic-title">{{ item.name }}</h4>
+                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body my-3">
+                            <ul class="list-group">
+                                <li class="list-group-item active">Propietario: </li>
+                                <li class="list-group-item">Area:</li>
+                                <li class="list-group-item">Fecha Ingreso:</li>
+                                <li class="list-group-item">Nombre:</li>
+                                <li class="list-group-item">Descripción:</li>
+                                <li class="list-group-item">Prioridad:</li>
+                                <li class="list-group-item">Cuantificación:</li>
+                                <li class="list-group-item">Razón:</li>
+                                <li class="list-group-item">Observaciones:</li>
+                            </ul>
+                            <div class="container my-3">
+                                <ngb-rating [(rate)]="currentRate" [max]="5"></ngb-rating>
+                                <hr>
+                                <pre>Rate: <b>{{currentRate}}</b></pre>
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+                        </div>
+                        </ng-template>
+
+                </div>
+            </div>    
+        </div>
+            
+
+
+    </div>
+
+</section>
+
+

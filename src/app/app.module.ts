@@ -64,6 +64,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatSlideToggleModule, GestureConfig, MatDialogModule, MatSnackBarModule } from '@angular/material';
 import 'hammerjs';
 import { MyDialogComponent } from './components/editar-cuenta/my-dialog/my-dialog.component';
+import { PrioridadUnoComponent } from './components/votacion/prioridad-uno/prioridad-uno.component';
+import { PrioridadExtraComponent } from './components/votacion/prioridad-extra/prioridad-extra.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -93,7 +95,9 @@ const routes: Routes = [
   { path: 'fabrica/nueva-solicitud/creditoMin', component: FabricaStep2minComponent },
   { path: 'fabrica/nueva-solicitud/creditoMin/:idCre', component: FabricaStep2minComponent },
   { path: 'fabrica/nueva-solicitud-Min', component: FabricaMinComponent },
-  { path: 'builder', component: BuilderComponent }
+  { path: 'builder', component: BuilderComponent },
+  { path: 'votacion/prioridad-uno', component: PrioridadUnoComponent },
+  { path: 'votacion/prioridad-extra', component: PrioridadExtraComponent },
 ];
 
 @NgModule({
@@ -145,7 +149,9 @@ const routes: Routes = [
     FabricaStep2minComponent,
     ContentFabricaMinComponent,
     FabricaMinComponent,
-    MyDialogComponent
+    MyDialogComponent,
+    PrioridadUnoComponent,
+    PrioridadExtraComponent
   ],
   imports: [
     NgbModule,
