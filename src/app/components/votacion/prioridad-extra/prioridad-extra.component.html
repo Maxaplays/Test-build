@@ -8,14 +8,14 @@
             }
         </style>
         <div class = "container my-4">
-        <h4 class= " standard-title my-4">Áreas</h4>
-        <mat-form-field appearance="fill">
-        <mat-select (selectionChange)="changeClient($event.value)">
-            <mat-option *ngFor="let item of areas" [value]="item.nombre">
-            {{item.nombre}}
-            </mat-option>
-        </mat-select>
-        </mat-form-field>
+            <h4 class= " standard-title my-4">Áreas</h4>
+            <mat-form-field appearance="fill">
+            <mat-select (selectionChange)="changeClient($event.value)">
+                <mat-option *ngFor="let item of areas" [value]="item.nombre">
+                {{item.nombre}}
+                </mat-option>
+            </mat-select>
+            </mat-form-field>
         </div>
         <div class="container">
 
@@ -25,7 +25,7 @@
                         <div class="col my-4" style="width: 20rem;">
                                 <div class="card cursor-pointer" (click)="open(content)">
                                 <div class="card-body">
-                                    <h5 class="card-title cursor-pointer" (click)="open(content)" >{{item.nombre}}</h5>
+                                    <h5 class="card-title cursor-pointer"  >{{item.nombre}}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">{{item.propietario}}</h6>
                                     <p class="card-text">{{item.descripcion}}</p>
                                 </div>
