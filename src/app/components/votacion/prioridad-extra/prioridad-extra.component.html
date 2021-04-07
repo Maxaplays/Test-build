@@ -7,7 +7,18 @@
                 cursor:grab;
             }
         </style>
+        <div class = "container my-4">
+        <h4 class= " standard-title my-4">Áreas</h4>
+        <mat-form-field appearance="fill">
+        <mat-select>
+            <mat-option *ngFor="let item of areas" [value]="item.nombre">
+            {{item.nombre}}
+            </mat-option>
+        </mat-select>
+        </mat-form-field>
+        </div>
         <div class="container">
+
             <div class="row justify-content-md-center">
                 <div *ngFor="let item of infos; let i = index">
                     

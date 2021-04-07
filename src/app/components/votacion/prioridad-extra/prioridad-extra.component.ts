@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
+
+
+
 @Component({
   selector: 'app-prioridad-extra',
   templateUrl: './prioridad-extra.component.html',
@@ -15,6 +18,13 @@ export class PrioridadExtraComponent implements OnInit {
     {id: 3, name:'Robin'},
     {id: 4, name:'Flash'}
 ];
+
+
+  private areas: Array<Object> = [
+    {id: 1, nombre:'Area 1'},
+    {id: 2, nombre:'Area 2'},
+    {id: 3, nombre:'Area 3'},
+  ];
 
   constructor(private modalService: NgbModal) { 
 
