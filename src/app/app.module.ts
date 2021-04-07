@@ -66,6 +66,7 @@ import 'hammerjs';
 import { MyDialogComponent } from './components/editar-cuenta/my-dialog/my-dialog.component';
 import { PrioridadUnoComponent } from './components/votacion/prioridad-uno/prioridad-uno.component';
 import { PrioridadExtraComponent } from './components/votacion/prioridad-extra/prioridad-extra.component';
+import { MatSelectModule } from '@angular/material';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -167,7 +168,8 @@ const routes: Routes = [
     MatSlideToggleModule,
     NgxPaginationModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule
   ],
   entryComponents:[MyDialogComponent],
   exports: [],
