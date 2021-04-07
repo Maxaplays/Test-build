@@ -67,6 +67,7 @@ import { MyDialogComponent } from './components/editar-cuenta/my-dialog/my-dialo
 import { PrioridadUnoComponent } from './components/votacion/prioridad-uno/prioridad-uno.component';
 import { PrioridadExtraComponent } from './components/votacion/prioridad-extra/prioridad-extra.component';
 import { MatSelectModule } from '@angular/material';
+import { PrioridadConfigComponent } from './components/votacion/prioridad-config/prioridad-config.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -99,6 +100,7 @@ const routes: Routes = [
   { path: 'builder', component: BuilderComponent },
   { path: 'votacion/prioridad-uno', component: PrioridadUnoComponent },
   { path: 'votacion/prioridad-extra', component: PrioridadExtraComponent },
+  { path: 'votacion/prioridad-config', component: PrioridadConfigComponent },
 ];
 
 @NgModule({
@@ -152,7 +154,8 @@ const routes: Routes = [
     FabricaMinComponent,
     MyDialogComponent,
     PrioridadUnoComponent,
-    PrioridadExtraComponent
+    PrioridadExtraComponent,
+    PrioridadConfigComponent
   ],
   imports: [
     NgbModule,
