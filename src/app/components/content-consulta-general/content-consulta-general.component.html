@@ -15,12 +15,7 @@
                         <input formControlName="fechaHasta" class="form-control" type="date">
                     </fieldset>
                 </div>
-                <div>
-                    <fieldset>
-                        <label class="label">Mostrar (Cancelada,Rechazada,Caducada)</label>
-                        <input formControlName="filtro" [(ngModel)]="checked" class="form-control" type="checkbox">
-                    </fieldset>
-                </div>
+                
 
                 <div>
                     <fieldset>
@@ -33,7 +28,13 @@
                 </div>
             </div>
         </div>
+       
         <div class="forms forms-relative " style="padding-top: 0;border: none; ">
+            <div class="filtro">
+                <section class="example-section">
+                    <input class="example-margin" formControlName="filtro" [(ngModel)]="checked" type="checkbox"> <label class="example-margin">Mostrar (Cancelada,Rechazada,Caducada)</label>
+                </section>
+            </div>
             <div class="buscador-general ">
                 <label class="label">Buscador General</label>
                 <input type="text" placeholder="Filtrar: Estado/Cédula/Nombre" #busqueda (input)="Buscar(busqueda.value, 'BUSCADOR')">

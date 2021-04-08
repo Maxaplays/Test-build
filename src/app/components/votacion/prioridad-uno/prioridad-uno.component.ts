@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { TarjetasTrelloService } from 'src/app/services/tarjetasTrello/tarjetas-trello.service';
 
 @Component({
   selector: 'app-prioridad-uno',
@@ -17,7 +18,7 @@ export class PrioridadUnoComponent implements OnInit {
     {id: 4, name:'Flash'}
 ];
 
-  constructor(private modalService: NgbModal) { 
+  constructor(private modalService: NgbModal, private tarjetaService: TarjetasTrelloService) { 
 
     
   }
@@ -26,13 +27,39 @@ export class PrioridadUnoComponent implements OnInit {
 
 
   }
+  changeClient(event){
+
+    this.llamar(event.toString())    
+  }
+  async llamar(xd){
+    console.log(xd)
+    this.tarjetaService.tarjetaServicio=[]
+    this.tarjetaService.login(xd).then(()=>{
+      this.infos = this.tarjetaService.tarjetaServicio
+    }
+     
+    )
+    
+    
+  }
+
+  saveVoto(valor,id,peso){
+
+    this.tarjetaService.votar(valor,id,peso)
+    this.modalService.dismissAll()
+  }
+
 
   open(content) {
+    setTimeout(() => {
+      this.modalService.dismissAll();
+    }, 90000);
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+    setTimeout(this.modalService.dismissAll, 1000);
   }
 
   private getDismissReason(reason: any): string {
