@@ -17,6 +17,13 @@ export class PrioridadUnoComponent implements OnInit {
     {id: 3, name:'Robin'},
     {id: 4, name:'Flash'}
 ];
+public areas: Array<Object> = [
+  {id: 1, name:'Superman'},
+  {id: 2, name:'Batman'},
+  {id: 5, name:'BatGirl'},
+  {id: 3, name:'Robin'},
+  {id: 4, name:'Flash'}
+];
 
   constructor(private modalService: NgbModal, private tarjetaService: TarjetasTrelloService) { 
 
