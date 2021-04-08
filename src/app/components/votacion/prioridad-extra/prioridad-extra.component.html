@@ -1,39 +1,39 @@
 <app-menutop></app-menutop>
 <section id="father-table">
     <app-sidebar></app-sidebar>
-    <div class = "style-content">
-            <style>
-            h5:hover{
-                cursor:grab;
+    <div class="style-content">
+        <style>
+            h5:hover {
+                cursor: grab;
             }
         </style>
-        <div class = "container my-4">
-        <h4 class= " standard-title my-4">Áreas</h4>
-        <mat-form-field appearance="fill">
-        <mat-select>
-            <mat-option *ngFor="let item of areas" [value]="item.nombre">
-            {{item.nombre}}
-            </mat-option>
-        </mat-select>
-        </mat-form-field>
+        <div class="container my-4">
+            <h4 class=" standard-title my-4">Áreas</h4>
+            <mat-form-field appearance="fill">
+                <mat-select>
+                    <mat-option *ngFor="let item of areas" [value]="item.nombre">
+                        {{item.nombre}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
         <div class="container">
 
             <div class="row justify-content-md-center">
                 <div *ngFor="let item of infos; let i = index">
-                    
-                        <div class="col my-4" style="width: 20rem;">
-                                <div class="card" >
-                                <div class="card-body">
-                                    <h5 class="card-title cursor-pointer" (click)="open(content)" >{{item.name}}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                                </div>
+
+                    <div class="col my-4" style="width: 20rem;">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title cursor-pointer" (click)="open(content)">{{item.name}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
                         </div>
+                    </div>
 
 
-                        <ng-template #content let-modal>
+                    <ng-template #content let-modal>
                         <div class="modal-header">
                             <h4 class="modal-title" id="modal-basic-title">{{ item.name }}</h4>
                             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -57,21 +57,19 @@
                                 <hr>
                                 <pre>Rate: <b>{{currentRate}}</b></pre>
                             </div>
-                            
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
                         </div>
-                        </ng-template>
+                    </ng-template>
 
                 </div>
-            </div>    
+            </div>
         </div>
-            
+
 
 
     </div>
 
 </section>
-
-

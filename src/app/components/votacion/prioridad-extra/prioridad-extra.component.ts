@@ -11,7 +11,8 @@ import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 })
 export class PrioridadExtraComponent implements OnInit {
   closeResult = '';
-  private infos: Array<Object> = [
+  currentRate='';
+  public infos: Array<Object> = [
     {id: 1, name:'Superman'},
     {id: 2, name:'Batman'},
     {id: 5, name:'BatGirl'},
@@ -20,7 +21,7 @@ export class PrioridadExtraComponent implements OnInit {
 ];
 
 
-  private areas: Array<Object> = [
+  public areas: Array<Object> = [
     {id: 1, nombre:'Area 1'},
     {id: 2, nombre:'Area 2'},
     {id: 3, nombre:'Area 3'},

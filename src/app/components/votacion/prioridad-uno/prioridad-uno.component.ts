@@ -8,7 +8,8 @@ import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 })
 export class PrioridadUnoComponent implements OnInit {
   closeResult = '';
-  private infos: Array<Object> = [
+  currentRate = '';
+  public infos: Array<Object> = [
     {id: 1, name:'Superman'},
     {id: 2, name:'Batman'},
     {id: 5, name:'BatGirl'},
