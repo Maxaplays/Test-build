@@ -116,7 +116,7 @@ export class TarjetasTrelloService {
       }
     })
     if(aux !=""){
-      let path = `https://api.trello.com/1/lists/${aux}/cards?key=${this.key}&token=${this.token}`;
+      let path = `https://api.trello.com/1/lists/${aux}/cards?attachments=true&customFieldItems=true&checklists=all&key=${this.key}&token=${this.token}`;
     return this.http.get<any>(path).toPromise()
     }else{
       return null
@@ -441,8 +441,7 @@ export class TarjetasTrelloService {
         }else{
           aux.criterios = []          
         }
-        
-        
+        aux.imgs=Datos.attachments;        
         await this.obtenerDatosCustoms(Datos.id).then(
           async datos => {
             console.log(datos.length)
@@ -656,4 +655,5 @@ export class Tarjeta {
   historia: boolean;
   votado: boolean;
   usuarios: string;
+  imgs:[]
 }
