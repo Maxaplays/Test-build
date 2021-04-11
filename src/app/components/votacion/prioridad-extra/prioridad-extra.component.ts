@@ -16,7 +16,7 @@ export class PrioridadExtraComponent implements OnInit {
   private warningID: TemplateRef<any>;
   closeResult = '';
   public infos: Array<Object> = [];
-  currentRate = 0;
+  currentRate = 1;
 
   constructor(private modalService: NgbModal, private tarjetaService: TarjetasTrelloService, private router: Router) { }
 
