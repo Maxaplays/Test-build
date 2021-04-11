@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TarjetasTrelloService } from 'src/app/services/tarjetasTrello/tarjetas-trello.service';
 
 
@@ -16,12 +16,34 @@ export class PrioridadExtraComponent implements OnInit {
   private warningID: TemplateRef<any>;
   closeResult = '';
   public infos: Array<Object> = [];
+  public areas: Array<Object> = [
+    {nom: "Operaciones", num: 1},
+    {nom: "Riesgos", num: 7},
+    {nom: "Casas Comerciales", num: 21},
+    {nom: "Automotriz", num: 34},
+    {nom: "Administración", num: 6},
+    {nom: "Procesos", num: 8},
+  ];
+  public imagesTrello= [
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg"
+  ];
   currentRate = 1;
 
   constructor(private modalService: NgbModal, private tarjetaService: TarjetasTrelloService, private router: Router) { }
 
-  public areas= [];
+  
   ngAfterViewInit() {
+    
+    console.log(this.imagesTrello)
     this.tarjetaService.obtenerUsuarioTrello(localStorage.getItem('usuario')).then(async aux => {
       if (aux == "") {
         await this.tarjetaService.usuarioTreello().then(usuario => {
@@ -38,8 +60,8 @@ export class PrioridadExtraComponent implements OnInit {
         })
       }
     })
-    this.areas=[];
-    this.tarjetaService.obtenerAreasTrello().then(async datos=>{      
+ /*   this.areas=[];
+     this.tarjetaService.obtenerAreasTrello().then(async datos=>{      
       await datos.Datos.forEach(element => {
         this.areas.push(element.Nombre_Area)
       });
@@ -51,16 +73,16 @@ export class PrioridadExtraComponent implements OnInit {
         return 0;
     }
       )
-    })
+    }) */
     
   }
   ngOnInit() {
     this.tarjetaService.login("Inicio", 0)
-    this.tarjetaService.obtenerAreasTrello().then(
+/*     this.tarjetaService.obtenerAreasTrello().then(
       areas=>{
         console.log(areas)
       }
-    )
+    ) */
 
   }
 
@@ -83,11 +105,21 @@ export class PrioridadExtraComponent implements OnInit {
     this.llamar(event.toString())
   }
   async llamar(xd) {
+    
     this.tarjetaService.tarjetaServicio = []
     this.tarjetaService.login(xd, 1).then(() => {
       this.infos = this.tarjetaService.tarjetaServicio
     }
     )
+  }
+
+  openImage(imageContent){
+    this.modalService.open(imageContent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 
   open(content) {
@@ -129,3 +161,6 @@ export class PrioridadExtraComponent implements OnInit {
 
 }
 
+export class NgbdModal2Content {
+  constructor(public activeModal: NgbActiveModal) {}
+}
