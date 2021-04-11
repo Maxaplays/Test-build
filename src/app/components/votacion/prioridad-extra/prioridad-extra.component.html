@@ -11,8 +11,8 @@
             <h4 class= " standard-title my-4">Áreas</h4>
             <mat-form-field appearance="fill">
             <mat-select (selectionChange)="changeClient($event.value)">
-                <mat-option *ngFor="let item of areas" [value]="item.nombre">
-                {{item.nombre}}
+                <mat-option *ngFor="let item of areas" [value]="item">
+                {{item}}
                 </mat-option>
             </mat-select>
             </mat-form-field>
@@ -26,7 +26,7 @@
                                 <div class="card cursor-pointer" (click)="open(content)">
                                 <div class="card-body">
                                     <h5 class="card-title cursor-pointer"  >{{item.nombre}}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{item.propietario}}</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{item.prioridad}}</h6>
                                     <p class="card-text">{{item.descripcion}}</p>
                                 </div>
                                 </div>
@@ -64,16 +64,30 @@
                             
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-dark" (click)="saveVoto(currentRate,item.id,item.peso)">Save</button>
+                            <button type="button" class="btn btn-outline-dark" (click)="saveVoto(currentRate,item)">Save</button>
                         </div>
                         </ng-template>
 
                 </div>
             </div>    
         </div>
+        <ng-template #warningID let-modal >
             
-
-
+            <div class="modal-error">
+                <div>
+                    <div class="cols cols2 align-middle">
+                        <div class="align-left">
+                            <img src="./assets/images/warning.svg" width="42">
+                            <p>El usuario Trello no coincide</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="align-right">
+                    <button class="btn btn-solid-white" (click)="cerrar()">Aceptar</button>
+                </div>
+            </div>
+            
+            </ng-template>
     </div>
 
 </section>

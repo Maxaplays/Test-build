@@ -11,13 +11,14 @@
             <h4 class= " standard-title my-4">Áreas</h4>
             <mat-form-field appearance="fill">
             <mat-select (selectionChange)="changeClient($event.value)">
-                <mat-option *ngFor="let item of areas" [value]="item.nombre">
-                {{item.nombre}}
+                <mat-option *ngFor="let item of areas" [value]="item">
+                {{item}}
                 </mat-option>
             </mat-select>
             </mat-form-field>
         </div>
         <div class="container">
+
             <div class="row justify-content-md-center">
                 <div *ngFor="let item of infos; let i = index">
                     
@@ -25,7 +26,7 @@
                                 <div class="card cursor-pointer" (click)="open(content)">
                                 <div class="card-body">
                                     <h5 class="card-title cursor-pointer"  >{{item.nombre}}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{item.propietario}}</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{item.prioridad}}</h6>
                                     <p class="card-text">{{item.descripcion}}</p>
                                 </div>
                                 </div>
@@ -34,24 +35,28 @@
 
                         <ng-template #content let-modal>
                         <div class="modal-header">
-                            <h4 class="modal-title" id="modal-basic-title">{{ item.name }}</h4>
+                            <h4 class="modal-title" id="modal-basic-title">{{ item.nombre }}</h4>
                             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body my-3">
                             <ul class="list-group">
-                                <li class="list-group-item active">Propietario: </li>
-                                <li class="list-group-item">Area:</li>
-                                <li class="list-group-item">Fecha Ingreso:</li>
-                                <li class="list-group-item">Nombre:</li>
-                                <li class="list-group-item">Descripción:</li>
-                                <li class="list-group-item">Prioridad:</li>
-                                <li class="list-group-item">Cuantificación:</li>
-                                <li class="list-group-item">Razón:</li>
-                                <li class="list-group-item">Observaciones:</li>
+                                <li class="list-group-item active">Propietario: {{item.propietario}}</li>
+                                <li class="list-group-item">Area: {{item.area}}</li>
+                                <li class="list-group-item">Fecha Ingreso: {{item.fechaIngreso  | date: 'dd/MM/yyyy'}}</li>
+                                <li class="list-group-item">Descripción: {{item.descripcion}}</li>
+                                <li class="list-group-item">Prioridad: {{item.prioridad}}</li>
+                                <li class="list-group-item">Valor Cliente: {{item.valorCliente}}</li>
+                                <li class="list-group-item">Valor Negocio: {{item.valorNegocio}}</li>
+                                <li class="list-group-item">Cuantificación: {{item.cuantificacion}}</li>
+                                <li class="list-group-item">Tipo: {{item.tipo}}</li>                                
+                                <li class="list-group-item">Razón: {{item.razon}}</li>
+                                <li class="list-group-item">Criterios: {{item.criterios}}</li>
+                                <li class="list-group-item">Observaciones: {{item.observaciones}}</li>
                             </ul>
                             <div class="container my-3">
+                                <h6 class = 'my-3'>Valoración 1 (menos importante) - 5 (más importante)</h6>
                                 <ngb-rating [(rate)]="currentRate" [max]="5"></ngb-rating>
                                 <hr>
                                 <pre>Rate: <b>{{currentRate}}</b></pre>
@@ -59,18 +64,30 @@
                             
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+                            <button type="button" class="btn btn-outline-dark" (click)="saveVoto(currentRate,item)">Save</button>
                         </div>
                         </ng-template>
 
                 </div>
             </div>    
         </div>
+        <ng-template #warningID let-modal >
             
-
-
+            <div class="modal-error">
+                <div>
+                    <div class="cols cols2 align-middle">
+                        <div class="align-left">
+                            <img src="./assets/images/warning.svg" width="42">
+                            <p>El usuario Trello no coincide</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="align-right">
+                    <button class="btn btn-solid-white" (click)="cerrar()">Aceptar</button>
+                </div>
+            </div>
+            
+            </ng-template>
     </div>
 
 </section>
-
-

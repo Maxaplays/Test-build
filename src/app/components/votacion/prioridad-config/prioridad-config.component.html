@@ -3,29 +3,38 @@
     <app-sidebar></app-sidebar>
     <div class = "style-content">
         <div class="container my-4">
-            <h2 class="standard-title">Configuración del Sprint</h2>
-            <div class="forms forms-relative">
+            <h2 class="standard-title">Configuración de Fechas de Votaciones</h2>
+            <div class="forms forms-relative" [formGroup]="FormularioFechaSprint">
                 <div class="cols cols3">
                     <div>
                         <fieldset>
-                            <label class="label">Fecha Inicio</label>
-                            <input formControlName="fechaInicio" class="form-control" type="date">
+                            <label class="label">Fecha Inicio Votaciones</label>
+                            <input formControlName="fechaDesde" class="form-control" type="date">
                         </fieldset>
                     </div>
                     <div>
                         <fieldset>
                             <label class="label">Fecha Fin</label>
-                            <input formControlName="fechaFin" class="form-control" type="date">
+                            <input formControlName="fechaHasta" class="form-control" type="date">
                         </fieldset>
                     </div>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-outline-dark my-3" >Save</button>
+                    <button type="button" class="btn btn-outline-dark my-3" (click)="Submit() ">Guardar</button>
+                </div>                
+            </div>
+            <div>
+                <h2>Agrupar tarjetas al Backlog</h2>
+                <div>
+                    <button type="button" class="btn btn-outline-dark my-3" (click)="moverTarjetas() ">Agrupar</button>
+                </div>                
+            </div>
+            <div>
+                <h2>Regresar Tarjetas a sus Áreas</h2>
+                <div>
+                    <button type="button" class="btn btn-outline-dark my-3" (click)="regresarTarjetas() ">Regresar</button>
                 </div>
             </div>
         </div>
-
     </div>
-
 </section>
-

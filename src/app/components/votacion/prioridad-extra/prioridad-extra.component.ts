@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { TarjetasTrelloService } from 'src/app/services/tarjetasTrello/tarjetas-trello.service';
 
 
@@ -11,54 +12,108 @@ import { TarjetasTrelloService } from 'src/app/services/tarjetasTrello/tarjetas-
   styleUrls: ['./prioridad-extra.component.css']
 })
 export class PrioridadExtraComponent implements OnInit {
+  @ViewChild('warningID', { static: false })
+  private warningID: TemplateRef<any>;
   closeResult = '';
-  private infos: Array<Object> = [];
+  public infos: Array<Object> = [];
+  currentRate = 0;
 
-  constructor(private modalService: NgbModal, private tarjetaService: TarjetasTrelloService) { }
+  constructor(private modalService: NgbModal, private tarjetaService: TarjetasTrelloService, private router: Router) { }
 
-  private areas: Array<Object> = [
-    {id: 1, nombre:'Area 1'},
-    {id: 2, nombre:'Area 2'},
-    {id: 3, nombre:'Area 3'},
-  ];
-
-  ngOnInit() {
+  public areas= [];
+  ngAfterViewInit() {
+    this.tarjetaService.obtenerUsuarioTrello(localStorage.getItem('usuario')).then(async aux => {
+      if (aux == "") {
+        await this.tarjetaService.usuarioTreello().then(usuario => {
+          this.tarjetaService.enviarDatosUsuarioTrello([usuario.username, localStorage.getItem('usuario')])
+        })
+      } else {
+        await this.tarjetaService.usuarioTreello().then(usuario => {
+          if (aux == usuario.username) {
+            console.log("bin :v")
+          } else {
+            console.log(this.warningID)
+            this.openWarning(this.warningID);
+          }
+        })
+      }
+    })
+    this.areas=[];
+    this.tarjetaService.obtenerAreasTrello().then(async datos=>{      
+      await datos.Datos.forEach(element => {
+        this.areas.push(element.Nombre_Area)
+      });
+      this.areas.sort(      
+      function(a, b){
+        console.log(a)
+        if(a < b) { return -1; }
+        if(a > b) { return 1; }
+        return 0;
+    }
+      )
+    })
     
   }
-  changeClient(event){
+  ngOnInit() {
+    this.tarjetaService.login("Inicio", 0)
+    this.tarjetaService.obtenerAreasTrello().then(
+      areas=>{
+        console.log(areas)
+      }
+    )
 
-    this.llamar(event.toString())    
   }
-  async llamar(xd){
-    console.log(xd)
-    this.tarjetaService.tarjetaServicio=[]
-    this.tarjetaService.login(xd).then(()=>{
+
+  cerrar() {
+    this.modalService.dismissAll();
+    this.router.navigate(["/inicio"])
+  }
+
+  openWarning(warning) {
+    this.modalService.open(warning).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.modalService.dismissAll();
+      this.router.navigate(["/inicio"])
+    });
+
+  }
+  changeClient(event) {
+    this.llamar(event.toString())
+  }
+  async llamar(xd) {
+    this.tarjetaService.tarjetaServicio = []
+    this.tarjetaService.login(xd, 1).then(() => {
       this.infos = this.tarjetaService.tarjetaServicio
     }
-     
     )
-    
-    
   }
-  
-  open(content) {
 
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+  open(content) {
+    
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      
+
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       this.modalService.dismissAll();
     });
-    
+
+  }
+  arrayRemove(arr, value) {
+    return arr.filter(function (ele) {
+      return ele != value;
+    });
   }
 
 
 
-  saveVoto(valor,id,peso){
-    
-    this.tarjetaService.votar(valor,id,peso)
+  saveVoto(valor, item) {
+    this.tarjetaService.votar(valor, item.id, item.usuarios)
+    this.tarjetaService.agregarUsuarrioVoto(item.id, item.usuarios, valor)
     this.modalService.dismissAll()
+    this.infos = this.arrayRemove(this.infos, item)
   }
 
   private getDismissReason(reason: any): string {
@@ -70,7 +125,7 @@ export class PrioridadExtraComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  
+
 
 }
 
