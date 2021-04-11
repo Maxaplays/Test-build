@@ -1,14 +1,14 @@
 <app-menutop></app-menutop>
 <section id="father-table">
     <app-sidebar></app-sidebar>
-    <div class = "style-content">
-            <style>
-            h5:hover{
-                cursor:grab;
+    <div class="style-content">
+        <style>
+            h5:hover {
+                cursor: grab;
             }
         </style>
-        <div class = "container my-4">
-            <h4 class= " standard-title my-4">Áreas</h4>
+        <div class="container my-4">
+            <h4 class=" standard-title my-4">Áreas</h4>
             <mat-form-field appearance="fill">
             <mat-select (selectionChange)="changeClient($event.value)">
                 <mat-option *ngFor="let item of areas" [value]="item">
@@ -31,9 +31,10 @@
                                 </div>
                                 </div>
                         </div>
+                    </div>
 
 
-                        <ng-template #content let-modal>
+                    <ng-template #content let-modal>
                         <div class="modal-header">
                             <h4 class="modal-title" id="modal-basic-title">{{ item.nombre }}</h4>
                             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -61,15 +62,15 @@
                                 <hr>
                                 <pre>Rate: <b>{{currentRate}}</b></pre>
                             </div>
-                            
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-dark" (click)="saveVoto(currentRate,item)">Save</button>
                         </div>
-                        </ng-template>
+                    </ng-template>
 
                 </div>
-            </div>    
+            </div>
         </div>
         <ng-template #warningID let-modal >
             

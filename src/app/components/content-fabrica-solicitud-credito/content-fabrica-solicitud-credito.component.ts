@@ -190,13 +190,13 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.mensajeServicio = data;
         this.getCliente();
         this.getDatosComplementarios();
-        this.direcciones = this.getDirecciones();
         this.telefonos = this.getTelefonos();
         this.conyuges = this.getListaConyuges();
         this.referencias = this.getListaReferencias();
         this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
         this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
         this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
+        this.direcciones = this.getDirecciones();
         this.acoplarPantalla(data.Estado);
         this.getDetalles();
       });
@@ -212,13 +212,13 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
           this.acoplarPantalla(data.Estado);
           this.getCliente();
           this.getDatosComplementarios();
-          this.direcciones = this.getDirecciones();
           this.telefonos = this.getTelefonos();
           this.conyuges = this.getListaConyuges();
           this.referencias = this.getListaReferencias();
           this.situacionFinancieraIngresos = this.getSituacionFinancieraIngresos();
           this.situacionFinancieraEgresos = this.getSituacionFinancieraEgresos();
           this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
+          this.direcciones = this.getDirecciones();
           this.loading = false;
         });
   }

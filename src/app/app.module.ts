@@ -98,9 +98,8 @@ const routes: Routes = [
   { path: 'fabrica/nueva-solicitud/creditoMin/:idCre', component: FabricaStep2minComponent },
   { path: 'fabrica/nueva-solicitud-Min', component: FabricaMinComponent },
   { path: 'builder', component: BuilderComponent },
-  { path: 'votacion/prioridad-uno', component: PrioridadUnoComponent },
-  { path: 'votacion/prioridad-extra', component: PrioridadExtraComponent },
-  { path: 'votacion/prioridad-config', component: PrioridadConfigComponent },
+  // { path: 'votacion/prioridad-uno', component: PrioridadUnoComponent },
+  // { path: 'votacion/prioridad-extra', component: PrioridadExtraComponent },
 ];
 
 @NgModule({
