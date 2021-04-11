@@ -41,8 +41,7 @@ export class PrioridadExtraComponent implements OnInit {
   constructor(private modalService: NgbModal, private tarjetaService: TarjetasTrelloService, private router: Router) { }
 
   
-  ngAfterViewInit() {
-    
+  ngAfterViewInit() {    
     console.log(this.imagesTrello)
     this.tarjetaService.obtenerUsuarioTrello(localStorage.getItem('usuario')).then(async aux => {
       if (aux == "") {
@@ -125,9 +124,11 @@ export class PrioridadExtraComponent implements OnInit {
   open(content) {
     
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.currentRate = 1;
       this.closeResult = `Closed with: ${result}`;
 
     }, (reason) => {
+      this.currentRate = 1;
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       this.modalService.dismissAll();
     });
@@ -145,15 +146,19 @@ export class PrioridadExtraComponent implements OnInit {
     this.tarjetaService.votar(valor, item.id, item.usuarios)
     this.tarjetaService.agregarUsuarrioVoto(item.id, item.usuarios, valor)
     this.modalService.dismissAll()
+    this.currentRate = 1;
     this.infos = this.arrayRemove(this.infos, item)
   }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
+      this.currentRate = 1;
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      this.currentRate = 1;
       return 'by clicking on a backdrop';
     } else {
+      this.currentRate = 1;
       return `with: ${reason}`;
     }
   }
