@@ -68,6 +68,7 @@ import { PrioridadUnoComponent } from './components/votacion/prioridad-uno/prior
 import { PrioridadExtraComponent } from './components/votacion/prioridad-extra/prioridad-extra.component';
 import { MatSelectModule } from '@angular/material';
 import { PrioridadConfigComponent } from './components/votacion/prioridad-config/prioridad-config.component';
+import { CountdownGlobalConfig, CountdownModule } from 'ngx-countdown';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -102,6 +103,8 @@ const routes: Routes = [
    { path: 'votacion/prioridad-extra', component: PrioridadExtraComponent },
    { path: 'votacion/prioridad-config', component: PrioridadConfigComponent },
 ];
+
+
 
 @NgModule({
   declarations: [
@@ -173,12 +176,15 @@ const routes: Routes = [
     MatDialogModule,
     MatSnackBarModule,
     MatSelectModule,
+    CountdownModule
   ],
   entryComponents:[MyDialogComponent],
   exports: [],
   providers: [ExportService,
     {provide: MAT_DATE_LOCALE, useValue: 'es-EC'},
-    {provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig}],
+    {provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig},
+    {provide: CountdownGlobalConfig},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

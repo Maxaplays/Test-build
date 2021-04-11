@@ -13,11 +13,31 @@ export class PrioridadUnoComponent implements OnInit {
   private warningID: TemplateRef<any>;
   closeResult = '';
   public infos: Array<Object> = [];
-  currentRate=1;
+  public areas: Array<Object> = [
+    {nom: "Operaciones", num: 1},
+    {nom: "Riesgos", num: 7},
+    {nom: "Casas Comerciales", num: 21},
+    {nom: "Automotriz", num: 34},
+    {nom: "Administración", num: 6},
+    {nom: "Procesos", num: 8},
+  ];
+  public imagesTrello= [
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
+    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg"
+  ];
+  currentRate = 1;
+  tiempoTimer = 90000;
   
   constructor(private modalService: NgbModal, private tarjetaService: TarjetasTrelloService,private router:Router) { }
 
-  public areas= [];
   ngAfterViewInit(){
     this.tarjetaService.obtenerUsuarioTrello(localStorage.getItem('usuario')).then(async aux => {
       if (aux == "") {
@@ -35,7 +55,7 @@ export class PrioridadUnoComponent implements OnInit {
         })
       }
     })    
-    this.areas=[];
+/*     this.areas=[];
     this.tarjetaService.obtenerAreasTrello().then(async datos=>{      
       await datos.Datos.forEach(element => {
         this.areas.push(element.Nombre_Area)
@@ -48,7 +68,7 @@ export class PrioridadUnoComponent implements OnInit {
         return 0;
     }
       )
-    })
+    }) */
   }
   ngOnInit() {
     this.tarjetaService.login("Inicio",0)
@@ -81,10 +101,19 @@ export class PrioridadUnoComponent implements OnInit {
     )
   }
 
+  openImage(imageContent){
+    this.modalService.open(imageContent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
   open(content) {
     setTimeout(() => {
       this.modalService.dismissAll();
-    }, 60000);
+    }, this.tiempoTimer);
     this.modalService.open(content, { backdrop:"static", keyboard:false, ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
 

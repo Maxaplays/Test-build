@@ -30,6 +30,7 @@
     "jw-angular-pagination": "^1.2.0",
     "ng2-pdf-viewer": "^6.3.2",
     "ng2-pdfjs-viewer": "^5.0.7",
+    "ngx-countdown": "^11.0.3",
     "ngx-pagination": "^5.0.0",
     "ngx-scrollbar": "^7.2.3",
     "rxjs": "~6.4.0",

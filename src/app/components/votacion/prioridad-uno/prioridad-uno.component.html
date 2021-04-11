@@ -2,27 +2,38 @@
 <section id="father-table">
   <app-sidebar></app-sidebar>
   <div class="style-content">
-    <style>
-      h5:hover {
-        cursor: grab;
-      }
-    </style>
     <div class="container my-4">
-      <h4 class="standard-title my-4">Áreas</h4>
-      <mat-form-field appearance="fill">
-        <mat-select (selectionChange)="changeClient($event.value)">
-          <mat-option *ngFor="let item of areas" [value]="item">
-            {{ item }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <h4 class="standard-title my-4">Tarjetas Prioridad 1</h4>
     </div>
     <div class="container">
+      <table class="width-filters display nowrap">
+        <thead>
+          <tr>
+            <th>Tarjetas</th>
+            <th *ngFor="let item of areas">{{ item.nom }}</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>
+              <p>Tarjetas Totales</p>
+            </td>
+            <td
+              class="cursorgrab"
+              *ngFor="let item of areas"
+              (click)="changeClient(item.nom)"
+            >
+              <a>{{ item.num }}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <div class="row justify-content-md-center">
         <div *ngFor="let item of infos; let i = index">
           <div class="col my-4" style="width: 20rem">
-            <div class="card cursor-pointer" (click)="open(content)">
-              <div class="card-body">
+            <div class="card" (click)="open(content)">
+              <div class="card-body cursorgrab">
                 <h5 class="card-title cursor-pointer">{{ item.nombre }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">
                   {{ item.prioridad }}
@@ -31,71 +42,138 @@
               </div>
             </div>
           </div>
-        </div>
-        <ng-template #content let-modal>
-          <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">
-              {{ item.nombre }}
-            </h4>
-            <button
-              type="button"
-              class="close"
-              aria-label="Close"
-              (click)="modal.dismiss('Cross click')"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body my-3">
-            <ul class="list-group">
-              <li class="list-group-item active">
-                Propietario: {{ item.propietario }}
-              </li>
-              <li class="list-group-item">Area: {{ item.area }}</li>
-              <li class="list-group-item">
-                Fecha Ingreso: {{ item.fechaIngreso | date: "dd/MM/yyyy" }}
-              </li>
-              <li class="list-group-item">
-                Descripción: {{ item.descripcion }}
-              </li>
-              <li class="list-group-item">Prioridad: {{ item.prioridad }}</li>
-              <li class="list-group-item">
-                Valor Cliente: {{ item.valorCliente }}
-              </li>
-              <li class="list-group-item">
-                Valor Negocio: {{ item.valorNegocio }}
-              </li>
-              <li class="list-group-item">
-                Cuantificación: {{ item.cuantificacion }}
-              </li>
-              <li class="list-group-item">Tipo: {{ item.tipo }}</li>
-              <li class="list-group-item">Razón: {{ item.razon }}</li>
-              <li class="list-group-item">Criterios: {{ item.criterios }}</li>
-              <li class="list-group-item">
-                Observaciones: {{ item.observaciones }}
-              </li>
-            </ul>
-            <div class="container my-3">
-              <h6 class="my-3">
-                Valoración 1 (menos importante) - 5 (más importante)
-              </h6>
-              <ngb-rating [(rate)]="currentRate" [max]="5"></ngb-rating>
-              <hr />
-              <pre>Rate: 
-									<b>{{currentRate}}</b>
-								</pre>
+          <ng-template #content let-modal>
+            <div class="modal-header">
+              <h2 class="modal-title standard-title my-4">{{ item.nombre }}</h2>
+              <div class="float-right standard-title my-4">
+              <img class="mx-2" src="./assets/images/icon-reloj.svg">
+              <countdown [config]="{leftTime: tiempoTimer/1000, format: 'mm:ss'}"></countdown>
+              </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-outline-dark"
-              (click)="saveVoto(currentRate, item)"
-            >
-              Save
-            </button>
-          </div>
-        </ng-template>
+            <div class="container my-3">
+              <table class="width-filters display nowrap">
+                <thead>
+                  <tr>
+                    <th>Propietario</th>
+                    <td>
+                      <p>{{ item.propietario }}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Area</th>
+                    <td>
+                      <p>{{ item.area }}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Fecha Ingreso</th>
+                    <td>
+                      <p>{{ item.fechaIngreso | date: "dd/MM/yyyy" }}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Descripción</th>
+                    <td>
+                      <p>{{ item.descripcion }}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Prioridad</th>
+                    <td>
+                      <p>{{ item.prioridad }}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Valor Cliente</th>
+                    <td>
+                      <p>{{ item.valorCliente }}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Valor Negocio</th>
+                    <td>
+                      <p>{{ item.valorNegocio }}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Cuantificación</th>
+                    <td>
+                      <p>{{ item.cuantificacion }}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Tipo</th>
+                    <td>
+                      <p>{{ item.tipo }}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Razón</th>
+                    <td>
+                      <p>{{ item.razon }}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Criterios</th>
+                    <td>
+                      <p>{{ item.criterios }}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Observaciones</th>
+                    <td>
+                      <p>{{ item.observaciones }}</p>
+                    </td>
+                  </tr>
+                </thead>
+              </table>
+              <div class="container mt-4">
+                <div class="row">
+                  <div class="col text-center">
+                    <a *ngFor="let img of item.imgs">
+                      <img
+                        class="w-25 mx-2"
+                        src="{{ img.url }}"
+                        (click)="openImage(imageContent)"
+                        height="150px"
+                      />
+
+                      <ng-template #imageContent let-modal>
+                        <img src="{{ img.url }}" />
+                      </ng-template>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-body my-3">
+              <div class="container my-3">
+                <h6 class="my-3">
+                  Valoración 1 (menos importante) - 5 (más importante)
+                </h6>
+                <ngb-rating
+                  class="estrellita"
+                  [(rate)]="currentRate"
+                  [max]="5"
+                ></ngb-rating>
+                <hr />
+                <pre>
+Valoración: {{ currentRate }}
+                </pre>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-solid-blue"
+                (click)="saveVoto(currentRate, item)"
+              >
+                Guardar
+              </button>
+            </div>
+          </ng-template>
+        </div>
       </div>
     </div>
 

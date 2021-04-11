@@ -19,8 +19,12 @@
             <td>
               <p>Tarjetas Totales</p>
             </td>
-            <td class="cursorgrab" *ngFor="let item of areas" (click)="changeClient(item.nom)">
-              <a >{{ item.num }}</a>
+            <td
+              class="cursorgrab"
+              *ngFor="let item of areas"
+              (click)="changeClient(item.nom)"
+            >
+              <a>{{ item.num }}</a>
             </td>
           </tr>
         </tbody>
@@ -30,7 +34,7 @@
           <div class="col my-4" style="width: 20rem">
             <div class="card" (click)="open(content)">
               <div class="card-body cursorgrab">
-                <h5 class="card-title cursor-pointer ">{{ item.nombre }}</h5>
+                <h5 class="card-title cursor-pointer">{{ item.nombre }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">
                   {{ item.prioridad }}
                 </h6>
@@ -51,7 +55,7 @@
               </button>
             </div>
             <div class="container my-3">
-              <table class="width-filters display nowrap" >
+              <table class="width-filters display nowrap">
                 <thead>
                   <tr>
                     <th>Propietario</th>
@@ -132,23 +136,20 @@
                   <div class="col text-center">
                     <a *ngFor="let img of item.imgs">
                       <img
-                      class="w-25"
+                        class="w-25 mx-2"
                         src="{{ img.url }}"
                         (click)="openImage(imageContent)"
                         height="150px"
                       />
-  
+
                       <ng-template #imageContent let-modal>
-                        <img
-                          src="{{ img.url }}"
-                        />
+                        <img src="{{ img.url }}" />
                       </ng-template>
                     </a>
                   </div>
                 </div>
               </div>
             </div>
-            
 
             <div class="modal-body my-3">
               <div class="container my-3">
@@ -169,10 +170,10 @@ Valoración: {{ currentRate }}
             <div class="modal-footer">
               <button
                 type="button"
-                class="btn btn-outline-dark"
+                class="btn btn-solid-blue"
                 (click)="saveVoto(currentRate, item)"
               >
-                Save
+                Guardar
               </button>
             </div>
           </ng-template>
