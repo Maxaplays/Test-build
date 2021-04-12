@@ -21,6 +21,7 @@ export class TarjetasTrelloService {
   customs = [];
   tarjetasId = []
   listaMover = []
+  areas=[]
   tarjetaServicio: Tarjeta[] = [];
   constructor(public http: HttpClient) {
 
@@ -69,7 +70,7 @@ export class TarjetasTrelloService {
         }
       )
       console.log(this.customs);
-      let listasNoDeseadas = ["Plantilla", "Backlog", "Sprint"]
+      let listasNoDeseadas = ["Plantilla", "Backlog", "Sprint", "Doing", "Certificado BKM", "Certificado MFC", "Autorizado Paso Producción MFC", "En Producción"]
 
       await this.obtener().then(
         async aux => {
@@ -90,14 +91,60 @@ export class TarjetasTrelloService {
         }
       )
       console.log(this.boards)
-      await this.obtenerTarjetas(dataArea, flag)
+      await this.obtenerTarjetas(flag)
     }
-
   }
+
+  async cargarDatos(flag): Promise<any> {
+      await this.obtenerCustoms().then(
+        tarjetas => {
+          let bandera = false
+          tarjetas.forEach(element => {
+            this.customs.forEach(x => {
+              if (x[0] == element.id) {
+                bandera = true
+              }
+
+            });
+            if (!bandera) {
+              this.customs.push([element.id, element.name])
+            }
+
+          });
+        }
+      )
+      console.log(this.customs);
+      let listasNoDeseadas = ["Plantilla", "Backlog", "Sprint", "Doing", "Certificado BKM", "Certificado MFC", "Autorizado Paso Producción MFC", "En Producción"]
+      await this.obtener().then(
+        async aux => {
+          let bandera = false
+          aux.forEach(element => {
+            if (!listasNoDeseadas.includes(element.name)) {
+              this.boards.forEach(x => {
+                if (x[0] == element.id) {
+                  bandera = true
+                }
+              });
+              if (!bandera) {
+                this.boards.push([element.id, element.name])
+                this.areas.push({ nom: element.name, num: 0 },)   
+              }
+            }
+          });
+
+        }
+      )
+      console.log(this.areas)
+      console.log(this.boards)      
+
+      await this.obtenerTarjetas(flag)
+      return this.tarjetaServicio
+  }
+
+
   async obtener(): Promise<any> {
     const path = `https://api.trello.com/1/boards/60649fa7cc7fe101a35130d0/lists?key=${this.key}&token=${this.token}`;
     return this.http.get<any>(path).toPromise()
-
   }
   failure() {
     console.log("Couldn't authenticate successfully.");
@@ -115,57 +162,57 @@ export class TarjetasTrelloService {
         aux = element[0]
       }
     })
-    if(aux !=""){
+    if (aux != "") {
       let path = `https://api.trello.com/1/lists/${aux}/cards?attachments=true&customFieldItems=true&checklists=all&key=${this.key}&token=${this.token}`;
-    return this.http.get<any>(path).toPromise()
-    }else{
+      return this.http.get<any>(path).toPromise()
+    } else {
       return null
     }
-    
-
   }
-  async obtenerTarjetas(dataArea, flag) {
+  
+  async obtenerTarjetas(flag) {
     let bandera = false
-    await this.llamarTarjetas(dataArea).then(
-      async tarjetas => {
-        if(tarjetas != null){
-          tarjetas.forEach(async element => {
-            await element.labels.forEach(async prioridades => {
-              if (flag == 1) {
-                if (prioridades.name != "Prioridad 1") {
-                  this.cards.forEach(aux => {
-                    if (aux.id == element.id) {
-                      bandera = true
+    this.boards.forEach(async dataArea1 => {
+      await this.llamarTarjetas(dataArea1[1]).then(
+        async tarjetas => {
+          if (tarjetas != null) {
+            tarjetas.forEach(async element => {
+              await element.labels.forEach(async prioridades => {
+                if (flag == 1) {
+                  if (prioridades.name != "Prioridad 1") {
+                    this.cards.forEach(aux => {
+                      if (aux.id == element.id) {
+                        bandera = true
+                      }
+                    });
+  
+                    if (!bandera) {
+                      this.cards.push(await element)
                     }
-                  });
   
-                  if (!bandera) {
-                    this.cards.push(await element)
                   }
-  
-                }
-              } else {
-                if (prioridades.name == "Prioridad 1") {
-                  this.cards.forEach(aux => {
-                    if (aux.id == element.id) {
-                      bandera = true
+                } else {
+                  if (prioridades.name == "Prioridad 1") {
+                    this.cards.forEach(aux => {
+                      if (aux.id == element.id) {
+                        bandera = true
+                      }
+                    });
+                    if (!bandera) {
+                      this.cards.push(await element)
                     }
-                  });
-                  if (!bandera) {
-                    this.cards.push(await element)
                   }
                 }
-              }
   
-            });
+              });
   
   
-          })
+            })
+          }
         }
-      }
-    )
-    await this.agrupar(dataArea)
-    console.log(this.cards)
+      )
+      await this.agrupar(dataArea1)    
+    });
   }
 
   async moverTarjetasBacklog(): Promise<any> {
@@ -233,13 +280,8 @@ export class TarjetasTrelloService {
               if (!bandera) {
                 this.listaMover.push(this.tarjetasId[i])
               }
-
-
             }
-
-
           });
-
         }
       )
     }
@@ -252,10 +294,10 @@ export class TarjetasTrelloService {
     }
 
   }
-  limpiar(){
+  limpiar() {
     this.tarjetasId = []
-  this.listaMover = []
-  this.boards=[]
+    this.listaMover = []
+    this.boards = []
 
   }
   async regresarTarjetas(): Promise<any> {
@@ -287,7 +329,6 @@ export class TarjetasTrelloService {
             }
           }
         });
-
       }
     )
 
@@ -330,36 +371,28 @@ export class TarjetasTrelloService {
                     }
                   });
                   if (!bandera) {
-                    this.listaMover.push([this.tarjetasId[i],datos.value.text])
+                    this.listaMover.push([this.tarjetasId[i], datos.value.text])
                   }
-
                 })
-
-              
-
-
-            }
-
-
-          });
-
-        }
+              }
+            });
+          }
       )
     }
     for (let i = 0; i < this.listaMover.length; i++) {
-      let aux=""
-      this.boards.forEach(areas=>{
-        if(this.listaMover[i][1]==areas[1]){
-          aux=areas[0]         
+      let aux = ""
+      this.boards.forEach(areas => {
+        if (this.listaMover[i][1] == areas[1]) {
+          aux = areas[0]
         }
       })
-      if(aux!=""){
+      if (aux != "") {
         const path2 = `https://api.trello.com/1/cards/${this.listaMover[i][0]}?idList=${aux}&key=${this.key}&token=${this.token}`;
-      await this.mandarTrajeta(path2).then(element => {
-        console.log(element)
-      })
+        await this.mandarTrajeta(path2).then(element => {
+          console.log(element)
+        })
       }
-      
+
 
     }
 
@@ -398,36 +431,26 @@ export class TarjetasTrelloService {
     return this.http.get<any>(path).toPromise()
   }
   async agrupar(nombreArea): Promise<any> {
-    await this.usuarioTreello().then((element) => {
-      console.log(element.username)
-    })
     this.cards.forEach(async Datos => {
       let aux: Tarjeta = new Tarjeta();
       let idArea;
-      this.boards.forEach(areas => {
-        if (areas[1] === nombreArea) {
-          aux.area = areas[1]
-          idArea = areas[0]
-        }
-      })
-      if (Datos.idList == idArea) {
+          aux.area = nombreArea[1]
+          idArea = nombreArea[0]
+      if (Datos.idList == idArea) {        
         aux.id = Datos.id
         aux.descripcion = Datos.desc
         aux.nombre = Datos.name
         aux.prioridad = Datos.labels[0].name
-        if(Datos.idMembers[0]!=null){
+        if (Datos.idMembers[0] != null) {
           await this.obtenerPropietario(Datos.idMembers[0]).then(
             (dato) => {
               aux.propietario = dato.fullName
             }
-  
           )
-
-        }else{
-          aux.propietario =""
+        } else {
+          aux.propietario = ""
         }
-
-        if(Datos.idChecklists[0]!=null){
+        if (Datos.idChecklists[0] != null) {
           await this.obtenerCriterios(Datos.idChecklists[0]).then(
             datos => {
               let dato = []
@@ -438,92 +461,64 @@ export class TarjetasTrelloService {
             }
           )
 
-        }else{
-          aux.criterios = []          
+        } else {
+          aux.criterios = []
         }
-        aux.imgs=Datos.attachments;        
-        await this.obtenerDatosCustoms(Datos.id).then(
-          async datos => {
-            console.log(datos.length)
-            for (let a = 0; a < datos.length; a++) {
-              this.customs.forEach(async (otrosDatos) => {
-                if (otrosDatos[1] == "Fecha Ingreso") {
-                  if (otrosDatos[0] == datos[a].idCustomField) {
-                    console.log(new Date(datos[a].value.date))
-                    aux.fechaIngreso = new Date(datos[a].value.date);
-                  }
-                }
-                if (otrosDatos[1] == "Valor Agregado al Cliente") {
-                  if (otrosDatos[0] == datos[a].idCustomField) {
-                    aux.valorCliente = (datos[a].value.checked == "true");
-                  }
-                }
-                if (otrosDatos[1] == "Valor Agregado al Negocio") {
-                  if (otrosDatos[0] == datos[a].idCustomField) {
-                    aux.valorNegocio = (datos[a].value.checked == "true");
-                  }
-                }
-                if (otrosDatos[1] == "Aprobación Historia de Usuario") {
-                  if (otrosDatos[0] == datos[a].idCustomField) {
-                    aux.historia = (datos[a].value.checked == "true");
-                  }
-                }
-                if (otrosDatos[1] == "Votado") {
-                  if (otrosDatos[0] == datos[a].idCustomField) {
-                    aux.votado = (datos[a].value.checked == "true");
-                  }
-                }
-                if (otrosDatos[1] == "Tipo de Beneficio") {
-                  if (otrosDatos[0] == datos[a].idCustomField) {
-                    await this.obtenerOpcion(datos[a].idCustomField, datos[a].idValue).then(
-                      datos => {
-                        aux.tipo = datos.value.text;
-
-                      }
-                    );
-                  }
-                }
-                if (otrosDatos[1] == "Cuantificación") {
-                  if (otrosDatos[0] == datos[a].idCustomField) {
-                    console.log(datos[a].value.number)
-                    aux.cuantificacion = (datos[a].value.number).toString();
-                  }
-                }
-                if (otrosDatos[1] == "Razón") {
-                  if (otrosDatos[0] == datos[a].idCustomField) {
-                    console.log(datos[a].value.text)
-                    aux.razon = datos[a].value.text.toString();
-                  }
-                }
-                if (otrosDatos[1] == "Observaciones") {
-                  if (otrosDatos[0] == datos[a].idCustomField) {
-                    console.log(datos[a].value.text)
-                    aux.observaciones = await datos[a].value.text.toString();
-                  }
-                }
-                if (otrosDatos[1] == "Usuarios") {
-                  if (otrosDatos[0] == datos[a].idCustomField) {
-                    //console.log(datos[a].value.text)
-                    aux.usuarios = await datos[a].value.text;
-                  }
-                }
-                if (otrosDatos[1] == "Peso Total") {
-                  if (otrosDatos[0] == datos[a].idCustomField) {
-                    console.log(datos[a].value.text)
-                    try {
-                      aux.peso = Number(await datos[a].value.number);
-                    } catch {
-                      aux.peso = 0
-                    }
-
-                  }
-                }
-              })
+        aux.imgs = Datos.attachments;
+        Datos.customFieldItems.forEach(datosCustoms => {
+          this.customs.forEach(async (otrosDatos) => {
+            if (otrosDatos[1] == "Fecha Ingreso" && otrosDatos[0] == datosCustoms.idCustomField) {
+              aux.fechaIngreso = new Date(datosCustoms.value.date);
+            }
+            if (otrosDatos[1] == "Valor Agregado al Cliente" && otrosDatos[0] == datosCustoms.idCustomField) {
+              if ((datosCustoms.value.checked == "true")) {
+                aux.valorCliente = "Si";
+              } else {
+                aux.valorCliente = "";
+              }
 
             }
-          }
-        )
-
+            if (otrosDatos[1] == "Valor Agregado al Negocio" && otrosDatos[0] == datosCustoms.idCustomField) {
+              if (datosCustoms.value.checked == "true") {
+                aux.valorNegocio = "Si"
+              } else {
+                aux.valorNegocio = "";
+              }
+            }
+            if (otrosDatos[1] == "Aprobación Historia de Usuario" && otrosDatos[0] == datosCustoms.idCustomField) {
+              aux.historia = (datosCustoms.value.checked == "true");
+            }
+            if (otrosDatos[1] == "Votado" && otrosDatos[0] == datosCustoms.idCustomField) {
+              aux.votado = (datosCustoms.value.checked == "true");
+            }
+            if (otrosDatos[1] == "Tipo de Beneficio" && otrosDatos[0] == datosCustoms.idCustomField) {
+              await this.obtenerOpcion(datosCustoms.idCustomField, datosCustoms.idValue).then(
+                datos => {
+                  aux.tipo = datos.value.text;
+                }
+              )
+            }
+            if (otrosDatos[1] == "Cuantificación" && otrosDatos[0] == datosCustoms.idCustomField) {
+              aux.cuantificacion = (datosCustoms.value.number).toString();
+            }
+            if (otrosDatos[1] == "Razón" && otrosDatos[0] == datosCustoms.idCustomField) {
+              aux.razon = datosCustoms.value.text;
+            }
+            if (otrosDatos[1] == "Observaciones" && otrosDatos[0] == datosCustoms.idCustomField) {
+              aux.observaciones = datosCustoms.value.text;
+            }
+            if (otrosDatos[1] == "Usuarios" && otrosDatos[0] == datosCustoms.idCustomField) {
+              aux.usuarios = datosCustoms.value.text;
+            }
+            if (otrosDatos[1] == "Peso Total" && otrosDatos[0] == datosCustoms.idCustomField) {
+              try {
+                aux.peso = Number(datosCustoms.value.number);
+              } catch {
+                aux.peso = 0
+              }
+            }
+          })
+        });
       }
       let bandera = false
       this.tarjetaServicio.forEach(element => {
@@ -538,15 +533,17 @@ export class TarjetasTrelloService {
           }
         })
       }
-
-
       if (!bandera && aux.id != null && aux.historia && !aux.votado) {
-
         this.tarjetaServicio.push(aux)
+        this.areas.forEach(datos=>{
+          if(datos.nom==aux.area){
+            datos.num+=1;
+          }
+
+        })
       }
-      console.log(this.tarjetaServicio)
-      
     })
+    console.log(this.tarjetaServicio)
   }
   async agregarUsuarrioVoto(id, usuarios, valor) {
     let dato;
@@ -590,7 +587,6 @@ export class TarjetasTrelloService {
     } else {
       dato = valor
     }
-
     const payload = {
       "value": { "number": dato.toString() }
     }
@@ -644,8 +640,8 @@ export class Tarjeta {
   nombre: string;
   descripcion: string;
   prioridad: string;
-  valorCliente: boolean;
-  valorNegocio: boolean;
+  valorCliente: string;
+  valorNegocio: string;
   cuantificacion: string;
   tipo: string;
   razon: string;
@@ -655,5 +651,5 @@ export class Tarjeta {
   historia: boolean;
   votado: boolean;
   usuarios: string;
-  imgs:[]
+  imgs: []
 }
