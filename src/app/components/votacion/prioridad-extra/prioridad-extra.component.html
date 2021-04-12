@@ -163,7 +163,7 @@
                 ></ngb-rating>
                 <hr />
                 <pre>
-Valoración: {{ currentRate }}
+                  Valoración: {{ currentRate }}
                 </pre>
               </div>
             </div>
@@ -180,21 +180,53 @@ Valoración: {{ currentRate }}
         </div>
       </div>
     </div>
-
-    <ng-template #warningID let-modal>
-      <div class="modal-error">
-        <div>
-          <div class="cols cols2 align-middle">
-            <div class="align-left">
-              <img src="./assets/images/warning.svg" width="42" />
-              <p>El usuario Trello no coincide</p>
+    <ng-template #check let-modal>
+      <div class="modal fade show d-block custom-width-error-modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-check">
+              <div>
+                <div class="cols cols2 align-middle">
+                  <div class="align-left" style="font-size: 25px">
+                    <img
+                      class="my-4 mx-2"
+                      src="./assets/images/success.svg"
+                      width="42"
+                    />
+                    <h2 class="mx-2">No tiene mas tarjetas por revisar</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="align-right my-4 mx-2">
+                <button class="btn btn-solid-white" (click)="cerrar()">
+                  Aceptar
+                </button>
+              </div>
             </div>
           </div>
         </div>
-        <div class="align-right">
-          <button class="btn btn-solid-white" (click)="cerrar()">
-            Aceptar
-          </button>
+      </div>
+    </ng-template>
+    <ng-template #warningID let-modal>
+      <div class="modal fade show d-block custom-width-error-modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-error">
+              <div>
+                <div class="cols cols2 align-middle">
+                  <div class="align-left">
+                    <img src="./assets/images/warning.svg" width="42" />
+                    <p>El usuario Trello no coincide</p>
+                  </div>
+                </div>
+              </div>
+              <div class="align-right">
+                <button class="btn btn-solid-white" (click)="cerrar()">
+                  Aceptar
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </ng-template>

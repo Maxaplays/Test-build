@@ -5,3 +5,7 @@
 .cursorgrab{
     cursor: grab;
 }
+.modal-check{
+    background: #6AB321;
+    color: white;
+}

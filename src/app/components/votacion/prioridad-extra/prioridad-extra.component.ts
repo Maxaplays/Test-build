@@ -14,12 +14,15 @@ import { TarjetasTrelloService } from 'src/app/services/tarjetasTrello/tarjetas-
 export class PrioridadExtraComponent implements OnInit {
   @ViewChild('warningID', { static: false })
   private warningID: TemplateRef<any>;
+  @ViewChild('check', { static: false })
+  private check: TemplateRef<any>;
   closeResult = '';
   public infos= [];
   public infosMostrar= [];
   public areas: Array<Object> = [
   ];
   currentRate = 1;
+  
 
   constructor(private modalService: NgbModal, private tarjetaService: TarjetasTrelloService, private router: Router) { }
 
@@ -50,6 +53,9 @@ export class PrioridadExtraComponent implements OnInit {
     this.areas=this.tarjetaService.areas
     this.tarjetaService.cargarDatos(1).then(async (aux) => {
        this.infos = await aux
+       if (this.infos.length == 0){
+        this.openCheck(this.check)
+      }
       
     }
     )
@@ -74,6 +80,8 @@ export class PrioridadExtraComponent implements OnInit {
          )
        }) */
 
+  
+
   }
   ordenar(area){
     this.areas.forEach(datos=>{
@@ -83,6 +91,7 @@ export class PrioridadExtraComponent implements OnInit {
   }
   ngOnInit() {
     this.tarjetaService.login("Inicio", 0)
+    
   }
 
   cerrar() {
@@ -110,8 +119,20 @@ export class PrioridadExtraComponent implements OnInit {
         this.infosMostrar.push(datos)
       }
     })
-  }
+    
 
+  }
+  openCheck(check) {
+      this.modalService.open(check, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+  
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        this.modalService.dismissAll();
+        this.router.navigate(["/inicio"])
+      });
+
+  }
   openImage(imageContent) {
     this.modalService.open(imageContent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
