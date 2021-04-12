@@ -15,74 +15,74 @@ export class PrioridadExtraComponent implements OnInit {
   @ViewChild('warningID', { static: false })
   private warningID: TemplateRef<any>;
   closeResult = '';
-  public infos: Array<Object> = [];
+  public infos= [];
+  public infosMostrar= [];
   public areas: Array<Object> = [
-    {nom: "Operaciones", num: 1},
-    {nom: "Riesgos", num: 7},
-    {nom: "Casas Comerciales", num: 21},
-    {nom: "Automotriz", num: 34},
-    {nom: "Administración", num: 6},
-    {nom: "Procesos", num: 8},
-  ];
-  public imagesTrello= [
-    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
-    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
-    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
-    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
-    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
-    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
-    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
-    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
-    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg",
-    "https://trello-attachments.s3.amazonaws.com/60649fa7cc7fe101a35130d0/6070d44d9ef91d8126180481/566d02b9a30bfe4b90a8c9ae79206459/710619.jpg"
   ];
   currentRate = 1;
 
   constructor(private modalService: NgbModal, private tarjetaService: TarjetasTrelloService, private router: Router) { }
 
-  
-  ngAfterViewInit() {    
-    console.log(this.imagesTrello)
-    this.tarjetaService.obtenerUsuarioTrello(localStorage.getItem('usuario')).then(async aux => {
-      if (aux == "") {
-        await this.tarjetaService.usuarioTreello().then(usuario => {
-          this.tarjetaService.enviarDatosUsuarioTrello([usuario.username, localStorage.getItem('usuario')])
-        })
-      } else {
-        await this.tarjetaService.usuarioTreello().then(usuario => {
-          if (aux == usuario.username) {
-            console.log("bin :v")
-          } else {
-            console.log(this.warningID)
-            this.openWarning(this.warningID);
-          }
-        })
-      }
-    })
- /*   this.areas=[];
-     this.tarjetaService.obtenerAreasTrello().then(async datos=>{      
-      await datos.Datos.forEach(element => {
-        this.areas.push(element.Nombre_Area)
-      });
-      this.areas.sort(      
-      function(a, b){
-        console.log(a)
-        if(a < b) { return -1; }
-        if(a > b) { return 1; }
-        return 0;
+
+  ngAfterViewInit() {
+    try {
+      this.tarjetaService.obtenerUsuarioTrello(localStorage.getItem('usuario')).then(async aux => {
+        if (aux == "") {
+          await this.tarjetaService.usuarioTreello().then(usuario => {
+            this.tarjetaService.enviarDatosUsuarioTrello([usuario.username, localStorage.getItem('usuario')])
+          })
+        } else {
+          await this.tarjetaService.usuarioTreello().then(usuario => {
+            if (aux == usuario.username) {
+              console.log("bin :v")
+              
+            } else {
+              this.openWarning(this.warningID);
+            }
+          })
+        }
+      })
+    } catch {
+      console.log("Mal >:v")
+      this.openWarning(this.warningID);
+
     }
-      )
-    }) */
+    this.areas=this.tarjetaService.areas
+    this.tarjetaService.cargarDatos(1).then(async (aux) => {
+       this.infos = await aux
+      
+    }
+    )
     
+    
+    
+
+
+
+    /*   this.areas=[];
+        this.tarjetaService.obtenerAreasTrello().then(async datos=>{      
+         await datos.Datos.forEach(element => {
+           this.areas.push(element.Nombre_Area)
+         });
+         this.areas.sort(      
+         function(a, b){
+           console.log(a)
+           if(a < b) { return -1; }
+           if(a > b) { return 1; }
+           return 0;
+       }
+         )
+       }) */
+
+  }
+  ordenar(area){
+    this.areas.forEach(datos=>{
+
+    })
+
   }
   ngOnInit() {
     this.tarjetaService.login("Inicio", 0)
-/*     this.tarjetaService.obtenerAreasTrello().then(
-      areas=>{
-        console.log(areas)
-      }
-    ) */
-
   }
 
   cerrar() {
@@ -103,16 +103,16 @@ export class PrioridadExtraComponent implements OnInit {
   changeClient(event) {
     this.llamar(event.toString())
   }
-  async llamar(xd) {
-    
-    this.tarjetaService.tarjetaServicio = []
-    this.tarjetaService.login(xd, 1).then(() => {
-      this.infos = this.tarjetaService.tarjetaServicio
-    }
-    )
+  async llamar(xd){
+    this.infosMostrar=[]
+    this.infos.forEach(datos=>{
+      if(datos.area==xd){
+        this.infosMostrar.push(datos)
+      }
+    })
   }
 
-  openImage(imageContent){
+  openImage(imageContent) {
     this.modalService.open(imageContent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
 
@@ -122,7 +122,7 @@ export class PrioridadExtraComponent implements OnInit {
   }
 
   open(content) {
-    
+
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.currentRate = 1;
       this.closeResult = `Closed with: ${result}`;
@@ -148,6 +148,17 @@ export class PrioridadExtraComponent implements OnInit {
     this.modalService.dismissAll()
     this.currentRate = 1;
     this.infos = this.arrayRemove(this.infos, item)
+    this.infosMostrar=[]    
+    this.infos.forEach(datos=>{
+      if(datos.area==item.area){
+        this.infosMostrar.push(datos)
+      }
+    })
+    this.areas.forEach((datos:any)=>{
+      if(datos.nom==item.area){
+        datos.num-=1
+      }
+    })
   }
 
   private getDismissReason(reason: any): string {
@@ -167,5 +178,5 @@ export class PrioridadExtraComponent implements OnInit {
 }
 
 export class NgbdModal2Content {
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal) { }
 }
