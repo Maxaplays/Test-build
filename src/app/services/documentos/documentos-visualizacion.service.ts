@@ -58,6 +58,18 @@ export class DocumentosVisualizacionService {
       return of(result as T);
     };
   }
+
+  public getDocumentosEnviar(usuario: string) {
+    return this.getQuery(`obtenerDocumentosEnviar/${usuario}`);
+  }
+
+  public postCreditosEnviar(creditos: any, usuario: string) {
+    const url = environment.urlServiciosBackend + `/DocumentosVisualizacion/DocumentosEnviar/${usuario}`;
+    return this.http.post<Excepcion>(url, creditos, this.httpOptions)
+      .pipe(
+        catchError(this.handleError('addSmartphone', creditos))
+      );
+  }
 }
 
 export class Excepcion {

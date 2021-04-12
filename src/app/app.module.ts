@@ -69,6 +69,9 @@ import { PrioridadExtraComponent } from './components/votacion/prioridad-extra/p
 import { MatSelectModule } from '@angular/material';
 import { PrioridadConfigComponent } from './components/votacion/prioridad-config/prioridad-config.component';
 import { CountdownGlobalConfig, CountdownModule } from 'ngx-countdown';
+import { ContentEnvioDocumentosComponent } from './components/content-envio-documentos/content-envio-documentos.component';
+import { EnvioDocumentosComponent } from './components/envio-documentos/envio-documentos.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -102,6 +105,7 @@ const routes: Routes = [
    { path: 'votacion/prioridad-uno', component: PrioridadUnoComponent },
    { path: 'votacion/prioridad-extra', component: PrioridadExtraComponent },
    { path: 'votacion/prioridad-config', component: PrioridadConfigComponent },
+  {path: 'fabrica/envio-documentos', component: EnvioDocumentosComponent},
 ];
 
 
@@ -158,7 +162,9 @@ const routes: Routes = [
     MyDialogComponent,
     PrioridadUnoComponent,
     PrioridadExtraComponent,
-    PrioridadConfigComponent
+    PrioridadConfigComponent,
+    ContentEnvioDocumentosComponent,
+    EnvioDocumentosComponent
   ],
   imports: [
     NgbModule,

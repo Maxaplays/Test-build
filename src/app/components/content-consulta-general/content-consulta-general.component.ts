@@ -12,13 +12,12 @@ export class ContentConsultaGeneralComponent implements OnInit {
   // bkm
   checked = false;
   creditos: any[];
-  creditosExportar: any[] = [];
   cantidadCreditos: number;
   searchText: string;
   loading: boolean;
   FormularioDatosBasicos: FormGroup; // formulario de react driven del HTML
   pageActual: number = 1;
-  
+
   // bkm
   constructor(private fabricaService: FabricaService,
               private exportService: ExportService) {
@@ -35,7 +34,7 @@ export class ContentConsultaGeneralComponent implements OnInit {
     this.FormularioDatosBasicos.controls['fechaDesde'].setValue(desde);
     this.FormularioDatosBasicos.controls['fechaHasta'].setValue(hasta);
     this.FormularioDatosBasicos.controls['filtro'].setValue(this.checked);
-    
+
     this.getCreditos();
   }
   private initForm() {
@@ -60,7 +59,6 @@ export class ContentConsultaGeneralComponent implements OnInit {
     console.log(filtro);
     this.fabricaService.getConsultaGeneral(localStorage.getItem('usuario'), fechaDesde, fechaHasta, filtro).subscribe((data: any) => {
       this.creditos = data.GENERO;
-
       this.cantidadCreditos = this.creditos.length;
       this.loading = false;
       // console.log(this.creditos);
@@ -82,14 +80,6 @@ export class ContentConsultaGeneralComponent implements OnInit {
     }
   }
   exportar() {
-    var camposdelete = ['VENDEDOR_COLORUX_ECRE', 'ANALISTA_COLORUX_ECRE', 'CALIDAD_COLORUX_ECRE', 'Excepcion', 'SIMULADOR_ECRE', 'nombre_plantilla', 'BUSCADOR', 'RetomarConsulta']
-
-    this.creditos.forEach(element => {
-      camposdelete.forEach(remp => {
-        delete element[remp]
-      });
-      this.creditosExportar.push(element)
-    });
-    this.exportService.exportToExcel(this.creditosExportar, 'Creditos');
+    this.exportService.exportToExcel(this.creditos, 'Creditos');
   }
 }
