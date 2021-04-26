@@ -130,7 +130,7 @@
 }
 
 .content-submenu-fabrica.active {
-    height: 198px;
+    height: auto;
 }
 
 .content-submenu-config.active {

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { TipoContactoService } from '../../services/tipoContacto/tipo-contacto.service';
 import { ProductoService } from '../../services/producto/producto.service';
 import { EstadoCivilService } from '../../services/estadoCivil/estado-civil.service';
+import { CheckRolesService } from 'src/app/services/checkRoles/check-roles.service';
 
 @Component({
   selector: 'app-content-fabrica',
@@ -49,6 +50,7 @@ export class ContentFabricaComponent implements OnInit {
               private estadoCivilService: EstadoCivilService) {
   }
   ngOnInit(): void {
+    
     this.initForm(); // inicializar la forma de la pantalla de ReactDriven
     this.tipoDoc = this.getTipoDoc(); // CARGA DEL COMBO DE TIPO DE documentos
     this.getProducto(); // cargar combo de productos

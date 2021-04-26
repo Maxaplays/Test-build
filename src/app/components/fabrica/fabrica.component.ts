@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CheckRolesService } from 'src/app/services/checkRoles/check-roles.service';
 
 @Component({
   selector: 'app-fabrica',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FabricaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private checkRoles: CheckRolesService) { }
 
   ngOnInit() {
+    this.checkRoles.navigateReturn("Membership FabricaCredito Ventas Ingresos")
   }
 
 }

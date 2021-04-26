@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
+import { CheckRolesService } from 'src/app/services/checkRoles/check-roles.service';
 
 @Component({
   selector: 'app-sidebar-login',
@@ -14,7 +15,7 @@ export class SidebarLoginComponent implements OnInit {
   mensajeAlerta:string ='';
   anio;
 
-  constructor(private loginService: LoginService, private router:Router) {
+  constructor(private loginService: LoginService, private router:Router, private checkRoles: CheckRolesService) {
     this.anio = new Date().getFullYear();
   }
 
@@ -48,5 +49,6 @@ export class SidebarLoginComponent implements OnInit {
         // console.log('Error');
       }
     );
+    this.checkRoles.rolesArray();
   }
 }
