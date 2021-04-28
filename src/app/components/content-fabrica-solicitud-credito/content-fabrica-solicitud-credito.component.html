@@ -175,6 +175,10 @@
                                     <label class="label">Empresa Donde Trabaja / Actividad Negocio <b>*</b></label>
                                     <input formControlName="razonSocialTrabajo" class="form-control" type="text" placeholder="Empresa Donde Trabaja / Actividad Negocio">
                                 </fieldset>
+                                <fieldset>
+                                    <label class="label">Código Dactilar <b>*</b></label>
+                                    <input formControlName="codigoDactilar" class="form-control" [class.is-invalid]="FormularioDatosCliente.controls['codigoDactilar'].invalid && FormularioDatosCliente.controls['codigoDactilar'].touched" type="text" placeholder="Código Dactilar Cédula">
+                                </fieldset>
                             </div>
                         </div>
                     </form>

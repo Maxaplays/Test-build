@@ -249,7 +249,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
       profesionCliente: new FormControl(null),
       rucTrabajo: new FormControl(null),
-      razonSocialTrabajo: new FormControl(null)
+      razonSocialTrabajo: new FormControl(null),
+      codigoDactilar: new FormControl(null, Validators.required)
     });
   }
 
@@ -276,6 +277,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
           this.FormularioDatosCliente.controls['razonSocialTrabajo'].setValue(datosCliente.EMP_CLI);
           this.FormularioDatosCliente.controls['rucTrabajo'].setValue(datosCliente.RUC_EMP_CLI);
           this.FormularioDatosCliente.controls['emailCliente'].setValue(datosCliente.EMAIL_CLI);
+          this.FormularioDatosCliente.controls['codigoDactilar'].setValue(datosCliente.codigoDactilar);
         });
     }
   }
@@ -313,6 +315,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       datosCliente.INGRESOS_INDEPENDIENTE = '0';
       datosCliente.usuario = localStorage.getItem('usuario');
       datosCliente.credito = this.mensajeServicio.NumeroCredito;
+      datosCliente.codigoDactilar = this.FormularioDatosCliente.value.codigoDactilar;
 
       if (this.mensajeServicio.NombreConsultado === datosCliente.APE_CLI.trim() + ' ' + datosCliente.NOM_CLI.trim()) {
         this.clienteService.postCliente(datosCliente).subscribe(

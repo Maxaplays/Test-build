@@ -93,6 +93,7 @@ export class EnvioFabricaServiceBi {
   IdSucursal: string;
   Usuario: string;
   numeroFormulario: string;
+  // dactilar: string;
 }
 export class ValoresSimulador {
   idCredito: string;

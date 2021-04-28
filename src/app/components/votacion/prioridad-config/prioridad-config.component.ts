@@ -30,7 +30,7 @@ export class PrioridadConfigComponent implements OnInit {
     });
   }
 
-  private Submit(){    
+  Submit(){    
     let fechaDesde: string = this.FormularioFechaSprint.controls['fechaDesde'].value;
     let fechaHasta: string = this.FormularioFechaSprint.controls['fechaHasta'].value;
     this.tarjetaService.enviarDatosSprint([fechaDesde,fechaHasta])
