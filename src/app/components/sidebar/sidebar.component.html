@@ -4,10 +4,10 @@
         <div class="content-submenu content-submenu-fabrica" routerLinkActive="active">
             <span class="label-separator has-childs"><img width="24" alt="Fábrica de Crédito" src="./assets/images/icon-industry.svg"><span>Fábrica de Crédito</span></span>
             <!-- <a routerLink="/fabrica/nueva-solicitud" class="submenu" routerLinkActive="active"><img src="./assets/images/icon-add.svg">Nueva Solicitud</a> -->
-            <a routerLink="/fabrica/nueva-solicitud-Min" class="submenu" routerLinkActive="active"><img src="./assets/images/icon-add.svg">Nueva Solicitud</a>
-            <a routerLink="/fabrica/consulta-general" class="submenu" routerLinkActive="active"><img src="./assets/images/icon-consulta.svg">Consulta General</a>
+            <a *ngIf="checkRoles.includes('Membership FabricaCredito Ventas Ingresos')"routerLink="/fabrica/nueva-solicitud-Min" class="submenu" routerLinkActive="active"><img src="./assets/images/icon-add.svg">Nueva Solicitud</a>
+            <a *ngIf="checkRoles.includes('Membership FabricaCredito Consultas')" routerLink="/fabrica/consulta-general" class="submenu" routerLinkActive="active"><img src="./assets/images/icon-consulta.svg">Consulta General</a>
             <a routerLink="/fabrica/envio-documentos" class="submenu" routerLinkActive="active"><img src="./assets/images/icon-document-list.svg">Envío Documentos</a>
-            <a routerLink="/fabrica/simulador" class="submenu" routerLinkActive="active"><img src="./assets/images/icon-simulador.svg">Simulador de Crédito</a>
+            <!--<a routerLink="/fabrica/simulador" class="submenu" routerLinkActive="active"><img src="./assets/images/icon-simulador.svg">Simulador de Crédito</a>-->
         </div>
         <div class="content-submenu content-submenu-fabrica" routerLinkActive="active">
             <span class="label-separator has-childs"><img width="20" alt="Análisis de Crédito" src="./assets/images/icon-analisis.svg"><span>Análisis de Crédito</span></span>
@@ -20,12 +20,6 @@
         <div class="content-submenu content-submenu-config" routerLinkActive="active">
             <span class="label-separator has-childs"><img width="24" alt="Fábrica de Crédito" src="./assets/images/icon-config.svg"><span>Configuración</span></span>
             <a routerLink="/configuracion/respuestas" class="submenu" routerLinkActive="active"><img src="./assets/images/icon-respuestas.svg">Respuestas</a>
-        </div>
-        <div class="content-submenu content-submenu-fabrica" routerLinkActive="active">
-            <span class="label-separator has-childs"><img width="24" alt="Votacion" src="./assets/images/icon-check.svg"><span>Tecnología</span></span>
-            <a routerLink="/votacion/prioridad-uno" class="submenu" routerLinkActive="active"><img src="./assets/images/arrow-up.svg">Prioridad 1</a>
-            <a routerLink="/votacion/prioridad-extra" class="submenu" routerLinkActive="active"><img src="./assets/images/arrow-down.svg">Prioridad 2 y 3</a>
-            <a routerLink="/votacion/prioridad-config" class="submenu" routerLinkActive="active"><img src="./assets/images/gear.svg">Configuración</a>
         </div>
     </nav>
     <div class="footer-sidebar">

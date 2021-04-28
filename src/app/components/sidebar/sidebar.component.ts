@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import $ from "jquery";
+import { CheckRolesService } from 'src/app/services/checkRoles/check-roles.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,14 +10,15 @@ import $ from "jquery";
 
 export class SidebarComponent implements OnInit {
 
+  checkRoles = []
   status: boolean = false;
   anio;
-  constructor() {
+  constructor(private checkRolesService: CheckRolesService) {
     this.anio = new Date().getFullYear();
   }
 
   ngOnInit() {
-
+    this.checkRoles = this.checkRolesService.rolesArray()
     $('#mobile-toggle-menu').on('click', function(){
       $('app-sidebar').toggleClass('show')
     })

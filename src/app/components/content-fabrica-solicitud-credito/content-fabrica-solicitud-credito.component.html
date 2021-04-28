@@ -911,22 +911,22 @@
                 </div>
                 <div>
                     <fieldset>
-                        <label class="label">Teléfono Móvil</label>
-                        <input formControlName="telefonoConyuge" class="form-control" type="text" placeholder="Teléfono">
+                        <label class="label">Teléfono Móvil<b>*</b></label>
+                        <input formControlName="telefonoConyuge" class="form-control" type="text" placeholder="Teléfono" [class.is-invalid]="FormularioDatosConyuge.controls['telefonoConyuge'].invalid && FormularioDatosConyuge.controls['telefonoConyuge'].touched">
                     </fieldset>
                     <fieldset>
-                        <label class="label">Fecha de Nacimiento <b>*</b></label>
-                        <input formControlName="fechaNacimiento" [class.is-invalid]="FormularioDatosConyuge.controls['fechaNacimiento'].invalid && FormularioDatosConyuge.controls['fechaNacimiento'].touched" class="form-control" type="date" placeholder="Fecha de Nacimiento ">
+                        <label class="label">Fecha de Nacimiento</label>
+                        <input formControlName="fechaNacimiento" class="form-control" type="date" placeholder="Fecha de Nacimiento ">
                     </fieldset>
                     <fieldset>
                         <label class="label">Género <b>*</b></label>
-                        <select formControlName="genero" class="form-control" (change)="getGeneros()" class="form-control">
+                        <select formControlName="genero" class="form-control" (change)="getGeneros()" class="form-control" [class.is-invalid]="FormularioDatosConyuge.controls['genero'].invalid && FormularioDatosConyuge.controls['genero'].touched">
                             <option *ngFor="let genero of generos" [value]="genero.COD_GEN">{{genero.NOM_GEN}}</option>
                         </select>
                     </fieldset>
                     <fieldset>
                         <label class="label">Nacionalidad <b>*</b></label>
-                        <select formControlName="nacionalidad" class="form-control" (change)="getNacionalidades()" class="form-control">
+                        <select formControlName="nacionalidad" class="form-control" (change)="getNacionalidades()" class="form-control" [class.is-invalid]="FormularioDatosConyuge.controls['nacionalidad'].invalid && FormularioDatosConyuge.controls['nacionalidad'].touched">
                             <option *ngFor="let nacion of nacionalidades" [value]="nacion.COD_NAC">{{nacion.NOM_NAC}}</option>
                         </select>
                     </fieldset>

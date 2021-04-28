@@ -2,7 +2,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { AppComponent } from './app.component';
 import { MenutopComponent } from './components/menutop/menutop.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -64,17 +63,14 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatSlideToggleModule, GestureConfig, MatDialogModule, MatSnackBarModule } from '@angular/material';
 import 'hammerjs';
 import { MyDialogComponent } from './components/editar-cuenta/my-dialog/my-dialog.component';
-import { PrioridadUnoComponent } from './components/votacion/prioridad-uno/prioridad-uno.component';
-import { PrioridadExtraComponent } from './components/votacion/prioridad-extra/prioridad-extra.component';
 import { MatSelectModule } from '@angular/material';
-import { PrioridadConfigComponent } from './components/votacion/prioridad-config/prioridad-config.component';
 import { CountdownGlobalConfig, CountdownModule } from 'ngx-countdown';
 import { ContentEnvioDocumentosComponent } from './components/content-envio-documentos/content-envio-documentos.component';
 import { EnvioDocumentosComponent } from './components/envio-documentos/envio-documentos.component';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent},
   { path: 'inicio', component: DashboardComponent },
   // { path: 'configuracion/respuestas', component: ContentConfiguracionRespuestasComponent },
   // { path: 'configuracion/respuestas/gestionar-plantillas', component: GestionarPlantillasComponent },
@@ -102,9 +98,6 @@ const routes: Routes = [
   { path: 'fabrica/nueva-solicitud/creditoMin/:idCre', component: FabricaStep2minComponent },
   { path: 'fabrica/nueva-solicitud-Min', component: FabricaMinComponent },
   { path: 'builder', component: BuilderComponent },
-   { path: 'votacion/prioridad-uno', component: PrioridadUnoComponent },
-   { path: 'votacion/prioridad-extra', component: PrioridadExtraComponent },
-   { path: 'votacion/prioridad-config', component: PrioridadConfigComponent },
   {path: 'fabrica/envio-documentos', component: EnvioDocumentosComponent},
 ];
 
@@ -160,9 +153,6 @@ const routes: Routes = [
     ContentFabricaMinComponent,
     FabricaMinComponent,
     MyDialogComponent,
-    PrioridadUnoComponent,
-    PrioridadExtraComponent,
-    PrioridadConfigComponent,
     ContentEnvioDocumentosComponent,
     EnvioDocumentosComponent
   ],
