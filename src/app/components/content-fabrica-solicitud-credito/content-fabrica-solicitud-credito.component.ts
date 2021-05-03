@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ElementRef, NgZone } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Direccion, DireccionesService } from '../../services/direcciones/direcciones.service';
 import { TelefonosService } from '../../services/telefonos/telefonos.service';
@@ -21,6 +21,11 @@ import { DatosComplementariosService, CREDITO_DATOS_COMPLEMENTARIOS } from '../.
 import { ParentescoService } from 'src/app/services/parentesco/parentesco.service';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { DocumentosService } from 'src/app/services/documentos.service';
+import { MouseEvent,MapsAPILoader  } from '@agm/core';
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+import { Address } from 'ngx-google-places-autocomplete/objects/address';
+
+
 
 
 @Component({
@@ -29,10 +34,31 @@ import { DocumentosService } from 'src/app/services/documentos.service';
   styleUrls: ['./content-fabrica-solicitud-credito.component.css']
 })
 export class ContentFabricaSolicitudCreditoComponent implements OnInit {
+  title = 'angular-maps';
+  @ViewChild("placesRef", {static: false}) placesRef : GooglePlaceDirective;
+  options = {
+    types : [],
+    componentRestrictions: { country: 'EC' }
+  }
 
+  title_add;
+  latitude;
+  longitude;
+  // google maps zoom level
+   zoom: number = 6;
+
+  // initial center position for the map
+  lat: number = -0.161875;
+  lng: number = -78.477928;
+
+  
   // @ts-ignore
 
+  
+  
   @ViewChild('fileInput') fileInput;
+
+  
   closeResult: string;
   private _error = new Subject<string>();
   private _success = new Subject<string>();
@@ -148,10 +174,12 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     private clienteService: ClienteService,
     private datosComplService: DatosComplementariosService,
     private documentosService: DocumentosService,
-    private router: Router) {
+    private router: Router,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone) {
   }
-
   ngOnInit() {
+    this.setCurrentLocation();
     this.crearFormularioCliente();
     this.crearFormularioDirecciones();
     this.crearFormularioEntregarCarpeta();
@@ -185,6 +213,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
             });
       }
     }
+    
     this.fabricaService.currentMessage.subscribe(
       data => {
         this.mensajeServicio = data;
@@ -200,7 +229,26 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.acoplarPantalla(data.Estado);
         this.getDetalles();
       });
+
+
   }
+  public handleAddressChange(address: Address) {
+
+    this.latitude = address.geometry.location.lat();
+    this.longitude = address.geometry.location.lng();
+    
+  }
+  public setCurrentLocation() {
+    this.latitude = this.lat;
+    this.longitude = this.lng;
+    this.zoom = 15;
+  }
+  mapClicked($event: MouseEvent) {
+    this.latitude= $event.coords.lat
+    this.longitude= $event.coords.lng 
+
+  }
+
   incializarCredito() {
     this.loading = true;
     this.fabricaService.getRetomarCredito(this.idCredito,
