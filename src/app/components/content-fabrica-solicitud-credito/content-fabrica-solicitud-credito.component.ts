@@ -1350,7 +1350,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       NumeroCalle: ['', Validators.required],
       CalleSecundaria: [''],
       ReferenciaDireccion: [''],
-      CodigoPostalDireccion: ['', [Validators.minLength(6), Validators.pattern('^[0-9]*$')]]
+      CodigoPostalDireccion: ['', [Validators.minLength(6), Validators.pattern('^[0-9]*$')]],
+      Latitud: [''],
+      Longitud: ['']
     });
   }
 
@@ -1363,7 +1365,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
 
   cargarFormularioDirecciones(direccion: any) {
-
     this.codigoDireccion = direccion['ID_DIR'];
     this.formaDirecciones.reset({
       tipoRegistro: direccion.TipoRegistro.toUpperCase(),
@@ -1376,7 +1377,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       NumeroCalle: direccion.NUM_DIR,
       CalleSecundaria: direccion.SECUN_DIR,
       ReferenciaDireccion: direccion.REFER_DIR,
-      CodigoPostalDireccion: direccion.COD_POSTAL_DIR
+      CodigoPostalDireccion: direccion.COD_POSTAL_DIR,
     });
     this.getCanton();
     this.formaDirecciones.value.Canton = direccion.COD_CAN.toUpperCase();
@@ -1384,6 +1385,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.formaDirecciones.value.Parroquia = direccion.COD_PAR.toUpperCase();
     this.getBarrio();
     this.formaDirecciones.value.Barrio = direccion.COD_BAR.toUpperCase();
+    this.latitude =  Number(direccion['LATITUD_DIR']);
+    this.longitude = Number(direccion['LONGITUD_DIR']);
   }
 
   crearFormularioEntregarCarpeta() {
@@ -1412,7 +1415,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     });
   }
   guardarDireccion() {
-    // console.log(this.formaDirecciones);
+    
     if (this.formaDirecciones.invalid == true) {
       return Object.values(this.formaDirecciones.controls).forEach(control => {
         if (control instanceof FormGroup) {
@@ -1437,6 +1440,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       direccion.CodigoPostal = this.formaDirecciones.value.CodigoPostalDireccion;
       direccion.Cedula = this.mensajeServicio.Cedula;
       direccion.ID_DIR = this.codigoDireccion;
+      direccion.Latitud = this.latitude;
+      direccion.Longitud = this.longitude;
       direccion.Usuario = localStorage.getItem('usuario');
       this.direccionesService.postDireccion(direccion, this.crearDireccion).subscribe(
         (data: any) => {
