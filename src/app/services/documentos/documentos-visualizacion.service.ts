@@ -25,6 +25,23 @@ export class DocumentosVisualizacionService {
     // console.log('TipoDirService: ' + url);
     return this.http.get(url);
   }
+  public getRequisitosModal(ID_CRE: string, ID_CLI: string) {
+    const urlDocumentos = 'DocumentosVisualizacion/';
+    const url = environment.urlServiciosBackend + urlDocumentos +  `${ID_CRE}/${ID_CLI}/1`;
+    return this.http.get(url).toPromise();
+  }
+
+  public getPoliticasModal(ID_CRE: string, ID_CLI: string) {
+    const urlDocumentos = 'DocumentosVisualizacion/';
+    const url = environment.urlServiciosBackend + urlDocumentos +  `${ID_CRE}/${ID_CLI}/2`;
+    return this.http.get(url).toPromise();
+  }
+
+  public getControlCalidadModal(ID_CRE: string, ID_CLI: string) {
+    const urlDocumentos = 'DocumentosVisualizacion/';
+    const url = environment.urlServiciosBackend + urlDocumentos +  `${ID_CRE}/${ID_CLI}/3`;
+    return this.http.get(url).toPromise();
+  }
 
   public getRequisitos(ID_CRE: string, ID_CLI: string) {
     return this.getQuery(`${ID_CRE}/${ID_CLI}/1`);

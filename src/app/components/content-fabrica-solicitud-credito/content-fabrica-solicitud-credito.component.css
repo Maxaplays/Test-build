@@ -1,0 +1,9 @@
+.custom-align-left {
+    width: 100%;
+    text-align: left;
+}
+.modalDevuelto th {
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+}

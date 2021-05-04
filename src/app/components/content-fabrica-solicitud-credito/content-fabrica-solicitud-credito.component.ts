@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, TemplateRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Direccion, DireccionesService } from '../../services/direcciones/direcciones.service';
 import { TelefonosService } from '../../services/telefonos/telefonos.service';
@@ -21,6 +21,7 @@ import { DatosComplementariosService, CREDITO_DATOS_COMPLEMENTARIOS } from '../.
 import { ParentescoService } from 'src/app/services/parentesco/parentesco.service';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { DocumentosService } from 'src/app/services/documentos.service';
+import { DocumentosVisualizacionService } from 'src/app/services/documentos/documentos-visualizacion.service';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput;
   closeResult: string;
+  @ViewChild('mensajeMotivos', { static: false }) mensajeMotivos;
   private _error = new Subject<string>();
   private _success = new Subject<string>();
   paginaActual = 1;
@@ -128,6 +130,12 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   archivoSeleccionado: File = null;
   nombreArchivo: string = '';
 
+
+
+  requisitios: any[] = [];
+  politicas: any[] = [];
+  controlCalidad: any[] = [];
+
   // bkm
   // tslint:disable-next-line:max-line-length
   constructor(private modalService: NgbModal,
@@ -148,10 +156,15 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     private clienteService: ClienteService,
     private datosComplService: DatosComplementariosService,
     private documentosService: DocumentosService,
+    private documentoVisualizacion: DocumentosVisualizacionService,
     private router: Router) {
   }
-
-  ngOnInit() {
+  ngAfterViewInit() {    
+    if(this.mensajeServicio.Estado=='Devuelta' || this.mensajeServicio.Estado=='Retornada'){      
+      this.openModal(this.mensajeMotivos);
+  }
+  }
+  ngOnInit() {    
     this.crearFormularioCliente();
     this.crearFormularioDirecciones();
     this.crearFormularioEntregarCarpeta();
@@ -169,8 +182,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.provincias = this.getProvincia();
     this.cantones = this.getCanton();
     this.barrios = this.getBarrio();
-    this.tipoTel = this.getTipoTel();
-
+    this.tipoTel = this.getTipoTel();    
     if (this.idCre !== undefined && this.idCre !== '') {
       this.idCredito = this.idCre;
       // console.log('Solicitud de credito:' + this.idCredito);
@@ -200,6 +212,49 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.acoplarPantalla(data.Estado);
         this.getDetalles();
       });
+      this.getRequisitos();
+      this.getPoliticas();
+      this.getControlCalidad();
+      
+  }
+  openModal(modal: any) {
+    this.modalService.open(modal);;
+  }
+  public getRequisitos(): any {
+    if (this.mensajeServicio.NumeroCredito !== '') {
+      this.documentoVisualizacion.getRequisitosModal(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      .then(data=>{        
+        data["DOCUMENTOS"].forEach(element => {
+              if(element['COLOR_UX']=="light red"){
+                this.requisitios.push(element)
+              } 
+            });
+      })
+    }
+  }
+  public getPoliticas(): any {
+    if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined ) {
+      this.documentoVisualizacion.getPoliticasModal(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      .then(data=>{        
+        data["DOCUMENTOS"].forEach(element => {
+              if(element['COLOR_UX']=="light red" && element["USR_EXC_VAL"]!=null){
+                this.politicas.push(element)
+              }           
+            });
+      })
+    }
+  }
+  public getControlCalidad(): any {
+    if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined ) {
+      this.documentoVisualizacion.getControlCalidadModal(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      .then(data=>{        
+        data["DOCUMENTOS"].forEach(element => {
+              if(element['COLOR_UX']=="light red" && element["USR_EXC_VAL"]!=null){
+                this.controlCalidad.push(element)
+              } 
+            });
+      })
+    }
   }
   incializarCredito() {
     this.loading = true;
