@@ -58,4 +58,5 @@ export class Cliente {
         INGRESOS_INDEPENDIENTE: string;
         usuario: string;
         credito: string;
+        codigoDactilar: string;
 }

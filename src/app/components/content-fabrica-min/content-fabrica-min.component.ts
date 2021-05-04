@@ -118,7 +118,7 @@ export class ContentFabricaMinComponent implements OnInit {
     this.FormularioDatosBasicos = new FormGroup({
       // tipoDocumentacion: new FormControl('CED' , [Validators.required]),
       cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
-      // estadoCivil: new FormControl(null),
+      // dactilar: new FormControl(null,[Validators.required]),
       // fechaNacimiento: new FormControl(null),
       ingresosDependiente: new FormControl('0', Validators.required),
       // ingresosIndependiente: new FormControl('0', Validators.required),
@@ -149,7 +149,8 @@ export class ContentFabricaMinComponent implements OnInit {
       // envioDatos.tipoTelefono = '';
       envioDatos.valorTelefono = this.FormularioDatosBasicos.controls['telefonoContacto'].value;
       envioDatos.numeroFormulario = this.FormularioDatosBasicos.controls['formularioPreimpreso'].value;
-
+      // envioDatos.dactilar = this.FormularioDatosBasicos.controls['dactilar'].value;
+ 
       this.fabricaService.getEnvioFabricaServiceBiMin(envioDatos).pipe(map (data => data["Table1"][0])).subscribe(
         (data: DatosFabrica) => {
           this.datosGenerales = data;

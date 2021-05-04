@@ -18,6 +18,8 @@ export class ContentEnvioDocumentosComponent implements OnInit {
   creditosSeleccionados = [];
   successMessage: string;
   errorMessage: string;
+  loading: boolean;
+  pageActual: number;
 
 
   constructor(private documentoVisualizacion: DocumentosVisualizacionService,
