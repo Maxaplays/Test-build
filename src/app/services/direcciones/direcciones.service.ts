@@ -85,4 +85,6 @@ export class Direccion {
   Nuevo: boolean;
   ID_DIR: number;
   Usuario: string;
+  Latitud: string;
+  Longitud: string;
 }

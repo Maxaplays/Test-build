@@ -1,66 +1,67 @@
 <div class="content">
-
     <div class="content-grid-list">
         <ul class="grid-list grid-list-fix">
             <li>
                 <h5>Solicitud #</h5>
-                <span>{{mensajeServicio.NumeroCredito}}</span>
+                <span>{{ mensajeServicio.NumeroCredito }}</span>
             </li>
             <li>
                 <h5>Cédula</h5>
-                <span>{{mensajeServicio.Cedula}}</span>
+                <span>{{ mensajeServicio.Cedula }}</span>
             </li>
             <li>
                 <h5>Nombre</h5>
-                <span>{{mensajeServicio.NombreConsultado}}</span>
+                <span>{{ mensajeServicio.NombreConsultado }}</span>
             </li>
             <li>
-                <h5>Estado<img src="assets/images/update.png" (click)="incializarCredito()" /></h5>
-                <span class="tag">{{mensajeServicio.Estado}}</span>
+                <h5>
+                    Estado<img src="assets/images/update.png" (click)="incializarCredito()" />
+                </h5>
+                <span class="tag">{{ mensajeServicio.Estado }}</span>
             </li>
             <li>
                 <h5>Sub-estado</h5>
-                <span>{{mensajeServicio.SubEstado}}</span>
+                <span>{{ mensajeServicio.SubEstado }}</span>
             </li>
             <li>
                 <h5>Fecha Creación</h5>
-                <span>{{mensajeServicio.FechaCreacion}}</span>
+                <span>{{ mensajeServicio.FechaCreacion }}</span>
             </li>
             <li>
                 <h5>Tipo de Crédito</h5>
-                <span>{{mensajeServicio.TipoCredito}}</span>
+                <span>{{ mensajeServicio.TipoCredito }}</span>
             </li>
         </ul>
         <ul class="grid-list">
             <li>
                 <h5>Perfil Aplicado</h5>
-                <span>{{mensajeServicio.PerfilAplicado}}</span>
+                <span>{{ mensajeServicio.PerfilAplicado }}</span>
             </li>
             <li>
                 <h5>Score</h5>
-                <span>{{mensajeServicio.ScoreDeudor}}</span>
+                <span>{{ mensajeServicio.ScoreDeudor }}</span>
             </li>
             <li>
                 <h5>Ingreso Validado</h5>
-                <span>{{mensajeServicio.IngresoValidado}}</span>
+                <span>{{ mensajeServicio.IngresoValidado }}</span>
             </li>
             <li>
                 <h5>Asesor Asociado</h5>
                 <select>
-                    <option>{{mensajeServicio.AsesorAsociado}}</option>
-                </select>
+          <option>{{ mensajeServicio.AsesorAsociado }}</option>
+        </select>
             </li>
             <li>
                 <h5>Valor Total Factura</h5>
-                <span>{{mensajeServicio.ValorTotal}}</span>
+                <span>{{ mensajeServicio.ValorTotal }}</span>
             </li>
             <li>
                 <h5>Valor de la Entrada</h5>
-                <span>{{mensajeServicio.Entrada}}</span>
+                <span>{{ mensajeServicio.Entrada }}</span>
             </li>
             <li>
                 <h5>Valor Crédito Solicitado</h5>
-                <span>{{mensajeServicio.Monto}}</span>
+                <span>{{ mensajeServicio.Monto }}</span>
             </li>
         </ul>
     </div>
@@ -68,110 +69,137 @@
     <app-steps></app-steps>
 
     <form class="steps-mobile">
-        <select #tabs1 id='selectSteps'>
-            <option value='datos-basicos'>Datos básicos</option>
-            <option value='credito'>Crédito</option>
-            <option value='solicitud-credito' selected>Solicitud Crédito</option>
-            <option value='requisitos'>Requisitos</option>
-            <option value='politicas'>Políticas</option>
-            <option value='generacion'>Generación</option>
-            <option value='control-calidad'>Control Calidad</option>
-            <option value='resumen'>Resumen</option>
-        </select>
+        <select #tabs1 id="selectSteps">
+      <option value="datos-basicos">Datos básicos</option>
+      <option value="credito">Crédito</option>
+      <option value="solicitud-credito" selected>Solicitud Crédito</option>
+      <option value="requisitos">Requisitos</option>
+      <option value="politicas">Políticas</option>
+      <option value="generacion">Generación</option>
+      <option value="control-calidad">Control Calidad</option>
+      <option value="resumen">Resumen</option>
+    </select>
     </form>
 
     <form class="tabs-mobile">
-        <select #tabs2 id='selectTabs'>
-            <option value='cliente'>Cliente</option>
-            <option value='direcciones'>Direcciones</option>
-            <option value='telefonos'>Teléfonos</option>
-            <option value='conyuges'>Cónyuges</option>
-            <option value='referencias'>Referencias</option>
-            <option value='situacion-financiera'>Situación financiera</option>
-            <option value='datos-complementarios'>Datos complementarios</option>
-            <option value='garante'>Garante / Representante Legal</option>
-        </select>
+        <select #tabs2 id="selectTabs">
+      <option value="cliente">Cliente</option>
+      <option value="direcciones">Direcciones</option>
+      <option value="telefonos">Teléfonos</option>
+      <option value="conyuges">Cónyuges</option>
+      <option value="referencias">Referencias</option>
+      <option value="situacion-financiera">Situación financiera</option>
+      <option value="datos-complementarios">Datos complementarios</option>
+      <option value="garante">Garante / Representante Legal</option>
+    </select>
     </form>
 
     <div class="content-tabs-zm">
         <ngb-tabset>
             <ngb-tab id="cliente">
-                <ng-template ngbTabTitle><img src="assets/images/icon-fingerprint.svg"> <span>Cliente</span>
-                </ng-template>
+                <ng-template ngbTabTitle><img src="assets/images/icon-fingerprint.svg" />
+                    <span>Cliente</span></ng-template>
                 <ng-template ngbTabContent>
                     <form class="forms forms-relative" [formGroup]="FormularioDatosCliente">
                         <div class="cols cols3">
                             <div>
                                 <fieldset>
                                     <label class="label"># Identificación</label>
-                                    <input formControlName="cedula" class="form-control" type="text"
-                                        placeholder="# Identificación" value="{{mensajeServicio.Cedula}}" disabled>
+                                    <input formControlName="cedula" class="form-control" type="text" placeholder="# Identificación" value="{{ mensajeServicio.Cedula }}" disabled />
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Nombres o Razón Social <b>*</b></label>
-                                    <input formControlName="nombreCliente"
-                                        [class.is-invalid]="FormularioDatosCliente.controls['nombreCliente'].invalid && FormularioDatosCliente.controls['nombreCliente'].touched"
-                                        class="form-control" type="text" placeholder="Nombres o Razón Social">
+                                    <input formControlName="nombreCliente" [class.is-invalid]="
+                      FormularioDatosCliente.controls['nombreCliente']
+                        .invalid &&
+                      FormularioDatosCliente.controls['nombreCliente'].touched
+                    " class="form-control" type="text" placeholder="Nombres o Razón Social" />
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Apellidos <b>*</b></label>
-                                    <input formControlName="apellidoCliente"
-                                        [class.is-invalid]="FormularioDatosCliente.controls['apellidoCliente'].invalid && FormularioDatosCliente.controls['apellidoCliente'].touched"
-                                        class="form-control" type="text" placeholder="Apellidos">
+                                    <input formControlName="apellidoCliente" [class.is-invalid]="
+                      FormularioDatosCliente.controls['apellidoCliente']
+                        .invalid &&
+                      FormularioDatosCliente.controls['apellidoCliente'].touched
+                    " class="form-control" type="text" placeholder="Apellidos" />
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Tipo de Identificación</label>
-                                    <select formControlName="tipoDocumentacion" class="form-control"
-                                        [class.is-invalid]="FormularioDatosCliente.controls['tipoDocumentacion'].invalid">
-                                        <option *ngFor="let tipo of tipoDoc" [value]="tipo.COD_TDOC">{{tipo.NOM_TDOC}}
-                                        </option>
-                                    </select>
+                                    <select formControlName="tipoDocumentacion" class="form-control" [class.is-invalid]="
+                      FormularioDatosCliente.controls['tipoDocumentacion']
+                        .invalid
+                    ">
+                    <option
+                      *ngFor="let tipo of tipoDoc"
+                      [value]="tipo.COD_TDOC"
+                    >
+                      {{ tipo.NOM_TDOC }}
+                    </option>
+                  </select>
                                 </fieldset>
                                 <fieldset>
-                                    <label class="label">Fecha de Nacimiento / Inicio Actividades</label>
-                                    <input formControlName="fechaNacimiento" class="form-control" type="date"
-                                        placeholder="Fecha de Nacimiento / Inicio Actividades">
-                                </fieldset>
-                                <fieldset>
-                                    <label class="label">Género <b>*</b></label>
+                                    <label class="label">Fecha de Nacimiento / Inicio Actividades</label
+                  >
+                  <input
+                    formControlName="fechaNacimiento"
+                    class="form-control"
+                    type="date"
+                    placeholder="Fecha de Nacimiento / Inicio Actividades"
+                  />
+                </fieldset>
+                <fieldset>
+                  <label class="label">Género <b>*</b></label>
                                     <select formControlName="genero" class="form-control">
-                                        <option *ngFor="let gen of generos" [value]="gen.COD_GEN">{{gen.NOM_GEN}}
-                                        </option>
-                                    </select>
+                    <option *ngFor="let gen of generos" [value]="gen.COD_GEN">
+                      {{ gen.NOM_GEN }}
+                    </option>
+                  </select>
                                 </fieldset>
                             </div>
                             <div>
                                 <fieldset>
                                     <label class="label">Nacionalidad <b>*</b></label>
                                     <select formControlName="nacionalidad" class="form-control">
-                                        <option *ngFor="let nacion of nacionalidades" [value]="nacion.COD_NAC">
-                                            {{nacion.NOM_NAC}}</option>
-                                    </select>
+                    <option
+                      *ngFor="let nacion of nacionalidades"
+                      [value]="nacion.COD_NAC"
+                    >
+                      {{ nacion.NOM_NAC }}
+                    </option>
+                  </select>
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Estado Civil <b>*</b></label>
                                     <select formControlName="estadoCivil" class="form-control" required>
-                                        <option *ngFor="let estado of estadoCivil" [value]="estado.COD_ECIV">
-                                            {{estado.NOM_ECIV}}</option>
-                                    </select>
+                    <option
+                      *ngFor="let estado of estadoCivil"
+                      [value]="estado.COD_ECIV"
+                    >
+                      {{ estado.NOM_ECIV }}
+                    </option>
+                  </select>
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Cargas Familiares</label>
-                                    <input formControlName="cargasFamiliares" class="form-control" type="text"
-                                        placeholder="# Cargas familiares">
+                                    <input formControlName="cargasFamiliares" class="form-control" type="text" placeholder="# Cargas familiares" />
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">E-mail <b>*</b></label>
-                                    <input formControlName="emailCliente"
-                                        [class.is-invalid]="FormularioDatosCliente.controls['emailCliente'].invalid && FormularioDatosCliente.controls['emailCliente'].touched"
-                                        class="form-control" type="email" placeholder="E-mail">
+                                    <input formControlName="emailCliente" [class.is-invalid]="
+                      FormularioDatosCliente.controls['emailCliente'].invalid &&
+                      FormularioDatosCliente.controls['emailCliente'].touched
+                    " class="form-control" type="email" placeholder="E-mail" />
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Profesión</label>
                                     <select formControlName="profesionCliente" class="form-control">
-                                        <option *ngFor="let profesion of profesiones" [value]="profesion.COD_PRO">
-                                            {{profesion.NOM_PRO}}</option>
-                                    </select>
+                    <option
+                      *ngFor="let profesion of profesiones"
+                      [value]="profesion.COD_PRO"
+                    >
+                      {{ profesion.NOM_PRO }}
+                    </option>
+                  </select>
                                 </fieldset>
                                 <!-- <fieldset class="complex">
                                     <label class="label">Teléfono</label>
@@ -724,678 +752,1492 @@
                     (click)="openLgEntregarCarpeta(entregarCarpeta)"><img src="assets/images/icon-folder.svg">Entregar
                     Carpeta</button>
             </div>
-            <div class="align-right">
-                <button *ngIf="btnSolicitarAnalisis" class="btn btn-solid-green"
-                    (click)="solicitarAnalisis(mensajeModalError,mensajeAdvertencia)">Solicitar análisis</button>
-                <button *ngIf="ASPxActualizarSOL" class="btn btn-solid-green"
-                    (click)="guardarCliente(mensajeModalError)">Guardar</button>
-                <button class="btn btn-solid-blue">Siguiente</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<ng-template #verDocumentacion let-modal>
-    <app-loading *ngIf="loading"></app-loading>
-    <div class="modal-header-mfc variation ">
-        <div class="cols cols2 align-middle ">
-            <div class="align-left ">
-                <img width="20 " alt="MICRO FACTORY CAPITAL " src="./assets/images/icon-documentacion-modal.svg ">
-                <h4 class="modal-minititle-mfc ">Documentación</h4>
-            </div>
-            <div class="align-right ">
-                <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Close click') ">
-                    <span aria-hidden="true ">&times;</span>
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="modal-body variation ">
-        <div class="forms forms-relative ">
-            <div id="table-scroll ">
-                <table class="width-filters ">
-                    <thead>
-                        <tr>
-                            <th>
-                                <option>Nombre de documento</option>
-                            </th>
-                            <th>
-                                <option>Fecha ingreso</option>
-                            </th>
-                            <th>
-                                <option>Usuario Ingreso</option>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let documento of documentosSubidos">
-                            <td>
-                                <a href="{{documento.URL_DOC}}" target="_blank" class="link-doc "><img
-                                        src="assets/images/icon-document-list.svg ">{{documento.NOM_DOC}}</a>
-                            </td>
-                            <td>{{documento.FCH_DOC}}</td>
-                            <td>{{documento.USR_DOC}}</td>
-                        </tr>
-                    </tbody>
+            <ngb-tab id="direcciones">
+                <ng-template ngbTabTitle><img src="assets/images/icon-direcciones.svg" />
+                    <span>Direcciones</span></ng-template>
+                <ng-template ngbTabContent>
+                    <div class="align-right-btn-table">
+                        <button *ngIf="btnActualizarDirecciones" class="btn btn-solid-green" (click)="openLg(agregarEditarDireccion, '')">
+              Añadir Dirección
+            </button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo de Registro</th>
+                                <th>Tipo de Dirección</th>
+                                <th>Calle Principal</th>
+                                <th>Número</th>
+                                <th>Calle Secundaria</th>
+                                <th>Referencia</th>
+                                <th>Validación</th>
+                                <th>Observaciones</th>
+                                <th class="table-right">Status</th>
+                                <th class="table-right">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="
+                  let direccion of direcciones
+                    | paginate: { itemsPerPage: 10, currentPage: paginaActual }
+                ">
+                                <td data-column="Tipo de Registro">
+                                    {{ direccion.TipoRegistro }}
+                                </td>
+                                <td data-column="Tipo de Dirección">
+                                    {{ direccion.NOM_TDIR }}
+                                </td>
+                                <td data-column="Calle Principal">{{ direccion.PRINC_DIR }}</td>
+                                <td data-column="Número">{{ direccion.NUM_DIR }}</td>
+                                <td data-column="Calle Secundaria">
+                                    {{ direccion.SECUN_DIR }}
+                                </td>
+                                <td data-column="Referencia">{{ direccion.REFER_DIR }}</td>
+                                <td data-column="Validación">{{ direccion.VALIDADO_DIR }}</td>
+                                <td data-column="Observaciones">{{ direccion.OBS_VAL_DIR }}</td>
+                                <td data-column="Status" class="table-right">
+                                    <span class="green-color">Activo</span>
+                                </td>
+                                <td data-column="Opciones" class="table-right">
+                                    <img *ngIf="btnActualizarDirecciones" src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarDireccion, direccion)" />
+                                    <img src="assets/images/icon-printer.svg" class="icon-with-action" />
+                                </td>
+                            </tr>
+                            <tr class="foot-td">
+                                <td colspan="11">
+                                    <span class="foot-table" *ngIf="direcciones.length > 0">{{ direcciones.length }} direcciones</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls
+            class="my-pagination align-content-center label"
+            previousLabel="Anterior"
+            nextLabel="Siguiente"
+            screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page"
+            autoHide="true"
+            (pageChange)="paginaActual = $event"
+          ></pagination-controls>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="telefonos">
+        <ng-template ngbTabTitle
+          ><img src="assets/images/icon-phone.svg" />
+          <span>Teléfonos</span></ng-template>
+                <ng-template ngbTabContent>
+                    <div class="align-right-btn-table">
+                        <button *ngIf="btnTelefonos" class="btn btn-solid-green" (click)="openCustomWidth(agregarEditarTelefono, '')">
+              Añadir Teléfono
+            </button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo de Registro</th>
+                                <th>Tipo de Teléfono</th>
+                                <th>Número de Teléfono</th>
+                                <th>Extensión/Observación</th>
+                                <th>Validación</th>
+                                <th>Observaciones</th>
+                                <th class="table-right">Status</th>
+                                <th class="table-right">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="
+                  let telefono of telefonos
+                    | paginate: { itemsPerPage: 10, currentPage: paginaActual }
+                ">
+                                <td data-column="Tipo de Registro">{{ telefono.TIPO }}</td>
+                                <td data-column="Tipo de Teléfono">{{ telefono.NOM_TDIS }}</td>
+                                <td data-column="Número de Teléfono">
+                                    {{ telefono.VALOR_DIS }}
+                                </td>
+                                <td data-column="Extensión/Observación">
+                                    {{ telefono.EXTEN_DIS }}
+                                </td>
+                                <td data-column="Validación">{{ telefono.VALIDADO_DIS }}</td>
+                                <td data-column="Observaciones">{{ telefono.OBS_VAL_DIS }}</td>
+                                <td *ngIf="telefono.ESTADO_DIS" data-column="Status" class="table-right">
+                                    <span class="green-color">Activo</span>
+                                </td>
+                                <td *ngIf="!telefono.ESTADO_DIS" data-column="Status" class="table-right">
+                                    <span class="red-color">Inactivo</span>
+                                </td>
+                                <td data-column="Opciones" class="table-right">
+                                    <img *ngIf="btnTelefonos" src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openCustomWidth(agregarEditarTelefono, telefono)" />
+                                </td>
+                            </tr>
+                            <tr class="foot-td">
+                                <td colspan="11">
+                                    <span class="foot-table" *ngIf="telefonos.length > 0">{{ telefonos.length }} teléfonos</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls
+            class="my-pagination align-content-center label"
+            previousLabel="Anterior"
+            nextLabel="Siguiente"
+            screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page"
+            autoHide="true"
+            (pageChange)="paginaActual = $event"
+          ></pagination-controls>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="conyuges">
+        <ng-template ngbTabTitle
+          ><img src="assets/images/icon-conyuges.svg" />
+          <span>Cónyuges</span></ng-template>
+                <ng-template ngbTabContent>
+                    <div class="align-right-btn-table">
+                        <button *ngIf="btnConyuge" class="btn btn-solid-green" (click)="nuevoConyuge(agregarEditarConyuge)">
+              Añadir Cónyuge
+            </button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo de Registro</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Género</th>
+                                <th>Tipo de Documento</th>
+                                <th>RUC / Cédula</th>
+                                <th>Fecha de Nacimiento</th>
+                                <th class="table-right">Status</th>
+                                <th class="table-right">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="
+                  let conyuge of conyuges
+                    | paginate: { itemsPerPage: 10, currentPage: paginaActual }
+                ">
+                                <td data-column="Tipo de Registro">Cliente</td>
+                                <td data-column="Nombres">{{ conyuge.NOM_CON }}</td>
+                                <td data-column="Apellidos">{{ conyuge.APE_CON }}</td>
+                                <td data-column="Género">{{ conyuge.genero }}</td>
+                                <td data-column="Tipo de Documento">{{ conyuge.tipodoc }}</td>
+                                <td data-column="RUC / Cédula">{{ conyuge.CED_CON }}</td>
+                                <td data-column="Fecha de Nacimiento">
+                                    {{ conyuge.FECH_NAC_CON | date: "dd/MM/yyyy" }}
+                                </td>
+                                <td data-column="Status" class="table-right">
+                                    <span class="green-color">Activo</span>
+                                </td>
+                                <td data-column="Opciones" class="table-right">
+                                    <img *ngIf="btnConyuge" src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="editarConyuge(agregarEditarConyuge, conyuge)" />
+                                    <img src="assets/images/icon-printer.svg" class="icon-with-action" />
+                                </td>
+                            </tr>
+                            <tr class="foot-td">
+                                <td colspan="11">
+                                    <span class="foot-table" *ngIf="conyuges.length > 0">{{ conyuges.length }} conyuges</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls
+            class="my-pagination align-content-center label"
+            previousLabel="Anterior"
+            nextLabel="Siguiente"
+            screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page"
+            autoHide="true"
+            (pageChange)="paginaActual = $event"
+          ></pagination-controls>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="referencias">
+        <ng-template ngbTabTitle
+          ><img src="assets/images/icon-referencias-tab.svg" />
+          <span>Referencias</span></ng-template>
+                <ng-template ngbTabContent>
+                    <div class="align-right-btn-table">
+                        <button *ngIf="btnActualizarReferencias" class="btn btn-solid-green" (click)="editarReferencia(agregarEditarReferencia, '')">
+              Añadir Referencia
+            </button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo de Registro</th>
+                                <th>Cédula</th>
+                                <th>Parentesco</th>
+                                <th>Apellidos</th>
+                                <th>Nombres</th>
+                                <th>Dirección Domicilio</th>
+                                <th>Teléfono</th>
+                                <th>Celular</th>
+                                <th>Teléfono Trabajo</th>
+                                <th>Observaciones</th>
+                                <th class="table-right">Status</th>
+                                <th class="table-right">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="
+                  let referencia of referencias
+                    | paginate: { itemsPerPage: 10, currentPage: paginaActual }
+                ">
+                                <td data-column="Tipo de Registro">
+                                    {{ referencia.tipo_registro }}
+                                </td>
+                                <td data-column="Cédula">{{ referencia.cedula }}</td>
+                                <td data-column="Parentesco">{{ referencia.parentesco }}</td>
+                                <td data-column="Apellidos">{{ referencia.apellido }}</td>
+                                <td data-column="Nombres">{{ referencia.nombre }}</td>
+                                <td data-column="Dirección Domicilio">
+                                    {{ referencia.direccion }}
+                                </td>
+                                <td data-column="Teléfono">{{ referencia.telefono_dom }}</td>
+                                <td data-column="Celular">{{ referencia.celular }}</td>
+                                <td data-column="Teléfono Trabajo">
+                                    {{ referencia.telefono_trab }}
+                                </td>
+                                <td data-column="Observaciones">{{ referencia.observa }}</td>
+                                <td data-column="Status" class="table-right">
+                                    <span class="green-color">Activo</span>
+                                </td>
+                                <td data-column="Opciones" class="table-right">
+                                    <img *ngIf="btnActualizarReferencias" src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="
+                      editarReferencia(agregarEditarReferencia, referencia)
+                    " />
+                                    <img src="assets/images/icon-printer.svg" class="icon-with-action" />
+                                </td>
+                            </tr>
+                            <tr class="foot-td">
+                                <td colspan="11">
+                                    <span class="foot-table" *ngIf="referencias.length > 0">{{ referencias.length }} referencias</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls
+            class="my-pagination align-content-center label"
+            previousLabel="Anterior"
+            nextLabel="Siguiente"
+            screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page"
+            autoHide="true"
+            (pageChange)="paginaActual = $event"
+          ></pagination-controls>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="situacion-financiera">
+        <ng-template ngbTabTitle
+          ><img src="assets/images/icon-situacion-financiera.svg" />
+          <span>Situación financiera</span></ng-template>
+                <ng-template ngbTabContent>
+                    <form class="forms forms-relative">
+                        <div class="cols cols2">
+                            <div style="width: 800px; margin: 0 auto">
+                                <label class="label postinput">
+                  Dependientes: {{ Detalle_Dependiente }} - Independientes:
+                  {{ Detalle_Independiente }}</label
+                >
+              </div>
+              <div class="table-flat equal-width">
+                <h5>Ingresos Mensuales</h5>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Descripción</th>
+                      <th>Valor</th>
+                      <th>Comentario</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let ingreso of situacionFinancieraIngresos">
+                      <td data-column="Descripción">
+                        {{ ingreso.NOMBRE_ING_PROD }}
+                      </td>
+                      <td data-column="Valor" type="number">
+                        <input
+                          (change)="
+                            onDatosIngresosValorChange(
+                              $event.target.value,
+                              ingreso.ID_CREDITO_INGRESOS
+                            )
+                          "
+                          type="number"
+                          value="{{ ingreso.VALOR_CREDITO_INGRESOS }}"
+                        />
+                      </td>
+                      <td data-column="Comentario">
+                        <input
+                          (change)="
+                            onDatosIngresosChange(
+                              $event.target.value,
+                              ingreso.ID_CREDITO_INGRESOS
+                            )
+                          "
+                          type="text"
+                          value="{{ ingreso.COMENTARIO_CREDITO_INGRESOS }}"
+                        />
+                      </td>
+                    </tr>
+                    <tr class="foot-td">
+                      <td>
+                        <b>Total</b>
+                      </td>
+                      <td>
+                        <b>{{ sumatoriaIngresos }}</b>
+                      </td>
+                      <td>&nbsp;</td>
+                    </tr>
+                  </tbody>
                 </table>
-            </div>
+              </div>
+              <div class="table-flat">
+                <h5>Egresos Mensuales</h5>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Descripción</th>
+                      <th>Valor</th>
+                      <th>Comentario</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let egresos of situacionFinancieraEgresos">
+                      <td data-column="Descripción">
+                        {{ egresos.NOMBRE_EGR_PROD }}
+                      </td>
+                      <td data-column="Valor" type="number">
+                        <input
+                          (change)="
+                            onDatosEgresosValorChange(
+                              $event.target.value,
+                              egresos.ID_CREDITO_EGRESOS
+                            )
+                          "
+                          type="number"
+                          value="{{ egresos.VALOR_CREDITO_EGRESOS }}"
+                        />
+                      </td>
+                      <td data-column="Comentario">
+                        <input
+                          (change)="
+                            onDatosEgresosChange(
+                              $event.target.value,
+                              egresos.ID_CREDITO_EGRESOS
+                            )
+                          "
+                          type="text"
+                          value="{{ egresos.COMENTARIO_CREDITO_EGRESOS }}"
+                        />
+                      </td>
+                    </tr>
+                    <tr class="foot-td">
+                      <td>
+                        <b>Total</b>
+                      </td>
+                      <td>
+                        <b>{{ sumatoriaEgresos }}</b>
+                      </td>
+                      <td>&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <label class="label-postable label">Ingreso Disponible</label>
+                                <input readonly="readonly" type="number" placeholder="$0.000" style="max-width: 759px" value="{{ sumatoriaTotal }}" />
+                            </div>
+                            <div>&nbsp;</div>
+                            <div class="table-flat">
+                                <h5>Desglose Activos</h5>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Descripción</th>
+                                            <th>Valor</th>
+                                            <th>Comentario</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-column="Descripción">Muebles o Enseres</td>
+                                            <td data-column="Valor">
+                                                <input (change)="
+                            onDatosMueblesValorChange($event.target.value)
+                          " type="number" placeholder="0,00" value="{{ TMueble }}" />
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input (change)="
+                            onDatosMueblesComentarioChange($event.target.value)
+                          " type="text" placeholder="-" value="{{ CMuebles }}" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Propiedades</td>
+                                            <td data-column="Valor">
+                                                <input (change)="
+                            onDatosPropiedadesValorChange($event.target.value)
+                          " type="number" placeholder="0,00" value="{{ TPropiedades }}" />
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input (change)="
+                            onDatosPropiedadesComentarioChange(
+                              $event.target.value
+                            )
+                          " type="text" placeholder="-" value="{{ CPropiedades }}" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Vehículos</td>
+                                            <td data-column="Valor">
+                                                <input (change)="
+                            onDatosVehiculosValorChange($event.target.value)
+                          " type="number" placeholder="0,00" value="{{ TVehiculos }}" />
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input (change)="
+                            onDatosVehiculosComentarioChange(
+                              $event.target.value
+                            )
+                          " type="text" placeholder="-" value="{{ CVehiculos }}" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Inversiones</td>
+                                            <td data-column="Valor">
+                                                <input (change)="
+                            onDatosInversionesValorChange($event.target.value)
+                          " type="number" placeholder="0,00" value="{{ TInversiones }}" />
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input (change)="
+                            onDatosInversionesComentarioChange(
+                              $event.target.value
+                            )
+                          " type="text" placeholder="-" value="{{ CInversiones }}" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">
+                                                Acciones o Participaciones
+                                            </td>
+                                            <td data-column="Valor">
+                                                <input (change)="
+                            onDatosAccionesValorChange($event.target.value)
+                          " type="number" placeholder="0,00" value="{{ TAcciones }}" />
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input (change)="
+                            onDatosAccionesComentarioChange($event.target.value)
+                          " type="text" placeholder="-" value="{{ CAcciones }}" />
+                                            </td>
+                                        </tr>
+                                        <tr class="foot-td">
+                                            <td>
+                                                <b>Total</b>
+                                            </td>
+                                            <td>
+                                                <b>{{ TotalActivos }}</b>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-flat">
+                                <h5>Desglose Pasivos</h5>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Descripción</th>
+                                            <th>Valor</th>
+                                            <th>Comentario</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-column="Descripción">Deudas</td>
+                                            <td data-column="Valor">
+                                                <input (change)="
+                            onDatosDeudasValorChange($event.target.value)
+                          " type="text" type="number" placeholder="0,00" value="{{ TDeudas }}" />
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input (change)="
+                            onDatosDeudasComentarioChange($event.target.value)
+                          " type="text" placeholder="-" value="{{ CDeudas }}" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-column="Descripción">Tarjetas de Crédito</td>
+                                            <td data-column="Valor">
+                                                <input (change)="
+                            onDatosTarjetasValorChange($event.target.value)
+                          " type="text" type="number" placeholder="0,00" value="{{ TTarjetas }}" />
+                                            </td>
+                                            <td data-column="Comentario">
+                                                <input (change)="
+                            onDatosTarjetasComentarioChange($event.target.value)
+                          " type="text" placeholder="-" value="{{ CTarjetas }}" />
+                                            </td>
+                                        </tr>
+                                        <tr class="foot-td">
+                                            <td>
+                                                <b>Total</b>
+                                            </td>
+                                            <td>
+                                                <b>{{ TotalPasivos }}</b>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div>
+                                <label class="label-postable label">Patrimonio</label>
+                                <input type="text" placeholder="$0.000" style="max-width: 759px" value="{{ TotalPatrimonio }}" />
+                            </div>
+                        </div>
+                    </form>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="datos-complementarios">
+                <ng-template ngbTabTitle><img src="assets/images/icon-datos.svg" />
+                    <span>Datos complementarios</span></ng-template>
+                <ng-template ngbTabContent>
+                    <form class="forms forms-relative">
+                        <div class="table-flat equal-width">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Descripción</th>
+                                        <th>Valor</th>
+                                        <th>Comentario</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let dato of datosComplemetarios">
+                                        <td data-column="Descripción">
+                                            {{ dato.NOMBRE_COMPL_PROD }}
+                                        </td>
+                                        <td data-column="Valor">
+                                            <select (change)="
+                          onDatosComplementariosChange(
+                            $event.target.value,
+                            dato.ID_CREDITO_COMPLEMENTARIOS
+                          )
+                        " value="{{ dato.VALOR_CREDITO_COMPLEMENTARIOS }}">
+                        <option
+                          *ngFor="let catalogo of dato.catalogos"
+                          value="{{ catalogo.valor }}"
+                        >
+                          {{ catalogo.valor }}
+                        </option>
+                      </select>
+                                        </td>
+                                        <td data-column="Comentario">
+                                            <input (change)="
+                          onDatosComplementariosComentariosChange(
+                            $event.target.value,
+                            dato.ID_CREDITO_COMPLEMENTARIOS
+                          )
+                        " type="text" value="{{ dato.COMENTARIO_CREDITO_COMPLEMENTARIOS }}" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="garante">
+                <ng-template ngbTabTitle><img src="assets/images/icon-garante.svg" />
+                    <span>Garante / Representante Legal</span></ng-template>
+                <ng-template ngbTabContent>
+                    <div class="align-right-btn-table">
+                        <button class="btn btn-border-gray">Añadir Garante</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Género</th>
+                                <th>Tipo de Documento</th>
+                                <th>RUC / Cédula</th>
+                                <th>Fecha de Nacimiento</th>
+                                <th class="table-right">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="foot-td">
+                                <td colspan="7"><span class="foot-table"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-template>
+            </ngb-tab>
         </div>
-    </div>
-    <div class="modal-footer-mfc full variation ">
-        <div class="align-right ">
-            <a class="btn btn-border-blue simulate-inputFile">Subir archivo <input type="file"
-                    (change)="fileChange($event,mensajeModalError, mensajeAdvertencia)" placeholder="Upload file"
-                    accept=".pdf,.doc,.docx"></a>
-            <button class="btn btn-solid-blue " (click)="modal.close( 'Cancelar click') ">Cerrar</button>
-        </div>
-    </div>
-</ng-template>
 
-<ng-template #agregarEditarDireccion let-modal>
-    <div class="modal-header-mfc variation">
-        <div class="cols cols2 align-middle">
-            <div class="align-left">
-                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-pin-modal.svg">
-                <h4 class="modal-minititle-mfc">Añadir dirección</h4>
-            </div>
-            <div class="align-right">
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="modal-body variation">
-        <form class="forms forms-relative" autocomplete="off" [formGroup]="formaDirecciones"
-            (ngSubmit)="guardarDireccion()">
-            <div class="cols cols3">
-                <div>
-                    <fieldset>
-                        <label class="label">Tipo de Registro <b>*</b></label>
-                        <select formControlName="tipoRegistro" class="form-control"
-                            [class.is-invalid]="tipoRegistroNoValido">
-                            <option *ngFor="let tipo of tipoRegDir" [value]="tipo">{{tipo}}</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Tipo de Dirección <b>*</b></label>
-                        <select formControlName="tipoDireccion" class="form-control"
-                            [class.is-invalid]="tipoDireccionNoValida">
-                            <option *ngFor="let tipo of tipoDir" [value]="tipo.COD_TDIR">{{tipo.NOM_TDIR}}</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Provincia <b>*</b></label>
-                        <select id="COD_PROV" name="COD_PROV" (change)="getCanton()" class="form-control"
-                            formControlName="Provincia" [class.is-invalid]="ProvinciaNoValida">
-                            <option *ngFor="let provincia of provincias" [value]="provincia.COD_PROV">
-                                {{provincia.NOM_PROV}}</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Cantón <b>*</b></label>
-                        <select id="COD_CAN" name="COD_CAN" (change)="getParroquia()" class="form-control"
-                            formControlName="Canton" [class.is-invalid]="CantonNoValido">
-                            <option *ngFor="let canton of cantones" [value]="canton.COD_CAN">{{canton.NOM_CAN}}</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Parroquia <b>*</b></label>
-                        <select id="COD_PAR" name="COD_PAR" (change)="getBarrio()" class="form-control"
-                            formControlName="Parroquia" [class.is-invalid]="ParroquiaNoValida">
-                            <option *ngFor="let parroquia of parroquias" [value]="parroquia.COD_PAR">
-                                {{parroquia.NOM_PAR}}</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Barrio</label>
-                        <select formControlName="Barrio" class="form-control" [class.is-invalid]="BarrioNoValido">
-                            <option *ngFor="let barrio of barrios" [value]="barrio.COD_BAR">{{barrio.NOM_BAR}}</option>
-                        </select>
-                    </fieldset>
+        <div class="footer-fixed-forms">
+            <div class="cols cols2">
+                <div class="align-left">
+                    <button class="btn btn-border-blue">
+          <img src="assets/images/icon-reloj.svg" />Historial
+        </button>
+                    <!--button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</--button-->
+                    <button *ngIf="btnSolicitarAnulacion" class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">
+          Cancelar solicitud
+        </button>
+                    <button class="btn btn-border-blue btn-cancel" (click)="openLgDocumentacion(verDocumentacion)">
+          <img src="assets/images/icon-folder.svg" />Documentación
+        </button>
+                    <button *ngIf="BtnEntregarCarpeta" class="btn btn-border-blue btn-cancel" (click)="openLgEntregarCarpeta(entregarCarpeta)">
+          <img src="assets/images/icon-folder.svg" />Entregar Carpeta
+        </button>
                 </div>
-                <div>
-                    <fieldset>
-                        <label class="label">Calle Principal <b>*</b></label>
-                        <input type="text" placeholder="Escriba Calle Principal" class="form-control"
-                            formControlName="CallePrincipal" [class.is-invalid]="CallePrincipalNoValida">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Número <b>*</b></label>
-                        <input type="text" placeholder="Escriba Número" class="form-control"
-                            formControlName="NumeroCalle" [class.is-invalid]="NumeroCallelNoValido">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Calle Secundaria</label>
-                        <input type="text" placeholder="Escriba Calle Secundaria" class="form-control"
-                            formControlName="CalleSecundaria" [class.is-invalid]="CalleSecundariaNoValida">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Referencia</label>
-                        <input type="text" placeholder="Escriba Referencia" class="form-control"
-                            formControlName="ReferenciaDireccion" [class.is-invalid]="ReferenciaDireccionNoValida">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Código Postal</label>
-                        <input type="text" placeholder="Escriba Código Postal" class="form-control"
-                            formControlName="CodigoPostalDireccion" [class.is-invalid]="CodigoPostalDireccionNoValido">
-                    </fieldset>
-                </div>
-                <div>
-                    <fieldset>
-                        <label class="label">Google Maps</label>
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8008001341104!2d-78.4789717847393!3d-0.16979733547628312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d59a9dddb37ea1%3A0x4bd5e23e20096b30!2sParque%20Real!5e0!3m2!1ses-419!2sec!4v1572800496201!5m2!1ses-419!2sec"
-                            frameborder="0" class="map-modal" allowfullscreen=""></iframe>
-                    </fieldset>
-                </div>
-            </div>
-            <div class="modal-footer-mfc full variation">
                 <div class="align-right">
-                    <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-                    <button *ngIf="btnActualizarDirecciones" [class.btn-solid-green]="formaDirecciones.valid"
-                        [className]="formaDirecciones.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'"
-                        type="submit">Guardar dirección</button>
+                    <button *ngIf="btnSolicitarAnalisis" class="btn btn-solid-green" (click)="solicitarAnalisis(mensajeModalError, mensajeAdvertencia)">
+          Solicitar análisis
+        </button>
+                    <button *ngIf="ASPxActualizarSOL" class="btn btn-solid-green" (click)="guardarCliente(mensajeModalError)">
+          Guardar
+        </button>
+                    <button class="btn btn-solid-blue">Siguiente</button>
                 </div>
-            </div>
-        </form>
-    </div>
-
-</ng-template>
-
-<ng-template #entregarCarpeta let-modal>
-    <div class="modal-header-mfc variation">
-        <div class="cols cols2 align-middle">
-            <div class="align-left">
-                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-folder.svg">
-                <h4 class="modal-minititle-mfc">Entrega de Carpeta</h4>
-            </div>
-            <div class="align-right">
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
         </div>
     </div>
-    <div class="modal-body variation">
-        <form class="forms forms-relative" autocomplete="off" [formGroup]="formaEntregarCarpeta">
-            <fieldset>
-                <label class="label">Ingrese el número de autorización de entrega: <b>*</b></label>
-                <input type="text" placeholder="Número de Autorización" formControlName="NumeroAutorizacion"
-                    class="form-control">
-            </fieldset>
-            <fieldset>
-                <label class="label">Persona que recibe: <b>*</b></label>
-                <input type="text" placeholder="Persona que recibe" formControlName="PersonaRecibe"
-                    class="form-control">
-            </fieldset>
-            <div class="modal-footer-mfc full variation">
+
+    <ng-template #verDocumentacion let-modal>
+        <app-loading *ngIf="loading"></app-loading>
+        <div class="modal-header-mfc variation">
+            <div class="cols cols2 align-middle">
+                <div class="align-left">
+                    <img width="20 " alt="MICRO FACTORY CAPITAL " src="./assets/images/icon-documentacion-modal.svg " />
+                    <h4 class="modal-minititle-mfc">Documentación</h4>
+                </div>
                 <div class="align-right">
-                    <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-                    <button type="button" (click)="entregarCarpetaEnviar(mensajeAdvertencia, mensajeModalError)"
-                        [class.btn-solid-green]="formaEntregarCarpeta.valid"
-                        [className]="formaEntregarCarpeta.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'">Entregar
-                        Carpeta</button>
+                    <button type="button " class="close" aria-label="Close " (click)="modal.dismiss('Close click')">
+          <span aria-hidden="true ">&times;</span>
+        </button>
                 </div>
             </div>
-        </form>
-    </div>
-</ng-template>
-
-<ng-template #agregarEditarTelefono let-modal>
-    <div class="modal-header-mfc variation">
-        <div class="cols cols2 align-middle">
-            <div class="align-left">
-                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-phone-modal.svg">
-                <h4 class="modal-minititle-mfc">Añadir teléfono</h4>
-            </div>
-            <div class="align-right">
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        </div>
+        <div class="modal-body variation">
+            <div class="forms forms-relative">
+                <div id="table-scroll ">
+                    <table class="width-filters">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <option>Nombre de documento</option>
+                                </th>
+                                <th>
+                                    <option>Fecha ingreso</option>
+                                </th>
+                                <th>
+                                    <option>Usuario Ingreso</option>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let documento of documentosSubidos">
+                                <td>
+                                    <a href="{{ documento.URL_DOC }}" target="_blank" class="link-doc"><img src="assets/images/icon-document-list.svg " />{{ documento.NOM_DOC }}
+                                    </a>
+                                </td>
+                                <td>{{ documento.FCH_DOC }}</td>
+                                <td>{{ documento.USR_DOC }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="modal-body variation">
-        <form class="forms forms-relative" autocomplete="off" [formGroup]="formaTelefonos"
-            (ngSubmit)="guardarTelefono(mensajeAdvertencia)">
-            <fieldset>
-                <label class="label">Tipo de Registro</label>
-                <select formControlName="TipoRegistroTelefono">
-                    <option *ngFor="let tipo of tipoRegTel" [value]="tipo">{{tipo}}</option>
-                </select>
-            </fieldset>
-            <fieldset>
-                <label class="label">Tipo de Teléfono</label>
-                <select id="tipoTel" name="tipoTel" formControlName="TipoTelefono">
-                    <option *ngFor="let tipo of tipoTel" [value]="tipo.COD_TDIS">{{tipo.NOM_TDIS}}</option>
-                </select>
-            </fieldset>
-            <fieldset class="label">
-                <label class="label">Número de Teléfono <b>*</b></label>
-                <input type="text" placeholder="Teléfono" formControlName="NumeroTelefono" class="form-control"
-                    [class.is-invalid]="NumeroTelefonoNoValido">
-            </fieldset>
-            <fieldset>
-                <label class="label">Extensión</label>
-                <input type="text" placeholder="Extensión / Observación" formControlName="ExtensionTelefono">
-            </fieldset>
-            <div class="modal-footer-mfc full variation">
+        <div class="modal-footer-mfc full variation">
+            <div class="align-right">
+                <a class="btn btn-border-blue simulate-inputFile">Subir archivo
+        <input
+          type="file"
+          (change)="fileChange($event, mensajeModalError, mensajeAdvertencia)"
+          placeholder="Upload file"
+          accept=".pdf,.doc,.docx"
+      /></a>
+                <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">
+        Cerrar
+      </button>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #agregarEditarDireccion let-modal>
+        <div class="modal-header-mfc variation">
+            <div class="cols cols2 align-middle">
+                <div class="align-left">
+                    <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-pin-modal.svg" />
+                    <h4 class="modal-minititle-mfc">Añadir dirección</h4>
+                </div>
                 <div class="align-right">
-                    <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-                    <button *ngIf="btnTelefonos" [class.btn-solid-green]="formaTelefonos.valid"
-                        [className]="formaTelefonos.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'"
-                        (submit)="guardarTelefono(mensajeAdvertencia)">Guardar teléfono</button>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
                 </div>
             </div>
-        </form>
-    </div>
-</ng-template>
+        </div>
+        <div class="modal-body variation">
+            <div class="card-container">
 
-<ng-template #agregarEditarConyuge let-modal>
-    <div class="modal-header-mfc variation">
-        <div class="cols cols2 align-middle">
-            <div class="align-left">
-                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-conyuge-modal.svg">
-                <h4 class="modal-minititle-mfc">Añadir cónyuge</h4>
+
+
+
+
             </div>
+            <form class="forms forms-relative" autocomplete="off" [formGroup]="formaDirecciones" (ngSubmit)="guardarDireccion()">
+                <div class="cols cols3">
+                    <div>
+                        <fieldset>
+                            <label class="label">Tipo de Registro <b>*</b></label>
+                            <select formControlName="tipoRegistro" class="form-control" [class.is-invalid]="tipoRegistroNoValido">
+              <option *ngFor="let tipo of tipoRegDir" [value]="tipo">
+                {{ tipo }}
+              </option>
+            </select>
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Tipo de Dirección <b>*</b></label>
+                            <select formControlName="tipoDireccion" class="form-control" [class.is-invalid]="tipoDireccionNoValida">
+              <option *ngFor="let tipo of tipoDir" [value]="tipo.COD_TDIR">
+                {{ tipo.NOM_TDIR }}
+              </option>
+            </select>
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Provincia <b>*</b></label>
+                            <select id="COD_PROV" name="COD_PROV" (change)="getCanton()" class="form-control" formControlName="Provincia" [class.is-invalid]="ProvinciaNoValida">
+              <option
+                *ngFor="let provincia of provincias"
+                [value]="provincia.COD_PROV"
+              >
+                {{ provincia.NOM_PROV }}
+              </option>
+            </select>
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Cantón <b>*</b></label>
+                            <select id="COD_CAN" name="COD_CAN" (change)="getParroquia()" class="form-control" formControlName="Canton" [class.is-invalid]="CantonNoValido">
+              <option *ngFor="let canton of cantones" [value]="canton.COD_CAN">
+                {{ canton.NOM_CAN }}
+              </option>
+            </select>
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Parroquia <b>*</b></label>
+                            <select id="COD_PAR" name="COD_PAR" (change)="getBarrio()" class="form-control" formControlName="Parroquia" [class.is-invalid]="ParroquiaNoValida">
+              <option
+                *ngFor="let parroquia of parroquias"
+                [value]="parroquia.COD_PAR"
+              >
+                {{ parroquia.NOM_PAR }}
+              </option>
+            </select>
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Barrio</label>
+                            <select formControlName="Barrio" class="form-control" [class.is-invalid]="BarrioNoValido">
+              <option *ngFor="let barrio of barrios" [value]="barrio.COD_BAR">
+                {{ barrio.NOM_BAR }}
+              </option>
+            </select>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <label class="label">Calle Principal <b>*</b></label>
+                            <input type="text" placeholder="Escriba Calle Principal" class="form-control" formControlName="CallePrincipal" [class.is-invalid]="CallePrincipalNoValida" />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Número <b>*</b></label>
+                            <input type="text" placeholder="Escriba Número" class="form-control" formControlName="NumeroCalle" [class.is-invalid]="NumeroCallelNoValido" />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Calle Secundaria</label>
+                            <input type="text" placeholder="Escriba Calle Secundaria" class="form-control" formControlName="CalleSecundaria" [class.is-invalid]="CalleSecundariaNoValida" />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Referencia</label>
+                            <input type="text" placeholder="Escriba Referencia" class="form-control" formControlName="ReferenciaDireccion" [class.is-invalid]="ReferenciaDireccionNoValida" />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Código Postal</label>
+                            <input type="text" placeholder="Se Añadira El Código Automáticamente" class="form-control" formControlName="CodigoPostalDireccion" [class.is-invalid]="CodigoPostalDireccionNoValido" readonly />
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <label class="label">Google Maps</label>
+                            <input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" />
+
+                            <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" (mapClick)="mapClicked($event)">
+                                <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                            </agm-map>
+
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="modal-footer-mfc full variation">
+                    <div class="align-right">
+                        <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">
+            Cancelar
+          </button>
+                        <button *ngIf="btnActualizarDirecciones" [class.btn-solid-green]="formaDirecciones.valid" [className]="
+              formaDirecciones.valid
+                ? 'btn btn-solid-green'
+                : 'btn btn-border-gray'
+            " type="submit">
+            Guardar dirección
+          </button>
+
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template #entregarCarpeta let-modal>
+        <div class="modal-header-mfc variation">
+            <div class="cols cols2 align-middle">
+                <div class="align-left">
+                    <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-folder.svg" />
+                    <h4 class="modal-minititle-mfc">Entrega de Carpeta</h4>
+                </div>
+                <div class="align-right">
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body variation">
+            <form class="forms forms-relative" autocomplete="off" [formGroup]="formaEntregarCarpeta">
+                <fieldset>
+                    <label class="label">Ingrese el número de autorización de entrega: <b>*</b></label
+        >
+        <input
+          type="text"
+          placeholder="Número de Autorización"
+          formControlName="NumeroAutorizacion"
+          class="form-control"
+        />
+      </fieldset>
+      <fieldset>
+        <label class="label">Persona que recibe: <b>*</b></label>
+                    <input type="text" placeholder="Persona que recibe" formControlName="PersonaRecibe" class="form-control" />
+                </fieldset>
+                <div class="modal-footer-mfc full variation">
+                    <div class="align-right">
+                        <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">
+            Cancelar
+          </button>
+                        <button type="button" (click)="
+              entregarCarpetaEnviar(mensajeAdvertencia, mensajeModalError)
+            " [class.btn-solid-green]="formaEntregarCarpeta.valid" [className]="
+              formaEntregarCarpeta.valid
+                ? 'btn btn-solid-green'
+                : 'btn btn-border-gray'
+            ">
+            Entregar Carpeta
+          </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template #agregarEditarTelefono let-modal>
+        <div class="modal-header-mfc variation">
+            <div class="cols cols2 align-middle">
+                <div class="align-left">
+                    <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-phone-modal.svg" />
+                    <h4 class="modal-minititle-mfc">Añadir teléfono</h4>
+                </div>
+                <div class="align-right">
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body variation">
+            <form class="forms forms-relative" autocomplete="off" [formGroup]="formaTelefonos" (ngSubmit)="guardarTelefono(mensajeAdvertencia)">
+                <fieldset>
+                    <label class="label">Tipo de Registro</label>
+                    <select formControlName="TipoRegistroTelefono">
+          <option *ngFor="let tipo of tipoRegTel" [value]="tipo">
+            {{ tipo }}
+          </option>
+        </select>
+                </fieldset>
+                <fieldset>
+                    <label class="label">Tipo de Teléfono</label>
+                    <select id="tipoTel" name="tipoTel" formControlName="TipoTelefono">
+          <option *ngFor="let tipo of tipoTel" [value]="tipo.COD_TDIS">
+            {{ tipo.NOM_TDIS }}
+          </option>
+        </select>
+                </fieldset>
+                <fieldset class="label">
+                    <label class="label">Número de Teléfono <b>*</b></label>
+                    <input type="text" placeholder="Teléfono" formControlName="NumeroTelefono" class="form-control" [class.is-invalid]="NumeroTelefonoNoValido" />
+                </fieldset>
+                <fieldset>
+                    <label class="label">Extensión</label>
+                    <input type="text" placeholder="Extensión / Observación" formControlName="ExtensionTelefono" />
+                </fieldset>
+                <div class="modal-footer-mfc full variation">
+                    <div class="align-right">
+                        <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">
+            Cancelar
+          </button>
+                        <button *ngIf="btnTelefonos" [class.btn-solid-green]="formaTelefonos.valid" [className]="
+              formaTelefonos.valid
+                ? 'btn btn-solid-green'
+                : 'btn btn-border-gray'
+            " (submit)="guardarTelefono(mensajeAdvertencia)">
+            Guardar teléfono
+          </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template #agregarEditarConyuge let-modal>
+        <div class="modal-header-mfc variation">
+            <div class="cols cols2 align-middle">
+                <div class="align-left">
+                    <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-conyuge-modal.svg" />
+                    <h4 class="modal-minititle-mfc">Añadir cónyuge</h4>
+                </div>
+                <div class="align-right">
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body variation">
+            <form class="forms forms-relative" autocomplete="off" [formGroup]="FormularioDatosConyuge">
+                <div class="cols cols3">
+                    <div>
+                        <fieldset>
+                            <label class="label">Tipo de Registro</label>
+                            <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Cliente" value="Cliente" disabled />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Tipo de Documento <b>*</b></label>
+                            <select formControlName="tipoDocumentacion" (change)="getTipoDoc()" class="form-control" [class.is-invalid]="
+                FormularioDatosConyuge.controls['tipoDocumentacion'].invalid &&
+                FormularioDatosConyuge.controls['tipoDocumentacion'].touched
+              ">
+              <option *ngFor="let tipo of tipoDoc" [value]="tipo.COD_TDOC">
+                {{ tipo.NOM_TDOC }}
+              </option>
+            </select>
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">RUC / Cédula <b>*</b></label>
+                            <input type="text" placeholder="# Identificación" class="form-control" formControlName="cedula" [class.is-invalid]="
+                FormularioDatosConyuge.controls['cedula'].invalid &&
+                FormularioDatosConyuge.controls['cedula'].touched
+              " />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Apellidos <b>*</b></label>
+                            <input formControlName="apellidoConyuge" class="form-control" type="text" placeholder="Apellidos" [class.is-invalid]="
+                FormularioDatosConyuge.controls['nombreConyuge'].invalid &&
+                FormularioDatosConyuge.controls['nombreConyuge'].touched
+              " />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Nombres <b>*</b></label>
+                            <input formControlName="nombreConyuge" class="form-control" type="text" placeholder="Nombres" [class.is-invalid]="
+                FormularioDatosConyuge.controls['nombreConyuge'].invalid &&
+                FormularioDatosConyuge.controls['nombreConyuge'].touched
+              " />
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <label class="label">Teléfono Móvil<b>*</b></label>
+                            <input formControlName="telefonoConyuge" class="form-control" type="text" placeholder="Teléfono" [class.is-invalid]="
+                FormularioDatosConyuge.controls['telefonoConyuge'].invalid &&
+                FormularioDatosConyuge.controls['telefonoConyuge'].touched
+              " />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Fecha de Nacimiento</label>
+                            <input formControlName="fechaNacimiento" class="form-control" type="date" placeholder="Fecha de Nacimiento " />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Género <b>*</b></label>
+                            <select formControlName="genero" class="form-control" (change)="getGeneros()" class="form-control" [class.is-invalid]="
+                FormularioDatosConyuge.controls['genero'].invalid &&
+                FormularioDatosConyuge.controls['genero'].touched
+              ">
+              <option *ngFor="let genero of generos" [value]="genero.COD_GEN">
+                {{ genero.NOM_GEN }}
+              </option>
+            </select>
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Nacionalidad <b>*</b></label>
+                            <select formControlName="nacionalidad" class="form-control" (change)="getNacionalidades()" class="form-control" [class.is-invalid]="
+                FormularioDatosConyuge.controls['nacionalidad'].invalid &&
+                FormularioDatosConyuge.controls['nacionalidad'].touched
+              ">
+              <option
+                *ngFor="let nacion of nacionalidades"
+                [value]="nacion.COD_NAC"
+              >
+                {{ nacion.NOM_NAC }}
+              </option>
+            </select>
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Profesión</label>
+                            <select formControlName="profesion" class="form-control" (change)="getProfesiones()" class="form-control">
+              <option
+                *ngFor="let profesion of profesiones"
+                [value]="profesion.COD_PRO"
+              >
+                {{ profesion.NOM_PRO }}
+              </option>
+            </select>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <label class="label">Dirección de Trabajo</label>
+                            <input formControlName="direccion" class="form-control" type="text" placeholder="Dirección del Trabajo" />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Observaciones</label>
+                            <input formControlName="observaciones" class="form-control" type="text" placeholder="Observaciones" />
+                        </fieldset>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer-mfc full variation">
             <div class="align-right">
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">
+        Cancelar
+      </button>
+                <button *ngIf="btnConyuge" [className]="
+          FormularioDatosConyuge.valid
+            ? 'btn btn-solid-green'
+            : 'btn btn-border-gray'
+        " (click)="guardarConyuge(mensajeModalError)">
+        Guardar Conyuge
+      </button>
             </div>
         </div>
-    </div>
-    <div class="modal-body variation">
-        <form class="forms forms-relative" autocomplete="off" [formGroup]="FormularioDatosConyuge">
-            <div class="cols cols3">
-                <div>
-                    <fieldset>
-                        <label class="label">Tipo de Registro</label>
-                        <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Cliente"
-                            value="Cliente" disabled>
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Tipo de Documento <b>*</b></label>
-                        <select formControlName="tipoDocumentacion" (change)="getTipoDoc()" class="form-control"
-                            [class.is-invalid]="FormularioDatosConyuge.controls['tipoDocumentacion'].invalid && FormularioDatosConyuge.controls['tipoDocumentacion'].touched">
-                            <option *ngFor="let tipo of tipoDoc" [value]="tipo.COD_TDOC">{{tipo.NOM_TDOC}}</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">RUC / Cédula <b>*</b></label>
-                        <input type="text" placeholder="# Identificación" class="form-control" formControlName="cedula"
-                            [class.is-invalid]="FormularioDatosConyuge.controls['cedula'].invalid && FormularioDatosConyuge.controls['cedula'].touched">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Apellidos <b>*</b></label>
-                        <input formControlName="apellidoConyuge" class="form-control" type="text"
-                            placeholder="Apellidos"
-                            [class.is-invalid]="FormularioDatosConyuge.controls['nombreConyuge'].invalid && FormularioDatosConyuge.controls['nombreConyuge'].touched">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Nombres <b>*</b></label>
-                        <input formControlName="nombreConyuge" class="form-control" type="text" placeholder="Nombres"
-                            [class.is-invalid]="FormularioDatosConyuge.controls['nombreConyuge'].invalid && FormularioDatosConyuge.controls['nombreConyuge'].touched">
-                    </fieldset>
-                </div>
-                <div>
-                    <fieldset>
-                        <label class="label">Teléfono Móvil<b>*</b></label>
-                        <input formControlName="telefonoConyuge" class="form-control" type="text" placeholder="Teléfono"
-                            [class.is-invalid]="FormularioDatosConyuge.controls['telefonoConyuge'].invalid && FormularioDatosConyuge.controls['telefonoConyuge'].touched">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Fecha de Nacimiento</label>
-                        <input formControlName="fechaNacimiento" class="form-control" type="date"
-                            placeholder="Fecha de Nacimiento ">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Género <b>*</b></label>
-                        <select formControlName="genero" class="form-control" (change)="getGeneros()"
-                            class="form-control"
-                            [class.is-invalid]="FormularioDatosConyuge.controls['genero'].invalid && FormularioDatosConyuge.controls['genero'].touched">
-                            <option *ngFor="let genero of generos" [value]="genero.COD_GEN">{{genero.NOM_GEN}}</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Nacionalidad <b>*</b></label>
-                        <select formControlName="nacionalidad" class="form-control" (change)="getNacionalidades()"
-                            class="form-control"
-                            [class.is-invalid]="FormularioDatosConyuge.controls['nacionalidad'].invalid && FormularioDatosConyuge.controls['nacionalidad'].touched">
-                            <option *ngFor="let nacion of nacionalidades" [value]="nacion.COD_NAC">{{nacion.NOM_NAC}}
-                            </option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Profesión</label>
-                        <select formControlName="profesion" class="form-control" (change)="getProfesiones()"
-                            class="form-control">
-                            <option *ngFor="let profesion of profesiones" [value]="profesion.COD_PRO">
-                                {{profesion.NOM_PRO}}</option>
-                        </select>
-                    </fieldset>
-                </div>
-                <div>
-                    <fieldset>
-                        <label class="label">Dirección de Trabajo</label>
-                        <input formControlName="direccion" class="form-control" type="text"
-                            placeholder="Dirección del Trabajo">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Observaciones</label>
-                        <input formControlName="observaciones" class="form-control" type="text"
-                            placeholder="Observaciones">
-                    </fieldset>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer-mfc full variation">
-        <div class="align-right">
-            <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-            <button *ngIf="btnConyuge"
-                [className]="FormularioDatosConyuge.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'"
-                (click)="guardarConyuge(mensajeModalError)">Guardar Conyuge</button>
-        </div>
-    </div>
-</ng-template>
+    </ng-template>
 
-<ng-template #agregarEditarReferencia let-modal>
-    <div class="modal-header-mfc variation">
-        <div class="cols cols2 align-middle">
-            <div class="align-left">
-                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-referencia-modal.svg">
-                <h4 class="modal-minititle-mfc">Añadir referencia</h4>
+    <ng-template #agregarEditarReferencia let-modal>
+        <div class="modal-header-mfc variation">
+            <div class="cols cols2 align-middle">
+                <div class="align-left">
+                    <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-referencia-modal.svg" />
+                    <h4 class="modal-minititle-mfc">Añadir referencia</h4>
+                </div>
+                <div class="align-right">
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
             </div>
+        </div>
+        <div class="modal-body variation">
+            <form class="forms forms-relative" [formGroup]="FormularioDatosReferencia">
+                <div class="cols cols3">
+                    <div>
+                        <fieldset>
+                            <label class="label">Tipo de Registro</label>
+                            <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Cliente" value="Cliente" disabled />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Cédula</label>
+                            <input formControlName="cedula" class="form-control" type="text" placeholder="Escriba Cédula" />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Parenteso / Referencia <b>*</b></label>
+                            <select formControlName="parentesco" class="form-control" (change)="getParentescos()" class="form-control" [class.is-invalid]="
+                FormularioDatosReferencia.controls['parentesco'].invalid &&
+                FormularioDatosReferencia.controls['parentesco'].touched
+              ">
+              <option
+                *ngFor="let parentesco of parentescos"
+                [value]="parentesco.COD_PARE"
+              >
+                {{ parentesco.NOM_PARE }}
+              </option>
+            </select>
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Apellidos <b>*</b></label>
+                            <input formControlName="apellido" class="form-control" type="text" placeholder="Escriba Apellidos" [class.is-invalid]="
+                FormularioDatosReferencia.controls['apellido'].invalid &&
+                FormularioDatosReferencia.controls['apellido'].touched
+              " />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Nombres <b>*</b></label>
+                            <input formControlName="nombre" class="form-control" type="text" placeholder="Escriba Nombres" [class.is-invalid]="
+                FormularioDatosReferencia.controls['nombre'].invalid &&
+                FormularioDatosReferencia.controls['nombre'].touched
+              " />
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <label class="label">Dirección Domicilio</label>
+                            <input formControlName="direccion" class="form-control" type="text" placeholder="Escriba Dirección Domicilio" />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Teléfono Domicilio (FIJO)</label>
+                            <input formControlName="telefono_dom" class="form-control" type="text" placeholder="Escriba Teléfono Domicilio" />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Celular (MOVIL) <b>*</b></label>
+                            <input formControlName="celular" class="form-control" type="text" placeholder="Escriba Celular" [class.is-invalid]="
+                FormularioDatosReferencia.controls['celular'].invalid &&
+                FormularioDatosReferencia.controls['celular'].touched
+              " />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Teléfono Trabajo (FIJO)</label>
+                            <input formControlName="telefono_trab" class="form-control" type="text" placeholder="Escriba Teléfono Trabajo" />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">E-mail</label>
+                            <input formControlName="email" class="form-control" type="email" placeholder="Escriba E-mail" />
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <label class="label">Nombre de Empresa de Trabajo</label>
+                            <input formControlName="empresa" class="form-control" type="text" placeholder="Escriba Nombre de Empresa de Trabajo" />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Dirección Empresa</label>
+                            <input formControlName="direc_emp" class="form-control" type="text" placeholder="Escriba Dirección Empresa" />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Observaciones</label>
+                            <input formControlName="observa_ref" class="form-control" type="text" placeholder="Escriba Observaciones" />
+                        </fieldset>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-footer-mfc full variation">
             <div class="align-right">
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">
+        Cancelar
+      </button>
+                <button *ngIf="btnActualizarReferencias" [class.btn-solid-green]="FormularioDatosReferencia.valid" [className]="
+          FormularioDatosReferencia.valid
+            ? 'btn btn-solid-green'
+            : 'btn btn-border-gray'
+        " (click)="guardarReferencia(mensajeModalError)">
+        Guardar Referencia
+      </button>
             </div>
         </div>
-    </div>
-    <div class="modal-body variation">
-        <form class="forms forms-relative" [formGroup]="FormularioDatosReferencia">
-            <div class="cols cols3">
-                <div>
-                    <fieldset>
-                        <label class="label">Tipo de Registro</label>
-                        <input formControlName="tipo_registro" class="form-control" type="text" placeholder="Cliente"
-                            value="Cliente" disabled>
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Cédula</label>
-                        <input formControlName="cedula" class="form-control" type="text" placeholder="Escriba Cédula">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Parenteso / Referencia <b>*</b></label>
-                        <select formControlName="parentesco" class="form-control" (change)="getParentescos()"
-                            class="form-control"
-                            [class.is-invalid]="FormularioDatosReferencia.controls['parentesco'].invalid && FormularioDatosReferencia.controls['parentesco'].touched">
-                            <option *ngFor="let parentesco of parentescos" [value]="parentesco.COD_PARE">
-                                {{parentesco.NOM_PARE}}</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Apellidos <b>*</b></label>
-                        <input formControlName="apellido" class="form-control" type="text"
-                            placeholder="Escriba Apellidos"
-                            [class.is-invalid]="FormularioDatosReferencia.controls['apellido'].invalid && FormularioDatosReferencia.controls['apellido'].touched">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Nombres <b>*</b></label>
-                        <input formControlName="nombre" class="form-control" type="text" placeholder="Escriba Nombres"
-                            [class.is-invalid]="FormularioDatosReferencia.controls['nombre'].invalid && FormularioDatosReferencia.controls['nombre'].touched">
-                    </fieldset>
-                </div>
-                <div>
-                    <fieldset>
-                        <label class="label">Dirección Domicilio</label>
-                        <input formControlName="direccion" class="form-control" type="text"
-                            placeholder="Escriba Dirección Domicilio">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Teléfono Domicilio (FIJO)</label>
-                        <input formControlName="telefono_dom" class="form-control" type="text"
-                            placeholder="Escriba Teléfono Domicilio">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Celular (MOVIL) <b>*</b></label>
-                        <input formControlName="celular" class="form-control" type="text" placeholder="Escriba Celular"
-                            [class.is-invalid]="FormularioDatosReferencia.controls['celular'].invalid && FormularioDatosReferencia.controls['celular'].touched">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Teléfono Trabajo (FIJO)</label>
-                        <input formControlName="telefono_trab" class="form-control" type="text"
-                            placeholder="Escriba Teléfono Trabajo">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">E-mail</label>
-                        <input formControlName="email" class="form-control" type="email" placeholder="Escriba E-mail">
-                    </fieldset>
-                </div>
-                <div>
-                    <fieldset>
-                        <label class="label">Nombre de Empresa de Trabajo</label>
-                        <input formControlName="empresa" class="form-control" type="text"
-                            placeholder="Escriba Nombre de Empresa de Trabajo">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Dirección Empresa</label>
-                        <input formControlName="direc_emp" class="form-control" type="text"
-                            placeholder="Escriba Dirección Empresa">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Observaciones</label>
-                        <input formControlName="observa_ref" class="form-control" type="text"
-                            placeholder="Escriba Observaciones">
-                    </fieldset>
-                </div>
-            </div>
-        </form>
-    </div>
+    </ng-template>
 
-    <div class="modal-footer-mfc full variation">
-        <div class="align-right">
-            <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-            <button *ngIf="btnActualizarReferencias" [class.btn-solid-green]="FormularioDatosReferencia.valid"
-                [className]="FormularioDatosReferencia.valid ? 'btn btn-solid-green' : 'btn btn-border-gray'"
-                (click)="guardarReferencia(mensajeModalError)">Guardar Referencia</button>
-        </div>
-    </div>
-</ng-template>
-
-<ng-template #agregarGarante let-modal>
-    <div class="modal-header-mfc variation">
-        <div class="cols cols2 align-middle">
-            <div class="align-left">
-                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-garante-modal.svg">
-                <h4 class="modal-minititle-mfc">Añadir garante</h4>
-            </div>
-            <div class="align-right">
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="modal-body variation">
-        <form class="forms forms-relative">
-            <div class="cols cols3">
-                <div>
-                    <fieldset>
-                        <label class="label"># Identificación Garante / Rep. Legal</label>
-                        <input type="text" placeholder="Escriba Identificación Garante / Rep. Legal">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Apellidos Garante / Rep. Legal (Cédula)</label>
-                        <input type="text" placeholder="Escriba Apellidos Garante / Rep. Legal (Cédula)">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Nombres Garante / Rep. Legal (Cédula)</label>
-                        <input type="text" placeholder="Escriba Nombres Garante / Rep. Legal (Cédula)">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Tipo de identificación Garante / Rep. Legal</label>
-                        <select>
-                            <option>Seleccione...</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Fecha de Nacimiento Garante / Rep. Legal</label>
-                        <input type="date" placeholder="Escriba Fecha de Nacimiento Garante / Rep. Legal">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Género Garante / Rep. Legal <b>*</b></label>
-                        <select>
-                            <option>Seleccione...</option>
-                        </select>
-                    </fieldset>
+    <ng-template #agregarGarante let-modal>
+        <div class="modal-header-mfc variation">
+            <div class="cols cols2 align-middle">
+                <div class="align-left">
+                    <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-garante-modal.svg" />
+                    <h4 class="modal-minititle-mfc">Añadir garante</h4>
                 </div>
-                <div>
-                    <fieldset>
-                        <label class="label">Nacionalidad Garante / Rep. Legal <b>*</b></label>
-                        <select>
-                            <option>Seleccione...</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Estado Civil Garante / Rep. Legal <b>*</b></label>
-                        <select>
-                            <option>Seleccione...</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Cargas Familiares Garante / Rep. Legal</label>
-                        <select>
-                            <option>Seleccione...</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">E-mail Garante / Rep. Legal</label>
-                        <input type="email" placeholder="Escriba E-mail Garante / Rep. Legal">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Profesión Garante / Rep. Legal</label>
-                        <select>
-                            <option>Seleccione...</option>
-                        </select>
-                    </fieldset>
-                    <fieldset class="complex">
-                        <label class="label">Teléfonos Garante / Rep. Legal</label>
-                        <select>
-                            <option>099</option>
-                        </select>
-                        <input type="text" placeholder="Teléfono">
-                    </fieldset>
-                </div>
-                <div>
-                    <fieldset>
-                        <label class="label">RUC Empresa / Trabajo Garante / Rep. Legal</label>
-                        <input type="text" placeholder="Escriba RUC Empresa / Trabajo Garante / Rep. Legal">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Razón Social Empresa / Trabajo Garante / Rep. Legal</label>
-                        <input type="text" placeholder="Escriba Razón Social Empresa / Trabajo Garante / Rep. Legal">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Ingresos Mensuales Garante / Rep. Legal ($)</label>
-                        <input type="number" placeholder="Escriba Ingresos Mensuales Garante / Rep. Legal">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Egresos Mensuales Garante / Rep. Legal ($)</label>
-                        <input type="number" placeholder="Escriba Egresos Mensuales Garante / Rep. Legal">
-                    </fieldset>
-                    <fieldset>
-                        <label class="label">Ingreso Disponible Garante / Rep. Legal ($)</label>
-                        <input type="number" placeholder="Escriba Ingreso Disponible Garante / Rep. Legal">
-                    </fieldset>
+                <div class="align-right">
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
                 </div>
             </div>
-        </form>
-    </div>
-    <div class="modal-footer-mfc full variation">
-        <div class="align-right">
-            <button class="btn btn-border-gray" (click)="modal.close('Cancelar click')">Cancelar</button>
-            <button class="btn btn-solid-gray">Guardar garante</button>
         </div>
+        <div class="modal-body variation">
+            <form class="forms forms-relative">
+                <div class="cols cols3">
+                    <div>
+                        <fieldset>
+                            <label class="label"># Identificación Garante / Rep. Legal</label>
+                            <input type="text" placeholder="Escriba Identificación Garante / Rep. Legal" />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Apellidos Garante / Rep. Legal (Cédula)</label>
+                            <input type="text" placeholder="Escriba Apellidos Garante / Rep. Legal (Cédula)" />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Nombres Garante / Rep. Legal (Cédula)</label>
+                            <input type="text" placeholder="Escriba Nombres Garante / Rep. Legal (Cédula)" />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Tipo de identificación Garante / Rep. Legal</label
+            >
+            <select>
+              <option>Seleccione...</option>
+            </select>
+          </fieldset>
+          <fieldset>
+            <label class="label"
+              >Fecha de Nacimiento Garante / Rep. Legal</label
+            >
+            <input
+              type="date"
+              placeholder="Escriba Fecha de Nacimiento Garante / Rep. Legal"
+            />
+          </fieldset>
+          <fieldset>
+            <label class="label">Género Garante / Rep. Legal <b>*</b></label>
+                            <select>
+              <option>Seleccione...</option>
+            </select>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <label class="label">Nacionalidad Garante / Rep. Legal <b>*</b></label
+            >
+            <select>
+              <option>Seleccione...</option>
+            </select>
+          </fieldset>
+          <fieldset>
+            <label class="label"
+              >Estado Civil Garante / Rep. Legal <b>*</b></label
+            >
+            <select>
+              <option>Seleccione...</option>
+            </select>
+          </fieldset>
+          <fieldset>
+            <label class="label">Cargas Familiares Garante / Rep. Legal</label>
+                            <select>
+              <option>Seleccione...</option>
+            </select>
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">E-mail Garante / Rep. Legal</label>
+                            <input type="email" placeholder="Escriba E-mail Garante / Rep. Legal" />
+                        </fieldset>
+                        <fieldset>
+                            <label class="label">Profesión Garante / Rep. Legal</label>
+                            <select>
+              <option>Seleccione...</option>
+            </select>
+                        </fieldset>
+                        <fieldset class="complex">
+                            <label class="label">Teléfonos Garante / Rep. Legal</label>
+                            <select>
+              <option>099</option>
+            </select>
+                            <input type="text" placeholder="Teléfono" />
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <label class="label">RUC Empresa / Trabajo Garante / Rep. Legal</label
+            >
+            <input
+              type="text"
+              placeholder="Escriba RUC Empresa / Trabajo Garante / Rep. Legal"
+            />
+          </fieldset>
+          <fieldset>
+            <label class="label"
+              >Razón Social Empresa / Trabajo Garante / Rep. Legal</label
+            >
+            <input
+              type="text"
+              placeholder="Escriba Razón Social Empresa / Trabajo Garante / Rep. Legal"
+            />
+          </fieldset>
+          <fieldset>
+            <label class="label"
+              >Ingresos Mensuales Garante / Rep. Legal ($)</label
+            >
+            <input
+              type="number"
+              placeholder="Escriba Ingresos Mensuales Garante / Rep. Legal"
+            />
+          </fieldset>
+          <fieldset>
+            <label class="label"
+              >Egresos Mensuales Garante / Rep. Legal ($)</label
+            >
+            <input
+              type="number"
+              placeholder="Escriba Egresos Mensuales Garante / Rep. Legal"
+            />
+          </fieldset>
+          <fieldset>
+            <label class="label"
+              >Ingreso Disponible Garante / Rep. Legal ($)</label
+            >
+            <input
+              type="number"
+              placeholder="Escriba Ingreso Disponible Garante / Rep. Legal"
+            />
+          </fieldset>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer-mfc full variation">
+    <div class="align-right">
+      <button
+        class="btn btn-border-gray"
+        (click)="modal.close('Cancelar click')"
+      >
+        Cancelar
+      </button>
+      <button class="btn btn-solid-gray">Guardar garante</button>
     </div>
+  </div>
 </ng-template>
 
 <ng-template #verHistorial let-modal>
-    <div class="modal-header-mfc variation">
-        <div class="cols cols2 align-middle">
-            <div class="align-left">
-                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-historial-modal.svg">
-                <h4 class="modal-minititle-mfc">Historial</h4>
-            </div>
-            <div class="align-right">
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
+  <div class="modal-header-mfc variation">
+    <div class="cols cols2 align-middle">
+      <div class="align-left">
+        <img
+          width="20"
+          alt="MICRO FACTORY CAPITAL"
+          src="./assets/images/icon-historial-modal.svg"
+        />
+        <h4 class="modal-minititle-mfc">Historial</h4>
+      </div>
+      <div class="align-right">
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="modal.dismiss('Close click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     </div>
-    <app-modal-historial></app-modal-historial>
-    <div class="modal-footer-mfc full variation">
-        <div class="cols cols2">
-            <div class="align-left">
-                <button class="btn btn-border-blue" routerLink="/configuracion/respuestas"
-                    (click)="modal.close('Cancelar click')">Generar respuesta</button>
-            </div>
-            <div class="align-right">
-                <button class="btn btn-solid-blue" (click)="modal.close('Cancelar click')">Guardar</button>
-            </div>
-        </div>
+  </div>
+  <app-modal-historial></app-modal-historial>
+  <div class="modal-footer-mfc full variation">
+    <div class="cols cols2">
+      <div class="align-left">
+        <button
+          class="btn btn-border-blue"
+          routerLink="/configuracion/respuestas"
+          (click)="modal.close('Cancelar click')"
+        >
+          Generar respuesta
+        </button>
+      </div>
+      <div class="align-right">
+        <button
+          class="btn btn-solid-blue"
+          (click)="modal.close('Cancelar click')"
+        >
+          Guardar
+        </button>
+      </div>
     </div>
+  </div>
 </ng-template>
 
 <ng-template #mensajeGrabado let-modal>
-    <div class="modal-header-mfc variation modal-mensaje">
-        <div class="cols cols2 align-middle">
-            <div class="align-left">
-                <img width="32" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-check.svg">
-                <h4 class="modal-minititle-mfc">Confirmación</h4>
-            </div>
-            <div class="align-right">
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
+  <div class="modal-header-mfc variation modal-mensaje">
+    <div class="cols cols2 align-middle">
+      <div class="align-left">
+        <img
+          width="32"
+          alt="MICRO FACTORY CAPITAL"
+          src="./assets/images/icon-check.svg"
+        />
+        <h4 class="modal-minititle-mfc">Confirmación</h4>
+      </div>
+      <div class="align-right">
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="modal.dismiss('Close click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     </div>
+  </div>
 
-    <div class="modal-body variation modal-mensaje">
-        <p>Información ingresada con éxito.</p>
-    </div>
+  <div class="modal-body variation modal-mensaje">
+    <p>Información ingresada con éxito.</p>
+  </div>
 
-    <div class="modal-footer-mfc full variation">
-        <div class="cols cols2">
-            <div class="align-right">
-                <button class="btn btn-solid-green" (click)="modal.close('Cancelar click')">Aceptar</button>
-            </div>
-        </div>
+  <div class="modal-footer-mfc full variation">
+    <div class="cols cols2">
+      <div class="align-right">
+        <button
+          class="btn btn-solid-green"
+          (click)="modal.close('Cancelar click')"
+        >
+          Aceptar
+        </button>
+      </div>
     </div>
+  </div>
 </ng-template>
 
-<ngb-alert *ngIf="successMessage" type="success" class="wbtn-success" (close)="successMessage = null"><img
-        src="./assets/images/success.svg"><span>{{ successMessage }}</span></ngb-alert>
+<ngb-alert
+  *ngIf="successMessage"
+  type="success"
+  class="wbtn-success"
+  (close)="successMessage = null"
+  ><img src="./assets/images/success.svg" /><span>{{
+    successMessage
+  }}</span></ngb-alert
+>
 
 <ng-template #mensajeModalError let-modal>
-    <div class="modal-error">
-        <div>
-            <div class="cols cols2 align-middle">
-                <div class="align-left">
-                    <img src="./assets/images/warning.svg" width="42">
-                    <p>{{errorMessage}}</p>
-                </div>
-            </div>
+  <div class="modal-error">
+    <div>
+      <div class="cols cols2 align-middle">
+        <div class="align-left">
+          <img src="./assets/images/warning.svg" width="42" />
+          <p>{{ errorMessage }}</p>
         </div>
-        <div class="align-right">
-            <button class="btn btn-solid-white" (click)="modal.close('Cancelar click')">Aceptar</button>
-        </div>
+      </div>
     </div>
+    <div class="align-right">
+      <button
+        class="btn btn-solid-white"
+        (click)="modal.close('Cancelar click')"
+      >
+        Aceptar
+      </button>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #mensajeMotivos let-modal>
@@ -1489,60 +2331,92 @@
 </ng-template>
 
 <ng-template #cancelarSolicitud let-modal>
-    <div class="modal-header-mfc variation">
-        <div class="cols cols2 align-middle">
-            <div class="align-left">
-                <img width="20" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-folder.svg">
-                <h4 class="modal-minititle-mfc">Cancelar Solicitud</h4>
-            </div>
-            <div class="align-right">
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
+  <div class="modal-header-mfc variation">
+    <div class="cols cols2 align-middle">
+      <div class="align-left">
+        <img
+          width="20"
+          alt="MICRO FACTORY CAPITAL"
+          src="./assets/images/icon-folder.svg"
+        />
+        <h4 class="modal-minititle-mfc">Cancelar Solicitud</h4>
+      </div>
+      <div class="align-right">
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="modal.dismiss('Close click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     </div>
+  </div>
 
-    <div class="modal-body variation">
-        <div class="forms forms-relative" style="margin: 20px -8px 0;padding: 0;">
-            <fieldset>
-                <label class="label">Ingrese el motivo para cancelar la solicitud:</label>
-                <textarea #motivoCancelacion placeholder="Escriba el motivo" style="max-height: 100px;"></textarea>
-            </fieldset>
-        </div>
+  <div class="modal-body variation">
+    <div class="forms forms-relative" style="margin: 20px -8px 0; padding: 0">
+      <fieldset>
+        <label class="label"
+          >Ingrese el motivo para cancelar la solicitud:</label
+        >
+        <textarea
+          #motivoCancelacion
+          placeholder="Escriba el motivo"
+          style="max-height: 100px"
+        ></textarea>
+      </fieldset>
     </div>
+  </div>
 
-    <div class="modal-footer-mfc full variation">
-        <div class="align-right">
-            <button class="btn btn-solid-blue" (click)="generarCancelacion(motivoCancelacion.value)">Cancelar
-                Solicitud</button>
-        </div>
+  <div class="modal-footer-mfc full variation">
+    <div class="align-right">
+      <button
+        class="btn btn-solid-blue"
+        (click)="generarCancelacion(motivoCancelacion.value)"
+      >
+        Cancelar Solicitud
+      </button>
     </div>
+  </div>
 </ng-template>
 <ng-template #mensajeAdvertencia let-modal>
-    <div class="modal-header-mfc variation modal-mensaje">
-        <div class="cols cols2 align-middle">
-            <div class="align-left">
-                <img width="32" alt="MICRO FACTORY CAPITAL" src="./assets/images/icon-mensaje-warning.svg">
-                <h4 class="modal-minititle-mfc">Importante</h4>
-            </div>
-            <div class="align-right">
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
+  <div class="modal-header-mfc variation modal-mensaje">
+    <div class="cols cols2 align-middle">
+      <div class="align-left">
+        <img
+          width="32"
+          alt="MICRO FACTORY CAPITAL"
+          src="./assets/images/icon-mensaje-warning.svg"
+        />
+        <h4 class="modal-minititle-mfc">Importante</h4>
+      </div>
+      <div class="align-right">
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="modal.dismiss('Close click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     </div>
+  </div>
 
-    <div class="modal-body variation modal-mensaje">
-        <p>{{advertenceMessage}}</p>
+  <div class="modal-body variation modal-mensaje">
+    <p>{{ advertenceMessage }}</p>
+  </div>
+  <div class="modal-footer-mfc full variation">
+    <div class="cols cols2">
+      <div class="align-right">
+        <button
+          class="btn btn-solid-green"
+          (click)="modal.close('Cancelar click')"
+        >
+          Aceptar
+        </button>
+      </div>
     </div>
-    <div class="modal-footer-mfc full variation">
-        <div class="cols cols2">
-
-            <div class="align-right">
-                <button class="btn btn-solid-green" (click)="modal.close('Cancelar click')">Aceptar</button>
-            </div>
-        </div>
-    </div>
+  </div>
 </ng-template>

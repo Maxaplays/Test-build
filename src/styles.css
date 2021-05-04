@@ -193,6 +193,9 @@ legend {
     color: inherit;
     white-space: normal
 }
+.pac-container {
+    z-index: 1051 !important;
+}
 
 progress {
     vertical-align: baseline
