@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ElementRef, NgZone } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Direccion, DireccionesService } from '../../services/direcciones/direcciones.service';
 import { TelefonosService } from '../../services/telefonos/telefonos.service';
@@ -21,6 +21,12 @@ import { DatosComplementariosService, CREDITO_DATOS_COMPLEMENTARIOS } from '../.
 import { ParentescoService } from 'src/app/services/parentesco/parentesco.service';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { DocumentosService } from 'src/app/services/documentos.service';
+import { DocumentosVisualizacionService } from 'src/app/services/documentos/documentos-visualizacion.service';
+import { MouseEvent,MapsAPILoader  } from '@agm/core';
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+import { Address } from 'ngx-google-places-autocomplete/objects/address';
+
+
 
 
 @Component({
@@ -29,11 +35,33 @@ import { DocumentosService } from 'src/app/services/documentos.service';
   styleUrls: ['./content-fabrica-solicitud-credito.component.css']
 })
 export class ContentFabricaSolicitudCreditoComponent implements OnInit {
+  title = 'angular-maps';
+  @ViewChild("placesRef", {static: false}) placesRef : GooglePlaceDirective;
+  options = {
+    types : [],
+    componentRestrictions: { country: 'EC' }
+  }
 
+  title_add;
+  latitude;
+  longitude;
+  // google maps zoom level
+   zoom: number = 6;
+
+  // initial center position for the map
+  lat: number = -0.161875;
+  lng: number = -78.477928;
+
+  
   // @ts-ignore
 
+  
+  
   @ViewChild('fileInput') fileInput;
+
+  
   closeResult: string;
+  @ViewChild('mensajeMotivos', { static: false }) mensajeMotivos;
   private _error = new Subject<string>();
   private _success = new Subject<string>();
   paginaActual = 1;
@@ -128,6 +156,12 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   archivoSeleccionado: File = null;
   nombreArchivo: string = '';
 
+
+
+  requisitios: any[] = [];
+  politicas: any[] = [];
+  controlCalidad: any[] = [];
+
   // bkm
   // tslint:disable-next-line:max-line-length
   constructor(private modalService: NgbModal,
@@ -148,10 +182,17 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     private clienteService: ClienteService,
     private datosComplService: DatosComplementariosService,
     private documentosService: DocumentosService,
-    private router: Router) {
+    private documentoVisualizacion: DocumentosVisualizacionService,
+    private router: Router,private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone) {
   }
-
+  ngAfterViewInit() {    
+    if(this.mensajeServicio.Estado=='Devuelta' || this.mensajeServicio.Estado=='Retornada'){      
+      this.openModal(this.mensajeMotivos);
+  }
+  }
   ngOnInit() {
+    this.setCurrentLocation();
     this.crearFormularioCliente();
     this.crearFormularioDirecciones();
     this.crearFormularioEntregarCarpeta();
@@ -169,8 +210,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.provincias = this.getProvincia();
     this.cantones = this.getCanton();
     this.barrios = this.getBarrio();
-    this.tipoTel = this.getTipoTel();
-
+    this.tipoTel = this.getTipoTel();    
     if (this.idCre !== undefined && this.idCre !== '') {
       this.idCredito = this.idCre;
       // console.log('Solicitud de credito:' + this.idCredito);
@@ -185,6 +225,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
             });
       }
     }
+    
     this.fabricaService.currentMessage.subscribe(
       data => {
         this.mensajeServicio = data;
@@ -200,7 +241,69 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.acoplarPantalla(data.Estado);
         this.getDetalles();
       });
+      this.getRequisitos();
+      this.getPoliticas();
+      this.getControlCalidad();
+      
   }
+  openModal(modal: any) {
+    this.modalService.open(modal);;
+  }
+  public getRequisitos(): any {
+    if (this.mensajeServicio.NumeroCredito !== '') {
+      this.documentoVisualizacion.getRequisitosModal(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      .then(data=>{        
+        data["DOCUMENTOS"].forEach(element => {
+              if(element['COLOR_UX']=="light red"){
+                this.requisitios.push(element)
+              } 
+            });
+      })
+    }
+  }
+  public getPoliticas(): any {
+    if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined ) {
+      this.documentoVisualizacion.getPoliticasModal(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      .then(data=>{        
+        data["DOCUMENTOS"].forEach(element => {
+              if(element['COLOR_UX']=="light red" && element["USR_EXC_VAL"]!=null){
+                this.politicas.push(element)
+              }           
+            });
+      })
+    }
+  }
+  public getControlCalidad(): any {
+    if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined ) {
+      this.documentoVisualizacion.getControlCalidadModal(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
+      .then(data=>{        
+        data["DOCUMENTOS"].forEach(element => {
+              if(element['COLOR_UX']=="light red" && element["USR_EXC_VAL"]!=null){
+                this.controlCalidad.push(element)
+              } 
+            });
+      })
+    }
+
+
+  }
+  public handleAddressChange(address: Address) {
+
+    this.latitude = address.geometry.location.lat();
+    this.longitude = address.geometry.location.lng();
+    
+  }
+  public setCurrentLocation() {
+    this.latitude = this.lat;
+    this.longitude = this.lng;
+    this.zoom = 15;
+  }
+  mapClicked($event: MouseEvent) {
+    this.latitude= $event.coords.lat
+    this.longitude= $event.coords.lng 
+
+  }
+
   incializarCredito() {
     this.loading = true;
     this.fabricaService.getRetomarCredito(this.idCredito,
@@ -1305,7 +1408,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       NumeroCalle: ['', Validators.required],
       CalleSecundaria: [''],
       ReferenciaDireccion: [''],
-      CodigoPostalDireccion: ['', [Validators.minLength(6), Validators.pattern('^[0-9]*$')]]
+      CodigoPostalDireccion: ['', [Validators.minLength(6), Validators.pattern('^[0-9]*$')]],
+      Latitud: [''],
+      Longitud: ['']
     });
   }
 
@@ -1318,7 +1423,6 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   }
 
   cargarFormularioDirecciones(direccion: any) {
-
     this.codigoDireccion = direccion['ID_DIR'];
     this.formaDirecciones.reset({
       tipoRegistro: direccion.TipoRegistro.toUpperCase(),
@@ -1331,7 +1435,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       NumeroCalle: direccion.NUM_DIR,
       CalleSecundaria: direccion.SECUN_DIR,
       ReferenciaDireccion: direccion.REFER_DIR,
-      CodigoPostalDireccion: direccion.COD_POSTAL_DIR
+      CodigoPostalDireccion: direccion.COD_POSTAL_DIR,
     });
     this.getCanton();
     this.formaDirecciones.value.Canton = direccion.COD_CAN.toUpperCase();
@@ -1339,6 +1443,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.formaDirecciones.value.Parroquia = direccion.COD_PAR.toUpperCase();
     this.getBarrio();
     this.formaDirecciones.value.Barrio = direccion.COD_BAR.toUpperCase();
+    this.latitude =  Number(direccion['LATITUD_DIR']);
+    this.longitude = Number(direccion['LONGITUD_DIR']);
   }
 
   crearFormularioEntregarCarpeta() {
@@ -1367,7 +1473,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     });
   }
   guardarDireccion() {
-    // console.log(this.formaDirecciones);
+    
     if (this.formaDirecciones.invalid == true) {
       return Object.values(this.formaDirecciones.controls).forEach(control => {
         if (control instanceof FormGroup) {
@@ -1392,6 +1498,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       direccion.CodigoPostal = this.formaDirecciones.value.CodigoPostalDireccion;
       direccion.Cedula = this.mensajeServicio.Cedula;
       direccion.ID_DIR = this.codigoDireccion;
+      direccion.Latitud = this.latitude;
+      direccion.Longitud = this.longitude;
       direccion.Usuario = localStorage.getItem('usuario');
       this.direccionesService.postDireccion(direccion, this.crearDireccion).subscribe(
         (data: any) => {

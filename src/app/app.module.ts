@@ -67,7 +67,8 @@ import { MatSelectModule } from '@angular/material';
 import { CountdownGlobalConfig, CountdownModule } from 'ngx-countdown';
 import { ContentEnvioDocumentosComponent } from './components/content-envio-documentos/content-envio-documentos.component';
 import { EnvioDocumentosComponent } from './components/envio-documentos/envio-documentos.component';
-
+import { AgmCoreModule } from '@agm/core';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -172,7 +173,12 @@ const routes: Routes = [
     MatDialogModule,
     MatSnackBarModule,
     MatSelectModule,
-    CountdownModule
+    CountdownModule,
+    GooglePlaceModule,
+    AgmCoreModule.forRoot({
+      apiKey : 'AIzaSyAaA64BeKwwQmhWRpsvttY-oCesLkbcoSo',
+      libraries : ['places']
+    }),
   ],
   entryComponents:[MyDialogComponent],
   exports: [],

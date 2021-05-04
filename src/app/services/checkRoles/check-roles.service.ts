@@ -12,7 +12,6 @@ export class CheckRolesService {
 
   public rolesArray(){
     this.arrayRoles = localStorage.getItem('rolesUsuario').split(',')
-    console.log(this.arrayRoles)
     return this.arrayRoles
   }
   public navigateReturn(role: string){
