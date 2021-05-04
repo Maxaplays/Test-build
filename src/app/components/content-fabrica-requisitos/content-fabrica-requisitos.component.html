@@ -81,11 +81,14 @@
     </form>
 
     <app-loading *ngIf="loading"></app-loading>
-
     <div class="forms forms-relative">
-        <div class="buscador-general">
-            <label class="label">Buscador General</label>
-            <input type="text" placeholder="Filtrar">
+        <div class="cols cols3"  style="padding-top: 10; margin-bottom: 10; border: none; ">
+            <div class="filtro">
+                <section  class="example-section">
+                    <label class="label">Buscador General</label>
+                    <input type="text" placeholder="Filtrar">
+                </section>
+            </div>
         </div>
         <div id="table-scroll">
             <table class="width-filters">
@@ -138,7 +141,7 @@
                         <td>{{requisito.FECH_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
                         <td>{{requisito.USR_VAL_EXC_VAL}}</td>
                         <td>{{requisito.FECH_VAL_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
-                        <td><a *ngIf="SolicitarExcepcion" class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion, requisito)">Solicitar</a></td>
+                        <td><a *ngIf="requisito.COLOR_UX" class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion, requisito)">Solicitar</a></td>
                         <td hidden>{{requisito.ID_VAL}}</td>
                     </tr>
                 </tbody>

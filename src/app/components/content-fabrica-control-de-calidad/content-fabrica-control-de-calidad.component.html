@@ -82,85 +82,90 @@
     </form>
     <app-loading *ngIf="loading"></app-loading>
     <div class="forms forms-relative">
-        <div class="buscador-general">
-            <label class="label">Buscador General</label>
-            <input type="text" placeholder="Filtrar">
-        </div>
-        <div id="table-scroll">
-            <table class="width-filters">
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" (change)="marcarTodos($event)" hidden></th>
-                        <th>Estado</th>
-                        <th>Url</th>
-                        <th>Política</th>
-                        <th>Requisito</th>
-                        <th>Aprobado</th>
-                        <th>Usuario Aprobado</th>
-                        <th>Fecha Aprobado</th>
-                        <th>Usuario Archivo</th>
-                        <th>Fecha Archivo</th>
-                        <th>Nombre Archivo</th>
-                        <th>Observaciones</th>
-                        <th>Usuario Solicitud Excepción</th>
-                        <th>Fecha Solicitud Excepción</th>
-                        <th>Usuario Excepcionado</th>
-                        <th>Fecha Excepcionado</th>
-                        <th>Observaciones Excepción</th>
-                        <th>Solicitar Excepción</th>
-                        <th hidden>Id</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let control of controlCalidad | paginate: {itemsPerPage: 10, currentPage: paginaAcual}">
-                        <td><input type="checkbox" [checked]="marcarChecks" name="miDataInterior" (change)="$event.target.checked ? agregar(control) : quitar(control)" [disabled]="control.firma_electronica"></td>
-                        <td><span class="{{control.COLOR_UX}}"></span></td>
-                        <td *ngIf="control.URL_DOC">
-                            <a href="{{control.URL_DOC}}" target="_blank"><img src="assets/images/icon-url.svg" class="check-center"></a>
-                        </td>
-                        <td *ngIf="!control.URL_DOC">
-                            <a></a>
-                        </td>
-                        <td>{{control.NOM_POL}}</td>
-                        <td>{{control.VALOR_MAT}}</td>
-                        <td><img src="{{control.CHECK_UX}}" class="check-center"></td>
-                        <td>{{control.USR_VAL}}</td>
-                        <td>{{control.FECH_VAL | date: 'yyyy-MM-dd'}}</td>
-                        <td>{{control.USR_CARGA_ARCH_VAL}}</td>
-                        <td>{{control.FCH_CARGA_ARCH_VAL}}</td>
-                        <td>{{control.NombreCorto}}</td>
-                        <td>{{control.OBS_VAL_VAL}}</td>
-                        <td>{{control.USR_EXC_VAL}}</td>
-                        <td>{{control.FECH_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
-                        <td>{{control.USR_VAL_EXC_VAL}}</td>
-                        <td>{{control.FECH_VAL_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
-                        <td>{{control.OBSER_VAL_EXC_VAL}}</td>
-                        <td><a *ngIf="SolicitarExcepcion" class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion, control)">Solicitar</a></td>
-                        <td hidden>{{control.ID_VAL}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaAcual = $event"></pagination-controls>
-    </div>
-
-    <div class="footer-fixed-forms">
-        <div class="cols cols2">
-            <div class="align-left">
-                <button class="btn btn-border-blue"><img src="assets/images/icon-reloj.svg">Historial</button>
-                <!--button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial,'')"><img src="assets/images/icon-reloj.svg">Historial</--button-->
-                <button *ngIf="btnSolicitarAnulacion" class="btn btn-border-blue" (click)="openCustomWidth(cancelarSolicitud)">Cancelar solicitud</button>
-                <button class="btn btn-border-blue" (click)="openLg(verDocumentacion)"><img src="assets/images/icon-folder.svg">Documentación</button>
-                <a *ngIf="SubirArchivos" class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event,mensajeModalError, mensajeAdvertencia)" *ngIf="subirArchivo()"></a>
-            </div>
-            <div class="align-right">
-
-                <button class="btn btn-border-gray">Anterior</button>
-                <button class="btn btn-solid-green">Continuar</button>
+        <div class="cols cols3"  style="padding-top: 10; margin-bottom: 10; border: none; ">
+            <div class="filtro">
+                <section  class="example-section">
+                    <label class="label">Buscador General</label>
+                    <input type="text" placeholder="Filtrar">
+                </section>
             </div>
         </div>
+        <div>
+            <div id="table-scroll">
+                <table class="width-filters">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" (change)="marcarTodos($event)" hidden></th>
+                            <th>Estado</th>
+                            <th>Url</th>
+                            <th>Política</th>
+                            <th>Requisito</th>
+                            <th>Aprobado</th>
+                            <th>Usuario Aprobado</th>
+                            <th>Fecha Aprobado</th>
+                            <th>Usuario Archivo</th>
+                            <th>Fecha Archivo</th>
+                            <th>Nombre Archivo</th>
+                            <th>Observaciones</th>
+                            <th>Usuario Solicitud Excepción</th>
+                            <th>Fecha Solicitud Excepción</th>
+                            <th>Usuario Excepcionado</th>
+                            <th>Fecha Excepcionado</th>
+                            <th>Observaciones Excepción</th>
+                            <th>Solicitar Excepción</th>
+                            <th hidden>Id</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let control of controlCalidad | paginate: {itemsPerPage: 10, currentPage: paginaAcual}">
+                            <td><input type="checkbox" [checked]="marcarChecks" name="miDataInterior" (change)="$event.target.checked ? agregar(control) : quitar(control)" [disabled]="control.firma_electronica"></td>
+                            <td><span class="{{control.COLOR_UX}}"></span></td>
+                            <td *ngIf="control.URL_DOC">
+                                <a href="{{control.URL_DOC}}" target="_blank"><img src="assets/images/icon-url.svg" class="check-center"></a>
+                            </td>
+                            <td *ngIf="!control.URL_DOC">
+                                <a></a>
+                            </td>
+                            <td>{{control.NOM_POL}}</td>
+                            <td>{{control.VALOR_MAT}}</td>
+                            <td><img src="{{control.CHECK_UX}}" class="check-center"></td>
+                            <td>{{control.USR_VAL}}</td>
+                            <td>{{control.FECH_VAL | date: 'yyyy-MM-dd'}}</td>
+                            <td>{{control.USR_CARGA_ARCH_VAL}}</td>
+                            <td>{{control.FCH_CARGA_ARCH_VAL}}</td>
+                            <td>{{control.NombreCorto}}</td>
+                            <td>{{control.OBS_VAL_VAL}}</td>
+                            <td>{{control.USR_EXC_VAL}}</td>
+                            <td>{{control.FECH_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
+                            <td>{{control.USR_VAL_EXC_VAL}}</td>
+                            <td>{{control.FECH_VAL_EXC_VAL | date: 'yyyy-MM-dd'}}</td>
+                            <td>{{control.OBSER_VAL_EXC_VAL}}</td>
+                            <td><a *ngIf="!control.firma_electronica" class="tag-with-radius" (click)="openCustomWidthVariant(solicitudExcepcion, control)">Solicitar</a></td>
+                            <td hidden>{{control.ID_VAL}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaAcual = $event"></pagination-controls>
+        </div>
+
+        <div class="footer-fixed-forms">
+            <div class="cols cols2">
+                <div class="align-left">
+                    <button class="btn btn-border-blue"><img src="assets/images/icon-reloj.svg">Historial</button>
+                    <!--button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial,'')"><img src="assets/images/icon-reloj.svg">Historial</--button-->
+                    <button *ngIf="btnSolicitarAnulacion" class="btn btn-border-blue" (click)="openCustomWidth(cancelarSolicitud)">Cancelar solicitud</button>
+                    <button class="btn btn-border-blue" (click)="openLg(verDocumentacion)"><img src="assets/images/icon-folder.svg">Documentación</button>
+                    <a *ngIf="SubirArchivos" class="btn btn-border-blue simulate-inputFile">Subir archivos <input type="file" (change)="onFileSelected($event,mensajeModalError, mensajeAdvertencia)" *ngIf="subirArchivo()"></a>
+                </div>
+                <div class="align-right">
+
+                    <button class="btn btn-border-gray">Anterior</button>
+                    <button class="btn btn-solid-green">Continuar</button>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
 <ng-template #verDocumentacion let-modal>
   <app-loading *ngIf="loading"></app-loading>
