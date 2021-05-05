@@ -15,6 +15,7 @@ export class CheckRolesService {
     return this.arrayRoles
   }
   public navigateReturn(role: string){
+    this.rolesArray()
     if(!this.arrayRoles.includes(role)){
       this.router.navigate(['/'])
     }
