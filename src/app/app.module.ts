@@ -69,6 +69,7 @@ import { ContentEnvioDocumentosComponent } from './components/content-envio-docu
 import { EnvioDocumentosComponent } from './components/envio-documentos/envio-documentos.component';
 import { AgmCoreModule } from '@agm/core';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import { IdentificadorFacialComponent } from './components/identificador-facial/identificador-facial.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -100,6 +101,7 @@ const routes: Routes = [
   { path: 'fabrica/nueva-solicitud-Min', component: FabricaMinComponent },
   { path: 'builder', component: BuilderComponent },
   {path: 'fabrica/envio-documentos', component: EnvioDocumentosComponent},
+  {path: 'identificador-facial', component: IdentificadorFacialComponent}
 ];
 
 
@@ -155,7 +157,8 @@ const routes: Routes = [
     FabricaMinComponent,
     MyDialogComponent,
     ContentEnvioDocumentosComponent,
-    EnvioDocumentosComponent
+    EnvioDocumentosComponent,
+    IdentificadorFacialComponent
   ],
   imports: [
     NgbModule,
