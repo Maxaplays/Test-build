@@ -161,7 +161,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   requisitios: any[] = [];
   politicas: any[] = [];
   controlCalidad: any[] = [];
-
+  subscription:any;
+  bandera=false;
   // bkm
   // tslint:disable-next-line:max-line-length
   constructor(private modalService: NgbModal,
@@ -186,12 +187,16 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     private router: Router,private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone) {
   }
-  ngAfterViewInit() {    
-    if(this.mensajeServicio.Estado=='Devuelta' || this.mensajeServicio.Estado=='Retornada'){      
-      this.openModal(this.mensajeMotivos);
+  ngAfterViewInit() {   
+    //this.bandera=false
   }
+  limpiarDatosDevolucion(){
+    this.requisitios=[]
+    this.politicas=[]
+    this.controlCalidad=[]
   }
   ngOnInit() {
+     
     this.setCurrentLocation();
     this.crearFormularioCliente();
     this.crearFormularioDirecciones();
@@ -225,9 +230,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
             });
       }
     }
-    
-    this.fabricaService.currentMessage.subscribe(
+    this.subscription = this.fabricaService.currentMessage.subscribe(
       data => {
+        this.limpiarDatosDevolucion();
         this.mensajeServicio = data;
         this.getCliente();
         this.getDatosComplementarios();
@@ -239,12 +244,25 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
         this.direcciones = this.getDirecciones();
         this.acoplarPantalla(data.Estado);
-        this.getDetalles();
+        this.getDetalles();        
+        if(data.Estado=='Devuelta' || data.Estado=='Retornada'){
+          if(!this.bandera){
+            if(this.mensajeMotivos != undefined){
+              this.getRequisitos();
+            this.getPoliticas();
+            this.getControlCalidad();       
+            this.openModal(this.mensajeMotivos);
+            this.bandera=true
+            }
+            
+          }
+          
+        }
       });
-      this.getRequisitos();
-      this.getPoliticas();
-      this.getControlCalidad();
       
+      console.log("bandera")      
+      
+
   }
   openModal(modal: any) {
     this.modalService.open(modal);;
@@ -278,7 +296,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       this.documentoVisualizacion.getControlCalidadModal(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
       .then(data=>{        
         data["DOCUMENTOS"].forEach(element => {
-              if(element['COLOR_UX']=="light red" && element["USR_EXC_VAL"]!=null){
+              if(element['COLOR_UX']=="light red" && element["USR_VAL"]!=null ){
                 this.controlCalidad.push(element)
               } 
             });
@@ -286,6 +304,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     }
 
 
+  }
+  ngOnDestroy(){
+    this.subscription.unsubscribe(); 
   }
   public handleAddressChange(address: Address) {
 
