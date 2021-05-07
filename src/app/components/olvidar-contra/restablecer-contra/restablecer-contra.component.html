@@ -1,20 +1,16 @@
-<div class="content">
-    <h2 mat-dialog-title>Cambiar Contraseña</h2>
-    <mat-dialog-content>
+<div class="content d-flex justify-content-center">
+    <div class="card w-50 ">
+        <div class="card-header">
+            <h2 class="standard-title">Restablecer Contraseña</h2>
+        </div>
         <form class="forms forms-relative account-edit" [formGroup]="FormularioContra" (ngSubmit)="savePassword()">
-            <fieldset>
-                <label class="label">Contraseña Actual</label>
-                <input type="password" formControlName="contraActual" placeholder="Escriba su contraseña actual">
-                <div *ngIf="f.contraActual.touched && f.contraActual.invalid" >
-                    <div *ngIf="f.contraActual.errors.required">Debe llenar este campo</div>
-                </div>
-            </fieldset>
             <fieldset>
                 <label class="label">Nueva contraseña</label>
                 <input type="password" required minlength="6" formControlName="nuevaContra" placeholder="Escriba nueva contraseña">
                 <div *ngIf="f.nuevaContra.touched && f.nuevaContra.invalid" >
                     <div *ngIf="f.nuevaContra.errors.required">Debe llenar este campo</div>
                     <div *ngIf="f.nuevaContra.errors.minlength">Contraseñas deben tener 6 characteres como mínimo</div>
+
                 </div>
             </fieldset>
             <fieldset>
@@ -28,9 +24,8 @@
                 </div>
             </fieldset>
             <div class="btns-account">
-                <button class="btn btn-primary">Guardar</button>
+                <button class="btn btn-primary" [disabled]="!FormularioContra.valid" >Guardar</button>
             </div>
         </form>
-    </mat-dialog-content>
+    </div>
 </div>
-

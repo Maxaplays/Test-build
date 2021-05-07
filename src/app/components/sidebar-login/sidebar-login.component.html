@@ -15,6 +15,9 @@
             <!--            <input type="submit" value="Ingresar" class="btn-primary" routerLink="inicio" >-->
             <input type="button" (click)="getLogin(username.value,password.value)" value="Ingresar" class="btn-primary">
         </div>
+        <div>
+            <a href="/olvidar-contra">Olvide mi contraseña</a>
+        </div>
         <div id="mensajeAlerta" *ngIf="etiquetaWarning" class="alert alert-warning" role="alert">
             {{mensajeAlerta}}
         </div>

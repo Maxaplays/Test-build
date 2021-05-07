@@ -70,6 +70,8 @@ import { EnvioDocumentosComponent } from './components/envio-documentos/envio-do
 import { AgmCoreModule } from '@agm/core';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { IdentificadorFacialComponent } from './components/identificador-facial/identificador-facial.component';
+import { OlvidarContraComponent } from './components/olvidar-contra/olvidar-contra/olvidar-contra.component';
+import { RestablecerContraComponent } from './components/olvidar-contra/restablecer-contra/restablecer-contra.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -101,7 +103,10 @@ const routes: Routes = [
   { path: 'fabrica/nueva-solicitud-Min', component: FabricaMinComponent },
   { path: 'builder', component: BuilderComponent },
   {path: 'fabrica/envio-documentos', component: EnvioDocumentosComponent},
-  {path: 'identificador-facial', component: IdentificadorFacialComponent}
+  {path: 'identificador-facial', component: IdentificadorFacialComponent},
+  {path: 'olvidar-contra', component: OlvidarContraComponent},
+  {path: 'restablecer-contra', component: RestablecerContraComponent},
+  {path: 'restablecer-contra/:passToken', component: RestablecerContraComponent},
 ];
 
 
@@ -158,7 +163,9 @@ const routes: Routes = [
     MyDialogComponent,
     ContentEnvioDocumentosComponent,
     EnvioDocumentosComponent,
-    IdentificadorFacialComponent
+    IdentificadorFacialComponent,
+    OlvidarContraComponent,
+    RestablecerContraComponent
   ],
   imports: [
     NgbModule,

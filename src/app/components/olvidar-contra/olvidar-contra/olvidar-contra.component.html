@@ -1,0 +1,18 @@
+<div class="content d-flex justify-content-center">
+    <div class="card w-50 ">
+        <div class="card-header">
+            <h2 class="standard-title">Recuperar cuenta</h2>
+        </div>
+        <form class="forms forms-relative account-edit">
+            <div class="my-3">
+                <span >Introduce tu correo electrónico. Se enviara un correo si este se encuentra en la base de datos</span>
+            </div>
+            <fieldset>
+                <input type="text" placeholder="Ingrese su correo electrónico" #email>
+            </fieldset>
+        </form>
+        <div style="text-align:center ">
+            <button class="btn btn-primary" (click)="enviar(email.value)">Enviar Correo</button>
+        </div>
+    </div>
+</div>

@@ -43,7 +43,6 @@ export class MyDialogComponent implements OnInit {
       (data: any) => {
 
          let a =data;
-         console.log(data)
          this.dialogRef.close()
 
         this.snackBar.open(data,'',{

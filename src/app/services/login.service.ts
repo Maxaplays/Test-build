@@ -25,4 +25,14 @@ export class LoginService {
   public changePassword(user: string, password: string, newPassword: string) {
     return this.getQuery(`PasswordChange?userName=${ user }&password=${ password }&newpassword=${ newPassword }`)
   }
+
+  public resetearContra(email,pathRestore){
+    let path = environment.urlServiciosBackend + 'ResetPassword';
+    return this.http.post<any>(path, {email,pathRestore}).toPromise()
+  }
+
+  public restablecerContra(newpassword: string, token: string){
+    let path = environment.urlServiciosBackend + 'RestorePassword';
+    return this.http.post<any>(path, {newpassword,token}).toPromise()
+  }
 }
