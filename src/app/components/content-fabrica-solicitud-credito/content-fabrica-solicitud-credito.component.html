@@ -2314,9 +2314,11 @@
                             <tbody>
                                 <tr *ngFor="let control of controlCalidad">
                                     <td>{{control["NOM_POL"]}}</td>
-                                    <td>{{control["OBS_VAL_VAL"]}}</td>
-                                    <td>{{control["USR_VAL"]}}</td>
-                                    <td>{{control["FCH_CARGA_ARCH_VAL"] | date: 'yyyy-MM-dd'}}</td>
+                                    <td *ngIf=control.OBS_VAL_VAL>{{control["OBS_VAL_VAL"]}}</td>
+                                    <td *ngIf=!control.OBS_VAL_VAL>{{control["OBSERVACION"]}}</td>
+                                    <td >{{control["USR_VAL"]}}</td>
+                                    <td *ngIf=control.FCH_CARGA_ARCH_VAL>{{control["FCH_CARGA_ARCH_VAL"] | date: 'yyyy-MM-dd'}}</td>
+                                    <td *ngIf=!control.FCH_CARGA_ARCH_VAL>{{control["FECHA"] | date: 'yyyy-MM-dd'}}</td>
                                 </tr>
                             </tbody>
                         </table>
