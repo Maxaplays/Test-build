@@ -22,7 +22,7 @@ import { ParentescoService } from 'src/app/services/parentesco/parentesco.servic
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { DocumentosService } from 'src/app/services/documentos.service';
 import { DocumentosVisualizacionService } from 'src/app/services/documentos/documentos-visualizacion.service';
-import { MouseEvent,MapsAPILoader  } from '@agm/core';
+import { MouseEvent, MapsAPILoader } from '@agm/core';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 
@@ -36,9 +36,9 @@ import { Address } from 'ngx-google-places-autocomplete/objects/address';
 })
 export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   title = 'angular-maps';
-  @ViewChild("placesRef", {static: false}) placesRef : GooglePlaceDirective;
+  @ViewChild("placesRef", { static: false }) placesRef: GooglePlaceDirective;
   options = {
-    types : [],
+    types: [],
     componentRestrictions: { country: 'EC' }
   }
 
@@ -46,20 +46,20 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   latitude;
   longitude;
   // google maps zoom level
-   zoom: number = 6;
+  zoom: number = 6;
 
   // initial center position for the map
   lat: number = -0.161875;
   lng: number = -78.477928;
 
-  
+
   // @ts-ignore
 
-  
-  
+
+
   @ViewChild('fileInput') fileInput;
 
-  
+
   closeResult: string;
   @ViewChild('mensajeMotivos', { static: false }) mensajeMotivos;
   private _error = new Subject<string>();
@@ -155,14 +155,11 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   Archivos: File[] = [];
   archivoSeleccionado: File = null;
   nombreArchivo: string = '';
-
-
-
   requisitios: any[] = [];
   politicas: any[] = [];
   controlCalidad: any[] = [];
-  subscription:any;
-  bandera=false;
+  subscription: any;
+  bandera = false;
   // bkm
   // tslint:disable-next-line:max-line-length
   constructor(private modalService: NgbModal,
@@ -184,19 +181,18 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     private datosComplService: DatosComplementariosService,
     private documentosService: DocumentosService,
     private documentoVisualizacion: DocumentosVisualizacionService,
-    private router: Router,private mapsAPILoader: MapsAPILoader,
+    private router: Router, private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone) {
   }
-  ngAfterViewInit() {   
+  ngAfterViewInit() {
     //this.bandera=false
   }
-  limpiarDatosDevolucion(){
-    this.requisitios=[]
-    this.politicas=[]
-    this.controlCalidad=[]
+  limpiarDatosDevolucion() {
+    this.requisitios = []
+    this.politicas = []
+    this.controlCalidad = []
   }
   ngOnInit() {
-     
     this.setCurrentLocation();
     this.crearFormularioCliente();
     this.crearFormularioDirecciones();
@@ -215,7 +211,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.provincias = this.getProvincia();
     this.cantones = this.getCanton();
     this.barrios = this.getBarrio();
-    this.tipoTel = this.getTipoTel();    
+    this.tipoTel = this.getTipoTel();
     if (this.idCre !== undefined && this.idCre !== '') {
       this.idCredito = this.idCre;
       // console.log('Solicitud de credito:' + this.idCredito);
@@ -244,24 +240,22 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         this.situacionFinancieraTotalPatrimonio = this.getSituacionFinancieraTotalPatrimonio();
         this.direcciones = this.getDirecciones();
         this.acoplarPantalla(data.Estado);
-        this.getDetalles();        
-        if(data.Estado=='Devuelta' || data.Estado=='Retornada'){
-          if(!this.bandera){
-            if(this.mensajeMotivos != undefined){
+        this.getDetalles();
+        if (data.Estado == 'Devuelta' || data.Estado == 'Retornada') {
+          if (!this.bandera) {
+            if (this.mensajeMotivos != undefined) {
               this.getRequisitos();
-            this.getPoliticas();
-            this.getControlCalidad();       
-            this.openModal(this.mensajeMotivos);
-            this.bandera=true
+              this.getPoliticas();
+              this.getControlCalidad();
+              this.openModal(this.mensajeMotivos);
+              this.bandera = true
             }
-            
           }
-          
         }
       });
-      
-      console.log("bandera")      
-      
+
+    console.log("bandera")
+
 
   }
   openModal(modal: any) {
@@ -270,49 +264,49 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   public getRequisitos(): any {
     if (this.mensajeServicio.NumeroCredito !== '') {
       this.documentoVisualizacion.getRequisitosModal(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
-      .then(data=>{        
-        data["DOCUMENTOS"].forEach(element => {
-              if(element['COLOR_UX']=="light red"){
-                this.requisitios.push(element)
-              } 
-            });
-      })
+        .then(data => {
+          data["DOCUMENTOS"].forEach(element => {
+            if (element['COLOR_UX'] == "light red") {
+              this.requisitios.push(element)
+            }
+          });
+        })
     }
   }
   public getPoliticas(): any {
-    if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined ) {
+    if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined) {
       this.documentoVisualizacion.getPoliticasModal(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
-      .then(data=>{        
-        data["DOCUMENTOS"].forEach(element => {
-              if(element['COLOR_UX']=="light red" && element["USR_EXC_VAL"]!=null){
-                this.politicas.push(element)
-              }           
-            });
-      })
+        .then(data => {
+          data["DOCUMENTOS"].forEach(element => {
+            if (element['COLOR_UX'] == "light red" && element["USR_EXC_VAL"] != null) {
+              this.politicas.push(element)
+            }
+          });
+        })
     }
   }
   public getControlCalidad(): any {
-    if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined ) {
+    if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined) {
       this.documentoVisualizacion.getControlCalidadModal(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
-      .then(data=>{        
-        data["DOCUMENTOS"].forEach(element => {
-              if(element['COLOR_UX']=="light red" && element["USR_VAL"]!=null ){
-                this.controlCalidad.push(element)
-              } 
-            });
-      })
+        .then(data => {
+          data["DOCUMENTOS"].forEach(element => {
+            if (element['COLOR_UX'] == "light red" && element["USR_VAL"] != null) {
+              this.controlCalidad.push(element)
+            }
+          });
+        })
     }
 
 
   }
-  ngOnDestroy(){
-    this.subscription.unsubscribe(); 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
   public handleAddressChange(address: Address) {
 
     this.latitude = address.geometry.location.lat();
     this.longitude = address.geometry.location.lng();
-    
+
   }
   public setCurrentLocation() {
     this.latitude = this.lat;
@@ -320,8 +314,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.zoom = 15;
   }
   mapClicked($event: MouseEvent) {
-    this.latitude= $event.coords.lat
-    this.longitude= $event.coords.lng 
+    this.latitude = $event.coords.lat
+    this.longitude = $event.coords.lng
 
   }
 
@@ -485,13 +479,13 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.FormularioDatosConyuge = new FormGroup({
       tipo_registro: new FormControl(null),
       tipoDocumentacion: new FormControl(null, Validators.required),
-      cedula: new FormControl(null,[Validators.required, Validators.minLength(10)]),
+      cedula: new FormControl(null, [Validators.required, Validators.minLength(10)]),
       apellidoConyuge: new FormControl(null, Validators.required),
       nombreConyuge: new FormControl(null, Validators.required),
-      telefonoConyuge: new FormControl(null, [Validators.required,Validators.minLength(10),Validators.pattern('^[0-9]*$')]),
+      telefonoConyuge: new FormControl(null, [Validators.required, Validators.minLength(10), Validators.pattern('^[0-9]*$')]),
       fechaNacimiento: new FormControl(null),
       genero: new FormControl(null, Validators.required),
-      nacionalidad: new FormControl(null,Validators.required),
+      nacionalidad: new FormControl(null, Validators.required),
       profesion: new FormControl(null),
       direccion: new FormControl(null),
       observaciones: new FormControl(null)
@@ -1257,15 +1251,15 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         }
       } else {
         this.errorMessage = 'El cónyuge no puede ser el titular del crédito';
-      this.modalService.open(content, { windowClass: 'custom-width-error-modal' });
-      return Object.values(this.FormularioDatosConyuge.controls).forEach(control => {
-        if (control instanceof FormGroup) {
-          // tslint:disable-next-line:no-shadowed-variable
-          Object.values(control.controls).forEach(control => control.markAllAsTouched());
-        } else {
-          control.markAllAsTouched();
-        }
-      });
+        this.modalService.open(content, { windowClass: 'custom-width-error-modal' });
+        return Object.values(this.FormularioDatosConyuge.controls).forEach(control => {
+          if (control instanceof FormGroup) {
+            // tslint:disable-next-line:no-shadowed-variable
+            Object.values(control.controls).forEach(control => control.markAllAsTouched());
+          } else {
+            control.markAllAsTouched();
+          }
+        });
 
       }
     } else {
@@ -1464,7 +1458,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     this.formaDirecciones.value.Parroquia = direccion.COD_PAR.toUpperCase();
     this.getBarrio();
     this.formaDirecciones.value.Barrio = direccion.COD_BAR.toUpperCase();
-    this.latitude =  Number(direccion['LATITUD_DIR']);
+    this.latitude = Number(direccion['LATITUD_DIR']);
     this.longitude = Number(direccion['LONGITUD_DIR']);
   }
 
@@ -1494,7 +1488,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
     });
   }
   guardarDireccion() {
-    
+
     if (this.formaDirecciones.invalid == true) {
       return Object.values(this.formaDirecciones.controls).forEach(control => {
         if (control instanceof FormGroup) {
