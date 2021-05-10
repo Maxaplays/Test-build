@@ -269,7 +269,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       this.documentoVisualizacion.getRequisitosModal(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
         .then(data => {
           data["DOCUMENTOS"].forEach(element => {
-            if (element['COLOR_UX'] == "light red") {
+            if (element['COLOR_UX'] == "light red" && element["USR_VAL"] != null) {
               this.requisitios.push(element)
             }
           });
