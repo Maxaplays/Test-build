@@ -247,6 +247,9 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
               this.getRequisitos();
               this.getPoliticas();
               this.getControlCalidad();
+              console.log(this.requisitios)
+              console.log(this.politicas)
+              console.log(this.controlCalidad)
               this.openModal(this.mensajeMotivos);
               this.bandera = true
             }
@@ -278,7 +281,8 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
       this.documentoVisualizacion.getPoliticasModal(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)
         .then(data => {
           data["DOCUMENTOS"].forEach(element => {
-            if (element['COLOR_UX'] == "light red" && element["USR_EXC_VAL"] != null) {
+            console.log(element)
+            if (element['COLOR_UX'] == "light red" && element["USR_VAL"] != null) {
               this.politicas.push(element)
             }
           });
