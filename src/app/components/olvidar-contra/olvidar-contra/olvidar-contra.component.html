@@ -5,14 +5,14 @@
         </div>
         <form class="forms forms-relative account-edit">
             <div class="my-3">
-                <span >Introduce tu correo electrónico. Se enviara un correo si este se encuentra en la base de datos</span>
+                <span >Introduce tu correo electrónico. <br> Se enviara un correo si este se encuentra en nuestra base de datos.</span>
             </div>
             <fieldset>
                 <input type="text" placeholder="Ingrese su correo electrónico" #email>
             </fieldset>
         </form>
         <div style="text-align:center ">
-            <button class="btn btn-primary" (click)="enviar(email.value)">Enviar Correo</button>
+            <button class="btn btn-primary my-3" (click)="enviar(email.value)">Enviar Correo</button>
         </div>
     </div>
 </div>
