@@ -213,19 +213,15 @@
                             <div>
                                 <fieldset>
                                     <label class="label">RUC Empresa Donde Trabaja/ Actividad Negocio</label>
-                                    <input formControlName="rucTrabajo" class="form-control" type="text"
-                                        placeholder="RUC Empresa Donde Trabaja/ Actividad Negocio">
+                                    <input formControlName="rucTrabajo" class="form-control" type="text" placeholder="RUC Empresa Donde Trabaja/ Actividad Negocio">
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Empresa Donde Trabaja / Actividad Negocio <b>*</b></label>
-                                    <input formControlName="razonSocialTrabajo" class="form-control" type="text"
-                                        placeholder="Empresa Donde Trabaja / Actividad Negocio">
+                                    <input formControlName="razonSocialTrabajo" class="form-control" type="text" placeholder="Empresa Donde Trabaja / Actividad Negocio">
                                 </fieldset>
                                 <fieldset>
                                     <label class="label">Código Dactilar <b>*</b></label>
-                                    <input formControlName="codigoDactilar" class="form-control"
-                                        [class.is-invalid]="FormularioDatosCliente.controls['codigoDactilar'].invalid && FormularioDatosCliente.controls['codigoDactilar'].touched"
-                                        type="text" placeholder="Código Dactilar Cédula">
+                                    <input formControlName="codigoDactilar" class="form-control" [class.is-invalid]="FormularioDatosCliente.controls['codigoDactilar'].invalid && FormularioDatosCliente.controls['codigoDactilar'].touched" type="text" placeholder="Código Dactilar Cédula">
                                 </fieldset>
                             </div>
                         </div>
@@ -237,8 +233,7 @@
                 </ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button *ngIf="btnActualizarDirecciones" class="btn btn-solid-green"
-                            (click)="openLg(agregarEditarDireccion, '')">Añadir Dirección</button>
+                        <button *ngIf="btnActualizarDirecciones" class="btn btn-solid-green" (click)="openLg(agregarEditarDireccion, '')">Añadir Dirección</button>
                     </div>
                     <table>
                         <thead>
@@ -256,8 +251,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr
-                                *ngFor="let direccion of direcciones | paginate: {itemsPerPage: 10, currentPage: paginaActual}">
+                            <tr *ngFor="let direccion of direcciones | paginate: {itemsPerPage: 10, currentPage: paginaActual}">
                                 <td data-column="Tipo de Registro">{{direccion.TipoRegistro}}</td>
                                 <td data-column="Tipo de Dirección">{{direccion.NOM_TDIR}}</td>
                                 <td data-column="Calle Principal">{{direccion.PRINC_DIR}}</td>
@@ -269,29 +263,23 @@
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span>
                                 </td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img *ngIf="btnActualizarDirecciones" src="assets/images/edit-button.svg"
-                                        class="icon-with-action with-margin" width="18"
-                                        (click)="openLg(agregarEditarDireccion, direccion)">
+                                    <img *ngIf="btnActualizarDirecciones" src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarDireccion, direccion)">
                                     <img src="assets/images/icon-printer.svg" class="icon-with-action">
                                 </td>
                             </tr>
                             <tr class="foot-td">
-                                <td colspan="11"><span class="foot-table"
-                                        *ngIf="direcciones.length > 0">{{direcciones.length}} direcciones</span></td>
+                                <td colspan="11"><span class="foot-table" *ngIf="direcciones.length > 0">{{direcciones.length}} direcciones</span></td>
                             </tr>
                         </tbody>
                     </table>
-                    <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior"
-                        nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
-                        autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
+                    <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="telefonos">
                 <ng-template ngbTabTitle><img src="assets/images/icon-phone.svg"> <span>Teléfonos</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button *ngIf="btnTelefonos" class="btn btn-solid-green"
-                            (click)="openCustomWidth(agregarEditarTelefono,'')">Añadir Teléfono</button>
+                        <button *ngIf="btnTelefonos" class="btn btn-solid-green" (click)="openCustomWidth(agregarEditarTelefono,'')">Añadir Teléfono</button>
                     </div>
                     <table>
                         <thead>
@@ -307,42 +295,33 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr
-                                *ngFor="let telefono of telefonos | paginate: {itemsPerPage: 10, currentPage: paginaActual}">
+                            <tr *ngFor="let telefono of telefonos | paginate: {itemsPerPage: 10, currentPage: paginaActual}">
                                 <td data-column="Tipo de Registro">{{telefono.TIPO}}</td>
                                 <td data-column="Tipo de Teléfono">{{telefono.NOM_TDIS}}</td>
                                 <td data-column="Número de Teléfono">{{telefono.VALOR_DIS}}</td>
                                 <td data-column="Extensión/Observación">{{telefono.EXTEN_DIS}}</td>
                                 <td data-column="Validación">{{telefono.VALIDADO_DIS}}</td>
                                 <td data-column="Observaciones">{{telefono.OBS_VAL_DIS}}</td>
-                                <td *ngIf="telefono.ESTADO_DIS" data-column="Status" class="table-right"><span
-                                        class="green-color">Activo</span></td>
-                                <td *ngIf="!telefono.ESTADO_DIS" data-column="Status" class="table-right"><span
-                                        class="red-color">Inactivo</span></td>
+                                <td *ngIf="telefono.ESTADO_DIS" data-column="Status" class="table-right"><span class="green-color">Activo</span></td>
+                                <td *ngIf="!telefono.ESTADO_DIS" data-column="Status" class="table-right"><span class="red-color">Inactivo</span></td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img *ngIf="btnTelefonos" src="assets/images/edit-button.svg"
-                                        class="icon-with-action with-margin" width="18"
-                                        (click)="openCustomWidth(agregarEditarTelefono, telefono)">
+                                    <img *ngIf="btnTelefonos" src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openCustomWidth(agregarEditarTelefono, telefono)">
                                 </td>
                             </tr>
                             <tr class="foot-td">
-                                <td colspan="11"><span class="foot-table"
-                                        *ngIf="telefonos.length>0">{{telefonos.length}} teléfonos</span></td>
+                                <td colspan="11"><span class="foot-table" *ngIf="telefonos.length>0">{{telefonos.length}} teléfonos</span></td>
                             </tr>
 
                         </tbody>
                     </table>
-                    <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior"
-                        nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
-                        autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
+                    <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="conyuges">
                 <ng-template ngbTabTitle><img src="assets/images/icon-conyuges.svg"> <span>Cónyuges</span></ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button *ngIf="btnConyuge" class="btn btn-solid-green"
-                            (click)="nuevoConyuge(agregarEditarConyuge)">Añadir Cónyuge</button>
+                        <button *ngIf="btnConyuge" class="btn btn-solid-green" (click)="nuevoConyuge(agregarEditarConyuge)">Añadir Cónyuge</button>
                     </div>
                     <table>
                         <thead>
@@ -359,8 +338,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr
-                                *ngFor="let conyuge of conyuges | paginate: {itemsPerPage: 10, currentPage: paginaActual}">
+                            <tr *ngFor="let conyuge of conyuges | paginate: {itemsPerPage: 10, currentPage: paginaActual}">
                                 <td data-column="Tipo de Registro">Cliente</td>
                                 <td data-column="Nombres">{{conyuge.NOM_CON}}</td>
                                 <td data-column="Apellidos">{{conyuge.APE_CON}}</td>
@@ -371,21 +349,16 @@
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span>
                                 </td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img *ngIf="btnConyuge" src="assets/images/edit-button.svg"
-                                        class="icon-with-action with-margin" width="18"
-                                        (click)="editarConyuge(agregarEditarConyuge, conyuge)">
+                                    <img *ngIf="btnConyuge" src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="editarConyuge(agregarEditarConyuge, conyuge)">
                                     <img src="assets/images/icon-printer.svg" class="icon-with-action">
                                 </td>
                             </tr>
                             <tr class="foot-td">
-                                <td colspan="11"><span class="foot-table"
-                                        *ngIf="conyuges.length > 0">{{conyuges.length}} conyuges</span></td>
+                                <td colspan="11"><span class="foot-table" *ngIf="conyuges.length > 0">{{conyuges.length}} conyuges</span></td>
                             </tr>
                         </tbody>
                     </table>
-                    <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior"
-                        nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
-                        autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
+                    <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="referencias">
@@ -393,8 +366,7 @@
                 </ng-template>
                 <ng-template ngbTabContent>
                     <div class="align-right-btn-table">
-                        <button *ngIf="btnActualizarReferencias" class="btn btn-solid-green"
-                            (click)="editarReferencia(agregarEditarReferencia,'')">Añadir Referencia</button>
+                        <button *ngIf="btnActualizarReferencias" class="btn btn-solid-green" (click)="editarReferencia(agregarEditarReferencia,'')">Añadir Referencia</button>
                     </div>
                     <table>
                         <thead>
@@ -414,8 +386,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr
-                                *ngFor="let referencia of referencias | paginate: {itemsPerPage: 10, currentPage: paginaActual}">
+                            <tr *ngFor="let referencia of referencias | paginate: {itemsPerPage: 10, currentPage: paginaActual}">
                                 <td data-column="Tipo de Registro">{{referencia.tipo_registro}}</td>
                                 <td data-column="Cédula">{{referencia.cedula}}</td>
                                 <td data-column="Parentesco">{{referencia.parentesco}}</td>
@@ -429,22 +400,17 @@
                                 <td data-column="Status" class="table-right"><span class="green-color">Activo</span>
                                 </td>
                                 <td data-column="Opciones" class="table-right">
-                                    <img *ngIf="btnActualizarReferencias" src="assets/images/edit-button.svg"
-                                        class="icon-with-action with-margin" width="18"
-                                        (click)="editarReferencia(agregarEditarReferencia, referencia)">
+                                    <img *ngIf="btnActualizarReferencias" src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="editarReferencia(agregarEditarReferencia, referencia)">
                                     <img src="assets/images/icon-printer.svg" class="icon-with-action">
                                 </td>
                             </tr>
                             <tr class="foot-td">
-                                <td colspan="11"><span class="foot-table"
-                                        *ngIf="referencias.length > 0">{{referencias.length}} referencias</span></td>
+                                <td colspan="11"><span class="foot-table" *ngIf="referencias.length > 0">{{referencias.length}} referencias</span></td>
                             </tr>
 
                         </tbody>
                     </table>
-                    <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior"
-                        nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
-                        autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
+                    <pagination-controls class="my-pagination align-content-center label" previousLabel="Anterior" nextLabel="Siguiente" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" autoHide="true" (pageChange)="paginaActual = $event"></pagination-controls>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="situacion-financiera">
@@ -471,14 +437,10 @@
                                         <tr *ngFor="let ingreso of situacionFinancieraIngresos">
                                             <td data-column="Descripción">{{ingreso.NOMBRE_ING_PROD}}</td>
                                             <td data-column="Valor" type="number">
-                                                <input
-                                                    (change)="onDatosIngresosValorChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)"
-                                                    type="number" value="{{ingreso.VALOR_CREDITO_INGRESOS}}">
+                                                <input (change)="onDatosIngresosValorChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="number" value="{{ingreso.VALOR_CREDITO_INGRESOS}}">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input
-                                                    (change)="onDatosIngresosChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)"
-                                                    type="text" value="{{ingreso.COMENTARIO_CREDITO_INGRESOS}}">
+                                                <input (change)="onDatosIngresosChange($event.target.value,ingreso.ID_CREDITO_INGRESOS)" type="text" value="{{ingreso.COMENTARIO_CREDITO_INGRESOS}}">
                                             </td>
 
                                         </tr>
@@ -508,14 +470,10 @@
                                         <tr *ngFor="let egresos of situacionFinancieraEgresos">
                                             <td data-column="Descripción">{{egresos.NOMBRE_EGR_PROD}}</td>
                                             <td data-column="Valor" type="number">
-                                                <input
-                                                    (change)="onDatosEgresosValorChange($event.target.value,egresos.ID_CREDITO_EGRESOS)"
-                                                    type="number" value="{{egresos.VALOR_CREDITO_EGRESOS}}">
+                                                <input (change)="onDatosEgresosValorChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="number" value="{{egresos.VALOR_CREDITO_EGRESOS}}">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input
-                                                    (change)="onDatosEgresosChange($event.target.value,egresos.ID_CREDITO_EGRESOS)"
-                                                    type="text" value="{{egresos.COMENTARIO_CREDITO_EGRESOS}}">
+                                                <input (change)="onDatosEgresosChange($event.target.value,egresos.ID_CREDITO_EGRESOS)" type="text" value="{{egresos.COMENTARIO_CREDITO_EGRESOS}}">
                                             </td>
 
                                         </tr>
@@ -533,8 +491,7 @@
                             </div>
                             <div>
                                 <label class="label-postable label">Ingreso Disponible</label>
-                                <input readonly="readonly" type="number" placeholder="$0.000" style="max-width: 759px;"
-                                    value="{{sumatoriaTotal}}">
+                                <input readonly="readonly" type="number" placeholder="$0.000" style="max-width: 759px;" value="{{sumatoriaTotal}}">
                             </div>
                             <div>&nbsp;</div>
                             <div class="table-flat">
@@ -551,58 +508,46 @@
                                         <tr>
                                             <td data-column="Descripción">Muebles o Enseres</td>
                                             <td data-column="Valor">
-                                                <input (change)="onDatosMueblesValorChange($event.target.value)"
-                                                    type="number" placeholder="0,00" value="{{TMueble}}">
+                                                <input (change)="onDatosMueblesValorChange($event.target.value)" type="number" placeholder="0,00" value="{{TMueble}}">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input (change)="onDatosMueblesComentarioChange($event.target.value)"
-                                                    type="text" placeholder="-" value="{{CMuebles}}">
+                                                <input (change)="onDatosMueblesComentarioChange($event.target.value)" type="text" placeholder="-" value="{{CMuebles}}">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td data-column="Descripción">Propiedades</td>
                                             <td data-column="Valor">
-                                                <input (change)="onDatosPropiedadesValorChange($event.target.value)"
-                                                    type="number" placeholder="0,00" value="{{TPropiedades}}">
+                                                <input (change)="onDatosPropiedadesValorChange($event.target.value)" type="number" placeholder="0,00" value="{{TPropiedades}}">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input
-                                                    (change)="onDatosPropiedadesComentarioChange($event.target.value)"
-                                                    type="text" placeholder="-" value="{{CPropiedades}}">
+                                                <input (change)="onDatosPropiedadesComentarioChange($event.target.value)" type="text" placeholder="-" value="{{CPropiedades}}">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td data-column="Descripción">Vehículos</td>
                                             <td data-column="Valor">
-                                                <input (change)="onDatosVehiculosValorChange($event.target.value)"
-                                                    type="number" placeholder="0,00" value="{{TVehiculos}}">
+                                                <input (change)="onDatosVehiculosValorChange($event.target.value)" type="number" placeholder="0,00" value="{{TVehiculos}}">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input (change)="onDatosVehiculosComentarioChange($event.target.value)"
-                                                    type="text" placeholder="-" value="{{CVehiculos}}">
+                                                <input (change)="onDatosVehiculosComentarioChange($event.target.value)" type="text" placeholder="-" value="{{CVehiculos}}">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td data-column="Descripción">Inversiones</td>
                                             <td data-column="Valor">
-                                                <input (change)="onDatosInversionesValorChange($event.target.value)"
-                                                    type="number" placeholder="0,00" value="{{TInversiones}}">
+                                                <input (change)="onDatosInversionesValorChange($event.target.value)" type="number" placeholder="0,00" value="{{TInversiones}}">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input
-                                                    (change)="onDatosInversionesComentarioChange($event.target.value)"
-                                                    type="text" placeholder="-" value="{{CInversiones}}">
+                                                <input (change)="onDatosInversionesComentarioChange($event.target.value)" type="text" placeholder="-" value="{{CInversiones}}">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td data-column="Descripción">Acciones o Participaciones</td>
                                             <td data-column="Valor">
-                                                <input (change)="onDatosAccionesValorChange($event.target.value)"
-                                                    type="number" placeholder="0,00" value="{{TAcciones}}">
+                                                <input (change)="onDatosAccionesValorChange($event.target.value)" type="number" placeholder="0,00" value="{{TAcciones}}">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input (change)="onDatosAccionesComentarioChange($event.target.value)"
-                                                    type="text" placeholder="-" value="{{CAcciones}}">
+                                                <input (change)="onDatosAccionesComentarioChange($event.target.value)" type="text" placeholder="-" value="{{CAcciones}}">
                                             </td>
                                         </tr>
                                         <tr class="foot-td">
@@ -631,23 +576,19 @@
                                         <tr>
                                             <td data-column="Descripción">Deudas</td>
                                             <td data-column="Valor">
-                                                <input (change)="onDatosDeudasValorChange($event.target.value)"
-                                                    type="text" type="number" placeholder="0,00" value="{{TDeudas}}">
+                                                <input (change)="onDatosDeudasValorChange($event.target.value)" type="text" type="number" placeholder="0,00" value="{{TDeudas}}">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input (change)="onDatosDeudasComentarioChange($event.target.value)"
-                                                    type="text" placeholder="-" value="{{CDeudas}}">
+                                                <input (change)="onDatosDeudasComentarioChange($event.target.value)" type="text" placeholder="-" value="{{CDeudas}}">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td data-column="Descripción">Tarjetas de Crédito</td>
                                             <td data-column="Valor">
-                                                <input (change)="onDatosTarjetasValorChange($event.target.value)"
-                                                    type="text" type="number" placeholder="0,00" value="{{TTarjetas}}">
+                                                <input (change)="onDatosTarjetasValorChange($event.target.value)" type="text" type="number" placeholder="0,00" value="{{TTarjetas}}">
                                             </td>
                                             <td data-column="Comentario">
-                                                <input (change)="onDatosTarjetasComentarioChange($event.target.value)"
-                                                    type="text" placeholder="-" value="{{CTarjetas}}">
+                                                <input (change)="onDatosTarjetasComentarioChange($event.target.value)" type="text" placeholder="-" value="{{CTarjetas}}">
                                             </td>
                                         </tr>
                                         <tr class="foot-td">
@@ -664,8 +605,7 @@
                             </div>
                             <div>
                                 <label class="label-postable label">Patrimonio</label>
-                                <input type="text" placeholder="$0.000" style="max-width: 759px;"
-                                    value="{{TotalPatrimonio}}">
+                                <input type="text" placeholder="$0.000" style="max-width: 759px;" value="{{TotalPatrimonio}}">
                             </div>
                         </div>
                     </form>
@@ -689,17 +629,13 @@
                                     <tr *ngFor="let dato of datosComplemetarios">
                                         <td data-column="Descripción">{{dato.NOMBRE_COMPL_PROD}}</td>
                                         <td data-column="Valor">
-                                            <select
-                                                (change)="onDatosComplementariosChange($event.target.value,dato.ID_CREDITO_COMPLEMENTARIOS)"
-                                                value="{{dato.VALOR_CREDITO_COMPLEMENTARIOS}}">
+                                            <select (change)="onDatosComplementariosChange($event.target.value,dato.ID_CREDITO_COMPLEMENTARIOS)" value="{{dato.VALOR_CREDITO_COMPLEMENTARIOS}}">
                                                 <option *ngFor="let catalogo of dato.catalogos"
                                                     value="{{catalogo.valor}}">{{catalogo.valor}}</option>
                                             </select>
                                         </td>
                                         <td data-column="Comentario">
-                                            <input
-                                                (change)="onDatosComplementariosComentariosChange($event.target.value,dato.ID_CREDITO_COMPLEMENTARIOS)"
-                                                type="text" value="{{dato.COMENTARIO_CREDITO_COMPLEMENTARIOS}}">
+                                            <input (change)="onDatosComplementariosComentariosChange($event.target.value,dato.ID_CREDITO_COMPLEMENTARIOS)" type="text" value="{{dato.COMENTARIO_CREDITO_COMPLEMENTARIOS}}">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -744,12 +680,10 @@
             <div class="align-left">
                 <button class="btn btn-border-blue"><img src="assets/images/icon-reloj.svg">Historial</button>
                 <!--button class="btn btn-border-blue" (click)="openCustomWidthVariant(verHistorial)"><img src="assets/images/icon-reloj.svg">Historial</--button-->
-                <button *ngIf="btnSolicitarAnulacion" class="btn btn-border-blue"
-                    (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
+                <button *ngIf="btnSolicitarAnulacion" class="btn btn-border-blue" (click)="openCustomWidthVariantCancelar(cancelarSolicitud)">Cancelar solicitud</button>
                 <button class="btn btn-border-blue btn-cancel" (click)="openLgDocumentacion(verDocumentacion)"><img
                         src="assets/images/icon-folder.svg">Documentación</button>
-                <button *ngIf="BtnEntregarCarpeta" class="btn btn-border-blue btn-cancel"
-                    (click)="openLgEntregarCarpeta(entregarCarpeta)"><img src="assets/images/icon-folder.svg">Entregar
+                <button *ngIf="BtnEntregarCarpeta" class="btn btn-border-blue btn-cancel" (click)="openLgEntregarCarpeta(entregarCarpeta)"><img src="assets/images/icon-folder.svg">Entregar
                     Carpeta</button>
             </div>
             <ngb-tab id="direcciones">
@@ -2314,11 +2248,9 @@
                             <tbody>
                                 <tr *ngFor="let control of controlCalidad">
                                     <td>{{control["NOM_POL"]}}</td>
-                                    <td *ngIf=control.OBS_VAL_VAL>{{control["OBS_VAL_VAL"]}}</td>
-                                    <td *ngIf=!control.OBS_VAL_VAL>{{control["OBSERVACION"]}}</td>
-                                    <td >{{control["USR_VAL"]}}</td>
-                                    <td *ngIf=control.FCH_CARGA_ARCH_VAL>{{control["FCH_CARGA_ARCH_VAL"] | date: 'yyyy-MM-dd'}}</td>
-                                    <td *ngIf=!control.FCH_CARGA_ARCH_VAL>{{control["FECHA"] | date: 'yyyy-MM-dd'}}</td>
+                                    <td>{{control["OBS_VAL_VAL"]}}</td>
+                                    <td>{{control["USR_VAL"]}}</td>
+                                    <td>{{control["FCH_CARGA_ARCH_VAL"] | date: 'yyyy-MM-dd'}}</td>
                                 </tr>
                             </tbody>
                         </table>
