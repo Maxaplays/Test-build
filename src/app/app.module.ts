@@ -105,8 +105,8 @@ const routes: Routes = [
   {path: 'fabrica/envio-documentos', component: EnvioDocumentosComponent},
   {path: 'identificador-facial', component: IdentificadorFacialComponent},
   {path: 'olvidar-contra', component: OlvidarContraComponent},
-  {path: 'restablecer-contra', component: RestablecerContraComponent},
-  {path: 'restablecer-contra/:passToken', component: RestablecerContraComponent},
+  {path: 'fabrica/restablecer-contra', component: RestablecerContraComponent},
+  {path: 'fabrica/restablecer-contra/:passToken', component: RestablecerContraComponent},
 ];
 
 

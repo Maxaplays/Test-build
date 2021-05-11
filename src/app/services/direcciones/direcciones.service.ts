@@ -47,6 +47,11 @@ export class DireccionesService {
   public getDirecciones(ID_CLI: string, ID_CRE: string, ID_CONYUGE: string) {
     return this.getQuery(`${ID_CLI}/${ID_CRE}/${ID_CONYUGE}`);
 }
+  public getDatosMap(datos){
+    const urlDirecciones = 'direcciones/mapa';
+    const url = environment.urlServiciosBackend + urlDirecciones ;
+    return this.http.post(url,datos).toPromise();
+  }
 
   public postDireccion(direccion: Direccion, nuevo: boolean) {
     if (nuevo === false) {

@@ -45,6 +45,7 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   title_add;
   latitude;
   longitude;
+  selectProv = ""
   // google maps zoom level
   zoom: number = 6;
 
@@ -320,7 +321,20 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
   mapClicked($event: MouseEvent) {
     this.latitude = $event.coords.lat
     this.longitude = $event.coords.lng
+    this.direccionesService.getDatosMap({lat:this.latitude,lon:this.longitude}).then(arreglo=>{
+      this.formaDirecciones.get("CallePrincipal").setValue(arreglo[0])
+      this.formaDirecciones.get("CalleSecundaria").setValue(arreglo[1])
+      this.formaDirecciones.get("CodigoPostalDireccion").setValue(arreglo[2])
+      this.formaDirecciones.get("Provincia").setValue(arreglo[4])
+      this.direccionesService.getCanton(arreglo[4])
+      this.getCanton()
+      this.formaDirecciones.get("Canton").setValue(arreglo[5])
+      this.direccionesService.getParroquia(arreglo[5])
+      this.getParroquia()
+      this.formaDirecciones.get("Parroquia").setValue(arreglo[6])
+    });
 
+    
   }
 
   incializarCredito() {
