@@ -78,7 +78,7 @@ const routes: Routes = [
   { path: 'inicio', component: DashboardComponent },
   // { path: 'configuracion/respuestas', component: ContentConfiguracionRespuestasComponent },
   // { path: 'configuracion/respuestas/gestionar-plantillas', component: GestionarPlantillasComponent },
-  { path: 'cuenta/editar', component: CuentaComponent },
+  { path: 'fabrica/cuenta/editar', component: CuentaComponent },
   { path: 'fabrica/nueva-solicitud', component: FabricaComponent },
   // { path: 'fabrica/nueva-solicitud/credito', component: FabricaStep2Component },
   { path: 'fabrica/nueva-solicitud/solicitud-credito', component: FabricaStep3Component },
@@ -104,7 +104,7 @@ const routes: Routes = [
   { path: 'builder', component: BuilderComponent },
   {path: 'fabrica/envio-documentos', component: EnvioDocumentosComponent},
   {path: 'identificador-facial', component: IdentificadorFacialComponent},
-  {path: 'olvidar-contra', component: OlvidarContraComponent},
+  {path: 'fabrica/olvidar-contra', component: OlvidarContraComponent},
   {path: 'fabrica/restablecer-contra', component: RestablecerContraComponent},
   {path: 'fabrica/restablecer-contra/:passToken', component: RestablecerContraComponent},
 ];
