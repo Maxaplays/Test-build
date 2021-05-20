@@ -235,7 +235,7 @@
                     <div class="align-right-btn-table">
                         <button *ngIf="btnActualizarDirecciones" class="btn btn-solid-green" (click)="openLg(agregarEditarDireccion, '')">Añadir Dirección</button>
                     </div>
-                    <table>
+                    <table id="noPrintSection">
                         <thead>
                             <tr>
                                 <th>Tipo de Registro</th>
@@ -264,7 +264,7 @@
                                 </td>
                                 <td data-column="Opciones" class="table-right">
                                     <img *ngIf="btnActualizarDirecciones" src="assets/images/edit-button.svg" class="icon-with-action with-margin" width="18" (click)="openLg(agregarEditarDireccion, direccion)">
-                                    <img src="assets/images/icon-printer.svg" class="icon-with-action">
+                                    <img src="assets/images/icon-printer.svg" class="icon-with-action" (click)="imprimirDirecciones(agregarEditarDireccion, direccion)">
                                 </td>
                             </tr>
                             <tr class="foot-td">
@@ -1409,8 +1409,8 @@
             </div>
         </div>
     </ng-template>
-
-    <ng-template #agregarEditarDireccion let-modal>
+    <div class="printThis">
+    <ng-template #agregarEditarDireccion let-modal  >
         <div class="modal-header-mfc variation">
             <div class="cols cols2 align-middle">
                 <div class="align-left">
@@ -1543,6 +1543,7 @@
             </form>
         </div>
     </ng-template>
+    </div>
 
     <ng-template #entregarCarpeta let-modal>
         <div class="modal-header-mfc variation">

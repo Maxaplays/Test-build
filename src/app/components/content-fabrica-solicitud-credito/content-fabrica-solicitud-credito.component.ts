@@ -277,6 +277,16 @@ export class ContentFabricaSolicitudCreditoComponent implements OnInit {
         })
     }
   }
+
+  imprimirDirecciones(content, direccion: any){
+    this.openLg(content, direccion)
+    setTimeout(function() {
+
+      window.print();
+    },1500);
+    
+  }
+
   public getPoliticas(): any {
     if (this.mensajeServicio.NumeroCredito !== '' || this.mensajeServicio.NumeroCredito !== undefined) {
       this.documentoVisualizacion.getPoliticasModal(this.mensajeServicio.NumeroCredito, this.mensajeServicio.Cedula)

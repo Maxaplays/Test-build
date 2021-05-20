@@ -104,15 +104,17 @@ const routes: Routes = [
   { path: 'builder', component: BuilderComponent },
   {path: 'fabrica/envio-documentos', component: EnvioDocumentosComponent},
   {path: 'identificador-facial', component: IdentificadorFacialComponent},
-  {path: 'fabrica/olvidar-contra', component: OlvidarContraComponent},
-  {path: 'fabrica/restablecer-contra', component: RestablecerContraComponent},
-  {path: 'fabrica/restablecer-contra/:passToken', component: RestablecerContraComponent},
+  { path: 'fabrica/olvidar-contra', component: OlvidarContraComponent },
+  { path: 'fabrica/restablecer-contra', component: RestablecerContraComponent },
+  { path: 'fabrica/restablecer-contra/:passToken', component: RestablecerContraComponent },
 ];
 
 
 
 @NgModule({
   declarations: [
+    OlvidarContraComponent,
+    RestablecerContraComponent,
     AppComponent,
     MenutopComponent,
     SidebarComponent,
@@ -164,8 +166,7 @@ const routes: Routes = [
     ContentEnvioDocumentosComponent,
     EnvioDocumentosComponent,
     IdentificadorFacialComponent,
-    OlvidarContraComponent,
-    RestablecerContraComponent
+
   ],
   imports: [
     NgbModule,

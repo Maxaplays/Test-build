@@ -6,15 +6,15 @@
                 <label class="label">Contraseña Actual</label>
                 <input type="password" formControlName="contraActual" placeholder="Escriba su contraseña actual">
                 <div *ngIf="f.contraActual.touched && f.contraActual.invalid" >
-                    <div *ngIf="f.contraActual.errors.required">Debe llenar este campo</div>
+                    <div class="alert alert-danger" *ngIf="f.contraActual.errors.required">Debe llenar este campo</div>
                 </div>
             </fieldset>
             <fieldset>
                 <label class="label">Nueva contraseña</label>
                 <input type="password" required minlength="6" formControlName="nuevaContra" placeholder="Escriba nueva contraseña">
                 <div *ngIf="f.nuevaContra.touched && f.nuevaContra.invalid" >
-                    <div *ngIf="f.nuevaContra.errors.required">Debe llenar este campo</div>
-                    <div *ngIf="f.nuevaContra.errors.minlength">Contraseñas deben tener 6 characteres como mínimo</div>
+                    <div class="alert alert-danger" *ngIf="f.nuevaContra.errors.required">Debe llenar este campo</div>
+                    <div class="alert alert-danger" *ngIf="f.nuevaContra.errors.minlength">Contraseñas deben tener 6 caracteres como mínimo</div>
                 </div>
             </fieldset>
             <fieldset>
@@ -22,9 +22,9 @@
                 <input type="password" required minlength="6" formControlName="nuevaContraValidada" placeholder="Escriba nuevamente la contraseña">
                 
                 <div *ngIf="f.nuevaContraValidada.touched && f.nuevaContraValidada.invalid" >
-                    <div *ngIf="f.nuevaContraValidada.errors.required">Debe llenar este campo</div>
-                    <div *ngIf="f.nuevaContraValidada.errors.mustMatch">Contraseñas deben ser iguales</div>
-                    <div *ngIf="f.nuevaContraValidada.errors.minlength">Contraseñas deben tener 6 characteres como mínimo</div>
+                    <div class="alert alert-danger" *ngIf="f.nuevaContraValidada.errors.required">Debe llenar este campo</div>
+                    <div class="alert alert-danger" *ngIf="f.nuevaContraValidada.errors.mustMatch">Contraseñas deben ser iguales</div>
+                    <div class="alert alert-danger" *ngIf="f.nuevaContraValidada.errors.minlength">Contraseñas deben tener 6 caracteres como mínimo</div>
                 </div>
             </fieldset>
             <div class="btns-account">

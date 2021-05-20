@@ -10,4 +10,17 @@
 agm-map {
     height: 300px;
   }
-
+  
+  @media print {
+    #noPrintSection * {
+      visibility:hidden;
+    }
+    #printThis * {
+      visibility:visible;
+    }
+    #printThis {
+      position:absolute;
+      left:0;
+      top:0;
+    }
+  }
